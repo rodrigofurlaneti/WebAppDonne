@@ -1,0 +1,63 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using WebAppDonne.Dal;
+using WebAppDonne.Models;
+
+namespace WebAppDonne.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    public class UserController : ControllerBase
+    {
+        private readonly ILogger<UserController> _logger;
+
+        public UserController(ILogger<UserController> logger)
+        {
+            _logger = logger;
+        }
+
+        [HttpGet(Name = "GetUser")]
+        public IEnumerable<UserModel> Get()
+        {
+            UserRepository dal = new UserRepository();
+            var ret = dal.GetAllUsers();
+            return (ret);
+        }
+
+        [HttpGet("{id:int}")]
+        public UserModel Get(int id)
+        {
+            UserRepository dal = new UserRepository();
+            var ret = dal.GetById(id);
+            return (ret);
+        }
+
+        [HttpGet("{name}")]
+        public UserModel Get(string name)
+        {
+            UserRepository dal = new UserRepository();
+            var ret = dal.GetByName(name);
+            return (ret);
+        }
+
+        [HttpPost(Name = "InsertUser")]
+        public void Post(UserModel UserModel)
+        {
+            UserRepository dal = new UserRepository();
+            dal.Insert(UserModel);
+        }
+
+        [HttpPut(Name = "UpdateUser")]
+        public void Update(UserModel UserModel)
+        {
+            UserRepository dal = new UserRepository();
+            dal.Update(UserModel);
+        }
+
+        [HttpDelete(Name = "DeleteUser")]
+        public void Delete(UserModel UserModel)
+        {
+            UserRepository dal = new UserRepository();
+            dal.Delete(UserModel.UserId);
+        }
+    }
+}
