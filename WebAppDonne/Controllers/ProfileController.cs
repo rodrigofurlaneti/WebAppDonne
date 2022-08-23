@@ -45,11 +45,11 @@ namespace WebAppDonne.Controllers
             dal.Update(ProfileModel);
         }
 
-        [HttpDelete(Name = "DeleteProfile")]
-        public void Delete(ProfileModel ProfileModel)
+        [HttpDelete("{id:int}")]
+        public void Delete(int id)
         {
             ProfileRepository dal = new ProfileRepository();
-            dal.Delete(ProfileModel.ProfileId);
+            dal.Delete(id);
         }
 
     }
