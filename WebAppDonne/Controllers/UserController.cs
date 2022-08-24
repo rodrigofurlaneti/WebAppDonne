@@ -53,11 +53,11 @@ namespace WebAppDonne.Controllers
             dal.Update(UserModel);
         }
 
-        [HttpDelete(Name = "DeleteUser")]
-        public void Delete(UserModel UserModel)
+        [HttpDelete("{id:int}")]
+        public void Delete(int id)
         {
             UserRepository dal = new UserRepository();
-            dal.Delete(UserModel.UserId);
+            dal.Delete(id);
         }
     }
 }
