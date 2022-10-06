@@ -70,10 +70,16 @@ namespace WebAppDonne.Dal
                     User.UserId = Convert.ToInt32(rdr["UserId"]);
                     User.UserName = Convert.ToString(rdr["UserName"]);
                     User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.Store.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    User.Store.StoreName = Convert.ToString(rdr["StoreName"]);
-                    User.Profile.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    User.Profile.ProfileName = Convert.ToString(rdr["ProfileName"]);
+                    User.Store = new StoreModel()
+                    {
+                        StoreId = Convert.ToInt32(rdr["StoreId"]),
+                        StoreName = Convert.ToString(rdr["StoreName"])
+                    };
+                    User.Profile = new ProfileModel()
+                    {
+                        ProfileId = Convert.ToInt32(rdr["ProfileId"]),
+                        ProfileName = Convert.ToString(rdr["ProfileName"])
+                    };
                     User.Status = Convert.ToBoolean(rdr["Status"]);
                 }
             }
@@ -100,10 +106,16 @@ namespace WebAppDonne.Dal
                     User.UserId = Convert.ToInt32(rdr["UserId"]);
                     User.UserName = Convert.ToString(rdr["UserName"]);
                     User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.Store.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    User.Store.StoreName = Convert.ToString(rdr["StoreName"]);
-                    User.Profile.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    User.Profile.ProfileName = Convert.ToString(rdr["ProfileName"]);
+                    User.Store = new StoreModel()
+                    {
+                        StoreId = Convert.ToInt32(rdr["StoreId"]),
+                        StoreName = Convert.ToString(rdr["StoreName"])
+                    };
+                    User.Profile = new ProfileModel()
+                    {
+                        ProfileId = Convert.ToInt32(rdr["ProfileId"]),
+                        ProfileName = Convert.ToString(rdr["ProfileName"])
+                    };
                     User.Status = Convert.ToBoolean(rdr["Status"]);
                 }
             }
