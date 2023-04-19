@@ -4,11 +4,18 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
+    <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
   <ItemGroup>
 	<PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="logs\stdout\" />
   </ItemGroup>
 
 </Project>
