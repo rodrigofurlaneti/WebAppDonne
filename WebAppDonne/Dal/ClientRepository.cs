@@ -39,6 +39,8 @@ namespace WebAppDonne.Dal
                     clientObj.ClientName = Convert.ToString(rdr["ClientName"]);
                     clientObj.ClientPhone = Convert.ToString(rdr["ClientPhone"]);
                     clientObj.ClientAddress = Convert.ToString(rdr["ClientAddress"]);
+                    clientObj.StoreId = Convert.ToInt32(rdr["StoreId"]);
+                    clientObj.StoreName = Convert.ToString(rdr["StoreName"]);
                     listClientModel.Add(clientObj);
                 }
             }
@@ -62,6 +64,8 @@ namespace WebAppDonne.Dal
                     clientModel.ClientName = Convert.ToString(rdr["ClientName"]);
                     clientModel.ClientPhone = Convert.ToString(rdr["ClientPhone"]);
                     clientModel.ClientAddress = Convert.ToString(rdr["ClientAddress"]);
+                    clientModel.StoreId = Convert.ToInt32(rdr["StoreId"]);
+                    clientModel.StoreName = Convert.ToString(rdr["StoreName"]);
                 }
             }
             return clientModel;
@@ -75,6 +79,8 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@ClientName", clientModel.ClientName);
             cmd.Parameters.AddWithValue("@ClientPhone", clientModel.ClientPhone);
             cmd.Parameters.AddWithValue("@ClientAddress", clientModel.ClientAddress);
+            cmd.Parameters.AddWithValue("@StoreId", clientModel.StoreId);
+            cmd.Parameters.AddWithValue("@StoreName", clientModel.StoreName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -102,6 +108,8 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@ClientName", clientModel.ClientName);
             cmd.Parameters.AddWithValue("@ClientPhone", clientModel.ClientPhone);
             cmd.Parameters.AddWithValue("@ClientAddress", clientModel.ClientAddress);
+            cmd.Parameters.AddWithValue("@StoreId", clientModel.StoreId);
+            cmd.Parameters.AddWithValue("@StoreName", clientModel.StoreName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
