@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using WebAppDonne.Dal;
 using WebAppDonne.Models;
 
 namespace WebAppDonne.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
