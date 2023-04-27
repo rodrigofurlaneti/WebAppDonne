@@ -71,7 +71,6 @@ namespace WebAppDonne.Dal
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    product.ProductId = Convert.ToInt32(rdr["ProductId"]);
                     product.ProductName = Convert.ToString(rdr["ProductName"]);
                     product.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
                     product.CategoryName = Convert.ToString(rdr["CategoryName"]);
