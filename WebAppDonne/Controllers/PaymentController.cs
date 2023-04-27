@@ -4,6 +4,8 @@ using WebAppDonne.Models;
 
 namespace WebAppDonne.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class PaymentController : Controller
     {
         private readonly ILogger<PaymentController> _logger;
