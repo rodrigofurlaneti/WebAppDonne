@@ -64,7 +64,7 @@ namespace WebAppDonne.Dal
             ProductModel product = new ProductModel();
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_GetAllGetById", con);
+                SqlCommand cmd = new SqlCommand("USP_ProductGetById", con);
                 cmd.Parameters.AddWithValue("@ProductId", id);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
