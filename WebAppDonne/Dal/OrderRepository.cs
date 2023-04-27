@@ -38,7 +38,7 @@ namespace WebAppDonne.Dal
                     orderModel.ClientName = Convert.ToString(rdr["ClientName"]);
                     orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
                     orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
-                    orderModel.Quantity = Convert.ToInt32(rdr["Quantity"]);
+                    orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
                     orderModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     orderModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
                     orderModel.StoreId = Convert.ToInt32(rdr["StoreId"]);
@@ -69,7 +69,7 @@ namespace WebAppDonne.Dal
                     orderModel.ClientName = Convert.ToString(rdr["ClientName"]);
                     orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
                     orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
-                    orderModel.Quantity = Convert.ToInt32(rdr["Quantity"]);
+                    orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
                     orderModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     orderModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
                     orderModel.StoreId = Convert.ToInt32(rdr["StoreId"]);
@@ -90,7 +90,7 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@ClientName", orderModel.ClientName);
             cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
             cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
-            cmd.Parameters.AddWithValue("@Quantity", orderModel.Quantity);
+            cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
             cmd.Parameters.AddWithValue("@StoreId", orderModel.StoreId);
@@ -125,7 +125,7 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@ClientName", orderModel.ClientName);
             cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
             cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
-            cmd.Parameters.AddWithValue("@Quantity", orderModel.Quantity);
+            cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
             cmd.Parameters.AddWithValue("@DateInsert", orderModel.DateInsert);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
             cmd.Parameters.AddWithValue("@StoreId", orderModel.StoreId);

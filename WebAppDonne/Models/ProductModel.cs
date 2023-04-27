@@ -6,12 +6,12 @@
         public string ProductName { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public decimal CostPrice { get; set; }
-        public decimal SalePrice { get; set; }
+        public string CostPrice { get; set; }
+        public string SalePrice { get; set; }
         public int QuantityStock { get; set; }
         public int MinimumStockQuantity { get; set; }
-        public decimal TotalValueCostOfInventory { get; set; }
-        public decimal TotalValueSaleStock { get; set; }
+        public string TotalValueCostOfInventory { get; set; }
+        public string TotalValueSaleStock { get; set; }
         public string ImagePath { get; set; }
         public DateTime? DateInsert { get; set; }
         public DateTime? DateUpdate { get; set; }

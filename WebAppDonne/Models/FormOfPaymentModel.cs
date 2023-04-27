@@ -1,13 +1,9 @@
 ﻿namespace WebAppDonne.Models
 {
-    public class OrderModel
+    public class FormOfPaymentModel
     {
-        public int OrderId { get; set; }
-        public int ClientId { get; set; }
-        public string ClientName { get; set; }
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
-        public int Amount { get; set; }
+        public int FormOfPaymentId { get; set; }
+        public string FormOfPaymentName { get; set; }
         public DateTime? DateInsert { get; set; }
         public DateTime? DateUpdate { get; set; }
         public int StoreId { get; set; }
