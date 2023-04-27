@@ -96,6 +96,28 @@ namespace WebAppDonne.Dal
             con.Close();
         }
 
+        public int InsertReturnId(CommandsModel commands)
+        {
+            int newId = 0;
+            string ConnectionString = configurationRoot.GetConnectionString("localHost");
+            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlCommand cmd = new SqlCommand("USP_CommandsInsertReturnId", con);
+            cmd.Parameters.AddWithValue("@BuyerId", commands.BuyerId);
+            cmd.Parameters.AddWithValue("@BuyerName", commands.BuyerName);
+            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@StoreId", commands.StoreId);
+            cmd.Parameters.AddWithValue("@StoreName", commands.StoreName);
+            cmd.Parameters.AddWithValue("@UserId", commands.UserId);
+            cmd.Parameters.AddWithValue("@UserName", commands.UserName);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.ExecuteNonQuery();
+            newId = (int)cmd.ExecuteScalar();
+            con.Close();
+            return newId;
+        }
+
         public void Delete(int CommandsId)
         {
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
