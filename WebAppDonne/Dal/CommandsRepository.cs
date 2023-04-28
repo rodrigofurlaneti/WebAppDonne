@@ -102,6 +102,7 @@ namespace WebAppDonne.Dal
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
             SqlConnection con = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand("USP_CommandsInsertReturnId", con);
+            cmd.Parameters.AddWithValue("@Identity", commands.CommandsId);//OUTPUT
             cmd.Parameters.AddWithValue("@BuyerId", commands.BuyerId);
             cmd.Parameters.AddWithValue("@BuyerName", commands.BuyerName);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
@@ -110,10 +111,15 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@StoreName", commands.StoreName);
             cmd.Parameters.AddWithValue("@UserId", commands.UserId);
             cmd.Parameters.AddWithValue("@UserName", commands.UserName);
+            cmd.Parameters.AddWithValue("@Status", commands.Status);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
-            newId = (int)cmd.ExecuteScalar();
+            var result = cmd.ExecuteScalar();
+            if (result != null)
+            {
+                newId = Convert.ToInt32(result);
+            }
             con.Close();
             return newId;
         }

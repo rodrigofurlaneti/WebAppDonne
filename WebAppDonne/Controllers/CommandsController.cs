@@ -32,10 +32,10 @@ namespace WebAppDonne.Controllers
         }
 
         [HttpPost(Name = "InsertCommands")]
-        public void Post(CommandsModel CommandsModel)
+        public int Post(CommandsModel CommandsModel)
         {
             CommandsRepository dal = new CommandsRepository();
-            dal.Insert(CommandsModel);
+            return dal.InsertReturnId(CommandsModel);
         }
 
         [HttpPut(Name = "UpdateCommands")]
