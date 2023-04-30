@@ -94,15 +94,16 @@ namespace WebAppDonne.Dal
             con.Close();
         }
 
-        public void Update(StoreModel Store)
+        public void Update(StoreModel storeModel)
         {
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
             SqlConnection con = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand("USP_StoreUpdate", con);
-            cmd.Parameters.AddWithValue("@StoreId", Store.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", Store.StoreName);
-            cmd.Parameters.AddWithValue("@StoreCnpj", Store.StoreCnpj);
-            cmd.Parameters.AddWithValue("@StoreAddress", Store.StoreAddress);
+            cmd.Parameters.AddWithValue("@StoreId", storeModel.StoreId);
+            cmd.Parameters.AddWithValue("@StoreName", storeModel.StoreName);
+            cmd.Parameters.AddWithValue("@StoreCnpj", storeModel.StoreCnpj);
+            cmd.Parameters.AddWithValue("@StoreAddress", storeModel.StoreAddress);
+            cmd.Parameters.AddWithValue("@Status", storeModel.Status);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();

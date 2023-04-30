@@ -32,10 +32,10 @@ namespace WebAppDonne.Controllers
         }
 
         [HttpPost(Name = "InsertFormOfPayment")]
-        public void Post(FormOfPaymentModel FormOfPaymentModel)
+        public void Post(FormOfPaymentModel formOfPaymentModel)
         {
             FormOfPaymentRepository dal = new FormOfPaymentRepository();
-            dal.Insert(FormOfPaymentModel);
+            dal.Insert(formOfPaymentModel);
         }
 
         [HttpPut(Name = "UpdateFormOfPayment")]
