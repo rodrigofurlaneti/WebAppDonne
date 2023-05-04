@@ -35,6 +35,8 @@ namespace WebAppDonne.Dal
                     CategoryModel Category = new CategoryModel();
                     Category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
                     Category.CategoryName = Convert.ToString(rdr["CategoryName"]);
+                    Category.StoreId = Convert.ToInt32(rdr["StoreId"]);
+                    Category.StoreName = Convert.ToString(rdr["StoreName"]);
                     listCategoryModel.Add(Category);
                 }
             }
@@ -56,6 +58,8 @@ namespace WebAppDonne.Dal
                 {
                     Category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
                     Category.CategoryName = Convert.ToString(rdr["CategoryName"]);
+                    Category.StoreId = Convert.ToInt32(rdr["StoreId"]);
+                    Category.StoreName = Convert.ToString(rdr["StoreName"]);
                 }
             }
             return Category;
@@ -67,6 +71,8 @@ namespace WebAppDonne.Dal
             SqlConnection con = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
             cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
+            cmd.Parameters.AddWithValue("@StoreId", Category.StoreId);
+            cmd.Parameters.AddWithValue("@StoreName", Category.StoreName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -92,6 +98,8 @@ namespace WebAppDonne.Dal
             SqlCommand cmd = new SqlCommand("USP_CategoryUpdate", con);
             cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
             cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
+            cmd.Parameters.AddWithValue("@StoreId", Category.StoreId);
+            cmd.Parameters.AddWithValue("@StoreName", Category.StoreName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
