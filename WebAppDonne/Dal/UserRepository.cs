@@ -36,17 +36,10 @@ namespace WebAppDonne.Dal
                     User.UserId = Convert.ToInt32(rdr["UserId"]);
                     User.UserName = Convert.ToString(rdr["UserName"]);
                     User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.Store = new StoreModel()
-                    {
-                        StoreId = Convert.ToInt32(rdr["StoreId"]),
-                        StoreName = Convert.ToString(rdr["StoreName"])
-                    };
-
-                    User.Profile = new ProfileModel()
-                    {
-                        ProfileId = Convert.ToInt32(rdr["ProfileId"]),
-                        ProfileName = Convert.ToString(rdr["ProfileName"])
-                    };
+                    User.StoreId = Convert.ToInt32(rdr["StoreId"]);
+                    User.StoreName = Convert.ToString(rdr["StoreName"]);
+                    User.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
+                    User.ProfileName = Convert.ToString(rdr["ProfileName"]);
                     User.Status = Convert.ToBoolean(rdr["Status"]);
                     listUserModel.Add(User);
                 }
@@ -70,16 +63,10 @@ namespace WebAppDonne.Dal
                     User.UserId = Convert.ToInt32(rdr["UserId"]);
                     User.UserName = Convert.ToString(rdr["UserName"]);
                     User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.Store = new StoreModel()
-                    {
-                        StoreId = Convert.ToInt32(rdr["StoreId"]),
-                        StoreName = Convert.ToString(rdr["StoreName"])
-                    };
-                    User.Profile = new ProfileModel()
-                    {
-                        ProfileId = Convert.ToInt32(rdr["ProfileId"]),
-                        ProfileName = Convert.ToString(rdr["ProfileName"])
-                    };
+                    User.StoreId = Convert.ToInt32(rdr["StoreId"]);
+                    User.StoreName = Convert.ToString(rdr["StoreName"]);
+                    User.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
+                    User.ProfileName = Convert.ToString(rdr["ProfileName"]);
                     User.Status = Convert.ToBoolean(rdr["Status"]);
                 }
             }
@@ -89,11 +76,7 @@ namespace WebAppDonne.Dal
         public UserModel GetByName(string Name)
         {
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            UserModel User = new UserModel()
-            {
-                Store= new StoreModel(),
-                Profile = new ProfileModel()
-            };
+            UserModel User = new UserModel();
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_UserGetByName", con);
@@ -106,16 +89,10 @@ namespace WebAppDonne.Dal
                     User.UserId = Convert.ToInt32(rdr["UserId"]);
                     User.UserName = Convert.ToString(rdr["UserName"]);
                     User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.Store = new StoreModel()
-                    {
-                        StoreId = Convert.ToInt32(rdr["StoreId"]),
-                        StoreName = Convert.ToString(rdr["StoreName"])
-                    };
-                    User.Profile = new ProfileModel()
-                    {
-                        ProfileId = Convert.ToInt32(rdr["ProfileId"]),
-                        ProfileName = Convert.ToString(rdr["ProfileName"])
-                    };
+                    User.StoreId = Convert.ToInt32(rdr["StoreId"]);
+                    User.StoreName = Convert.ToString(rdr["StoreName"]);
+                    User.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
+                    User.ProfileName = Convert.ToString(rdr["ProfileName"]);
                     User.Status = Convert.ToBoolean(rdr["Status"]);
                 }
             }
@@ -129,10 +106,10 @@ namespace WebAppDonne.Dal
             SqlCommand cmd = new SqlCommand("USP_UserInsert", con);
             cmd.Parameters.AddWithValue("@UserName", User.UserName);
             cmd.Parameters.AddWithValue("@UserPassword", User.UserPassword);
-            cmd.Parameters.AddWithValue("@StoreId", User.Store.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", User.Store.StoreName);
-            cmd.Parameters.AddWithValue("@ProfileId", User.Profile.ProfileId);
-            cmd.Parameters.AddWithValue("@ProfileName", User.Profile.ProfileName);
+            cmd.Parameters.AddWithValue("@StoreId", User.StoreId);
+            cmd.Parameters.AddWithValue("@StoreName", User.StoreName);
+            cmd.Parameters.AddWithValue("@ProfileId", User.ProfileId);
+            cmd.Parameters.AddWithValue("@ProfileName", User.ProfileName);
             cmd.Parameters.AddWithValue("@Status", User.Status);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -160,10 +137,10 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@UserId", User.UserId);
             cmd.Parameters.AddWithValue("@UserName", User.UserName);
             cmd.Parameters.AddWithValue("@UserPassword", User.UserPassword);
-            cmd.Parameters.AddWithValue("@StoreId", User.Store.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", User.Store.StoreName);
-            cmd.Parameters.AddWithValue("@ProfileId", User.Profile.ProfileId);
-            cmd.Parameters.AddWithValue("@ProfileName", User.Profile.ProfileName);
+            cmd.Parameters.AddWithValue("@StoreId", User.StoreId);
+            cmd.Parameters.AddWithValue("@StoreName", User.StoreName);
+            cmd.Parameters.AddWithValue("@ProfileId", User.ProfileId);
+            cmd.Parameters.AddWithValue("@ProfileName", User.ProfileName);
             cmd.Parameters.AddWithValue("@Status", User.Status);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
