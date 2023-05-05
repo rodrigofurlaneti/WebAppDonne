@@ -35,6 +35,8 @@ namespace WebAppDonne.Dal
                     ProfileModel Profile = new ProfileModel();
                     Profile.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
                     Profile.ProfileName = Convert.ToString(rdr["ProfileName"]);
+                    Profile.StoreId = Convert.ToInt32(rdr["StoreId"]);
+                    Profile.StoreName = Convert.ToString(rdr["StoreName"]);
                     listProfileModel.Add(Profile);
                 }
             }
@@ -56,6 +58,8 @@ namespace WebAppDonne.Dal
                 {
                     Profile.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
                     Profile.ProfileName = Convert.ToString(rdr["ProfileName"]);
+                    Profile.StoreId = Convert.ToInt32(rdr["StoreId"]);
+                    Profile.StoreName = Convert.ToString(rdr["StoreName"]);
                 }
             }
             return Profile;
@@ -67,6 +71,8 @@ namespace WebAppDonne.Dal
             SqlConnection con = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand("USP_ProfileUserInsert", con);
             cmd.Parameters.AddWithValue("@ProfileName", Profile.ProfileName);
+            cmd.Parameters.AddWithValue("@StoreId", Profile.StoreId);
+            cmd.Parameters.AddWithValue("@StoreName", Profile.StoreName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -92,6 +98,8 @@ namespace WebAppDonne.Dal
             SqlCommand cmd = new SqlCommand("USP_ProfileUserUpdate", con);
             cmd.Parameters.AddWithValue("@ProfileId", Profile.ProfileId);
             cmd.Parameters.AddWithValue("@ProfileName", Profile.ProfileName);
+            cmd.Parameters.AddWithValue("@StoreId", Profile.StoreId);
+            cmd.Parameters.AddWithValue("@StoreName", Profile.StoreName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
