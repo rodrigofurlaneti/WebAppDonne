@@ -150,6 +150,7 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@StoreName", commands.StoreName);
             cmd.Parameters.AddWithValue("@UserId", commands.UserId);
             cmd.Parameters.AddWithValue("@UserName", commands.UserName);
+            cmd.Parameters.AddWithValue("@Status", commands.Status);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
