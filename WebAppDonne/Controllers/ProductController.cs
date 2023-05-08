@@ -45,11 +45,11 @@ namespace WebAppDonne.Controllers
             dal.Update(productModel);
         }
 
-        [HttpDelete(Name = "DeleteProduct")]
-        public void Delete(ProductModel productModel)
+        [HttpDelete("{id:int}")]
+        public void Delete(int id)
         {
             ProductRepository dal = new ProductRepository();
-            dal.Delete(productModel.ProductId);
+            dal.Delete(id);
         }
 
 
