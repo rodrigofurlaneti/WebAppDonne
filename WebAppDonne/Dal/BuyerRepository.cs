@@ -39,8 +39,6 @@ namespace WebAppDonne.Dal
                     buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
                     buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
-                    buyerModel.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    buyerModel.StoreName = Convert.ToString(rdr["StoreName"]);
                     listBuyerModel.Add(buyerModel);
                 }
             }
@@ -64,8 +62,6 @@ namespace WebAppDonne.Dal
                     buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
                     buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
-                    buyerModel.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    buyerModel.StoreName = Convert.ToString(rdr["StoreName"]);
                 }
             }
             return buyerModel;
@@ -79,8 +75,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
             cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
             cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
-            cmd.Parameters.AddWithValue("@StoreId", buyerModel.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", buyerModel.StoreName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -108,8 +102,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
             cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
             cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
-            cmd.Parameters.AddWithValue("@StoreId", buyerModel.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", buyerModel.StoreName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();

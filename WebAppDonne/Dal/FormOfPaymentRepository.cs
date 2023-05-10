@@ -37,8 +37,6 @@ namespace WebAppDonne.Dal
                     formOfPayment.FormOfPaymentName = Convert.ToString(rdr["FormOfPaymentName"]);
                     formOfPayment.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     formOfPayment.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    formOfPayment.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    formOfPayment.StoreName = Convert.ToString(rdr["StoreName"]);
                     formOfPayment.UserId = Convert.ToInt32(rdr["UserId"]);
                     formOfPayment.UserName = Convert.ToString(rdr["UserName"]);
                     listFormOfPaymentModel.Add(formOfPayment);
@@ -64,8 +62,6 @@ namespace WebAppDonne.Dal
                     formOfPayment.FormOfPaymentName = Convert.ToString(rdr["FormOfPaymentName"]);
                     formOfPayment.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     formOfPayment.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    formOfPayment.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    formOfPayment.StoreName = Convert.ToString(rdr["StoreName"]);
                     formOfPayment.UserId = Convert.ToInt32(rdr["UserId"]);
                     formOfPayment.UserName = Convert.ToString(rdr["UserName"]);
                 }
@@ -81,8 +77,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@StoreId", FormOfPayment.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", FormOfPayment.StoreName);
             cmd.Parameters.AddWithValue("@UserId", FormOfPayment.UserId);
             cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
             con.Open();
@@ -112,8 +106,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
             cmd.Parameters.AddWithValue("@DateInsert", FormOfPayment.DateInsert);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@StoreId", FormOfPayment.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", FormOfPayment.StoreName);
             cmd.Parameters.AddWithValue("@UserId", FormOfPayment.UserId);
             cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
             con.Open();

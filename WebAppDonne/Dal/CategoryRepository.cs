@@ -32,12 +32,14 @@ namespace WebAppDonne.Dal
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    CategoryModel Category = new CategoryModel();
-                    Category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
-                    Category.CategoryName = Convert.ToString(rdr["CategoryName"]);
-                    Category.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    Category.StoreName = Convert.ToString(rdr["StoreName"]);
-                    listCategoryModel.Add(Category);
+                    CategoryModel category = new CategoryModel();
+                    category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
+                    category.CategoryName = Convert.ToString(rdr["CategoryName"]);
+                    category.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    category.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    category.UserId = Convert.ToInt32(rdr["UserId"]);
+                    category.UserName = Convert.ToString(rdr["UserName"]);
+                    listCategoryModel.Add(category);
                 }
             }
             return listCategoryModel;
@@ -46,7 +48,7 @@ namespace WebAppDonne.Dal
         public CategoryModel GetById(int id)
         {
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            CategoryModel Category = new CategoryModel();
+            CategoryModel category = new CategoryModel();
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_CategoryGetById", con);
@@ -56,13 +58,15 @@ namespace WebAppDonne.Dal
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    Category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
-                    Category.CategoryName = Convert.ToString(rdr["CategoryName"]);
-                    Category.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    Category.StoreName = Convert.ToString(rdr["StoreName"]);
+                    category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
+                    category.CategoryName = Convert.ToString(rdr["CategoryName"]);
+                    category.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    category.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    category.UserId = Convert.ToInt32(rdr["UserId"]);
+                    category.UserName = Convert.ToString(rdr["UserName"]);
                 }
             }
-            return Category;
+            return category;
         }
 
         public void Insert(CategoryModel Category)
@@ -71,8 +75,10 @@ namespace WebAppDonne.Dal
             SqlConnection con = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
             cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
-            cmd.Parameters.AddWithValue("@StoreId", Category.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", Category.StoreName);
+            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            cmd.Parameters.AddWithValue("@DataUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", Category.UserId);
+            cmd.Parameters.AddWithValue("@UserName", Category.UserName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -98,8 +104,10 @@ namespace WebAppDonne.Dal
             SqlCommand cmd = new SqlCommand("USP_CategoryUpdate", con);
             cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
             cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
-            cmd.Parameters.AddWithValue("@StoreId", Category.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", Category.StoreName);
+            cmd.Parameters.AddWithValue("@DateInsert", Category.DateInsert);
+            cmd.Parameters.AddWithValue("@DataUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", Category.UserId);
+            cmd.Parameters.AddWithValue("@UserName", Category.UserName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();

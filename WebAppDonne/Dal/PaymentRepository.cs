@@ -42,8 +42,6 @@ namespace WebAppDonne.Dal
                     paymentModel.TotalValue = Convert.ToString(rdr["TotalValue"]);
                     paymentModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     paymentModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    paymentModel.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    paymentModel.StoreName = Convert.ToString(rdr["StoreName"]);
                     paymentModel.UserId = Convert.ToInt32(rdr["UserId"]);
                     paymentModel.UserName = Convert.ToString(rdr["UserName"]);
                     listPaymentModel.Add(paymentModel);
@@ -75,8 +73,6 @@ namespace WebAppDonne.Dal
                     paymentModel.TotalValue = Convert.ToString(rdr["TotalValue"]);
                     paymentModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     paymentModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    paymentModel.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    paymentModel.StoreName = Convert.ToString(rdr["StoreName"]);
                     paymentModel.UserId = Convert.ToInt32(rdr["UserId"]);
                     paymentModel.UserName = Convert.ToString(rdr["UserName"]);
                 }
@@ -97,8 +93,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("TotalValue", paymentModel.TotalValue);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@StoreId", paymentModel.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", paymentModel.StoreName);
             cmd.Parameters.AddWithValue("@UserId", paymentModel.UserId);
             cmd.Parameters.AddWithValue("@UserName", paymentModel.UserName);
             con.Open();
@@ -132,8 +126,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("TotalValue", paymentModel.TotalValue);
             cmd.Parameters.AddWithValue("@DateInsert", paymentModel.DateInsert);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@StoreId", paymentModel.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", paymentModel.StoreName);
             cmd.Parameters.AddWithValue("@UserId", paymentModel.UserId);
             cmd.Parameters.AddWithValue("@UserName", paymentModel.UserName);
             con.Open();

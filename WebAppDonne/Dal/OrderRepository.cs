@@ -40,8 +40,6 @@ namespace WebAppDonne.Dal
                     orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
                     orderModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     orderModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    orderModel.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    orderModel.StoreName = Convert.ToString(rdr["StoreName"]);
                     orderModel.UserId = Convert.ToInt32(rdr["UserId"]);
                     orderModel.UserName = Convert.ToString(rdr["UserName"]);
                     listOrderModel.Add(orderModel);
@@ -70,8 +68,6 @@ namespace WebAppDonne.Dal
                     orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
                     orderModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     orderModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    orderModel.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    orderModel.StoreName = Convert.ToString(rdr["StoreName"]);
                     orderModel.UserId = Convert.ToInt32(rdr["UserId"]);
                     orderModel.UserName = Convert.ToString(rdr["UserName"]);
                 }
@@ -90,8 +86,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@StoreId", orderModel.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", orderModel.StoreName);
             cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
             cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
             con.Open();
@@ -124,8 +118,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
             cmd.Parameters.AddWithValue("@DateInsert", orderModel.DateInsert);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@StoreId", orderModel.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", orderModel.StoreName);
             cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
             cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
             con.Open();

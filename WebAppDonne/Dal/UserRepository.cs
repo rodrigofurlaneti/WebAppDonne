@@ -36,8 +36,6 @@ namespace WebAppDonne.Dal
                     User.UserId = Convert.ToInt32(rdr["UserId"]);
                     User.UserName = Convert.ToString(rdr["UserName"]);
                     User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    User.StoreName = Convert.ToString(rdr["StoreName"]);
                     User.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
                     User.ProfileName = Convert.ToString(rdr["ProfileName"]);
                     User.Status = Convert.ToBoolean(rdr["Status"]);
@@ -63,8 +61,6 @@ namespace WebAppDonne.Dal
                     User.UserId = Convert.ToInt32(rdr["UserId"]);
                     User.UserName = Convert.ToString(rdr["UserName"]);
                     User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    User.StoreName = Convert.ToString(rdr["StoreName"]);
                     User.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
                     User.ProfileName = Convert.ToString(rdr["ProfileName"]);
                     User.Status = Convert.ToBoolean(rdr["Status"]);
@@ -89,8 +85,6 @@ namespace WebAppDonne.Dal
                     User.UserId = Convert.ToInt32(rdr["UserId"]);
                     User.UserName = Convert.ToString(rdr["UserName"]);
                     User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    User.StoreName = Convert.ToString(rdr["StoreName"]);
                     User.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
                     User.ProfileName = Convert.ToString(rdr["ProfileName"]);
                     User.Status = Convert.ToBoolean(rdr["Status"]);
@@ -106,8 +100,6 @@ namespace WebAppDonne.Dal
             SqlCommand cmd = new SqlCommand("USP_UserInsert", con);
             cmd.Parameters.AddWithValue("@UserName", User.UserName);
             cmd.Parameters.AddWithValue("@UserPassword", User.UserPassword);
-            cmd.Parameters.AddWithValue("@StoreId", User.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", User.StoreName);
             cmd.Parameters.AddWithValue("@ProfileId", User.ProfileId);
             cmd.Parameters.AddWithValue("@ProfileName", User.ProfileName);
             cmd.Parameters.AddWithValue("@Status", User.Status);
@@ -137,8 +129,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@UserId", User.UserId);
             cmd.Parameters.AddWithValue("@UserName", User.UserName);
             cmd.Parameters.AddWithValue("@UserPassword", User.UserPassword);
-            cmd.Parameters.AddWithValue("@StoreId", User.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", User.StoreName);
             cmd.Parameters.AddWithValue("@ProfileId", User.ProfileId);
             cmd.Parameters.AddWithValue("@ProfileName", User.ProfileName);
             cmd.Parameters.AddWithValue("@Status", User.Status);

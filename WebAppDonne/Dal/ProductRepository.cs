@@ -43,12 +43,9 @@ namespace WebAppDonne.Dal
                     product.MinimumStockQuantity = Convert.ToInt32(rdr["MinimumStockQuantity"]);
                     product.TotalValueCostOfInventory = Convert.ToString(rdr["TotalValueCostOfInventory"]);
                     product.TotalValueSaleStock = Convert.ToString(rdr["TotalValueSaleStock"]);
-                    product.ImagePath = Convert.ToString(rdr["ImagePath"]);
                     product.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     product.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
                     product.NeedToPrint = Convert.ToBoolean(rdr["NeedToPrint"]);
-                    product.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    product.StoreName = Convert.ToString(rdr["StoreName"]);
                     product.UserId = Convert.ToInt32(rdr["UserId"]);
                     product.UserName = Convert.ToString(rdr["UserName"]);
                     product.Status = Convert.ToBoolean(rdr["Status"]);
@@ -82,10 +79,7 @@ namespace WebAppDonne.Dal
                     product.TotalValueSaleStock = Convert.ToString(rdr["TotalValueSaleStock"]);
                     product.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     product.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    product.ImagePath = Convert.ToString(rdr["ImagePath"]);
                     product.NeedToPrint = Convert.ToBoolean(rdr["NeedToPrint"]);
-                    product.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    product.StoreName = Convert.ToString(rdr["StoreName"]);
                     product.UserId = Convert.ToInt32(rdr["UserId"]);
                     product.UserName = Convert.ToString(rdr["UserName"]);
                     product.Status = Convert.ToBoolean(rdr["Status"]);
@@ -110,10 +104,7 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@TotalValueSaleStock", product.TotalValueSaleStock);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@ImagePath", product.ImagePath);
             cmd.Parameters.AddWithValue("@NeedToPrint", product.NeedToPrint);
-            cmd.Parameters.AddWithValue("@StoreId", product.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", product.StoreName); 
             cmd.Parameters.AddWithValue("@UserId", product.UserId);
             cmd.Parameters.AddWithValue("@UserName", product.UserName);
             cmd.Parameters.AddWithValue("@Status", product.Status);
@@ -154,9 +145,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@DateInsert", product.DateInsert);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
             cmd.Parameters.AddWithValue("@NeedToPrint", product.NeedToPrint);
-            cmd.Parameters.AddWithValue("@ImagePath", product.ImagePath);
-            cmd.Parameters.AddWithValue("@StoreId", product.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", product.StoreName);
             cmd.Parameters.AddWithValue("@UserId", product.UserId);
             cmd.Parameters.AddWithValue("@UserName", product.UserName);
             cmd.Parameters.AddWithValue("@Status", product.Status);

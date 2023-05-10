@@ -38,8 +38,6 @@ namespace WebAppDonne.Dal
                     commands.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     commands.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     commands.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    commands.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    commands.StoreName = Convert.ToString(rdr["StoreName"]);
                     commands.UserId = Convert.ToInt32(rdr["UserId"]);
                     commands.UserName = Convert.ToString(rdr["UserName"]);
                     commands.Status = Convert.ToBoolean(rdr["Status"]);
@@ -67,8 +65,6 @@ namespace WebAppDonne.Dal
                     commands.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     commands.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     commands.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    commands.StoreId = Convert.ToInt32(rdr["StoreId"]);
-                    commands.StoreName = Convert.ToString(rdr["StoreName"]);
                     commands.UserId = Convert.ToInt32(rdr["UserId"]);
                     commands.UserName = Convert.ToString(rdr["UserName"]);
                     commands.Status = Convert.ToBoolean(rdr["Status"]);
@@ -86,8 +82,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@BuyerName", commands.BuyerName);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@StoreId", commands.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", commands.StoreName);
             cmd.Parameters.AddWithValue("@UserId", commands.UserId);
             cmd.Parameters.AddWithValue("@UserName", commands.UserName);
             con.Open();
@@ -107,8 +101,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@BuyerName", commands.BuyerName);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@StoreId", commands.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", commands.StoreName);
             cmd.Parameters.AddWithValue("@UserId", commands.UserId);
             cmd.Parameters.AddWithValue("@UserName", commands.UserName);
             cmd.Parameters.AddWithValue("@Status", commands.Status);
@@ -146,8 +138,6 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@BuyerName", commands.BuyerName);
             cmd.Parameters.AddWithValue("@DateInsert", commands.DateInsert);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@StoreId", commands.StoreId);
-            cmd.Parameters.AddWithValue("@StoreName", commands.StoreName);
             cmd.Parameters.AddWithValue("@UserId", commands.UserId);
             cmd.Parameters.AddWithValue("@UserName", commands.UserName);
             cmd.Parameters.AddWithValue("@Status", commands.Status);
