@@ -76,7 +76,7 @@ namespace WebAppDonne.Dal
             SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
             cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DataUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
             cmd.Parameters.AddWithValue("@UserId", Category.UserId);
             cmd.Parameters.AddWithValue("@UserName", Category.UserName);
             con.Open();
