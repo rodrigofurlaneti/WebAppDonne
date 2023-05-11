@@ -105,7 +105,7 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
             cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
             cmd.Parameters.AddWithValue("@DateInsert", Category.DateInsert);
-            cmd.Parameters.AddWithValue("@DataUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
             cmd.Parameters.AddWithValue("@UserId", Category.UserId);
             cmd.Parameters.AddWithValue("@UserName", Category.UserName);
             con.Open();

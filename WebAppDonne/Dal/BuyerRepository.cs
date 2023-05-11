@@ -39,6 +39,10 @@ namespace WebAppDonne.Dal
                     buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
                     buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
+                    buyerModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    buyerModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
+                    buyerModel.UserName = Convert.ToString(rdr["UserName"]);
                     listBuyerModel.Add(buyerModel);
                 }
             }
@@ -62,6 +66,10 @@ namespace WebAppDonne.Dal
                     buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
                     buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
+                    buyerModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    buyerModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
+                    buyerModel.UserName = Convert.ToString(rdr["UserName"]);
                 }
             }
             return buyerModel;
@@ -75,6 +83,10 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
             cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
             cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
+            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
+            cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -102,6 +114,10 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
             cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
             cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
+            cmd.Parameters.AddWithValue("@DateInsert", buyerModel.DateInsert);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
+            cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
