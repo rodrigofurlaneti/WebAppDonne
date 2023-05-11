@@ -26,16 +26,20 @@ namespace WebAppDonne.Dal
             List<ProfileModel> listProfileModel = new List<ProfileModel>();
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_ProfileUserGetAll", con);
+                SqlCommand cmd = new SqlCommand("USP_ProfileGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    ProfileModel Profile = new ProfileModel();
-                    Profile.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    Profile.ProfileName = Convert.ToString(rdr["ProfileName"]);
-                    listProfileModel.Add(Profile);
+                    ProfileModel profileModel = new ProfileModel();
+                    profileModel.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
+                    profileModel.ProfileName = Convert.ToString(rdr["ProfileName"]);
+                    profileModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    profileModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    profileModel.UserId = Convert.ToInt32(rdr["UserId"]);
+                    profileModel.UserName = Convert.ToString(rdr["UserName"]);
+                    listProfileModel.Add(profileModel);
                 }
             }
             return listProfileModel;
@@ -44,29 +48,37 @@ namespace WebAppDonne.Dal
         public ProfileModel GetById(int id)
         {
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            ProfileModel Profile = new ProfileModel();
+            ProfileModel profileModel = new ProfileModel();
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_ProfileUserGetById", con);
+                SqlCommand cmd = new SqlCommand("USP_ProfileGetById", con);
                 cmd.Parameters.AddWithValue("@ProfileId", id);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    Profile.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    Profile.ProfileName = Convert.ToString(rdr["ProfileName"]);
+                    profileModel.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
+                    profileModel.ProfileName = Convert.ToString(rdr["ProfileName"]);
+                    profileModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    profileModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    profileModel.UserId = Convert.ToInt32(rdr["UserId"]);
+                    profileModel.UserName = Convert.ToString(rdr["UserName"]);
                 }
             }
-            return Profile;
+            return profileModel;
         }
 
-        public void Insert(ProfileModel Profile)
+        public void Insert(ProfileModel profileModel)
         {
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
             SqlConnection con = new SqlConnection(ConnectionString);
-            SqlCommand cmd = new SqlCommand("USP_ProfileUserInsert", con);
-            cmd.Parameters.AddWithValue("@ProfileName", Profile.ProfileName);
+            SqlCommand cmd = new SqlCommand("USP_ProfileInsert", con);
+            cmd.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
+            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", profileModel.UserId);
+            cmd.Parameters.AddWithValue("@UserName", profileModel.UserName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -77,7 +89,7 @@ namespace WebAppDonne.Dal
         {
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
             SqlConnection con = new SqlConnection(ConnectionString);
-            SqlCommand cmd = new SqlCommand("USP_ProfileUserDelete", con);
+            SqlCommand cmd = new SqlCommand("USP_ProfileDelete", con);
             cmd.Parameters.AddWithValue("@ProfileId", ProfileId);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -85,13 +97,17 @@ namespace WebAppDonne.Dal
             con.Close();
         }
 
-        public void Update(ProfileModel Profile)
+        public void Update(ProfileModel profileModel)
         {
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
             SqlConnection con = new SqlConnection(ConnectionString);
-            SqlCommand cmd = new SqlCommand("USP_ProfileUserUpdate", con);
-            cmd.Parameters.AddWithValue("@ProfileId", Profile.ProfileId);
-            cmd.Parameters.AddWithValue("@ProfileName", Profile.ProfileName);
+            SqlCommand cmd = new SqlCommand("USP_ProfileUpdate", con);
+            cmd.Parameters.AddWithValue("@ProfileId", profileModel.ProfileId);
+            cmd.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
+            cmd.Parameters.AddWithValue("@DateInsert", profileModel.DateInsert);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", profileModel.UserId);
+            cmd.Parameters.AddWithValue("@UserName", profileModel.UserName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
