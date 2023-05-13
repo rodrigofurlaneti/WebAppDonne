@@ -1,8 +1,8 @@
 ﻿namespace WebAppDonne.Models
 {
-    public class CommandsModel
+    public class CommandModel
     {
-        public int CommandsId { get; set; }
+        public int CommandId { get; set; }
         public int BuyerId { get; set; }
         public string BuyerName { get; set; }
         public DateTime? DateInsert { get; set; }
