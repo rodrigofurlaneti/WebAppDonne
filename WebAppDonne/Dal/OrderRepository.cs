@@ -34,9 +34,10 @@ namespace WebAppDonne.Dal
                 {
                     OrderModel orderModel = new OrderModel();
                     orderModel.OrderId = Convert.ToInt32(rdr["OrderId"]);
-                    orderModel.CommandsId = Convert.ToInt32(rdr["CommandsId"]);
+                    orderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
                     orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
                     orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
+                    orderModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
                     orderModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     orderModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
@@ -62,7 +63,7 @@ namespace WebAppDonne.Dal
                 while (rdr.Read())
                 {
                     orderModel.OrderId = Convert.ToInt32(rdr["OrderId"]);
-                    orderModel.CommandsId = Convert.ToInt32(rdr["CommandsId"]);
+                    orderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
                     orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
                     orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
                     orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
@@ -80,7 +81,7 @@ namespace WebAppDonne.Dal
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
             SqlConnection con = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand("USP_OrderInsert", con);
-            cmd.Parameters.AddWithValue("@CommandsId", orderModel.CommandsId);
+            cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
             cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
             cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
             cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
@@ -112,7 +113,7 @@ namespace WebAppDonne.Dal
             SqlConnection con = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand("USP_OrderUpdate", con);
             cmd.Parameters.AddWithValue("@OrderId", orderModel.OrderId);
-            cmd.Parameters.AddWithValue("@CommandsId", orderModel.CommandsId);
+            cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
             cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
             cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
             cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
