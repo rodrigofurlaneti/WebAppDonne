@@ -6,8 +6,9 @@
         public int CommandId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public string BuyerName { get; set; }
+        public string SalePrice { get; set; }
         public int Amount { get; set; }
+        public string TotalSalePrice { get; set; }
         public DateTime? DateInsert { get; set; }
         public DateTime? DateUpdate { get; set; }
         public int UserId { get; set; }

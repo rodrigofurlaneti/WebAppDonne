@@ -41,6 +41,7 @@ namespace WebAppDonne.Dal
                     commandOrderModel.ProductName = Convert.ToString(rdr["ProductName"]);
                     commandOrderModel.Amount = Convert.ToInt32(rdr["Amount"]);
                     commandOrderModel.SalePrice = Convert.ToString(rdr["SalePrice"]);
+                    commandOrderModel.TotalSalePrice = Convert.ToString(rdr["TotalSalePrice"]);
                     listCommandsModel.Add(commandOrderModel);
                 }
             }

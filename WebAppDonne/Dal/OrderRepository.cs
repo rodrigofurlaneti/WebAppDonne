@@ -37,8 +37,9 @@ namespace WebAppDonne.Dal
                     orderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
                     orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
                     orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
-                    orderModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
+                    orderModel.SalePrice = Convert.ToString(rdr["SalePrice"]);
                     orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
+                    orderModel.TotalSalePrice = Convert.ToString(rdr["TotalSalePrice"]);
                     orderModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     orderModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
                     orderModel.UserId = Convert.ToInt32(rdr["UserId"]);
@@ -66,7 +67,9 @@ namespace WebAppDonne.Dal
                     orderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
                     orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
                     orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
+                    orderModel.SalePrice = Convert.ToString(rdr["SalePrice"]);
                     orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
+                    orderModel.TotalSalePrice = Convert.ToString(rdr["TotalSalePrice"]);
                     orderModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     orderModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
                     orderModel.UserId = Convert.ToInt32(rdr["UserId"]);
@@ -84,7 +87,9 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
             cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
             cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+            cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
             cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
+            cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
             cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
@@ -116,7 +121,9 @@ namespace WebAppDonne.Dal
             cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
             cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
             cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+            cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
             cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
+            cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
             cmd.Parameters.AddWithValue("@DateInsert", orderModel.DateInsert);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
             cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
