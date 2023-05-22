@@ -10,6 +10,5 @@
         public int Amount { get; set; }
         public string SalePrice { get; set; }
         public string TotalSalePrice { get; set; }
-        public string TotalCommand { get; set; }
     }
 }
