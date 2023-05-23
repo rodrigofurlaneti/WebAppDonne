@@ -6,20 +6,20 @@ namespace WebAppDonne.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BuyerCommandController : Controller
+    public class BuyerStatusController : ControllerBase
     {
         private readonly ILogger<BuyerController> _logger;
 
-        public BuyerCommandController(ILogger<BuyerController> logger)
+        public BuyerStatusController(ILogger<BuyerController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetBuyerCommand")]
-        public IEnumerable<BuyerModel> Get()
+        [HttpGet("{id:int}")]
+        public IEnumerable<BuyerModel> Get(int id)
         {
-            BuyerCommandRepository dal = new BuyerCommandRepository();
-            var ret = dal.GetBuyerCommand();
+            BuyerStatusRepository dal = new BuyerStatusRepository();
+            var ret = dal.GetStatus(id);
             return (ret);
         }
     }

@@ -4,7 +4,7 @@ using WebAppDonne.Models;
 
 namespace WebAppDonne.Dal
 {
-    public class BuyerCommandRepository
+    public class BuyerStatusRepository
     {
         #region Properties
 
@@ -13,7 +13,7 @@ namespace WebAppDonne.Dal
         #endregion
 
         #region Constructor
-        public BuyerCommandRepository()
+        public BuyerStatusRepository()
         {
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().SetBasePath(Environment.CurrentDirectory).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configurationRoot = configurationBuilder.Build();
@@ -22,15 +22,16 @@ namespace WebAppDonne.Dal
 
         #region Methods 
 
-        public IEnumerable<BuyerModel> GetBuyerCommand()
+        public IEnumerable<BuyerModel> GetStatus(int id)
         {
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
             List<BuyerModel> listBuyerModel = new List<BuyerModel>();
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_BuyerCommandGetByStatus", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("USP_BuyerGetStatus", con);
+                cmd.Parameters.AddWithValue("@Status", id);
                 con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
