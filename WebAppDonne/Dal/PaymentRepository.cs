@@ -34,12 +34,11 @@ namespace WebAppDonne.Dal
                 {
                     PaymentModel paymentModel = new PaymentModel();
                     paymentModel.PaymentId = Convert.ToInt32(rdr["PaymentId"]);
-                    paymentModel.CommandsId = Convert.ToInt32(rdr["CommandsId"]);
-                    paymentModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                    paymentModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
+                    paymentModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
                     paymentModel.FormOfPaymentId = Convert.ToInt32(rdr["FormOfPaymentId"]);
                     paymentModel.FormOfPaymentName = Convert.ToString(rdr["FormOfPaymentName"]);
-                    paymentModel.TotalValue = Convert.ToString(rdr["TotalValue"]);
+                    paymentModel.PaymentAmount = Convert.ToString(rdr["PaymentAmount"]);
+                    paymentModel.PaymentType = Convert.ToString(rdr["PaymentType"]);
                     paymentModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     paymentModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
                     paymentModel.UserId = Convert.ToInt32(rdr["UserId"]);
@@ -65,12 +64,11 @@ namespace WebAppDonne.Dal
                 while (rdr.Read())
                 {
                     paymentModel.PaymentId = Convert.ToInt32(rdr["PaymentId"]);
-                    paymentModel.CommandsId = Convert.ToInt32(rdr["CommandsId"]);
-                    paymentModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                    paymentModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
+                    paymentModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
                     paymentModel.FormOfPaymentId = Convert.ToInt32(rdr["FormOfPaymentId"]);
                     paymentModel.FormOfPaymentName = Convert.ToString(rdr["FormOfPaymentName"]);
-                    paymentModel.TotalValue = Convert.ToString(rdr["TotalValue"]);
+                    paymentModel.PaymentAmount = Convert.ToString(rdr["PaymentAmount"]);
+                    paymentModel.PaymentType = Convert.ToString(rdr["PaymentType"]);
                     paymentModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
                     paymentModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
                     paymentModel.UserId = Convert.ToInt32(rdr["UserId"]);
@@ -85,12 +83,11 @@ namespace WebAppDonne.Dal
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
             SqlConnection con = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand("USP_PaymentInsert", con);
-            cmd.Parameters.AddWithValue("@CommandsId", paymentModel.CommandsId);
-            cmd.Parameters.AddWithValue("@BuyerId", paymentModel.BuyerId);
-            cmd.Parameters.AddWithValue("@BuyerName", paymentModel.BuyerName);
+            cmd.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
             cmd.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);
             cmd.Parameters.AddWithValue("@FormOfPaymentName", paymentModel.FormOfPaymentName);
-            cmd.Parameters.AddWithValue("TotalValue", paymentModel.TotalValue);
+            cmd.Parameters.AddWithValue("PaymentAmount", paymentModel.PaymentAmount);
+            cmd.Parameters.AddWithValue("PaymentType", paymentModel.PaymentType);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
             cmd.Parameters.AddWithValue("@UserId", paymentModel.UserId);
@@ -118,12 +115,11 @@ namespace WebAppDonne.Dal
             string ConnectionString = configurationRoot.GetConnectionString("localHost");
             SqlConnection con = new SqlConnection(ConnectionString);
             SqlCommand cmd = new SqlCommand("USP_PaymentUpdate", con);
-            cmd.Parameters.AddWithValue("@CommandsId", paymentModel.CommandsId);
-            cmd.Parameters.AddWithValue("@BuyerId", paymentModel.BuyerId);
-            cmd.Parameters.AddWithValue("@BuyerName", paymentModel.BuyerName);
+            cmd.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
             cmd.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);
             cmd.Parameters.AddWithValue("@FormOfPaymentName", paymentModel.FormOfPaymentName);
-            cmd.Parameters.AddWithValue("TotalValue", paymentModel.TotalValue);
+            cmd.Parameters.AddWithValue("@PaymentAmount", paymentModel.PaymentAmount);
+            cmd.Parameters.AddWithValue("@PaymentType", paymentModel.PaymentType);
             cmd.Parameters.AddWithValue("@DateInsert", paymentModel.DateInsert);
             cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
             cmd.Parameters.AddWithValue("@UserId", paymentModel.UserId);
