@@ -47,6 +47,56 @@ namespace WebAppDonne.Dal
             return listCommandsModel;
         }
 
+        public IEnumerable<CommandModel> GetByStatus(int status)
+        {
+            string ConnectionString = configurationRoot.GetConnectionString("localHost");
+            List<CommandModel> listCommandsModel = new List<CommandModel>();
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("USP_CommandGetByStatus", con);
+                cmd.Parameters.AddWithValue("@Status", status);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    CommandModel commandModel = new CommandModel();
+                    commandModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
+                    commandModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
+                    listCommandsModel.Add(commandModel);
+                }
+            }
+            return listCommandsModel;
+        }
+
+        public IEnumerable<CommandOrderModel> GetCommandOrder(int id)
+        {
+            string ConnectionString = configurationRoot.GetConnectionString("localHost");
+            List<CommandOrderModel> listCommandsModel = new List<CommandOrderModel>();
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("USP_CommandOrdersById", con);
+                cmd.Parameters.AddWithValue("@CommandId", id);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    CommandOrderModel commandOrderModel = new CommandOrderModel();
+                    commandOrderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
+                    commandOrderModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
+                    commandOrderModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
+                    commandOrderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
+                    commandOrderModel.ProductName = Convert.ToString(rdr["ProductName"]);
+                    commandOrderModel.Amount = Convert.ToInt32(rdr["Amount"]);
+                    commandOrderModel.SalePrice = Convert.ToString(rdr["SalePrice"]);
+                    commandOrderModel.TotalSalePrice = Convert.ToString(rdr["TotalSalePrice"]);
+                    listCommandsModel.Add(commandOrderModel);
+                }
+            }
+            return listCommandsModel;
+        }
+
         public CommandModel GetById(int id)
         {
             string ConnectionString = configurationRoot.GetConnectionString("localHost");

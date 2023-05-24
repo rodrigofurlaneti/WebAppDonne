@@ -22,6 +22,22 @@ namespace WebAppDonne.Controllers
             var ret = dal.GetAllCommand();
             return (ret);
         }
+        [HttpOptions("{id:int}")]
+        public IEnumerable<CommandModel> Options(int id)
+        {
+            CommandRepository dal = new CommandRepository();
+            var ret = dal.GetByStatus(id);
+            return (ret);
+        }
+
+        [HttpPatch("{id:int}")]
+        public IEnumerable<CommandOrderModel> Patch(int id)
+        {
+            CommandRepository dal = new CommandRepository();
+            var ret = dal.GetCommandOrder(id);
+            return (ret);
+        }
+
 
         [HttpGet("{id:int}")]
         public CommandModel Get(int id)

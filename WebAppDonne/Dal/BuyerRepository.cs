@@ -49,6 +49,33 @@ namespace WebAppDonne.Dal
             return listBuyerModel;
         }
 
+        public IEnumerable<BuyerModel> GetByStatus(int status)
+        {
+            string ConnectionString = configurationRoot.GetConnectionString("localHost");
+            List<BuyerModel> listBuyerModel = new List<BuyerModel>();
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("USP_BuyerGetStatus", con);
+                cmd.Parameters.AddWithValue("@Status", status);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    BuyerModel buyerModel = new BuyerModel();
+                    buyerModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
+                    buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
+                    buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
+                    buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
+                    buyerModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    buyerModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
+                    buyerModel.UserName = Convert.ToString(rdr["UserName"]);
+                    listBuyerModel.Add(buyerModel);
+                }
+            }
+            return listBuyerModel;
+        }
         public BuyerModel GetById(int id)
         {
             string ConnectionString = configurationRoot.GetConnectionString("localHost");

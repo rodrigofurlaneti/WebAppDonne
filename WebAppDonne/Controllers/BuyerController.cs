@@ -23,6 +23,14 @@ namespace WebAppDonne.Controllers
             return (ret);
         }
 
+        [HttpOptions("{id:int}")]
+        public IEnumerable<BuyerModel> Options(int id)
+        {
+            BuyerRepository dal = new BuyerRepository();
+            var ret = dal.GetByStatus(id);
+            return (ret);
+        }
+
         [HttpGet("{id:int}")]
         public BuyerModel Get(int id)
         {
