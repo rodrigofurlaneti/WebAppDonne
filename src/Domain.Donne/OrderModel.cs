@@ -15,5 +15,24 @@ namespace Domain.Donne
         public DateTime? DateUpdate { get; set; }
         public int UserId { get; set; }
         public string UserName { get; set; }
+
+        public OrderModel()
+        {
+        }
+
+        public OrderModel(int orderId, int commandId, int productId, string productName, string salePrice, int amount, string totalSalePrice, DateTime? dateInsert, DateTime? dateUpdate, int userId, string userName)
+        {
+            OrderId = orderId;
+            CommandId = commandId;
+            ProductId = productId;
+            ProductName = productName;
+            SalePrice = salePrice;
+            Amount = amount;
+            TotalSalePrice = totalSalePrice;
+            DateInsert = dateInsert;
+            DateUpdate = dateUpdate;
+            UserId = userId;
+            UserName = userName;
+        }
     }
 }

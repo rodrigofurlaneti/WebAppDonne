@@ -12,5 +12,21 @@ namespace Domain.Donne
         public int UserId { get; set; }
         public string UserName { get; set; }
         public bool Status { get; set; }
+
+        public CommandModel()
+        {
+        }
+
+        public CommandModel(int commandId, int buyerId, string buyerName, DateTime? dateInsert, DateTime? dateUpdate, int userId, string userName, bool status)
+        {
+            CommandId = commandId;
+            BuyerId = buyerId;
+            BuyerName = buyerName;
+            DateInsert = dateInsert;
+            DateUpdate = dateUpdate;
+            UserId = userId;
+            UserName = userName;
+            Status = status;
+        }
     }
 }

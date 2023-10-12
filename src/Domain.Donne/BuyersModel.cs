@@ -13,5 +13,22 @@ namespace Domain.Donne
         public int UserId { get; set; }
         public string UserName { get; set; }
         public bool Status { get; set; }
+
+        public BuyerModel()
+        {
+        }
+
+        public BuyerModel(int buyerId, string buyerName, string buyerPhone, string buyerAddress, DateTime? dateInsert, DateTime? dateUpdate, int userId, string userName, bool status)
+        {
+            BuyerId = buyerId;
+            BuyerName = buyerName;
+            BuyerPhone = buyerPhone;
+            BuyerAddress = buyerAddress;
+            DateInsert = dateInsert;
+            DateUpdate = dateUpdate;
+            UserId = userId;
+            UserName = userName;
+            Status = status;
+        }
     }
 }

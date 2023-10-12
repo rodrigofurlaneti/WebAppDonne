@@ -10,5 +10,19 @@ namespace Domain.Donne
         public DateTime? DateUpdate { get; set; }
         public int UserId { get; set; }
         public string UserName { get; set; }
+
+        public FormOfPaymentModel()
+        {
+        }
+
+        public FormOfPaymentModel(int formOfPaymentId, string formOfPaymentName, DateTime? dateInsert, DateTime? dateUpdate, int userId, string userName)
+        {
+            FormOfPaymentId = formOfPaymentId;
+            FormOfPaymentName = formOfPaymentName;
+            DateInsert = dateInsert;
+            DateUpdate = dateUpdate;
+            UserId = userId;
+            UserName = userName;
+        }
     }
 }

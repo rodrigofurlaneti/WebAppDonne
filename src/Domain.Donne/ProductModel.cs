@@ -20,5 +20,29 @@ namespace Domain.Donne
         public int UserId { get; set; }
         public string UserName { get; set; }
         public bool Status { get; set; }
+
+        public ProductModel()
+        {
+        }
+
+        public ProductModel(int productId, string productName, int categoryId, string categoryName, string costPrice, string salePrice, int quantityStock, int minimumStockQuantity, string totalValueCostOfInventory, string totalValueSaleStock, DateTime? dateInsert, DateTime? dateUpdate, bool needToPrint, int userId, string userName, bool status)
+        {
+            ProductId = productId;
+            ProductName = productName;
+            CategoryId = categoryId;
+            CategoryName = categoryName;
+            CostPrice = costPrice;
+            SalePrice = salePrice;
+            QuantityStock = quantityStock;
+            MinimumStockQuantity = minimumStockQuantity;
+            TotalValueCostOfInventory = totalValueCostOfInventory;
+            TotalValueSaleStock = totalValueSaleStock;
+            DateInsert = dateInsert;
+            DateUpdate = dateUpdate;
+            NeedToPrint = needToPrint;
+            UserId = userId;
+            UserName = userName;
+            Status = status;
+        }
     }
 }
