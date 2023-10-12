@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Test.Donne\\Test.Donne.csproj": {}
+    "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\test\\Test.Donne\\Test.Donne.csproj": {}
   },
   "projects": {
-    "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Test.Donne\\Test.Donne.csproj": {
+    "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Domain.Donne\\Domain.Donne.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Test.Donne\\Test.Donne.csproj",
-        "projectName": "Test.Donne",
-        "projectPath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Test.Donne\\Test.Donne.csproj",
+        "projectUniqueName": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Domain.Donne\\Domain.Donne.csproj",
+        "projectName": "Domain.Donne",
+        "projectPath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Domain.Donne\\Domain.Donne.csproj",
         "packagesPath": "C:\\Users\\adm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Test.Donne\\obj\\",
+        "outputPath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Domain.Donne\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -42,26 +42,172 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\WebAppDonne\\WebApi.Donne.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\WebAppDonne\\WebApi.Donne.csproj",
+        "projectName": "WebApi.Donne",
+        "projectPath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\WebAppDonne\\WebApi.Donne.csproj",
+        "packagesPath": "C:\\Users\\adm\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\WebAppDonne\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\adm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://www.nuget.org/api/v2/": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Domain.Donne\\Domain.Donne.csproj": {
+                "projectPath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Domain.Donne\\Domain.Donne.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNet.WebApi.Core": {
+              "target": "Package",
+              "version": "[5.2.9, )"
+            },
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.6.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\test\\Test.Donne\\Test.Donne.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\test\\Test.Donne\\Test.Donne.csproj",
+        "projectName": "Test.Donne",
+        "projectPath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\test\\Test.Donne\\Test.Donne.csproj",
+        "packagesPath": "C:\\Users\\adm\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\test\\Test.Donne\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\adm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://www.nuget.org/api/v2/": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Domain.Donne\\Domain.Donne.csproj": {
+                "projectPath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\Domain.Donne\\Domain.Donne.csproj"
+              },
+              "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\WebAppDonne\\WebApi.Donne.csproj": {
+                "projectPath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\src\\WebAppDonne\\WebApi.Donne.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[17.3.2, )"
-            },
-            "NUnit": {
-              "target": "Package",
-              "version": "[3.13.3, )"
-            },
-            "NUnit.Analyzers": {
-              "target": "Package",
-              "version": "[3.5.0, )"
-            },
-            "NUnit3TestAdapter": {
-              "target": "Package",
-              "version": "[4.3.0, )"
+              "version": "[17.7.2, )"
             },
             "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.2, )"
+              "version": "[6.0.0, )"
             }
           },
           "imports": [
