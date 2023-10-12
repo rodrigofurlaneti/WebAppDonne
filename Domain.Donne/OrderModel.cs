@@ -1,4 +1,6 @@
-﻿namespace WebAppDonne.Models
+﻿using System;
+
+namespace Domain.Donne
 {
     public class OrderModel
     {

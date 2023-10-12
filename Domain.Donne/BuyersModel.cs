@@ -1,10 +1,13 @@
-﻿namespace WebAppDonne.Models
+﻿using System;
+
+namespace Domain.Donne
 {
-    public class CommandModel
+    public class BuyerModel
     {
-        public int CommandId { get; set; }
         public int BuyerId { get; set; }
         public string BuyerName { get; set; }
+        public string BuyerPhone { get; set; }
+        public string BuyerAddress { get; set; }
         public DateTime? DateInsert { get; set; }
         public DateTime? DateUpdate { get; set; }
         public int UserId { get; set; }

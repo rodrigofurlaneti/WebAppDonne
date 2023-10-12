@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
-using WebAppDonne.Dal;
-using WebAppDonne.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Domain.Donne;
+using WebApi.Donne.Infrastructure;
 
-namespace WebAppDonne.Controllers
+namespace WebApi.Donne.Controllers
 {
     [Route("[controller]")]
     [ApiController]

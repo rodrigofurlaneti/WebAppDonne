@@ -1,8 +1,8 @@
-﻿using WebAppDonne.Models;
+﻿using Domain.Donne;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace WebAppDonne.Dal
+namespace WebApi.Donne.Infrastructure
 {
     public class OrderRepository
     {
@@ -13,7 +13,8 @@ namespace WebAppDonne.Dal
         #region Constructor
         public OrderRepository()
         {
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().SetBasePath(Environment.CurrentDirectory).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true); ;
             configurationRoot = configurationBuilder.Build();
         }
         #endregion

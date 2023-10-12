@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAppDonne.Dal;
-using WebAppDonne.Models;
+using Domain.Donne;
+using WebApi.Donne.Infrastructure;
 
-namespace WebAppDonne.Controllers
+namespace WebApi.Donne.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class BuyerController : ControllerBase
     {
         private readonly ILogger<BuyerController> _logger;
-
         public BuyerController(ILogger<BuyerController> logger)
         {
             _logger = logger;

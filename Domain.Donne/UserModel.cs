@@ -1,4 +1,4 @@
-﻿namespace WebAppDonne.Models
+﻿namespace Domain.Donne
 {
     public class UserModel
     {

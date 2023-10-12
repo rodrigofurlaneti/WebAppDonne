@@ -1,21 +1,23 @@
-﻿using WebAppDonne.Models;
+﻿using Domain.Donne;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 
-namespace WebAppDonne.Dal
+namespace Infrastructure.Donne
 {
     public class BuyerRepository
     {
         #region Properties
-
         private readonly IConfigurationRoot configurationRoot;
-        
         #endregion
 
         #region Constructor
         public BuyerRepository()
         {
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().SetBasePath(Environment.CurrentDirectory).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
             configurationRoot = configurationBuilder.Build();
         }
         #endregion
@@ -24,36 +26,45 @@ namespace WebAppDonne.Dal
 
         public IEnumerable<BuyerModel> GetAllBuyers()
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            List<BuyerModel> listBuyerModel = new List<BuyerModel>();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            try
             {
-                SqlCommand cmd = new SqlCommand("USP_BuyerGetAll", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                string localHost = "Data Source=.\\SQLEXPRESS;Initial Catalog=Donne;Integrated Security=True;";
+                string connectionString = configurationRoot.GetConnectionString(localHost);
+                List<BuyerModel> listBuyerModel = new List<BuyerModel>();
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    BuyerModel buyerModel = new BuyerModel();
-                    buyerModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                    buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                    buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
-                    buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
-                    buyerModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    buyerModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                    buyerModel.UserName = Convert.ToString(rdr["UserName"]);
-                    listBuyerModel.Add(buyerModel);
+                    SqlCommand cmd = new SqlCommand("USP_BuyerGetAll", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        BuyerModel buyerModel = new BuyerModel();
+                        buyerModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
+                        buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
+                        buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
+                        buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
+                        buyerModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                        buyerModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                        buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
+                        buyerModel.UserName = Convert.ToString(rdr["UserName"]);
+                        listBuyerModel.Add(buyerModel);
+                    }
                 }
+                return listBuyerModel;
             }
-            return listBuyerModel;
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("A propriedade Connection String não foi inicializada.");
+            }
         }
 
         public IEnumerable<BuyerModel> GetByStatus(int status)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
+            string localHost = "Data Source=.\\SQLEXPRESS;Initial Catalog=Donne;Integrated Security=True;";
+            string connectionString = configurationRoot.GetConnectionString(localHost);
             List<BuyerModel> listBuyerModel = new List<BuyerModel>();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_BuyerGetStatus", con);
                 cmd.Parameters.AddWithValue("@Status", status);
@@ -78,9 +89,10 @@ namespace WebAppDonne.Dal
         }
         public BuyerModel GetById(int id)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
+            string localHost = "Data Source=.\\SQLEXPRESS;Initial Catalog=Donne;Integrated Security=True;";
+            string connectionString = configurationRoot.GetConnectionString(localHost);
             BuyerModel buyerModel = new BuyerModel();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_BuyerGetById", con);
                 cmd.Parameters.AddWithValue("@BuyerId", id);
@@ -104,8 +116,9 @@ namespace WebAppDonne.Dal
 
         public void Insert(BuyerModel buyerModel)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            string localHost = "Data Source=.\\SQLEXPRESS;Initial Catalog=Donne;Integrated Security=True;";
+            string connectionString = configurationRoot.GetConnectionString(localHost);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_BuyerInsert", con);
             cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
             cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
@@ -122,8 +135,9 @@ namespace WebAppDonne.Dal
 
         public void Delete(int buyerId)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            string localHost = "Data Source=.\\SQLEXPRESS;Initial Catalog=Donne;Integrated Security=True;";
+            string connectionString = configurationRoot.GetConnectionString(localHost);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
             cmd.Parameters.AddWithValue("@BuyerId", buyerId);
             con.Open();
@@ -134,8 +148,9 @@ namespace WebAppDonne.Dal
 
         public void Update(BuyerModel buyerModel)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            string localHost = "Data Source=.\\SQLEXPRESS;Initial Catalog=Donne;Integrated Security=True;";
+            string connectionString = configurationRoot.GetConnectionString(localHost);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
             cmd.Parameters.AddWithValue("@BuyerId", buyerModel.BuyerId);
             cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);

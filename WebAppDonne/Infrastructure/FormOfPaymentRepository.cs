@@ -1,8 +1,11 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
-using WebAppDonne.Models;
+using Domain.Donne;
+using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
+using System;
 
-namespace WebAppDonne.Dal
+namespace WebApi.Donne.Infrastructure
 {
     public class FormOfPaymentRepository
     {
@@ -13,7 +16,8 @@ namespace WebAppDonne.Dal
         #region Constructor
         public FormOfPaymentRepository()
         {
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().SetBasePath(Environment.CurrentDirectory).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true); ;
             configurationRoot = configurationBuilder.Build();
         }
         #endregion

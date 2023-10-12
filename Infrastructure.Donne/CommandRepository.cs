@@ -1,8 +1,11 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
-using WebAppDonne.Models;
+using Domain.Donne;
+using System.Collections.Generic;
+using System;
+using Microsoft.Extensions.Configuration;
 
-namespace WebAppDonne.Dal
+namespace Infrastructure.Donne
 {
     public class CommandRepository
     {
@@ -13,7 +16,7 @@ namespace WebAppDonne.Dal
         #region Constructor
         public CommandRepository()
         {
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().SetBasePath(Environment.CurrentDirectory).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
             configurationRoot = configurationBuilder.Build();
         }
         #endregion
