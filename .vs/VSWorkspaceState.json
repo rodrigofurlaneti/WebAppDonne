@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\test",
+    "\\test\\Test.Donne",
+    "\\test\\Test.Donne\\WebApi",
+    "\\test\\Test.Donne\\WebApi\\Infrastructure"
   ],
-  "SelectedNode": "\\WebAppDonne.sln",
+  "SelectedNode": "\\test\\Test.Donne\\WebApi\\Infrastructure\\BuyerRepositoryTest.cs",
   "PreviewInSolutionExplorer": false
 }
