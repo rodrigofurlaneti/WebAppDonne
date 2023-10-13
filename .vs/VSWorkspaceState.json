@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\WebAppDonne",
+    "\\src\\.sonarqube\\conf",
+    "\\src\\.sonarqube\\conf\\cs",
+    "\\src\\.sonarqube\\conf\\vbnet",
     "\\src\\WebAppDonne\\Infrastructure",
-    "\\test",
     "\\test\\Test.Donne",
     "\\test\\Test.Donne\\WebApi",
     "\\test\\Test.Donne\\WebApi\\Infrastructure"
