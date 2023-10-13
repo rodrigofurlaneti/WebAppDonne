@@ -8,7 +8,7 @@ namespace Test.Donne.Domain
     public class CategoryModelTest
     {
         [TestMethod]
-        public void CategoryModel_Sucesso()
+        public void CategoryModel_Tipo_Sucesso()
         {
             // Arrange
             CategoryModel categoryModel = new CategoryModel();

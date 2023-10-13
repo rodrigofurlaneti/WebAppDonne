@@ -8,7 +8,7 @@ namespace Test.Donne.Domain.BuyersModelTest
     public class BuyersModelTest
     {
         [TestMethod]
-        public void BuyerModel_Sucesso()
+        public void BuyerModel_Tipo_Sucesso()
         {
             // Arrange
             BuyerModel buyerModel = new BuyerModel();

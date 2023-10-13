@@ -8,7 +8,7 @@ namespace Test.Donne.Domain.CommandModelTest
     public class CommandModelTest
     {
         [TestMethod]
-        public void CommandModel_Sucesso()
+        public void CommandModel_Tipo_Sucesso()
         {
             // Arrange
             CommandModel commandModel = new CommandModel();
