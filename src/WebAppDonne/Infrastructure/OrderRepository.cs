@@ -82,23 +82,31 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(OrderModel orderModel)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
-            SqlCommand cmd = new SqlCommand("USP_OrderInsert", con);
-            cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
-            cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
-            cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
-            cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
-            cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
-            cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
-            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
+            try
+            {
+                string ConnectionString = configurationRoot.GetConnectionString("localHost");
+                SqlConnection con = new SqlConnection(ConnectionString);
+                SqlCommand cmd = new SqlCommand("USP_OrderInsert", con);
+                cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
+                cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
+                cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+                cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
+                cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
+                cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
+                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
+                cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         public void Delete(int OrderId)

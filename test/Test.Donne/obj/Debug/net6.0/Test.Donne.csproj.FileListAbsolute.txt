@@ -133,3 +133,5 @@ C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\ru\Micros
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\tr\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Faker.Net.6.0.dll
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\de-DE\Faker.Net.6.0.resources.dll

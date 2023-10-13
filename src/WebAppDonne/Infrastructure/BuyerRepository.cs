@@ -61,8 +61,7 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<BuyerModel> GetByStatus(int status)
         {
-            string localHost = "Data Source=.\\SQLEXPRESS;Initial Catalog=Donne;Integrated Security=True;";
-            string connectionString = configurationRoot.GetConnectionString(localHost);
+            string connectionString = configurationRoot.GetConnectionString("localHost");
             List<BuyerModel> listBuyerModel = new List<BuyerModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -89,8 +88,7 @@ namespace WebApi.Donne.Infrastructure
         }
         public BuyerModel GetById(int id)
         {
-            string localHost = "Data Source=.\\SQLEXPRESS;Initial Catalog=Donne;Integrated Security=True;";
-            string connectionString = configurationRoot.GetConnectionString(localHost);
+            string connectionString = configurationRoot.GetConnectionString("localHost");
             BuyerModel buyerModel = new BuyerModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -116,40 +114,52 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(BuyerModel buyerModel)
         {
-            string localHost = "Data Source=.\\SQLEXPRESS;Initial Catalog=Donne;Integrated Security=True;";
-            string connectionString = configurationRoot.GetConnectionString(localHost);
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BuyerInsert", con);
-            cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
-            cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
-            cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
-            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
+            try
+            {
+                string connectionString = configurationRoot.GetConnectionString("localHost");
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_BuyerInsert", con);
+                cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
+                cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
+                cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
+                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
+                cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         public void Delete(int buyerId)
         {
-            string localHost = "Data Source=.\\SQLEXPRESS;Initial Catalog=Donne;Integrated Security=True;";
-            string connectionString = configurationRoot.GetConnectionString(localHost);
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
-            cmd.Parameters.AddWithValue("@BuyerId", buyerId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
+            try
+            {
+                string connectionString = configurationRoot.GetConnectionString("localHost");
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
+                cmd.Parameters.AddWithValue("@BuyerId", buyerId);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void Update(BuyerModel buyerModel)
         {
-            string localHost = "Data Source=.\\SQLEXPRESS;Initial Catalog=Donne;Integrated Security=True;";
-            string connectionString = configurationRoot.GetConnectionString(localHost);
+            string connectionString = configurationRoot.GetConnectionString("localHost");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
             cmd.Parameters.AddWithValue("@BuyerId", buyerModel.BuyerId);
