@@ -20,7 +20,6 @@ namespace Test.Donne.Domain.BuyersModelTest
             buyerModel.DateInsert = DateTime.Now;
             buyerModel.BuyerPhone = Faker.RandomNumber.Next().ToString();
             buyerModel.UserId = Faker.RandomNumber.Next();
-            buyerModel.UserName = Faker.Name.First();
                 
             // Act
             // Assert
@@ -34,7 +33,6 @@ namespace Test.Donne.Domain.BuyersModelTest
             Assert.IsNotNull(buyerModel.DateInsert);
             Assert.IsNotNull(buyerModel.BuyerPhone);
             Assert.IsNotNull(buyerModel.UserId);
-            Assert.IsNotNull(buyerModel.UserName);
             Assert.AreEqual(buyerModel.BuyerAddress.GetType(), typeof(string));
             Assert.AreEqual(buyerModel.BuyerName.GetType(), typeof(string));
             Assert.AreEqual(buyerModel.UserName.GetType(), typeof(string));
@@ -44,7 +42,47 @@ namespace Test.Donne.Domain.BuyersModelTest
             Assert.AreEqual(buyerModel.DateInsert.GetType(), typeof(DateTime));
             Assert.AreEqual(buyerModel.BuyerPhone.GetType(), typeof(string));
             Assert.AreEqual(buyerModel.UserId.GetType(), typeof(int));
-            Assert.AreEqual(buyerModel.UserName.GetType(), typeof(string));
+        }
+
+        [TestMethod]
+        public void BuyerModel_Construtor_Sucesso()
+        {
+            // Arrange
+            string buyerAddress = Faker.Address.StreetAddress();
+            string buyerName = Faker.Name.FullName();
+            string userName = Faker.Name.First();
+            int buyerId = Faker.RandomNumber.Next(0, 100);
+            bool status = true;
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            string buyerPhone = Faker.RandomNumber.Next().ToString();
+            int userId = Faker.RandomNumber.Next();
+
+            // Act
+            BuyerModel buyerModel = new BuyerModel(buyerId, buyerName, buyerPhone, buyerAddress, dateInsert, dateUpdate,
+                userId, userName, status);
+
+            // Assert
+            Assert.IsNotNull(buyerModel);
+            Assert.IsNotNull(buyerModel.BuyerAddress);
+            Assert.IsNotNull(buyerModel.BuyerName);
+            Assert.IsNotNull(buyerModel.UserName);
+            Assert.IsNotNull(buyerModel.BuyerId);
+            Assert.IsNotNull(buyerModel.Status);
+            Assert.IsNotNull(buyerModel.DateUpdate);
+            Assert.IsNotNull(buyerModel.DateInsert);
+            Assert.IsNotNull(buyerModel.BuyerPhone);
+            Assert.IsNotNull(buyerModel.UserId);
+            Assert.IsNotNull(buyerModel.UserName);
+            Assert.AreEqual(buyerModel.BuyerAddress, buyerAddress);
+            Assert.AreEqual(buyerModel.BuyerName, buyerName);
+            Assert.AreEqual(buyerModel.UserName, userName);
+            Assert.AreEqual(buyerModel.BuyerId, buyerId);
+            Assert.AreEqual(buyerModel.Status, status);
+            Assert.AreEqual(buyerModel.DateUpdate, dateUpdate);
+            Assert.AreEqual(buyerModel.DateInsert, dateInsert);
+            Assert.AreEqual(buyerModel.BuyerPhone, buyerPhone);
+            Assert.AreEqual(buyerModel.UserId, userId);
         }
     }
 }
