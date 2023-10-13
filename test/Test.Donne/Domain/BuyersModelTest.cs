@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Test.Donne.Domain.BuyersModelTest
 {
     [TestClass]
+    [TestCategory("Donne > Domain > BuyersModel")]
     public class BuyersModelTest
     {
         [TestMethod]

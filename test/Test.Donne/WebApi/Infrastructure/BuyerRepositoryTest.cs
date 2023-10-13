@@ -1,9 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebApi.Donne.Infrastructure;
 
-namespace Test.Donne
+namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 {
     [TestClass]
+    [TestCategory("Donne > WebApi > Infrastructure > BuyerRepository")]
     public class BuyerRepositoryTest
     {
         [TestMethod]
