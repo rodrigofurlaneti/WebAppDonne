@@ -2,7 +2,7 @@
 
 namespace Domain.Donne
 {
-    public class OrderModel
+    public class OrderModel : LogModel
     {
         public int OrderId { get; set; }
         public int CommandId { get; set; }
@@ -11,10 +11,6 @@ namespace Domain.Donne
         public string SalePrice { get; set; }
         public int Amount { get; set; }
         public string TotalSalePrice { get; set; }
-        public DateTime? DateInsert { get; set; }
-        public DateTime? DateUpdate { get; set; }
-        public int UserId { get; set; }
-        public string UserName { get; set; }
 
         public OrderModel()
         {

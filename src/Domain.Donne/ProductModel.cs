@@ -2,7 +2,7 @@
 
 namespace Domain.Donne
 {
-    public class ProductModel
+    public class ProductModel : LogModel
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -14,11 +14,7 @@ namespace Domain.Donne
         public int MinimumStockQuantity { get; set; }
         public string TotalValueCostOfInventory { get; set; }
         public string TotalValueSaleStock { get; set; }
-        public DateTime? DateInsert { get; set; }
-        public DateTime? DateUpdate { get; set; }
         public bool NeedToPrint { get; set; }
-        public int UserId { get; set; }
-        public string UserName { get; set; }
         public bool Status { get; set; }
 
         public ProductModel()
