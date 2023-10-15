@@ -18,7 +18,7 @@ jobs:
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
-      Src_Name: src
+      Src_Name: src\WebAppDonne
       Solution_Name: src\WebAppDonne\WebAppDonne.sln         # Substitua pelo nome da sua solução, ou seja, MyWpfApp.sln.
       Test_Project_Path: test\Test.Donne\Test.Donne.csproj   # Substitua pelo caminho do seu projeto de teste, ou seja, MyWpfApp.Tests\MyWpfApp.Tests.csproj.
 
