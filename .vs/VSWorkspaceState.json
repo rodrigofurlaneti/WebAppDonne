@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\src",
+    "\\src\\WebAppDonne",
+    "\\test",
+    "\\test\\Test.Donne"
   ],
   "SelectedNode": "\\src\\WebAppDonne.sln",
   "PreviewInSolutionExplorer": false

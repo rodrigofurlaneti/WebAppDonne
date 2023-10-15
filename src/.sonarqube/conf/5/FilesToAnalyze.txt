@@ -1,0 +1,17 @@
+﻿C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\Domain\BuyersModelTest.cs
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\Domain\CategoryModelTest.cs
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\Domain\CommandModelTest.cs
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\Domain\CommandOrderModelTest.cs
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\Domain\FormOfPaymentModelTest.cs
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\Domain\LogModelTest.cs
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\Domain\OrderModelTest.cs
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\Domain\PaymentModelTest.cs
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\Domain\ProductModelTest.cs
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\Domain\ProfileModelTest.cs
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\Domain\UserModelTest.cs
+C:\Users\adm\.nuget\packages\microsoft.net.test.sdk\17.7.2\build\netcoreapp3.1\Microsoft.NET.Test.Sdk.Program.cs
+C:\Users\adm\.nuget\packages\microsoft.testplatform.testhost\17.7.2\build\netcoreapp3.1\x64\testhost.exe
+C:\Users\adm\.nuget\packages\microsoft.testplatform.testhost\17.7.2\build\netcoreapp3.1\x64\testhost.dll
+C:\Users\adm\.nuget\packages\mstest.testadapter\3.1.1\build\net6.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\adm\.nuget\packages\mstest.testadapter\3.1.1\build\net6.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\adm\.nuget\packages\mstest.testadapter\3.1.1\build\net6.0\Microsoft.TestPlatform.AdapterUtilities.dll
