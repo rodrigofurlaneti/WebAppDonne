@@ -19,7 +19,7 @@ jobs:
 
     env:
       Solution_Name: src\WebAppDonne\WebAppDonne.sln         # Substitua pelo nome da sua solução, ou seja, MyWpfApp.sln.
-      Test_Project_Path: .\test\Test.Donne\Test.Donne.csproj   # Substitua pelo caminho do seu projeto de teste, ou seja, MyWpfApp.Tests\MyWpfApp.Tests.csproj.
+      Test_Project_Path: Test.Donne\Test.Donne.csproj   # Substitua pelo caminho do seu projeto de teste, ou seja, MyWpfApp.Tests\MyWpfApp.Tests.csproj.
 
     steps:
     - name: Checkout
