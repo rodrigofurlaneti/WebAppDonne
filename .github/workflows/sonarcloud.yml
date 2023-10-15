@@ -42,12 +42,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_WORKSPACE: ${{ GITHUB_WORKSPACE }}
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"rodrigofurlaneti_WebAppDonne" /o:"rodrigofurlaneti" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet restore D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln
           dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln --configuration Release
           dotnet test D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\Test.Donne.csproj --collect:"XPlat Code Coverage" --logger trx --results-directory $GITHUB_WORKSPACE/test/testresults
-          reportgenerator -reports:"${{ GITHUB_WORKSPACE }}"/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverlet/reports -reporttypes:"SonarQube"
+          echo $GITHUB_WORKSPACE
+          reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverlet/reports -reporttypes:"SonarQube"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
