@@ -1,11 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src",
-    "\\src\\WebAppDonne",
-    "\\test",
+    "\\.github\\workflows",
+    "\\src\\.sonarqube",
     "\\test\\Test.Donne"
   ],
-  "SelectedNode": "\\src\\WebAppDonne.sln",
+  "SelectedNode": "\\test",
   "PreviewInSolutionExplorer": false
 }
