@@ -24,4 +24,8 @@
     <ProjectReference Include="..\..\src\WebAppDonne\WebApi.Donne.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WebApi\Infrastructure\" />
+  </ItemGroup>
+
 </Project>
