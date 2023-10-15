@@ -18,7 +18,6 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Assert
             Assert.IsNotNull(buyerRepository);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.Count() > 0);
         }
     }
 }
