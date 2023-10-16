@@ -4,14 +4,10 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
 	<CollectCoverage>true</CollectCoverage>
 	<CoverletOutput>../coverage/projects/$(MSBuildProjectName)/</CoverletOutput>
 	<CoverletOutputFormat>opencover</CoverletOutputFormat>
-	<Target Name="GenerateHtmlCoverageReport" AfterTargets="VSTest">
-        <Exec Command="ReportGenerator -reports:../coverage/projects/*/*.xml -targetdir:./coverage/report/ -reporttypes:Html_Dark -sourcedirs:./src/ -historydir:./coverage/history" />
-    </Target>
   </PropertyGroup>
 
   <ItemGroup>
