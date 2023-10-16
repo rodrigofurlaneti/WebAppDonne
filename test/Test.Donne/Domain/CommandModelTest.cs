@@ -47,10 +47,11 @@ namespace Test.Donne.Domain.CommandModelTest
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
             bool status = true;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
             // Act
-            CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, dateInsert,
-                dateUpdate, userId, userName);
+            CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
+                userId, userName);
 
             // Assert
             Assert.IsNotNull(commandModel);

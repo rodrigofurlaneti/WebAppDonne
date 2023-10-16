@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Donne
 {
@@ -17,8 +18,8 @@ namespace Domain.Donne
         }
 
         public OrderModel(int orderId, int commandId, int productId, string productName, string salePrice, 
-            int amount, string totalSalePrice, DateTime dateInsert, DateTime dateUpdate,
-            int userId, string userName) : base(dateInsert, dateUpdate, userId, userName)
+            int amount, string totalSalePrice, List<DateTime> listDateTime, int userId, string userName) 
+            : base(listDateTime, userId, userName)
         {
             OrderId = orderId;
             CommandId = commandId;
@@ -27,8 +28,8 @@ namespace Domain.Donne
             SalePrice = salePrice;
             Amount = amount;
             TotalSalePrice = totalSalePrice;
-            DateInsert = dateInsert;
-            DateUpdate = dateUpdate;
+            DateInsert = listDateTime[0];
+            DateUpdate = listDateTime[1];
             UserId = userId;
             UserName = userName;
         }

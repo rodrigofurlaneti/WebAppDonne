@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Donne
 {
@@ -14,10 +15,10 @@ namespace Domain.Donne
             
         }
 
-        public BaseLog(DateTime dateInsert, DateTime dateUpdate, int userId, string userName)
+        public BaseLog(List<DateTime> listDateTime, int userId, string userName)
         {
-            DateInsert = dateInsert;
-            DateUpdate = dateUpdate;
+            DateInsert = listDateTime[0];
+            DateUpdate = listDateTime[1];
             UserId = userId;
             UserName = userName;
         }

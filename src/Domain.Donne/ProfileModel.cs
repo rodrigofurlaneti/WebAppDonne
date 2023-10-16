@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Donne
 {
@@ -11,12 +12,12 @@ namespace Domain.Donne
         {
         }
 
-        public ProfileModel(int profileId, string profileName, DateTime dateInsert, DateTime dateUpdate, int userId, string userName)
+        public ProfileModel(int profileId, string profileName, List<DateTime> listDateTime, int userId, string userName)
         {
             ProfileId = profileId;
             ProfileName = profileName;
-            DateInsert = dateInsert;
-            DateUpdate = dateUpdate;
+            DateInsert = listDateTime[0];
+            DateUpdate = listDateTime[1];
             UserId = userId;
             UserName = userName;
         }

@@ -40,10 +40,11 @@ namespace Test.Donne.Domain.FormOfPaymentModelTest
             DateTime dateUpdate = Faker.Finance.Maturity();
             int userId = Faker.RandomNumber.Next(0, 1000);
             string userName = Faker.Name.Last();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
             // Act
             FormOfPaymentModel formOfPaymentModel = new FormOfPaymentModel(formOfPaymentId, 
-                formOfPaymentName, dateInsert, dateUpdate, userId, userName);
+                formOfPaymentName, listDateTime, userId, userName);
 
             // Assert
             Assert.IsNotNull(formOfPaymentModel);

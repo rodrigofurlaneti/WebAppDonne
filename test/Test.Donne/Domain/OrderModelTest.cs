@@ -55,10 +55,11 @@ namespace Test.Donne.Domain.OrderModelTest
             DateTime dateUpdate = Faker.Finance.Maturity();
             int userId = Faker.RandomNumber.Next(0, 1000);
             string userName = Faker.Name.Last();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
             // Act
-            OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, salePrice, amount, 
-                totalSalePrice, dateInsert, dateUpdate, userId, userName);
+            OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, salePrice, 
+                amount, totalSalePrice, listDateTime, userId, userName);
 
             // Assert
             Assert.IsNotNull(orderModel);

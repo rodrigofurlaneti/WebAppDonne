@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Donne
 {
@@ -23,9 +24,9 @@ namespace Domain.Donne
 
         public ProductModel(int productId, string productName, int categoryId, string categoryName, 
             string costPrice, string salePrice, int quantityStock, int minimumStockQuantity, 
-            string totalValueCostOfInventory, string totalValueSaleStock, bool status, DateTime dateInsert, 
-            DateTime dateUpdate, bool needToPrint, int userId, string userName)
-            : base(dateInsert, dateUpdate, userId, userName)
+            string totalValueCostOfInventory, string totalValueSaleStock, bool status, List<DateTime> listDateTime,
+            bool needToPrint, int userId, string userName)
+            : base(listDateTime, userId, userName)
         {
             this.ProductId = productId;
             this.ProductName = productName;
@@ -37,8 +38,8 @@ namespace Domain.Donne
             this.MinimumStockQuantity = minimumStockQuantity;
             this.TotalValueCostOfInventory = totalValueCostOfInventory;
             this.TotalValueSaleStock = totalValueSaleStock;
-            this.DateInsert = dateInsert;
-            this.DateUpdate = dateUpdate;
+            this.DateInsert = listDateTime[0];
+            this.DateUpdate = listDateTime[1];
             this.NeedToPrint = needToPrint;
             this.UserId = userId;
             this.UserName = userName;

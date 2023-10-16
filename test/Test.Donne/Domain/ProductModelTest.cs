@@ -70,11 +70,12 @@ namespace Test.Donne.Domain.ProductModelTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = Faker.Finance.Maturity();
             DateTime dateInsert = Faker.Finance.Maturity();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
             // Act
             ProductModel productModel = new ProductModel(productId, productName, categoryId, 
                 categoryName, costPrice, salePrice, quantityStock, minimumStockQuantity, totalValueCostOfInventory, 
-                totalValueSaleStock, status, dateInsert, dateUpdate, needToPrint, userId, userName);
+                totalValueSaleStock, status, listDateTime, needToPrint, userId, userName);
 
             // Assert
             Assert.IsNotNull(productModel);

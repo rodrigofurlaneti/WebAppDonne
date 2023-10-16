@@ -41,10 +41,10 @@ namespace Test.Donne.Domain.ProfileModelTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = Faker.Finance.Maturity();
             DateTime dateInsert = Faker.Finance.Maturity();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
             // Act
-            ProfileModel profileModel = new ProfileModel(profileId, profileName, dateInsert, 
-                dateUpdate, userId, userName);
+            ProfileModel profileModel = new ProfileModel(profileId, profileName, listDateTime, userId, userName);
 
             // Assert
             Assert.IsNotNull(profileModel);

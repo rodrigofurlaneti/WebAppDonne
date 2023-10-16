@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Donne
 {
@@ -15,15 +16,15 @@ namespace Domain.Donne
         }
 
         public BuyerModel(int buyerId, string buyerName, string buyerPhone, string buyerAddress, bool status,
-            DateTime dateInsert, DateTime dateUpdate, int userId, string userName) 
-            : base(dateInsert, dateUpdate, userId, userName)
+            List<DateTime> listDateTime, int userId, string userName) 
+            : base(listDateTime, userId, userName)
         {
             this.BuyerId = buyerId;
             this.BuyerName = buyerName;
             this.BuyerPhone = buyerPhone;
             this.BuyerAddress = buyerAddress;
-            this.DateInsert = dateInsert;
-            this.DateUpdate = dateUpdate;
+            this.DateInsert = listDateTime[0];
+            this.DateUpdate = listDateTime[1];
             this.UserId = userId;
             this.UserName = userName;
             this.Status = status;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Donne
 {
@@ -16,8 +17,8 @@ namespace Domain.Donne
         }
 
         public PaymentModel(int paymentId, int commandId, int formOfPaymentId, string formOfPaymentName,
-            string paymentAmount, string paymentType, DateTime dateInsert, DateTime dateUpdate, int userId, 
-            string userName) : base(dateInsert, dateUpdate, userId, userName)
+            string paymentAmount, string paymentType, List<DateTime> listDateTime, int userId, 
+            string userName) : base(listDateTime, userId, userName)
         {
             PaymentId = paymentId;
             CommandId = commandId;
@@ -25,8 +26,8 @@ namespace Domain.Donne
             FormOfPaymentName = formOfPaymentName;
             PaymentAmount = paymentAmount;
             PaymentType = paymentType;
-            DateInsert = dateInsert;
-            DateUpdate = dateUpdate;
+            DateInsert = listDateTime[0];
+            DateUpdate = listDateTime[1];
             UserId = userId;
             UserName = userName;
         }

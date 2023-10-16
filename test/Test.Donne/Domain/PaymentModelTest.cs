@@ -52,11 +52,12 @@ namespace Test.Donne.Domain.PaymentModelTest
             DateTime dateUpdate = Faker.Finance.Maturity();
             int userId = Faker.RandomNumber.Next(0, 1000);
             string userName = Faker.Name.Last();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
             // Act
             PaymentModel paymentModel = new PaymentModel(paymentId, commandId, 
-                formOfPaymentId, formOfPaymentName, paymentAmount, paymentType, dateInsert, 
-                dateUpdate, userId, userName);
+                formOfPaymentId, formOfPaymentName, paymentAmount, paymentType, listDateTime, 
+                userId, userName);
 
             // Assert
             Assert.IsNotNull(paymentModel);

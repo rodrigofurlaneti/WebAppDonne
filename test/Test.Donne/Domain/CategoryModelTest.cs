@@ -40,10 +40,11 @@ namespace Test.Donne.Domain
             int userId = Faker.RandomNumber.Next(0, 100);
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
             // Act
-            CategoryModel categoryModel = new CategoryModel(categoryId, categoryName, dateInsert,
-                dateUpdate, userId, userName);
+            CategoryModel categoryModel = new CategoryModel(categoryId, categoryName, listDateTime,
+                userId, userName);
 
             // Assert
             Assert.IsNotNull(categoryModel);

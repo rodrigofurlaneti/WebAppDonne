@@ -58,10 +58,11 @@ namespace Test.Donne.Domain.BuyersModelTest
             DateTime dateInsert = DateTime.Now;
             string buyerPhone = Faker.RandomNumber.Next().ToString();
             int userId = Faker.RandomNumber.Next();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
             // Act
             BuyerModel buyerModel = new BuyerModel(buyerId, buyerName, buyerPhone, buyerAddress, status, 
-                dateInsert, dateUpdate, userId, userName);
+                listDateTime, userId, userName);
 
             // Assert
             Assert.IsNotNull(buyerModel);

@@ -35,9 +35,10 @@ namespace Test.Donne.Domain.LogModelTest
             DateTime dateUpdate = Faker.Finance.Maturity();
             string userName = Faker.Name.Last();
             int userId = Faker.RandomNumber.Next();
+            List<DateTime> listDateTime = new List<DateTime> { dateInsert, dateUpdate };
 
             // Act
-            BaseLog logModel = new BaseLog(dateInsert, dateUpdate, userId, userName);
+            BaseLog logModel = new BaseLog(listDateTime, userId, userName);
 
             // Assert
             Assert.IsNotNull(logModel);
