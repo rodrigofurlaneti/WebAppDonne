@@ -9,6 +9,9 @@
 	<CollectCoverage>true</CollectCoverage>
 	<CoverletOutput>../coverage/projects/$(MSBuildProjectName)/</CoverletOutput>
 	<CoverletOutputFormat>opencover</CoverletOutputFormat>
+	<Target Name="GenerateHtmlCoverageReport" AfterTargets="VSTest">
+        <Exec Command="ReportGenerator -reports:./tests/coverage/projects/*/*.xml -targetdir:./tests/coverage/report/ -reporttypes:Html_Dark -sourcedirs:./src/ -historydir:./tests/coverage/history" />
+    </Target>
   </PropertyGroup>
 
   <ItemGroup>
