@@ -27,22 +27,22 @@ namespace Domain.Donne
             DateTime dateUpdate, bool needToPrint, int userId, string userName, bool status)
             : base(dateInsert, dateUpdate, userId, userName)
         {
-            ProductId = productId;
-            ProductName = productName;
-            CategoryId = categoryId;
-            CategoryName = categoryName;
-            CostPrice = costPrice;
-            SalePrice = salePrice;
-            QuantityStock = quantityStock;
-            MinimumStockQuantity = minimumStockQuantity;
-            TotalValueCostOfInventory = totalValueCostOfInventory;
-            TotalValueSaleStock = totalValueSaleStock;
-            DateInsert = dateInsert;
-            DateUpdate = dateUpdate;
-            NeedToPrint = needToPrint;
-            UserId = userId;
-            UserName = userName;
-            Status = status;
+            this.ProductId = productId;
+            this.ProductName = productName;
+            this.CategoryId = categoryId;
+            this.CategoryName = categoryName;
+            this.CostPrice = costPrice;
+            this.SalePrice = salePrice;
+            this.QuantityStock = quantityStock;
+            this.MinimumStockQuantity = minimumStockQuantity;
+            this.TotalValueCostOfInventory = totalValueCostOfInventory;
+            this.TotalValueSaleStock = totalValueSaleStock;
+            this.DateInsert = dateInsert;
+            this.DateUpdate = dateUpdate;
+            this.NeedToPrint = needToPrint;
+            this.UserId = userId;
+            this.UserName = userName;
+            this.Status = status;
         }
     }
 }
