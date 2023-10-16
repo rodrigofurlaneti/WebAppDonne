@@ -22,27 +22,25 @@ namespace Domain.Donne
         {
         }
 
-        public ProductModel(int productId, string productName, int categoryId, string categoryName, 
-            string costPrice, string salePrice, int quantityStock, int minimumStockQuantity, 
-            string totalValueCostOfInventory, string totalValueSaleStock, bool status, List<DateTime> listDateTime,
-            bool needToPrint, int userId, string userName)
-            : base(listDateTime, userId, userName)
+        public ProductModel(List<int> listInts, List<string> listStrings, bool status, 
+            List<DateTime> listDateTime, bool needToPrint)
+            : base(listDateTime, listInts[4], listStrings[6])
         {
-            this.ProductId = productId;
-            this.ProductName = productName;
-            this.CategoryId = categoryId;
-            this.CategoryName = categoryName;
-            this.CostPrice = costPrice;
-            this.SalePrice = salePrice;
-            this.QuantityStock = quantityStock;
-            this.MinimumStockQuantity = minimumStockQuantity;
-            this.TotalValueCostOfInventory = totalValueCostOfInventory;
-            this.TotalValueSaleStock = totalValueSaleStock;
+            this.ProductId = listInts[0];
+            this.ProductName = listStrings[0];
+            this.CategoryId = listInts[1];
+            this.CategoryName = listStrings[1];
+            this.CostPrice = listStrings[2];
+            this.SalePrice = listStrings[3];
+            this.QuantityStock = listInts[2];
+            this.MinimumStockQuantity = listInts[3];
+            this.TotalValueCostOfInventory = listStrings[4];
+            this.TotalValueSaleStock = listStrings[5];
             this.DateInsert = listDateTime[0];
             this.DateUpdate = listDateTime[1];
             this.NeedToPrint = needToPrint;
-            this.UserId = userId;
-            this.UserName = userName;
+            this.UserId = listInts[4];
+            this.UserName = listStrings[6];
             this.Status = status;
         }
     }
