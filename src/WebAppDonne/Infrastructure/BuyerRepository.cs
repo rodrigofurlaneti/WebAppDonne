@@ -55,7 +55,9 @@ namespace WebApi.Donne.Infrastructure
             }
             catch (InvalidOperationException ex)
             {
-                throw new InvalidOperationException("A propriedade Connection String não foi inicializada.");
+                string mensagem = "A propriedade Connection String não foi inicializada.";
+                InvalidOperationException invalidOperationException = new InvalidOperationException(mensagem, ex);
+                throw invalidOperationException;
             }
         }
 
@@ -133,7 +135,8 @@ namespace WebApi.Donne.Infrastructure
             }
             catch (Exception ex)
             {
-                throw ex;
+                Exception exception = new Exception(ex.Message);
+                throw exception;
             }
 
         }
@@ -153,7 +156,8 @@ namespace WebApi.Donne.Infrastructure
             }
             catch (Exception ex)
             {
-                throw ex;
+                Exception exception = new Exception(ex.Message);
+                throw exception;
             }
         }
 

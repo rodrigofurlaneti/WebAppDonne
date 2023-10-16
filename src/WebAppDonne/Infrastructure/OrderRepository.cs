@@ -104,7 +104,8 @@ namespace WebApi.Donne.Infrastructure
             }
             catch (Exception ex)
             {
-                throw ex;
+                Exception exception = new Exception(ex.Message);
+                throw exception;
             }
 
         }
