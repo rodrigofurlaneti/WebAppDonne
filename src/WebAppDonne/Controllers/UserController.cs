@@ -8,11 +8,8 @@ namespace WebApi.Donne.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
-
-        public UserController(ILogger<UserController> logger)
+        public UserController()
         {
-            _logger = logger;
         }
 
         [HttpGet(Name = "GetUser")]

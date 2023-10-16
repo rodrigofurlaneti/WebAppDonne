@@ -8,11 +8,8 @@ namespace WebApi.Donne.Controllers
     [Route("[controller]")]
     public class ProfileController : ControllerBase
     {
-        private readonly ILogger<ProfileController> _logger;
-
-        public ProfileController(ILogger<ProfileController> logger)
+        public ProfileController()
         {
-            _logger = logger;
         }
 
         [HttpGet(Name = "GetProfile")]

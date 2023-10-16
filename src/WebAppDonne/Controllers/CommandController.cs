@@ -8,11 +8,8 @@ namespace WebApi.Donne.Controllers
     [ApiController]
     public class CommandController : Controller
     {
-        private readonly ILogger<CommandController> _logger;
-
-        public CommandController(ILogger<CommandController> logger)
+        public CommandController()
         {
-            _logger = logger;
         }
 
         [HttpGet(Name = "GetCommand")]

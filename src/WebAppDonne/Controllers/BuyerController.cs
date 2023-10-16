@@ -8,10 +8,8 @@ namespace WebApi.Donne.Controllers
     [Route("[controller]")]
     public class BuyerController : ControllerBase
     {
-        private readonly ILogger<BuyerController> _logger;
-        public BuyerController(ILogger<BuyerController> logger)
+        public BuyerController()
         {
-            _logger = logger;
         }
 
         [HttpGet(Name = "GetBuyers")]

@@ -8,11 +8,8 @@ namespace WebApi.Donne.Controllers
     [ApiController]
     public class PaymentController : Controller
     {
-        private readonly ILogger<PaymentController> _logger;
-
-        public PaymentController(ILogger<PaymentController> logger)
+        public PaymentController()
         {
-            _logger = logger;
         }
 
         [HttpGet(Name = "GetPayment")]

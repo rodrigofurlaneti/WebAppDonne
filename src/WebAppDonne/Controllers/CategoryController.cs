@@ -8,11 +8,8 @@ namespace WebApi.Donne.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ILogger<CategoryController> _logger;
-
-        public CategoryController(ILogger<CategoryController> logger)
+        public CategoryController()
         {
-            _logger = logger;
         }
 
         [HttpGet(Name = "GetCategory")]
