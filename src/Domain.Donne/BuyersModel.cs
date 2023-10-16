@@ -14,7 +14,7 @@ namespace Domain.Donne
         {
         }
 
-        public BuyerModel(int buyerId, string buyerName, string buyerPhone, string buyerAddress, DateTime? dateInsert, DateTime? dateUpdate, int userId, string userName, bool status)
+        public BuyerModel(int buyerId, string buyerName, string buyerPhone, string buyerAddress, DateTime dateInsert, DateTime dateUpdate, int userId, string userName, bool status)
         {
             BuyerId = buyerId;
             BuyerName = buyerName;

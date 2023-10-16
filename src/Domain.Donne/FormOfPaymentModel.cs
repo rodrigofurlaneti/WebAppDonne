@@ -11,7 +11,7 @@ namespace Domain.Donne
         {
         }
 
-        public FormOfPaymentModel(int formOfPaymentId, string formOfPaymentName, DateTime? dateInsert, DateTime? dateUpdate, int userId, string userName)
+        public FormOfPaymentModel(int formOfPaymentId, string formOfPaymentName, DateTime dateInsert, DateTime dateUpdate, int userId, string userName)
         {
             FormOfPaymentId = formOfPaymentId;
             FormOfPaymentName = formOfPaymentName;

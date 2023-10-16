@@ -16,7 +16,7 @@ namespace Domain.Donne
         {
         }
 
-        public OrderModel(int orderId, int commandId, int productId, string productName, string salePrice, int amount, string totalSalePrice, DateTime? dateInsert, DateTime? dateUpdate, int userId, string userName)
+        public OrderModel(int orderId, int commandId, int productId, string productName, string salePrice, int amount, string totalSalePrice, DateTime dateInsert, DateTime dateUpdate, int userId, string userName)
         {
             OrderId = orderId;
             CommandId = commandId;

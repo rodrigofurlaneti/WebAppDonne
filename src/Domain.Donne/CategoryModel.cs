@@ -11,7 +11,7 @@ namespace Domain.Donne
         {
         }
 
-        public CategoryModel(int categoryId, string categoryName, DateTime? dateInsert, DateTime? dateUpdate, int userId, string userName)
+        public CategoryModel(int categoryId, string categoryName, DateTime dateInsert, DateTime dateUpdate, int userId, string userName)
         {
             CategoryId = categoryId;
             CategoryName = categoryName;

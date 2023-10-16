@@ -11,7 +11,7 @@ namespace Domain.Donne
         {
         }
 
-        public ProfileModel(int profileId, string profileName, DateTime? dateInsert, DateTime? dateUpdate, int userId, string userName)
+        public ProfileModel(int profileId, string profileName, DateTime dateInsert, DateTime dateUpdate, int userId, string userName)
         {
             ProfileId = profileId;
             ProfileName = profileName;

@@ -21,7 +21,7 @@ namespace Domain.Donne
         {
         }
 
-        public ProductModel(int productId, string productName, int categoryId, string categoryName, string costPrice, string salePrice, int quantityStock, int minimumStockQuantity, string totalValueCostOfInventory, string totalValueSaleStock, DateTime? dateInsert, DateTime? dateUpdate, bool needToPrint, int userId, string userName, bool status)
+        public ProductModel(int productId, string productName, int categoryId, string categoryName, string costPrice, string salePrice, int quantityStock, int minimumStockQuantity, string totalValueCostOfInventory, string totalValueSaleStock, DateTime dateInsert, DateTime dateUpdate, bool needToPrint, int userId, string userName, bool status)
         {
             ProductId = productId;
             ProductName = productName;

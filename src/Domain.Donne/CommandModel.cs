@@ -13,7 +13,7 @@ namespace Domain.Donne
         {
         }
 
-        public CommandModel(int commandId, int buyerId, string buyerName, DateTime? dateInsert, DateTime? dateUpdate, int userId, string userName, bool status)
+        public CommandModel(int commandId, int buyerId, string buyerName, DateTime dateInsert, DateTime dateUpdate, int userId, string userName, bool status)
         {
             CommandId = commandId;
             BuyerId = buyerId;
