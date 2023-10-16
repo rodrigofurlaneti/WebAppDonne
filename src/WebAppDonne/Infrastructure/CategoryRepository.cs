@@ -17,7 +17,7 @@ namespace WebApi.Donne.Infrastructure
         public CategoryRepository()
         {
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true); ;
+                .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configurationRoot = configurationBuilder.Build();
         }
         #endregion

@@ -13,7 +13,7 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpGet(Name = "GetCommand")]
-        public IEnumerable<CommandModel> Get()
+        public IEnumerable<CommandModel> GetCommand()
         {
             CommandRepository dal = new CommandRepository();
             var ret = dal.GetAllCommand();

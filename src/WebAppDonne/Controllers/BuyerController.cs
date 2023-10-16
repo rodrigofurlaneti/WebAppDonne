@@ -13,7 +13,7 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpGet(Name = "GetBuyers")]
-        public IEnumerable<BuyerModel> Get()
+        public IEnumerable<BuyerModel> GetBuyers()
         {
             BuyerRepository dal = new BuyerRepository();
             var ret = dal.GetAllBuyers();
