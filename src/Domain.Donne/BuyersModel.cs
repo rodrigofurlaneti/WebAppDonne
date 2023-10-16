@@ -16,15 +16,15 @@ namespace Domain.Donne
 
         public BuyerModel(int buyerId, string buyerName, string buyerPhone, string buyerAddress, DateTime dateInsert, DateTime dateUpdate, int userId, string userName, bool status)
         {
-            BuyerId = buyerId;
-            BuyerName = buyerName;
-            BuyerPhone = buyerPhone;
-            BuyerAddress = buyerAddress;
-            DateInsert = dateInsert;
-            DateUpdate = dateUpdate;
-            UserId = userId;
-            UserName = userName;
-            Status = status;
+            this.BuyerId = buyerId;
+            this.BuyerName = buyerName;
+            this.BuyerPhone = buyerPhone;
+            this.BuyerAddress = buyerAddress;
+            this.DateInsert = dateInsert;
+            this.DateUpdate = dateUpdate;
+            this.UserId = userId;
+            this.UserName = userName;
+            this.Status = status;
         }
     }
 }
