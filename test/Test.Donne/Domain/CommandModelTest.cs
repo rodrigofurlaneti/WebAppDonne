@@ -49,8 +49,8 @@ namespace Test.Donne.Domain.CommandModelTest
             bool status = true;
 
             // Act
-            CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, dateInsert,
-                dateUpdate, userId, userName, status);
+            CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, dateInsert,
+                dateUpdate, userId, userName);
 
             // Assert
             Assert.IsNotNull(commandModel);

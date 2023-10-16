@@ -74,7 +74,7 @@ namespace Test.Donne.Domain.ProductModelTest
             // Act
             ProductModel productModel = new ProductModel(productId, productName, categoryId, 
                 categoryName, costPrice, salePrice, quantityStock, minimumStockQuantity, totalValueCostOfInventory, 
-                totalValueSaleStock, dateInsert, dateUpdate, needToPrint, userId, userName, status);
+                totalValueSaleStock, status, dateInsert, dateUpdate, needToPrint, userId, userName);
 
             // Assert
             Assert.IsNotNull(productModel);

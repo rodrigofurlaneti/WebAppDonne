@@ -23,8 +23,8 @@ namespace Domain.Donne
 
         public ProductModel(int productId, string productName, int categoryId, string categoryName, 
             string costPrice, string salePrice, int quantityStock, int minimumStockQuantity, 
-            string totalValueCostOfInventory, string totalValueSaleStock, DateTime dateInsert, 
-            DateTime dateUpdate, bool needToPrint, int userId, string userName, bool status)
+            string totalValueCostOfInventory, string totalValueSaleStock, bool status, DateTime dateInsert, 
+            DateTime dateUpdate, bool needToPrint, int userId, string userName)
             : base(dateInsert, dateUpdate, userId, userName)
         {
             this.ProductId = productId;

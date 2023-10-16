@@ -13,18 +13,18 @@ namespace Domain.Donne
         {
         }
 
-        public CommandModel(int commandId, int buyerId, string buyerName, DateTime dateInsert, 
-            DateTime dateUpdate, int userId, string userName, bool status) : base(dateInsert, dateUpdate, 
-                userId, userName)
+        public CommandModel(int commandId, int buyerId, string buyerName, bool status,DateTime dateInsert, 
+            DateTime dateUpdate, int userId, string userName) : base(dateInsert, 
+                dateUpdate, userId, userName)
         {
-            CommandId = commandId;
-            BuyerId = buyerId;
-            BuyerName = buyerName;
-            DateInsert = dateInsert;
-            DateUpdate = dateUpdate;
-            UserId = userId;
-            UserName = userName;
-            Status = status;
+            this.CommandId = commandId;
+            this.BuyerId = buyerId;
+            this.BuyerName = buyerName;
+            this.DateInsert = dateInsert;
+            this.DateUpdate = dateUpdate;
+            this.UserId = userId;
+            this.UserName = userName;
+            this.Status = status;
         }
     }
 }
