@@ -1,4 +1,6 @@
-﻿namespace Domain.Donne
+﻿using System.Collections.Generic;
+
+namespace Domain.Donne
 {
     public class CommandOrderModel
     {
@@ -15,16 +17,16 @@
         {
         }
 
-        public CommandOrderModel(int commandId, int buyerId, string buyerName, int productId, string productName, int amount, string salePrice, string totalSalePrice)
+        public CommandOrderModel(int commandId, int buyerId, List<string> listStrings, int productId, int amount)
         {
             CommandId = commandId;
             BuyerId = buyerId;
-            BuyerName = buyerName;
+            BuyerName = listStrings[0];
             ProductId = productId;
-            ProductName = productName;
+            ProductName = listStrings[1];
             Amount = amount;
-            SalePrice = salePrice;
-            TotalSalePrice = totalSalePrice;
+            SalePrice = listStrings[2];
+            TotalSalePrice = listStrings[3];
         }
     }
 }

@@ -45,10 +45,11 @@ namespace Test.Donne.Domain.CommandOrderModelTest
             int amount = Faker.RandomNumber.Next(0, 1000);
             string salePrice = Faker.RandomNumber.Next(0, 1000).ToString();
             string totalSalePrice = Faker.RandomNumber.Next(0, 1000).ToString();
+            List<string> listStrings = new List<string>() { buyerName, productName, salePrice, totalSalePrice };
 
             // Act
-            CommandOrderModel commandOrderModel = new CommandOrderModel(commandId, buyerId, buyerName, productId, 
-                productName, amount, salePrice, totalSalePrice);
+            CommandOrderModel commandOrderModel = new CommandOrderModel(commandId, buyerId, listStrings, productId, 
+                amount);
 
             // Assert
             Assert.IsNotNull(commandOrderModel);
