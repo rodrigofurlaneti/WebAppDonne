@@ -11,7 +11,7 @@ namespace Test.Donne.Domain.LogModelTest
         public void LogModel_Tipo_Sucesso()
         {
             // Arrange
-            LogModel logModel = new LogModel();
+            BaseLog logModel = new BaseLog();
 
             // Act
             logModel.DateInsert = Faker.Finance.Maturity();
@@ -37,7 +37,7 @@ namespace Test.Donne.Domain.LogModelTest
             int userId = Faker.RandomNumber.Next();
 
             // Act
-            LogModel logModel = new LogModel(dateInsert, dateUpdate, userId, userName);
+            BaseLog logModel = new BaseLog(dateInsert, dateUpdate, userId, userName);
 
             // Assert
             Assert.IsNotNull(logModel);
