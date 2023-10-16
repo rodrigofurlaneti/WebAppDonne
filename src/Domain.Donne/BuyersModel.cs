@@ -2,7 +2,7 @@
 
 namespace Domain.Donne
 {
-    public class BuyerModel : LogModel
+    public class BuyerModel : BaseLog
     {
         public int BuyerId { get; set; }
         public string BuyerName { get; set; }
@@ -14,7 +14,9 @@ namespace Domain.Donne
         {
         }
 
-        public BuyerModel(int buyerId, string buyerName, string buyerPhone, string buyerAddress, DateTime dateInsert, DateTime dateUpdate, int userId, string userName, bool status)
+        public BuyerModel(int buyerId, string buyerName, string buyerPhone, string buyerAddress, bool status,
+            DateTime dateInsert, DateTime dateUpdate, int userId, string userName) 
+            : base(dateInsert, dateUpdate, userId, userName)
         {
             this.BuyerId = buyerId;
             this.BuyerName = buyerName;

@@ -2,7 +2,7 @@
 
 namespace Domain.Donne
 {
-    public class ProductModel : LogModel
+    public class ProductModel : BaseLog
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -21,7 +21,11 @@ namespace Domain.Donne
         {
         }
 
-        public ProductModel(int productId, string productName, int categoryId, string categoryName, string costPrice, string salePrice, int quantityStock, int minimumStockQuantity, string totalValueCostOfInventory, string totalValueSaleStock, DateTime dateInsert, DateTime dateUpdate, bool needToPrint, int userId, string userName, bool status)
+        public ProductModel(int productId, string productName, int categoryId, string categoryName, 
+            string costPrice, string salePrice, int quantityStock, int minimumStockQuantity, 
+            string totalValueCostOfInventory, string totalValueSaleStock, DateTime dateInsert, 
+            DateTime dateUpdate, bool needToPrint, int userId, string userName, bool status)
+            : base(dateInsert, dateUpdate, userId, userName)
         {
             ProductId = productId;
             ProductName = productName;

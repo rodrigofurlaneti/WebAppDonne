@@ -2,7 +2,7 @@
 
 namespace Domain.Donne
 {
-    public class ProfileModel : LogModel
+    public class ProfileModel : BaseLog
     {
         public int ProfileId { get; set; }
         public string ProfileName { get; set; }

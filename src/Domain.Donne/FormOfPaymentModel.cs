@@ -2,7 +2,7 @@
 
 namespace Domain.Donne
 {
-    public class FormOfPaymentModel : LogModel
+    public class FormOfPaymentModel : BaseLog
     {
         public int FormOfPaymentId { get; set; }
         public string FormOfPaymentName { get; set; }
@@ -11,7 +11,8 @@ namespace Domain.Donne
         {
         }
 
-        public FormOfPaymentModel(int formOfPaymentId, string formOfPaymentName, DateTime dateInsert, DateTime dateUpdate, int userId, string userName)
+        public FormOfPaymentModel(int formOfPaymentId, string formOfPaymentName, DateTime dateInsert, 
+            DateTime dateUpdate, int userId, string userName) : base(dateInsert, dateUpdate, userId, userName)
         {
             FormOfPaymentId = formOfPaymentId;
             FormOfPaymentName = formOfPaymentName;

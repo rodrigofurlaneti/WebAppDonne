@@ -2,7 +2,7 @@
 
 namespace Domain.Donne
 {
-    public class OrderModel : LogModel
+    public class OrderModel : BaseLog
     {
         public int OrderId { get; set; }
         public int CommandId { get; set; }
@@ -16,7 +16,9 @@ namespace Domain.Donne
         {
         }
 
-        public OrderModel(int orderId, int commandId, int productId, string productName, string salePrice, int amount, string totalSalePrice, DateTime dateInsert, DateTime dateUpdate, int userId, string userName)
+        public OrderModel(int orderId, int commandId, int productId, string productName, string salePrice, 
+            int amount, string totalSalePrice, DateTime dateInsert, DateTime dateUpdate,
+            int userId, string userName) : base(dateInsert, dateUpdate, userId, userName)
         {
             OrderId = orderId;
             CommandId = commandId;

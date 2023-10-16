@@ -60,8 +60,8 @@ namespace Test.Donne.Domain.BuyersModelTest
             int userId = Faker.RandomNumber.Next();
 
             // Act
-            BuyerModel buyerModel = new BuyerModel(buyerId, buyerName, buyerPhone, buyerAddress, dateInsert, dateUpdate,
-                userId, userName, status);
+            BuyerModel buyerModel = new BuyerModel(buyerId, buyerName, buyerPhone, buyerAddress, status, 
+                dateInsert, dateUpdate, userId, userName);
 
             // Assert
             Assert.IsNotNull(buyerModel);
