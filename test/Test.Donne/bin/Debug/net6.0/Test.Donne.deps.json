@@ -13,8 +13,10 @@
           "MSTest.TestAdapter": "3.1.1",
           "MSTest.TestFramework": "3.1.1",
           "Microsoft.NET.Test.Sdk": "17.7.2",
+          "ReportGenerator": "5.1.13",
           "WebApi.Donne": "1.0.0",
           "coverlet.collector": "6.0.0",
+          "coverlet.msbuild": "3.2.0",
           "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions": "14.0.0.0"
         },
         "runtime": {
@@ -22,6 +24,7 @@
         }
       },
       "coverlet.collector/6.0.0": {},
+      "coverlet.msbuild/3.2.0": {},
       "Faker.Net/2.0.154": {
         "dependencies": {
           "NETStandard.Library": "2.0.3"
@@ -480,6 +483,7 @@
           }
         }
       },
+      "ReportGenerator/5.1.13": {},
       "runtime.native.System.Data.SqlClient.sni/4.5.0": {
         "dependencies": {
           "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
@@ -642,6 +646,13 @@
       "sha512": "sha512-tW3lsNS+dAEII6YGUX/VMoJjBS1QvsxqJeqLaJXub08y1FSjasFPtQ4UBUsudE9PNrzLjooClMsPtY2cZLdXpQ==",
       "path": "coverlet.collector/6.0.0",
       "hashPath": "coverlet.collector.6.0.0.nupkg.sha512"
+    },
+    "coverlet.msbuild/3.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lu/eJJpqJb4qy3BGPtDD/LI5RSOwXYYyRErTyaG0OTP69llzVK3FEe74hBQx0JtLUTLEVBfERV4uGYcE1Br2sg==",
+      "path": "coverlet.msbuild/3.2.0",
+      "hashPath": "coverlet.msbuild.3.2.0.nupkg.sha512"
     },
     "Faker.Net/2.0.154": {
       "type": "package",
@@ -838,6 +849,13 @@
       "sha512": "sha512-QWINE2x3MbTODsWT1Gh71GaGb5icBz4chS8VYvTgsBnsi8esgN6wtHhydd7fvToWECYGq7T4cgBBDiKD/363fg==",
       "path": "nuget.frameworks/6.5.0",
       "hashPath": "nuget.frameworks.6.5.0.nupkg.sha512"
+    },
+    "ReportGenerator/5.1.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HOJ0HmNCIZsdE9odm/bfIC77yH7xKJ/MfCqJygyD6HvJs9kbGozpkm2imLl4mfvu1ArV3COXwJan63gfDStk9w==",
+      "path": "reportgenerator/5.1.13",
+      "hashPath": "reportgenerator.5.1.13.nupkg.sha512"
     },
     "runtime.native.System.Data.SqlClient.sni/4.5.0": {
       "type": "package",
