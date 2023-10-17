@@ -77,10 +77,10 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
         SONAR_ORGANIZATIONS: ${{ secrets.SONAR_ORGANIZATIONS }}
-        SONAR_HOST_URL: ${{ ${{ secrets.SONAR_HOST_URL }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       shell: powershell
       run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /o:"${{ secrets.SONAR_ORGANIZATIONS }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url=${{ secrets.SONAR__HOST_URL }}
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /o:"${{ secrets.SONAR_ORGANIZATIONS }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }}
           dotnet restore D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln
           dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln --configuration Release
           dotnet test D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\Test.Donne.csproj --collect:"XPlat Code Coverage" --logger trx --results-directory $GITHUB_WORKSPACE/test/testresults
