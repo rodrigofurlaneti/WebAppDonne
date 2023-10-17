@@ -76,9 +76,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+        SONAR_ORGANIZATIONS: ${{ secrets.SONAR_ORGANIZATIONS }}
       shell: powershell
       run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:$env:SONAR_PROJECT_KEY /o:"rodrigofurlaneti" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:$env:SONAR_PROJECT_KEY /o:$env:SONAR_ORGANIZATIONS /d:sonar.token=$env:SONAR_TOKEN /d:sonar.host.url="https://sonarcloud.io"
           dotnet restore D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln
           dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln --configuration Release
           dotnet test D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\Test.Donne.csproj --collect:"XPlat Code Coverage" --logger trx --results-directory $GITHUB_WORKSPACE/test/testresults
