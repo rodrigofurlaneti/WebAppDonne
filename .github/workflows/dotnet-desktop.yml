@@ -99,7 +99,7 @@ jobs:
  
     - name: Create code coverage report
       run: |
-        SonarScanner.MSBuild.exe begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /o:"${{ secrets.SONAR_ORGANIZATIONS }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }} /d:"sonar.verbose=true"
+        SonarScanner.MSBuild.exe begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /o:"${{ secrets.SONAR_ORGANIZATIONS }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.verbose="true"
         dotnet build src\WebAppDonne.sln --configuration Release;
         dotnet test src\WebAppDonne.sln --no-build --collect:"XPlat Code Coverage";
         SonarScanner.MSBuild.exe end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
