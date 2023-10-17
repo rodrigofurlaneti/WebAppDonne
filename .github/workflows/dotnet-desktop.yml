@@ -86,5 +86,5 @@ jobs:
           dotnet test D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\Test.Donne.csproj --collect:"XPlat Code Coverage" --logger trx --results-directory $GITHUB_WORKSPACE/test/testresults
           dotnet tool install -g coverlet.console;
           dotnet tool install -g dotnet-reportgenerator-globaltool;
-          reportgenerator -reports:$GITHUB_WORKSPACE/tests/testresults/**/coverage.cobertura.xml -targetdir:coveragereport -reporttypes:"SonarQube"
+          reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverlet/reports -reporttypes:SonarQube -sourcedirs:./src/ -historydir:./test/coverlet/history
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
