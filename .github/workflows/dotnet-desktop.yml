@@ -103,8 +103,8 @@ jobs:
         #dotnet tool install -g dotnet-reportgenerator-globaltool
         #reportgenerator -reports:coverage/*/coverage.cobertura.xml -targetdir:CodeCoverage -reporttypes:'HtmlInline;Cobertura'
         #.\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-        dotnet sonarscanner begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+        dotnet sonarscanner begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=coverage.xml
         dotnet build --no-incremental
-        dotnet tool install --global dotnet-coverage
-        dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
+        dotnet tool install --global coverlet.console
+        coverlet .test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll --target "dotnet" --targetargs "test --no-build" -f=opencover -o="coverage.xml"
         dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
