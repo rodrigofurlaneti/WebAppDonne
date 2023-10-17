@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a3c0b558-0ce5-4410-965e-4ed98d7e9665" name="adm@DESKTOP-2UFRIRL 2023-10-17 08:13:52" runUser="DESKTOP-2UFRIRL\adm" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2023-10-17T08:13:52.2037089-03:00" queuing="2023-10-17T08:13:52.2037093-03:00" start="2023-10-17T08:13:48.1327618-03:00" finish="2023-10-17T08:13:53.0555055-03:00" />
+  <TestSettings name="default" id="e9d52ccf-2006-4ca2-b4cc-4cf777e60e96">
+    <Deployment runDeploymentRoot="adm_DESKTOP-2UFRIRL_2023-10-17_08_13_52" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="940f7967-9569-45f9-99b6-324e39ef05af" testId="3dab296f-1b44-c4e3-7a1f-dcca5439ed31" testName="ProductModel_Tipo_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0021176" startTime="2023-10-17T08:13:52.1023720-03:00" endTime="2023-10-17T08:13:52.1046361-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="940f7967-9569-45f9-99b6-324e39ef05af" />
+    <UnitTestResult executionId="4815dc25-6fc2-4ca6-8b1f-d6f3a16a0237" testId="0f515cd1-fdf4-94a1-2a72-71c90774e2f2" testName="OrderModel_Tipo_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0064424" startTime="2023-10-17T08:13:52.1415639-03:00" endTime="2023-10-17T08:13:52.1482120-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4815dc25-6fc2-4ca6-8b1f-d6f3a16a0237" />
+    <UnitTestResult executionId="34877404-b16c-4008-a697-8d1c65a30c5b" testId="f91442c3-2a55-0830-2299-799a6b0c1b60" testName="UserModel_Tipo_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0010831" startTime="2023-10-17T08:13:52.0946709-03:00" endTime="2023-10-17T08:13:52.0959012-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34877404-b16c-4008-a697-8d1c65a30c5b" />
+    <UnitTestResult executionId="59d90e67-2f2e-42bb-886a-ca5453625aba" testId="bacf22fa-7577-d1be-f397-6fe1a5210c5f" testName="LogModel_Construtor_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0002572" startTime="2023-10-17T08:13:52.1520979-03:00" endTime="2023-10-17T08:13:52.1524705-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="59d90e67-2f2e-42bb-886a-ca5453625aba" />
+    <UnitTestResult executionId="cbb1d999-ce2d-47d7-acd4-fb30057d9845" testId="03364a7a-79f7-83f9-3d7c-2ca458dd6a2c" testName="OrderModel_Construtor_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0006966" startTime="2023-10-17T08:13:52.1350345-03:00" endTime="2023-10-17T08:13:52.1409571-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cbb1d999-ce2d-47d7-acd4-fb30057d9845" />
+    <UnitTestResult executionId="d5d5956d-1c87-43ac-a94d-c1f4b33078db" testId="f04a2e0f-18ad-1800-3671-c2086fe15c64" testName="BuyerModel_Tipo_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0150284" startTime="2023-10-17T08:13:52.1633085-03:00" endTime="2023-10-17T08:13:52.1785204-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d5d5956d-1c87-43ac-a94d-c1f4b33078db" />
+    <UnitTestResult executionId="36b8101b-0434-468a-857b-d9ae2ff9aa83" testId="1abd34eb-5b12-d0d2-4176-d067ca145f90" testName="ProductModel_Construtor_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0014828" startTime="2023-10-17T08:13:52.1051343-03:00" endTime="2023-10-17T08:13:52.1067042-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="36b8101b-0434-468a-857b-d9ae2ff9aa83" />
+    <UnitTestResult executionId="e65af9dc-3ddb-4d70-b802-9af873d31e1b" testId="cee6251a-efcc-2e18-97cf-6596dd807490" testName="CommandModel_Tipo_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0009751" startTime="2023-10-17T08:13:52.1605114-03:00" endTime="2023-10-17T08:13:52.1616774-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e65af9dc-3ddb-4d70-b802-9af873d31e1b" />
+    <UnitTestResult executionId="45dcbae4-897b-4423-92cc-02432a68b4f8" testId="8607a3f0-2ecb-3c9f-e146-820143c6c3ce" testName="OrderModel_Construtor_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0015984" startTime="2023-10-17T08:13:52.1487229-03:00" endTime="2023-10-17T08:13:52.1504321-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="45dcbae4-897b-4423-92cc-02432a68b4f8" />
+    <UnitTestResult executionId="d59b0eaa-d362-4607-b29a-3d7c349a2eed" testId="4fb345a6-bb8f-6302-486a-f600c082d191" testName="PaymentModel_Tipo_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0010914" startTime="2023-10-17T08:13:52.1071997-03:00" endTime="2023-10-17T08:13:52.1084541-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d59b0eaa-d362-4607-b29a-3d7c349a2eed" />
+    <UnitTestResult executionId="6e7379cf-6f5f-4cfa-8e41-12336f507332" testId="5bd5dcb7-aa46-2988-144c-b22292385576" testName="CommandModel_Construtor_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0006924" startTime="2023-10-17T08:13:52.1621293-03:00" endTime="2023-10-17T08:13:52.1629044-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6e7379cf-6f5f-4cfa-8e41-12336f507332" />
+    <UnitTestResult executionId="3015cc64-d9ed-4602-ac2b-babeff13ade4" testId="4b54e506-472f-84bd-bd2c-94d756ade175" testName="CategoryModel_Construtor_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0014400" startTime="2023-10-17T08:13:52.0924278-03:00" endTime="2023-10-17T08:13:52.0941708-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3015cc64-d9ed-4602-ac2b-babeff13ade4" />
+    <UnitTestResult executionId="3131e502-28af-485a-a8be-4d65e0e8c951" testId="a9af6219-d05e-2521-1782-bd216fad23cb" testName="ProfileModel_Tipo_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0011095" startTime="2023-10-17T08:13:52.0985944-03:00" endTime="2023-10-17T08:13:52.0998643-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3131e502-28af-485a-a8be-4d65e0e8c951" />
+    <UnitTestResult executionId="1e37574a-7847-4af6-aef1-0d6ce8a02be8" testId="2644017b-d9c5-74b3-442e-7b4cc0ec4a1e" testName="LogModel_Tipo_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0003322" startTime="2023-10-17T08:13:52.1509202-03:00" endTime="2023-10-17T08:13:52.1515082-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1e37574a-7847-4af6-aef1-0d6ce8a02be8" />
+    <UnitTestResult executionId="aff8d2be-8254-40f0-a38e-a79f2bf15da0" testId="8ee230bb-970b-c54a-12f6-5d83c28323fa" testName="BuyerModel_Construtor_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0020476" startTime="2023-10-17T08:13:52.1790514-03:00" endTime="2023-10-17T08:13:52.1819471-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aff8d2be-8254-40f0-a38e-a79f2bf15da0" />
+    <UnitTestResult executionId="af50a915-971e-4b29-913c-d6b2e093bd5c" testId="cfde4465-da93-d986-9a7a-5a5f33389f78" testName="FormOfPaymentModel_Tipo_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0010271" startTime="2023-10-17T08:13:52.1529035-03:00" endTime="2023-10-17T08:13:52.1541293-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="af50a915-971e-4b29-913c-d6b2e093bd5c" />
+    <UnitTestResult executionId="1a881f25-8d7b-4a4e-8184-3b366101423b" testId="7149c326-b722-16ff-ef60-7ba870b13ba1" testName="ProfileModel_Construtor_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0013820" startTime="2023-10-17T08:13:52.1004050-03:00" endTime="2023-10-17T08:13:52.1018769-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1a881f25-8d7b-4a4e-8184-3b366101423b" />
+    <UnitTestResult executionId="f55bcecb-607d-4533-a9ab-d1418e070b97" testId="308bcca3-3106-af53-735b-76abc709f1f2" testName="FormOfPaymentModel_Construtor_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0006709" startTime="2023-10-17T08:13:52.1546026-03:00" endTime="2023-10-17T08:13:52.1553963-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f55bcecb-607d-4533-a9ab-d1418e070b97" />
+    <UnitTestResult executionId="8ac1808d-e2c0-47e7-9ff7-7c6d7ade9a26" testId="e3e8772e-4a06-9a03-b84c-a55e0b9eb2e6" testName="CommandOrderModel_Tipo_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0012094" startTime="2023-10-17T08:13:52.1559497-03:00" endTime="2023-10-17T08:13:52.1573469-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8ac1808d-e2c0-47e7-9ff7-7c6d7ade9a26" />
+    <UnitTestResult executionId="0dcf0023-bfb5-4e2c-b94d-923c281d8c2f" testId="fba02de2-8323-626a-7fdd-c6d61fa83e66" testName="CategoryModel_Tipo_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0709911" startTime="2023-10-17T08:13:51.9547949-03:00" endTime="2023-10-17T08:13:52.0779928-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0dcf0023-bfb5-4e2c-b94d-923c281d8c2f" />
+    <UnitTestResult executionId="c8619dee-9d6a-4c97-91bd-187f3ceb48bc" testId="1f9bfa18-1305-b3a7-8f92-388fe9e3a7f6" testName="UserModel_Construtor_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0016290" startTime="2023-10-17T08:13:52.0963633-03:00" endTime="2023-10-17T08:13:52.0980791-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c8619dee-9d6a-4c97-91bd-187f3ceb48bc" />
+    <UnitTestResult executionId="31de0d7a-fe86-4864-a0b0-1f5cd8295d94" testId="fe1ccd09-cad9-1f4a-489f-0e9c35610a56" testName="CommandOrderModel_Construtor_Sucesso" computerName="DESKTOP-2UFRIRL" duration="00:00:00.0006540" startTime="2023-10-17T08:13:52.1578121-03:00" endTime="2023-10-17T08:13:52.1585503-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31de0d7a-fe86-4864-a0b0-1f5cd8295d94" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FormOfPaymentModel_Construtor_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="308bcca3-3106-af53-735b-76abc709f1f2">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; FormOfPaymentModel" />
+      </TestCategory>
+      <Execution id="f55bcecb-607d-4533-a9ab-d1418e070b97" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.FormOfPaymentModelTest.FormOfPaymentModelTest" name="FormOfPaymentModel_Construtor_Sucesso" />
+    </UnitTest>
+    <UnitTest name="ProductModel_Construtor_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="1abd34eb-5b12-d0d2-4176-d067ca145f90">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; ProductModel" />
+      </TestCategory>
+      <Execution id="36b8101b-0434-468a-857b-d9ae2ff9aa83" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.ProductModelTest.ProductModelTest" name="ProductModel_Construtor_Sucesso" />
+    </UnitTest>
+    <UnitTest name="UserModel_Construtor_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="1f9bfa18-1305-b3a7-8f92-388fe9e3a7f6">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; UserModel" />
+      </TestCategory>
+      <Execution id="c8619dee-9d6a-4c97-91bd-187f3ceb48bc" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.UserModelTest.UserModelTest" name="UserModel_Construtor_Sucesso" />
+    </UnitTest>
+    <UnitTest name="OrderModel_Tipo_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="0f515cd1-fdf4-94a1-2a72-71c90774e2f2">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; OrderModel" />
+      </TestCategory>
+      <Execution id="4815dc25-6fc2-4ca6-8b1f-d6f3a16a0237" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.OrderModelTest.OrderModelTest" name="OrderModel_Tipo_Sucesso" />
+    </UnitTest>
+    <UnitTest name="FormOfPaymentModel_Tipo_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="cfde4465-da93-d986-9a7a-5a5f33389f78">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; FormOfPaymentModel" />
+      </TestCategory>
+      <Execution id="af50a915-971e-4b29-913c-d6b2e093bd5c" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.FormOfPaymentModelTest.FormOfPaymentModelTest" name="FormOfPaymentModel_Tipo_Sucesso" />
+    </UnitTest>
+    <UnitTest name="BuyerModel_Tipo_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="f04a2e0f-18ad-1800-3671-c2086fe15c64">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; BuyersModel" />
+      </TestCategory>
+      <Execution id="d5d5956d-1c87-43ac-a94d-c1f4b33078db" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.BuyersModelTest.BuyersModelTest" name="BuyerModel_Tipo_Sucesso" />
+    </UnitTest>
+    <UnitTest name="LogModel_Tipo_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="2644017b-d9c5-74b3-442e-7b4cc0ec4a1e">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; LogModelTest" />
+      </TestCategory>
+      <Execution id="1e37574a-7847-4af6-aef1-0d6ce8a02be8" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.LogModelTest.LogModelTest" name="LogModel_Tipo_Sucesso" />
+    </UnitTest>
+    <UnitTest name="CategoryModel_Tipo_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="fba02de2-8323-626a-7fdd-c6d61fa83e66">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; BuyersModel" />
+      </TestCategory>
+      <Execution id="0dcf0023-bfb5-4e2c-b94d-923c281d8c2f" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.CategoryModelTest" name="CategoryModel_Tipo_Sucesso" />
+    </UnitTest>
+    <UnitTest name="LogModel_Construtor_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="bacf22fa-7577-d1be-f397-6fe1a5210c5f">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; LogModelTest" />
+      </TestCategory>
+      <Execution id="59d90e67-2f2e-42bb-886a-ca5453625aba" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.LogModelTest.LogModelTest" name="LogModel_Construtor_Sucesso" />
+    </UnitTest>
+    <UnitTest name="PaymentModel_Tipo_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="4fb345a6-bb8f-6302-486a-f600c082d191">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; PaymentModel" />
+      </TestCategory>
+      <Execution id="d59b0eaa-d362-4607-b29a-3d7c349a2eed" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.PaymentModelTest.PaymentModelTest" name="PaymentModel_Tipo_Sucesso" />
+    </UnitTest>
+    <UnitTest name="ProductModel_Tipo_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="3dab296f-1b44-c4e3-7a1f-dcca5439ed31">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; ProductModel" />
+      </TestCategory>
+      <Execution id="940f7967-9569-45f9-99b6-324e39ef05af" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.ProductModelTest.ProductModelTest" name="ProductModel_Tipo_Sucesso" />
+    </UnitTest>
+    <UnitTest name="ProfileModel_Tipo_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="a9af6219-d05e-2521-1782-bd216fad23cb">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; ProfileModel" />
+      </TestCategory>
+      <Execution id="3131e502-28af-485a-a8be-4d65e0e8c951" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.ProfileModelTest.ProfileModelTest" name="ProfileModel_Tipo_Sucesso" />
+    </UnitTest>
+    <UnitTest name="ProfileModel_Construtor_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="7149c326-b722-16ff-ef60-7ba870b13ba1">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; ProfileModel" />
+      </TestCategory>
+      <Execution id="1a881f25-8d7b-4a4e-8184-3b366101423b" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.ProfileModelTest.ProfileModelTest" name="ProfileModel_Construtor_Sucesso" />
+    </UnitTest>
+    <UnitTest name="UserModel_Tipo_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="f91442c3-2a55-0830-2299-799a6b0c1b60">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; UserModel" />
+      </TestCategory>
+      <Execution id="34877404-b16c-4008-a697-8d1c65a30c5b" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.UserModelTest.UserModelTest" name="UserModel_Tipo_Sucesso" />
+    </UnitTest>
+    <UnitTest name="CategoryModel_Construtor_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="4b54e506-472f-84bd-bd2c-94d756ade175">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; BuyersModel" />
+      </TestCategory>
+      <Execution id="3015cc64-d9ed-4602-ac2b-babeff13ade4" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.CategoryModelTest" name="CategoryModel_Construtor_Sucesso" />
+    </UnitTest>
+    <UnitTest name="BuyerModel_Construtor_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="8ee230bb-970b-c54a-12f6-5d83c28323fa">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; BuyersModel" />
+      </TestCategory>
+      <Execution id="aff8d2be-8254-40f0-a38e-a79f2bf15da0" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.BuyersModelTest.BuyersModelTest" name="BuyerModel_Construtor_Sucesso" />
+    </UnitTest>
+    <UnitTest name="CommandOrderModel_Tipo_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="e3e8772e-4a06-9a03-b84c-a55e0b9eb2e6">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; CommandOrderModel" />
+      </TestCategory>
+      <Execution id="8ac1808d-e2c0-47e7-9ff7-7c6d7ade9a26" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.CommandOrderModelTest.CommandOrderModelTest" name="CommandOrderModel_Tipo_Sucesso" />
+    </UnitTest>
+    <UnitTest name="CommandModel_Construtor_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="5bd5dcb7-aa46-2988-144c-b22292385576">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; CommandModel" />
+      </TestCategory>
+      <Execution id="6e7379cf-6f5f-4cfa-8e41-12336f507332" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.CommandModelTest.CommandModelTest" name="CommandModel_Construtor_Sucesso" />
+    </UnitTest>
+    <UnitTest name="CommandModel_Tipo_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="cee6251a-efcc-2e18-97cf-6596dd807490">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; CommandModel" />
+      </TestCategory>
+      <Execution id="e65af9dc-3ddb-4d70-b802-9af873d31e1b" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.CommandModelTest.CommandModelTest" name="CommandModel_Tipo_Sucesso" />
+    </UnitTest>
+    <UnitTest name="OrderModel_Construtor_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="03364a7a-79f7-83f9-3d7c-2ca458dd6a2c">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; PaymentModel" />
+      </TestCategory>
+      <Execution id="cbb1d999-ce2d-47d7-acd4-fb30057d9845" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.PaymentModelTest.PaymentModelTest" name="OrderModel_Construtor_Sucesso" />
+    </UnitTest>
+    <UnitTest name="CommandOrderModel_Construtor_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="fe1ccd09-cad9-1f4a-489f-0e9c35610a56">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; CommandOrderModel" />
+      </TestCategory>
+      <Execution id="31de0d7a-fe86-4864-a0b0-1f5cd8295d94" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.CommandOrderModelTest.CommandOrderModelTest" name="CommandOrderModel_Construtor_Sucesso" />
+    </UnitTest>
+    <UnitTest name="OrderModel_Construtor_Sucesso" storage="c:\users\adm\source\repos\webappdonne\test\test.donne\bin\debug\net6.0\test.donne.dll" id="8607a3f0-2ecb-3c9f-e146-820143c6c3ce">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Donne &gt; Domain &gt; OrderModel" />
+      </TestCategory>
+      <Execution id="45dcbae4-897b-4423-92cc-02432a68b4f8" />
+      <TestMethod codeBase="C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll" adapterTypeName="executor://mstestadapter/v2" className="Test.Donne.Domain.OrderModelTest.OrderModelTest" name="OrderModel_Construtor_Sucesso" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3dab296f-1b44-c4e3-7a1f-dcca5439ed31" executionId="940f7967-9569-45f9-99b6-324e39ef05af" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f515cd1-fdf4-94a1-2a72-71c90774e2f2" executionId="4815dc25-6fc2-4ca6-8b1f-d6f3a16a0237" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f91442c3-2a55-0830-2299-799a6b0c1b60" executionId="34877404-b16c-4008-a697-8d1c65a30c5b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bacf22fa-7577-d1be-f397-6fe1a5210c5f" executionId="59d90e67-2f2e-42bb-886a-ca5453625aba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="03364a7a-79f7-83f9-3d7c-2ca458dd6a2c" executionId="cbb1d999-ce2d-47d7-acd4-fb30057d9845" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f04a2e0f-18ad-1800-3671-c2086fe15c64" executionId="d5d5956d-1c87-43ac-a94d-c1f4b33078db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1abd34eb-5b12-d0d2-4176-d067ca145f90" executionId="36b8101b-0434-468a-857b-d9ae2ff9aa83" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cee6251a-efcc-2e18-97cf-6596dd807490" executionId="e65af9dc-3ddb-4d70-b802-9af873d31e1b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8607a3f0-2ecb-3c9f-e146-820143c6c3ce" executionId="45dcbae4-897b-4423-92cc-02432a68b4f8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4fb345a6-bb8f-6302-486a-f600c082d191" executionId="d59b0eaa-d362-4607-b29a-3d7c349a2eed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5bd5dcb7-aa46-2988-144c-b22292385576" executionId="6e7379cf-6f5f-4cfa-8e41-12336f507332" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4b54e506-472f-84bd-bd2c-94d756ade175" executionId="3015cc64-d9ed-4602-ac2b-babeff13ade4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a9af6219-d05e-2521-1782-bd216fad23cb" executionId="3131e502-28af-485a-a8be-4d65e0e8c951" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2644017b-d9c5-74b3-442e-7b4cc0ec4a1e" executionId="1e37574a-7847-4af6-aef1-0d6ce8a02be8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8ee230bb-970b-c54a-12f6-5d83c28323fa" executionId="aff8d2be-8254-40f0-a38e-a79f2bf15da0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cfde4465-da93-d986-9a7a-5a5f33389f78" executionId="af50a915-971e-4b29-913c-d6b2e093bd5c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7149c326-b722-16ff-ef60-7ba870b13ba1" executionId="1a881f25-8d7b-4a4e-8184-3b366101423b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="308bcca3-3106-af53-735b-76abc709f1f2" executionId="f55bcecb-607d-4533-a9ab-d1418e070b97" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e3e8772e-4a06-9a03-b84c-a55e0b9eb2e6" executionId="8ac1808d-e2c0-47e7-9ff7-7c6d7ade9a26" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fba02de2-8323-626a-7fdd-c6d61fa83e66" executionId="0dcf0023-bfb5-4e2c-b94d-923c281d8c2f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f9bfa18-1305-b3a7-8f92-388fe9e3a7f6" executionId="c8619dee-9d6a-4c97-91bd-187f3ceb48bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe1ccd09-cad9-1f4a-489f-0e9c35610a56" executionId="31de0d7a-fe86-4864-a0b0-1f5cd8295d94" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="22" executed="22" passed="22" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <CollectorDataEntries>
+      <Collector agentName="DESKTOP-2UFRIRL" uri="datacollector://microsoft/CoverletCodeCoverage/1.0" collectorDisplayName="XPlat code coverage">
+        <UriAttachments>
+          <UriAttachment>
+            <A href="DESKTOP-2UFRIRL\coverage.cobertura.xml"></A>
+          </UriAttachment>
+        </UriAttachments>
+      </Collector>
+    </CollectorDataEntries>
+  </ResultSummary>
+</TestRun>
