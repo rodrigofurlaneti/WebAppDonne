@@ -82,8 +82,8 @@ jobs:
       run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /o:"${{ secrets.SONAR_ORGANIZATIONS }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }}
           dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln --configuration Release --no-restore
-          dotnet test D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\Test.Donne.csproj --collect:"XPlat Code Coverage" --logger trx --results-directory $GITHUB_WORKSPACE/test/testresults
+          dotnet test D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\Test.Donne.csproj --collect:"XPlat Code Coverage" -c Release --no-restore --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=sonarqube --logger trx --results-directory $GITHUB_WORKSPACE/test/testresults
           dotnet tool install -g coverlet.console;
           dotnet tool install -g dotnet-reportgenerator-globaltool;
-          reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverlet/reports -reporttypes:SonarQube -sourcedirs:./src/ -historydir:./test/coverlet/history
+          reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverlet/ -reporttypes:SonarQube -verbosity:"Verbose"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
