@@ -17,9 +17,9 @@ jobs:
     runs-on: windows-latest  
 
     env:
-      Solution_Name: src\WebAppDonne\WebAppDonne.sln # Nome da sua solução, ou seja, MyWpfApp.sln.
+      Solution_Name: src\WebAppDonne\WebAppDonne.sln # Nome da sua soluÃ§Ã£o, ou seja, MyWpfApp.sln.
       Test_Project_Path: test\Test.Donne\Test.Donne.csproj # Caminho do seu projeto de teste, ou seja, MyWpfApp.Tests\MyWpfApp.Tests.csproj.
-      Publish_Directory_Path: src/WebAppDonne/WebApi.Donne.csproj # Caminho da pasta para fazer a publicação do projeto.
+      Publish_Directory_Path: src/WebAppDonne/WebApi.Donne.csproj # Caminho da pasta para fazer a publicaÃ§Ã£o do projeto.
 
     steps:
     - name: Checkout
@@ -42,47 +42,50 @@ jobs:
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
-         java-version: 17
-         distribution: 'zulu' 
-      
+        java-version: 17
+        distribution: 'zulu' # Alternative distribution options are available.
+    
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 0  
-    
+        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      
     - name: Cache SonarCloud packages
       uses: actions/cache@v3
       with:
         path: ~\sonar\cache
         key: ${{ runner.os }}-sonar
         restore-keys: ${{ runner.os }}-sonar
-
+    
     - name: Cache SonarCloud scanner
       id: cache-sonar-scanner
       uses: actions/cache@v3
       with:
-          path: .\.sonar\scanner
-          key: ${{ runner.os }}-sonar-scanner
-          restore-keys: ${{ runner.os }}-sonar-scanner
-      
+        path: .\.sonar\scanner
+        key: ${{ runner.os }}-sonar-scanner
+        restore-keys: ${{ runner.os }}-sonar-scanner
+    
     - name: Install SonarCloud scanner
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
       shell: powershell
       run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory
-          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-
+        New-Item -Path .\.sonar\scanner -ItemType Directory
+        dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      
     - name: Build and analyze
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      shell: powershell
-      run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"rodrigofurlaneti_WebAppDonne" /o:"rodrigofurlaneti" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet restore D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln
-          dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln --configuration Release
-          dotnet test D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\Test.Donne.csproj --collect:"XPlat Code Coverage" --logger trx --results-directory $GITHUB_WORKSPACE/test/testresults
-          dotnet tool install -g coverlet.console;
-          dotnet tool install -g dotnet-reportgenerator-globaltool;
-          reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/testresults/**/ -reporttypes:coverage.cobertura -sourcedirs:./src/ -historydir:./test/coverlet/history
-          #reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverlet/reports -reporttypes:"SonarQube"
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+        SONAR_ORGANIZATIONS: ${{ secrets.SONAR_ORGANIZATIONS }}
+        SONAR_URI: ${{ secrets.SONAR_URI }}
+        shell: powershell
+        run: |
+         echo ${{ secrets.GITHUB_TOKEN }}
+         .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /o:"${{ secrets.SONAR_ORGANIZATIONS }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="&{{ secrets.SONAR_URI }}"
+         dotnet restore D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln
+         dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln --configuration Release
+         dotnet test D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\Test.Donne.csproj --collect:"XPlat Code Coverage" --logger trx --results-directory $GITHUB_WORKSPACE/test/testresults
+         dotnet tool install -g coverlet.console;
+         dotnet tool install -g dotnet-reportgenerator-globaltool;
+         reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverage/reports -reporttypes:"SonarQube"
+         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
