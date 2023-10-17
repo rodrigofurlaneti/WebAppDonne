@@ -99,7 +99,12 @@ jobs:
  
     - name: Create code coverage report
       run: |
-        dotnet tool install -g coverlet.console;
-        dotnet tool install -g dotnet-reportgenerator-globaltool
-        reportgenerator -reports:coverage/*/coverage.cobertura.xml -targetdir:CodeCoverage -reporttypes:'HtmlInline;Cobertura'
-        .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        #dotnet tool install -g coverlet.console;
+        #dotnet tool install -g dotnet-reportgenerator-globaltool
+        #reportgenerator -reports:coverage/*/coverage.cobertura.xml -targetdir:CodeCoverage -reporttypes:'HtmlInline;Cobertura'
+        #.\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        dotnet sonarscanner begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+        dotnet build --no-incremental
+        dotnet tool install --global dotnet-coverage
+        dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
+        dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
