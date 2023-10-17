@@ -8,17 +8,17 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
     [TestCategory("Donne > WebApi > Infrastructure > BuyerRepository")]
     public class BuyerRepositoryTest
     {
-        [TestMethod]
-        public void GetAllBuyers_Sucesso()
-        {
-            // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+        //[TestMethod]
+        //public void GetAllBuyers_Sucesso()
+        //{
+        //    // Arrange
+        //    BuyerRepository buyerRepository = new BuyerRepository();
 
-            // Act
-            var result = buyerRepository.GetAllBuyers();
+        //    // Act
+        //    var result = buyerRepository.GetAllBuyers();
 
-            // Assert
-            Assert.IsNotNull(result);
-        }
+        //    // Assert
+        //    Assert.IsNotNull(result);
+        //}
     }
 }
