@@ -85,13 +85,19 @@ jobs:
           dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln --configuration Release --no-restore
           
     - name: Run automated unit and integration tests
-      run: dotnet test D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\Test.Donne.csproj  /p:CollectCoverage=true /p:CoverletOutput=$GITHUB_WORKSPACE/test/testresults/ /p:CoverletOutputFormat=lcov
+      run: dotnet test D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\Test.Donne.csproj --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
 
-    - name: Publish coverage report to coveralls.io   
-      uses: coverallsapp/github-action@master   
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }} 
-        run: dotnet tool install -g coverlet.console;
-          dotnet tool install -g dotnet-reportgenerator-globaltool;
-          reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverlet/reports/ -reporttypes:SonarQube -sourcedirs:./src/ -historydir:./test/coverlet/history -verbosity:"Verbose"
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        filename: 'coverage/*/coverage.cobertura.xml'
+        badge: true
+        format: 'markdown'
+        output: 'both'
+
+    - name: Create code coverage report
+      run: |
+        dotnet tool install -g coverlet.console;
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverlet/reports/ -reporttypes:'MarkdownSummaryGithub,Cobertura' -sourcedirs:./src/ -historydir:$GITHUB_WORKSPACE/test/coverlet/history -verbosity:"Verbose"
+        .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
