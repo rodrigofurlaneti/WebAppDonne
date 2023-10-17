@@ -80,7 +80,6 @@ jobs:
         SONAR_URI: ${{ secrets.SONAR_URI }}
         shell: powershell
         run: |
-         echo $env:GITHUB_TOKEN
          .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /o:"${{ secrets.SONAR_ORGANIZATIONS }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="&{{ secrets.SONAR_URI }}"
          dotnet restore D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln
          dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln --configuration Release
