@@ -3,11 +3,8 @@
     "",
     "\\.github\\workflows",
     "\\src",
-    "\\src\\WebAppDonne",
-    "\\src\\WebAppDonne\\Controllers",
-    "\\test",
-    "\\test\\Test.Donne",
-    "\\test\\Test.Donne\\TestResults"
+    "\\src\\.sonarqube",
+    "\\test\\Test.Donne"
   ],
   "SelectedNode": "\\src\\WebAppDonne.sln",
   "PreviewInSolutionExplorer": false
