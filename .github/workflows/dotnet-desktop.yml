@@ -101,5 +101,8 @@ jobs:
       run: |
         dotnet tool install -g coverlet.console;
         dotnet tool install -g dotnet-reportgenerator-globaltool
-        reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverlet/reports/ -reporttypes:'MarkdownSummaryGithub,Cobertura' -sourcedirs:./src/ -historydir:$GITHUB_WORKSPACE/test/coverlet/history -verbosity:"Verbose"
+        reportgenerator -reports:coverage/*/coverage.cobertura.xml -targetdir:CodeCoverage -reporttypes:'MarkdownSummaryGithub,Cobertura'
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+    - name: Write to Job Summary
+      run: cat CodeCoverage/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
