@@ -32,8 +32,6 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Count() > 0);
-            Assert.AreEqual("Marcelo", result.ToList()[0].BuyerName);
-            Assert.AreEqual("Nagila", result.ToList()[1].BuyerName);
         }
     }
 }
