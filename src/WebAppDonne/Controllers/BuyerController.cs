@@ -50,7 +50,7 @@ namespace WebApi.Donne.Controllers
         public void Post(BuyerModel buyerModel)
         {
             BuyerRepository dal = new BuyerRepository();
-            dal.Insert(buyerModel);
+            dal.InsertAsync(buyerModel);
         }
 
         [HttpPut(Name = "UpdateBuyer")]
@@ -64,7 +64,7 @@ namespace WebApi.Donne.Controllers
         public void Delete(int id)
         {
             BuyerRepository dal = new BuyerRepository();
-            dal.Delete(id);
+            dal.DeleteAsync(id);
         }
     }
 }
