@@ -129,6 +129,29 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
         }
 
         [TestMethod]
+        public void InsertAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
+            string categoryName = Faker.Name.Last();
+            int categoryId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            CategoryModel categoryModel = new CategoryModel(categoryId, categoryName, listDateTime,
+                userId, userName);
+
+            // Act
+            categoryRepository.InsertAsync(categoryModel);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+        }
+
+        [TestMethod]
         public void Update_Sucesso()
         {
             // Arrange
@@ -146,7 +169,31 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
                 userId, userName);
 
             // Act
-            categoryRepository.Insert(categoryModel);
+            categoryRepository.Update(categoryModel);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void UpdateAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
+            var getAll = categoryRepository.GetAllCategorys();
+            int categoryId = getAll.ToList()[getAll.Count() - 1].CategoryId;
+            string categoryName = Faker.Name.Last();
+            string userName = Faker.Name.First();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = getAll.ToList()[getAll.Count() - 1].DateInsert;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            CategoryModel categoryModel = new CategoryModel(categoryId, categoryName, listDateTime,
+                userId, userName);
+
+            // Act
+            categoryRepository.UpdateAsync(categoryModel);
 
             //Assert
             mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
@@ -178,7 +225,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             int categoryId = getAll.ToList()[getAll.Count() - 1].CategoryId;
 
             // Act
-            categoryRepository.Delete(categoryId);
+            categoryRepository.DeleteAsync(categoryId);
 
             //Assert
             mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
