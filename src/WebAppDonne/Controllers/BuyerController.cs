@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
 using WebApi.Donne.Infrastructure;
-using System.Threading.Tasks;
 
 namespace WebApi.Donne.Controllers
 {
@@ -9,8 +8,15 @@ namespace WebApi.Donne.Controllers
     [Route("[controller]")]
     public class BuyerController : ControllerBase
     {
-        public BuyerController()
+        #region Properties
+
+        public readonly WebApi.Donne.Infrastructure.SeedWork.ILogger _logger;
+
+        #endregion
+
+        public BuyerController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
         {
+            _logger = logger;
         }
 
         [HttpGet(Name = "GetBuyers")]
@@ -18,7 +24,7 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                BuyerRepository dal = new BuyerRepository();
+                BuyerRepository dal = new BuyerRepository(_logger);
                 var ret = dal.GetAllBuyers();
                 return (ret);
             }
@@ -33,7 +39,7 @@ namespace WebApi.Donne.Controllers
         [HttpOptions("{id:int}")]
         public IEnumerable<BuyerModel> Options(int id)
         {
-            BuyerRepository dal = new BuyerRepository();
+            BuyerRepository dal = new BuyerRepository(_logger);
             var ret = dal.GetByStatus(id);
             return (ret);
         }
@@ -41,7 +47,7 @@ namespace WebApi.Donne.Controllers
         [HttpGet("{id:int}")]
         public BuyerModel Get(int id)
         {
-            BuyerRepository dal = new BuyerRepository();
+            BuyerRepository dal = new BuyerRepository(_logger);
             var ret = dal.GetById(id);
             return (ret);
         }
@@ -49,21 +55,21 @@ namespace WebApi.Donne.Controllers
         [HttpPost(Name = "InsertBuyer")]
         public void Post(BuyerModel buyerModel)
         {
-            BuyerRepository dal = new BuyerRepository();
+            BuyerRepository dal = new BuyerRepository(_logger);
             dal.InsertAsync(buyerModel);
         }
 
         [HttpPut(Name = "UpdateBuyer")]
         public void Update(BuyerModel buyerModel)
         {
-            BuyerRepository dal = new BuyerRepository();
+            BuyerRepository dal = new BuyerRepository(_logger);
             dal.Update(buyerModel);
         }
 
         [HttpDelete("{id:int}")]
         public void Delete(int id)
         {
-            BuyerRepository dal = new BuyerRepository();
+            BuyerRepository dal = new BuyerRepository(_logger);
             dal.DeleteAsync(id);
         }
     }

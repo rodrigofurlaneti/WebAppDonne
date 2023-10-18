@@ -7,7 +7,9 @@ namespace WebApi.Donne.Infrastructure
     public class OrderRepository : BaseRepository
     {
         #region Constructor
-        public OrderRepository() : base () {}
+
+        public OrderRepository(WebApi.Donne.Infrastructure.SeedWork.ILogger logger) : base(logger) { }
+
         #endregion
 
         #region Methods 

@@ -207,6 +207,10 @@
               "target": "Package",
               "version": "[17.7.2, )"
             },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.69, )"
+            },
             "ReportGenerator": {
               "target": "Package",
               "version": "[5.1.13, )"

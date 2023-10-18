@@ -8,14 +8,21 @@ namespace WebApi.Donne.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        public UserController()
+        #region Properties
+
+        public readonly WebApi.Donne.Infrastructure.SeedWork.ILogger _logger;
+
+        #endregion
+
+        public UserController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
         {
+            _logger = logger;
         }
 
         [HttpGet(Name = "GetUser")]
         public IEnumerable<UserModel> Get()
         {
-            UserRepository dal = new UserRepository();
+            UserRepository dal = new UserRepository(_logger);
             var ret = dal.GetAllUsers();
             return (ret);
         }
@@ -23,7 +30,7 @@ namespace WebApi.Donne.Controllers
         [HttpGet("{id:int}")]
         public UserModel Get(int id)
         {
-            UserRepository dal = new UserRepository();
+            UserRepository dal = new UserRepository(_logger);
             var ret = dal.GetById(id);
             return (ret);
         }
@@ -31,7 +38,7 @@ namespace WebApi.Donne.Controllers
         [HttpGet("{name}")]
         public UserModel Get(string name)
         {
-            UserRepository dal = new UserRepository();
+            UserRepository dal = new UserRepository(_logger);
             var ret = dal.GetByName(name);
             return (ret);
         }
@@ -39,21 +46,21 @@ namespace WebApi.Donne.Controllers
         [HttpPost(Name = "InsertUser")]
         public void Post(UserModel UserModel)
         {
-            UserRepository dal = new UserRepository();
+            UserRepository dal = new UserRepository(_logger);
             dal.Insert(UserModel);
         }
 
         [HttpPut(Name = "UpdateUser")]
         public void Update(UserModel UserModel)
         {
-            UserRepository dal = new UserRepository();
+            UserRepository dal = new UserRepository(_logger);
             dal.Update(UserModel);
         }
 
         [HttpDelete("{id:int}")]
         public void Delete(int id)
         {
-            UserRepository dal = new UserRepository();
+            UserRepository dal = new UserRepository(_logger);
             dal.Delete(id);
         }
     }

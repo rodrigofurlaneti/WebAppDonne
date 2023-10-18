@@ -8,14 +8,21 @@ namespace WebApi.Donne.Controllers
     [Route("[controller]")]
     public class ProfileController : ControllerBase
     {
-        public ProfileController()
+        #region Properties
+
+        public readonly WebApi.Donne.Infrastructure.SeedWork.ILogger _logger;
+
+        #endregion
+
+        public ProfileController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
         {
+            _logger = logger;
         }
 
         [HttpGet(Name = "GetProfile")]
         public IEnumerable<ProfileModel> Get()
         {
-            ProfileRepository dal = new ProfileRepository();
+            ProfileRepository dal = new ProfileRepository(_logger);
             var ret = dal.GetAllProfiles();
             return (ret);
         }
@@ -23,7 +30,7 @@ namespace WebApi.Donne.Controllers
         [HttpGet("{id:int}")]
         public ProfileModel Get(int id)
         {
-            ProfileRepository dal = new ProfileRepository();
+            ProfileRepository dal = new ProfileRepository(_logger);
             var ret = dal.GetById(id);
             return (ret);
         }
@@ -31,21 +38,21 @@ namespace WebApi.Donne.Controllers
         [HttpPost(Name = "InsertProfile")]
         public void Post(ProfileModel ProfileModel)
         {
-            ProfileRepository dal = new ProfileRepository();
+            ProfileRepository dal = new ProfileRepository(_logger);
             dal.Insert(ProfileModel);
         }
 
         [HttpPut(Name = "UpdateProfile")]
         public void Update(ProfileModel ProfileModel)
         {
-            ProfileRepository dal = new ProfileRepository();
+            ProfileRepository dal = new ProfileRepository(_logger);
             dal.Update(ProfileModel);
         }
 
         [HttpDelete("{id:int}")]
         public void Delete(int id)
         {
-            ProfileRepository dal = new ProfileRepository();
+            ProfileRepository dal = new ProfileRepository(_logger);
             dal.Delete(id);
         }
 

@@ -7,7 +7,9 @@ namespace WebApi.Donne.Infrastructure
     public class ProductRepository : BaseRepository
     {
         #region Constructor
-        public ProductRepository() : base() { }
+
+        public ProductRepository(WebApi.Donne.Infrastructure.SeedWork.ILogger logger) : base(logger) { }
+
         #endregion
 
         #region Methods 

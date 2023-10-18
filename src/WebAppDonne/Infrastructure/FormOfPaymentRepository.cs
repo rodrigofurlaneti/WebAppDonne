@@ -7,7 +7,8 @@ namespace WebApi.Donne.Infrastructure
     public class FormOfPaymentRepository : BaseRepository
     {
         #region Constructor
-        public FormOfPaymentRepository() : base() {}
+
+        public FormOfPaymentRepository(WebApi.Donne.Infrastructure.SeedWork.ILogger logger) : base(logger) { }
 
         #endregion
 

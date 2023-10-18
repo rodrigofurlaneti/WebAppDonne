@@ -7,8 +7,9 @@ namespace WebApi.Donne.Infrastructure
     public class CommandRepository : BaseRepository
     {
         #region Constructor
-        public CommandRepository() : base() { }
-        
+
+        public CommandRepository(WebApi.Donne.Infrastructure.SeedWork.ILogger logger) : base(logger) { }
+
         #endregion
 
         #region Methods 

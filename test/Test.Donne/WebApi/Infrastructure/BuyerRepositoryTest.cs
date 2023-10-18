@@ -1,6 +1,8 @@
 ﻿using Domain.Donne;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.SeedWork;
 
 namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 {
@@ -12,7 +14,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public void GetAllBuyers_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var result = buyerRepository.GetAllBuyers();
@@ -22,10 +25,28 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         }
 
         [TestMethod]
+        public void GetAllBuyers_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
+
+            // Act
+            var resultAction = () => buyerRepository.GetAllBuyers();
+
+            // Assert
+            Assert.ThrowsException<Exception>(resultAction);
+        }
+
+        [TestMethod]
         public async Task GetAllBuyersAsync_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var result = await buyerRepository.GetAllBuyersAsync();
@@ -35,10 +56,28 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         }
 
         [TestMethod]
+        public void GetAllBuyersAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
+
+            // Act
+            var resultAction = () => buyerRepository.GetAllBuyersAsync();
+
+            // Assert
+            Assert.ThrowsExceptionAsync<Exception>(resultAction);
+        }
+
+        [TestMethod]
         public void GetAllBuyers_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var result = buyerRepository.GetAllBuyers();
@@ -51,7 +90,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public async Task GetAllBuyersAsync_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var result = await buyerRepository.GetAllBuyersAsync();
@@ -64,7 +104,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public void GetByStatus_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var result = buyerRepository.GetByStatus(1);
@@ -74,10 +115,28 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         }
 
         [TestMethod]
+        public void GetByStatus_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
+
+            // Act
+            var resultAction = () => buyerRepository.GetByStatus(1);
+
+            // Assert
+            Assert.ThrowsException<Exception>(resultAction);
+        }
+
+        [TestMethod]
         public async Task GetByStatusAsync_Ativo_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var result = await buyerRepository.GetByStatusAsync(1);
@@ -87,10 +146,28 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         }
 
         [TestMethod]
+        public void GetByStatusAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
+
+            // Act
+            var resultAction = () => buyerRepository.GetByStatusAsync(1);
+
+            // Assert
+            Assert.ThrowsExceptionAsync<Exception>(resultAction);
+        }
+
+        [TestMethod]
         public async Task GetByStatusAsync_Desativado_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var result = await buyerRepository.GetByStatusAsync(0);
@@ -103,7 +180,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public void GetByStatus_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var result = buyerRepository.GetByStatus(1);
@@ -116,7 +194,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public async Task GetByStatusAsync_Ativo_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var result = await buyerRepository.GetByStatusAsync(1);
@@ -129,7 +208,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public async Task GetByStatusAsync_Desativado_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var result = await buyerRepository.GetByStatusAsync(0);
@@ -142,7 +222,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
             var getAll = buyerRepository.GetAllBuyers();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
@@ -154,10 +235,28 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         }
 
         [TestMethod]
+        public void GetById_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
+
+            // Act
+            var resultAction = () => buyerRepository.GetById(1);
+
+            // Assert
+            Assert.ThrowsException<Exception>(resultAction);
+        }
+
+        [TestMethod]
         public void GetById_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
             var getAll = buyerRepository.GetAllBuyers();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
@@ -173,7 +272,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public async Task GetByIdAsync_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
             var getAll = buyerRepository.GetAllBuyers();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
@@ -186,10 +286,28 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         }
 
         [TestMethod]
+        public void GetByIdAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
+
+            // Act
+            var resultAction = () => buyerRepository.GetByIdAsync(1);
+
+            // Assert
+            Assert.ThrowsExceptionAsync<Exception>(resultAction);
+        }
+
+        [TestMethod]
         public async Task GetByIdAsync_Retorno_Objeto_Nulo_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
             var getAll = buyerRepository.GetAllBuyers();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
@@ -204,7 +322,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public void Insert_Sem_Retorno_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
             string buyerAddress = Faker.Address.StreetAddress();
             string buyerName = Faker.Name.FullName();
             string userName = Faker.Name.First();
@@ -226,7 +345,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public void Insert_Async_Sem_Retorno_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
             string buyerAddress = Faker.Address.StreetAddress();
             string buyerName = Faker.Name.FullName();
             string userName = Faker.Name.First();
@@ -248,7 +368,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public void Delete_Sem_Retorno_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
             var getAll = buyerRepository.GetAllBuyers();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
             
@@ -260,7 +381,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public void Delete_Async_Sem_Retorno_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
             var getAll = buyerRepository.GetAllBuyers();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
@@ -272,7 +394,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public void Update_Sem_Retorno_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
             var getAll = buyerRepository.GetAllBuyers();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
             string buyerAddress = Faker.Address.StreetAddress();
@@ -297,7 +420,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         public void UpdateAsync_Sem_Retorno_Sucesso()
         {
             // Arrange
-            BuyerRepository buyerRepository = new BuyerRepository();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
             var getAll = buyerRepository.GetAllBuyers();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
             string buyerAddress = Faker.Address.StreetAddress();

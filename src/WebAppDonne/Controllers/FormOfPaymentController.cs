@@ -8,14 +8,21 @@ namespace WebApi.Donne.Controllers
     [ApiController]
     public class FormOfPaymentController : Controller
     {
-        public FormOfPaymentController()
+        #region Properties
+
+        public readonly WebApi.Donne.Infrastructure.SeedWork.ILogger _logger;
+
+        #endregion
+
+        public FormOfPaymentController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
         {
+            _logger = logger;
         }
 
         [HttpGet(Name = "GetFormOfPayment")]
         public IEnumerable<FormOfPaymentModel> Get()
         {
-            FormOfPaymentRepository dal = new FormOfPaymentRepository();
+            FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
             var ret = dal.GetAllFormOfPayment();
             return (ret);
         }
@@ -23,7 +30,7 @@ namespace WebApi.Donne.Controllers
         [HttpGet("{id:int}")]
         public FormOfPaymentModel Get(int id)
         {
-            FormOfPaymentRepository dal = new FormOfPaymentRepository();
+            FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
             var ret = dal.GetById(id);
             return (ret);
         }
@@ -31,21 +38,21 @@ namespace WebApi.Donne.Controllers
         [HttpPost(Name = "InsertFormOfPayment")]
         public void Post(FormOfPaymentModel formOfPaymentModel)
         {
-            FormOfPaymentRepository dal = new FormOfPaymentRepository();
+            FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
             dal.Insert(formOfPaymentModel);
         }
 
         [HttpPut(Name = "UpdateFormOfPayment")]
         public void Update(FormOfPaymentModel FormOfPaymentModel)
         {
-            FormOfPaymentRepository dal = new FormOfPaymentRepository();
+            FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
             dal.Update(FormOfPaymentModel);
         }
 
         [HttpDelete("{id:int}")]
         public void Delete(int id)
         {
-            FormOfPaymentRepository dal = new FormOfPaymentRepository();
+            FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
             dal.Delete(id);
         }
     }

@@ -7,7 +7,9 @@ namespace WebApi.Donne.Infrastructure
     public class ProfileRepository : BaseRepository
     {
         #region Constructor
-        public ProfileRepository() : base() { }
+
+        public ProfileRepository(WebApi.Donne.Infrastructure.SeedWork.ILogger logger) : base(logger) { }
+
         #endregion
 
         #region Methods 

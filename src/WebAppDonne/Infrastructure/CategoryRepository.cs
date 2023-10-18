@@ -7,7 +7,8 @@ namespace WebApi.Donne.Infrastructure
     public class CategoryRepository : BaseRepository
     {
         #region Constructor
-        public CategoryRepository() : base() { }
+
+        public CategoryRepository(WebApi.Donne.Infrastructure.SeedWork.ILogger logger) : base(logger) { }
 
         #endregion
 
