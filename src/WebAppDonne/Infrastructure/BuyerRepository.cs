@@ -1,10 +1,6 @@
 ﻿using Domain.Donne;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 
 namespace WebApi.Donne.Infrastructure
 {
@@ -12,6 +8,7 @@ namespace WebApi.Donne.Infrastructure
     {
         #region Properties
         private readonly IConfigurationRoot configurationRoot;
+        private readonly string connectionString;
         #endregion
 
         #region Constructor
@@ -20,6 +17,7 @@ namespace WebApi.Donne.Infrastructure
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configurationRoot = configurationBuilder.Build();
+            connectionString = configurationRoot.GetConnectionString("locaWebDonne");
         }
         #endregion
 
@@ -29,7 +27,6 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                string connectionString = configurationRoot.GetConnectionString("localHost");
                 List<BuyerModel> listBuyerModel = new List<BuyerModel>();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -63,7 +60,6 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<BuyerModel> GetByStatus(int status)
         {
-            string connectionString = configurationRoot.GetConnectionString("localHost");
             List<BuyerModel> listBuyerModel = new List<BuyerModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -90,7 +86,6 @@ namespace WebApi.Donne.Infrastructure
         }
         public BuyerModel GetById(int id)
         {
-            string connectionString = configurationRoot.GetConnectionString("localHost");
             BuyerModel buyerModel = new BuyerModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -118,7 +113,6 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                string connectionString = configurationRoot.GetConnectionString("localHost");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_BuyerInsert", con);
                 cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
@@ -145,7 +139,6 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                string connectionString = configurationRoot.GetConnectionString("localHost");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
                 cmd.Parameters.AddWithValue("@BuyerId", buyerId);
@@ -163,7 +156,6 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(BuyerModel buyerModel)
         {
-            string connectionString = configurationRoot.GetConnectionString("localHost");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
             cmd.Parameters.AddWithValue("@BuyerId", buyerModel.BuyerId);

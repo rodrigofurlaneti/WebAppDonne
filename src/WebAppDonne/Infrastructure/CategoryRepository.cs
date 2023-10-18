@@ -11,6 +11,7 @@ namespace WebApi.Donne.Infrastructure
     {
         #region Properties
         private readonly IConfigurationRoot configurationRoot;
+        private readonly string connectionString;
         #endregion
 
         #region Constructor
@@ -19,6 +20,7 @@ namespace WebApi.Donne.Infrastructure
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configurationRoot = configurationBuilder.Build();
+            connectionString = configurationRoot.GetConnectionString("locaWebDonne");
         }
         #endregion
 
@@ -26,9 +28,8 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<CategoryModel> GetAllCategorys()
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             List<CategoryModel> listCategoryModel = new List<CategoryModel>();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_CategoryGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -51,9 +52,8 @@ namespace WebApi.Donne.Infrastructure
 
         public CategoryModel GetById(int id)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             CategoryModel category = new CategoryModel();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_CategoryGetById", con);
                 cmd.Parameters.AddWithValue("@CategoryId", id);
@@ -75,8 +75,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(CategoryModel Category)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
             cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
@@ -91,8 +90,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int CategoryId)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryDelete", con);
             cmd.Parameters.AddWithValue("@CategoryId", CategoryId);
             con.Open();
@@ -103,8 +101,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(CategoryModel Category)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryUpdate", con);
             cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
             cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);

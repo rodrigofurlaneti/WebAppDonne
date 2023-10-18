@@ -11,6 +11,7 @@ namespace WebApi.Donne.Infrastructure
     {
         #region Properties
         private readonly IConfigurationRoot configurationRoot;
+        private readonly string connectionString;
         #endregion
 
         #region Constructor
@@ -19,6 +20,7 @@ namespace WebApi.Donne.Infrastructure
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configurationRoot = configurationBuilder.Build();
+            connectionString = configurationRoot.GetConnectionString("locaWebDonne");
         }
         #endregion
 
@@ -26,9 +28,8 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<ProductModel> GetAllProducts()
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             List<ProductModel> listProductModel = new List<ProductModel>();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_ProductGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -61,9 +62,8 @@ namespace WebApi.Donne.Infrastructure
 
         public ProductModel GetById(int id)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             ProductModel product = new ProductModel();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_ProductGetById", con);
                 cmd.Parameters.AddWithValue("@ProductId", id);
@@ -94,8 +94,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(ProductModel product)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProductInsert", con);
             cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
             cmd.Parameters.AddWithValue("@CategoryId", product.CategoryId);
@@ -121,8 +120,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int ProductId)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProductDelete", con);
             cmd.Parameters.AddWithValue("@ProductId", ProductId);
             con.Open();
@@ -133,8 +131,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(ProductModel product)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProductUpdate", con);
             cmd.Parameters.AddWithValue("@ProductId", product.ProductId);
             cmd.Parameters.AddWithValue("@ProductName", product.ProductName);

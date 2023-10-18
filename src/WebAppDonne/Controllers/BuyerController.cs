@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
 using WebApi.Donne.Infrastructure;
+using System.Threading.Tasks;
 
 namespace WebApi.Donne.Controllers
 {
@@ -15,9 +16,18 @@ namespace WebApi.Donne.Controllers
         [HttpGet(Name = "GetBuyers")]
         public IEnumerable<BuyerModel> GetBuyers()
         {
-            BuyerRepository dal = new BuyerRepository();
-            var ret = dal.GetAllBuyers();
-            return (ret);
+            try
+            {
+                BuyerRepository dal = new BuyerRepository();
+                var ret = dal.GetAllBuyers();
+                return (ret);
+            }
+            catch (Exception ex)
+            {
+                string mensagem = "Erro ao consumir a controler Buyer, rota GetBuyers " + ex.Message; 
+                throw new Exception(mensagem);
+            }
+
         }
 
         [HttpOptions("{id:int}")]

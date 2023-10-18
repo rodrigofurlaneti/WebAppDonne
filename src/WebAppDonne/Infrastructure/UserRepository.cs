@@ -1,7 +1,4 @@
 ﻿using Domain.Donne;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -11,6 +8,7 @@ namespace WebApi.Donne.Infrastructure
     {
         #region Properties
         private readonly IConfigurationRoot configurationRoot;
+        private readonly string connectionString;
         #endregion
 
         #region Constructor
@@ -19,6 +17,7 @@ namespace WebApi.Donne.Infrastructure
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configurationRoot = configurationBuilder.Build();
+            connectionString = configurationRoot.GetConnectionString("locaWebDonne");
         }
         #endregion
 
@@ -26,9 +25,8 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<UserModel> GetAllUsers()
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             List<UserModel> listUserModel = new List<UserModel>();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_UserGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -51,9 +49,8 @@ namespace WebApi.Donne.Infrastructure
 
         public UserModel GetById(int id)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             UserModel User = new UserModel();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_UserGetById", con);
                 cmd.Parameters.AddWithValue("@UserId", id);
@@ -75,9 +72,8 @@ namespace WebApi.Donne.Infrastructure
 
         public UserModel GetByName(string Name)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             UserModel User = new UserModel();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_UserGetByName", con);
                 cmd.Parameters.AddWithValue("@UserName", Name);
@@ -99,8 +95,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(UserModel User)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_UserInsert", con);
             cmd.Parameters.AddWithValue("@UserName", User.UserName);
             cmd.Parameters.AddWithValue("@UserPassword", User.UserPassword);
@@ -115,8 +110,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int UserId)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_UserDelete", con);
             cmd.Parameters.AddWithValue("@UserId", UserId);
             con.Open();
@@ -127,8 +121,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(UserModel User)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_UserUpdate", con);
             cmd.Parameters.AddWithValue("@UserId", User.UserId);
             cmd.Parameters.AddWithValue("@UserName", User.UserName);

@@ -1,9 +1,6 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
 using Domain.Donne;
-using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
-using System;
 
 namespace WebApi.Donne.Infrastructure
 {
@@ -11,6 +8,7 @@ namespace WebApi.Donne.Infrastructure
     {
         #region Properties
         private readonly IConfigurationRoot configurationRoot;
+        private readonly string connectionString;
         #endregion
 
         #region Constructor
@@ -19,6 +17,7 @@ namespace WebApi.Donne.Infrastructure
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configurationRoot = configurationBuilder.Build();
+            connectionString = configurationRoot.GetConnectionString("locaWebDonne");
         }
         #endregion
 
@@ -26,9 +25,8 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<PaymentModel> GetAllPayments()
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             List<PaymentModel> listPaymentModel = new List<PaymentModel>();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_PaymentGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -55,9 +53,8 @@ namespace WebApi.Donne.Infrastructure
 
         public PaymentModel GetById(int id)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             PaymentModel paymentModel = new PaymentModel();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_PaymentGetById", con);
                 cmd.Parameters.AddWithValue("@PaymentId", id);
@@ -84,8 +81,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(PaymentModel paymentModel)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_PaymentInsert", con);
             cmd.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
             cmd.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);
@@ -104,8 +100,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int PaymentId)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_PaymentDelete", con);
             cmd.Parameters.AddWithValue("@PaymentId", PaymentId);
             con.Open();
@@ -116,8 +111,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(PaymentModel paymentModel)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_PaymentUpdate", con);
             cmd.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
             cmd.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);

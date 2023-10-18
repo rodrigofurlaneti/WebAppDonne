@@ -8,6 +8,7 @@ namespace WebApi.Donne.Infrastructure
     {
         #region Properties
         private readonly IConfigurationRoot configurationRoot;
+        private readonly string connectionString;
         #endregion
 
         #region Constructor
@@ -16,6 +17,7 @@ namespace WebApi.Donne.Infrastructure
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configurationRoot = configurationBuilder.Build();
+            connectionString = configurationRoot.GetConnectionString("locaWebDonne");
         }
         #endregion
 
@@ -23,9 +25,8 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<OrderModel> GetAllOrders()
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             List<OrderModel> listOrderModel = new List<OrderModel>();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_OrderGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -53,9 +54,8 @@ namespace WebApi.Donne.Infrastructure
 
         public OrderModel GetById(int id)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             OrderModel orderModel = new OrderModel();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_OrderGetById", con);
                 cmd.Parameters.AddWithValue("@OrderId", id);
@@ -84,8 +84,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                string ConnectionString = configurationRoot.GetConnectionString("localHost");
-                SqlConnection con = new SqlConnection(ConnectionString);
+                SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_OrderInsert", con);
                 cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
                 cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
@@ -112,8 +111,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int OrderId)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_OrderDelete", con);
             cmd.Parameters.AddWithValue("@OrderId", OrderId);
             con.Open();
@@ -124,8 +122,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(OrderModel orderModel)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_OrderUpdate", con);
             cmd.Parameters.AddWithValue("@OrderId", orderModel.OrderId);
             cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);

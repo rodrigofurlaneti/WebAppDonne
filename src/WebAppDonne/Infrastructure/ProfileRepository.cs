@@ -1,7 +1,4 @@
 ﻿using Domain.Donne;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -11,6 +8,7 @@ namespace WebApi.Donne.Infrastructure
     {
         #region Properties
         private readonly IConfigurationRoot configurationRoot;
+        private readonly string connectionString;
         #endregion
 
         #region Constructor
@@ -19,6 +17,7 @@ namespace WebApi.Donne.Infrastructure
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configurationRoot = configurationBuilder.Build();
+            connectionString = configurationRoot.GetConnectionString("locaWebDonne");
         }
         #endregion
 
@@ -26,9 +25,8 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<ProfileModel> GetAllProfiles()
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             List<ProfileModel> listProfileModel = new List<ProfileModel>();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_ProfileGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -51,9 +49,8 @@ namespace WebApi.Donne.Infrastructure
 
         public ProfileModel GetById(int id)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
             ProfileModel profileModel = new ProfileModel();
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_ProfileGetById", con);
                 cmd.Parameters.AddWithValue("@ProfileId", id);
@@ -75,8 +72,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(ProfileModel profileModel)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProfileInsert", con);
             cmd.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
             cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
@@ -91,8 +87,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int ProfileId)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProfileDelete", con);
             cmd.Parameters.AddWithValue("@ProfileId", ProfileId);
             con.Open();
@@ -103,8 +98,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(ProfileModel profileModel)
         {
-            string ConnectionString = configurationRoot.GetConnectionString("localHost");
-            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProfileUpdate", con);
             cmd.Parameters.AddWithValue("@ProfileId", profileModel.ProfileId);
             cmd.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
