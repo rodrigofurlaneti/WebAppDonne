@@ -83,7 +83,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             var result = buyerRepository.GetAllBuyers();
 
             // Assert
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
         }
 
         [TestMethod]
@@ -97,7 +97,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             var result = await buyerRepository.GetAllBuyersAsync();
 
             // Assert
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
         }
 
         [TestMethod]
@@ -187,7 +187,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             var result = buyerRepository.GetByStatus(1);
 
             // Assert
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
         }
 
         [TestMethod]
@@ -201,7 +201,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             var result = await buyerRepository.GetByStatusAsync(1);
 
             // Assert
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
         }
 
         [TestMethod]
@@ -215,7 +215,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             var result = await buyerRepository.GetByStatusAsync(0);
 
             // Assert
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
         }
 
         [TestMethod]
