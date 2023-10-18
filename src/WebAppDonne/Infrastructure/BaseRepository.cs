@@ -3,8 +3,8 @@
     public class BaseRepository
     {
         #region Properties
-        public IConfigurationRoot configurationRoot { get; set; }
-        public string connectionString { get; set; }
+        public readonly IConfigurationRoot configurationRoot;
+        public readonly string connectionString;
         #endregion
 
         #region Constructor
