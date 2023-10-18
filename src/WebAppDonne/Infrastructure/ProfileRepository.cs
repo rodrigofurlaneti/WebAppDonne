@@ -4,21 +4,10 @@ using System.Data.SqlClient;
 
 namespace WebApi.Donne.Infrastructure
 {
-    public class ProfileRepository
+    public class ProfileRepository : BaseRepository
     {
-        #region Properties
-        private readonly IConfigurationRoot configurationRoot;
-        private readonly string connectionString;
-        #endregion
-
         #region Constructor
-        public ProfileRepository()
-        {
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            configurationRoot = configurationBuilder.Build();
-            connectionString = configurationRoot.GetConnectionString("locaWebDonne");
-        }
+        public ProfileRepository() : base() { }
         #endregion
 
         #region Methods 

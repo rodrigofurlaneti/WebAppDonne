@@ -4,21 +4,11 @@ using Domain.Donne;
 
 namespace WebApi.Donne.Infrastructure
 {
-    public class CommandRepository
+    public class CommandRepository : BaseRepository
     {
-        #region Properties
-        private readonly IConfigurationRoot configurationRoot;
-        private readonly string connectionString;
-        #endregion
-
         #region Constructor
-        public CommandRepository()
-        {
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            configurationRoot = configurationBuilder.Build();
-            connectionString = configurationRoot.GetConnectionString("locaWebDonne");
-        }
+        public CommandRepository() : base() { }
+        
         #endregion
 
         #region Methods 

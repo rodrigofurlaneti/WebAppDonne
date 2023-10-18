@@ -4,21 +4,11 @@ using Domain.Donne;
 
 namespace WebApi.Donne.Infrastructure
 {
-    public class FormOfPaymentRepository
+    public class FormOfPaymentRepository : BaseRepository
     {
-        #region Properties
-        private readonly IConfigurationRoot configurationRoot;
-        private readonly string connectionString;
-        #endregion
-
         #region Constructor
-        public FormOfPaymentRepository()
-        {
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            configurationRoot = configurationBuilder.Build();
-            connectionString = configurationRoot.GetConnectionString("locaWebDonne");
-        }
+        public FormOfPaymentRepository() : base() {}
+
         #endregion
 
         #region Methods 
