@@ -224,8 +224,6 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(BuyerModel buyerModel)
         {
-            try
-            {
                 logger.Trace("Insert");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_BuyerInsert", con);
@@ -240,18 +238,10 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
                 con.Close();
-            }
-            catch (Exception ex)
-            {
-                string mensagemErro = "Erro ao consumir a procedure USP_BuyerInsert, síncrono. " + ex.Message;
-                throw new Exception(mensagemErro);
-            }
         }
 
         public void InsertAsync(BuyerModel buyerModel)
         {
-            try
-            {
                 logger.Trace("InsertAsync");
                 Task.Run(() =>
                 {
@@ -269,18 +259,10 @@ namespace WebApi.Donne.Infrastructure
                     cmd.ExecuteNonQuery();
                     con.Close();
                 });
-            }
-            catch (Exception ex)
-            {
-                string mensagemErro = "Erro ao incluir novo registro, utilizando a procedure USP_BuyerInsert, assíncrono. " + ex.Message;
-                throw new Exception(mensagemErro);
-            }
         }
 
         public void Delete(int buyerId)
         {
-            try
-            {
                 logger.Trace("Delete");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
@@ -289,18 +271,10 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
                 con.Close();
-            }
-            catch (Exception ex)
-            {
-                string mensagemErro = "Erro ao apagar o registro, utilizando a procedure USP_BuyerDelete, síncrono. " + ex.Message;
-                throw new Exception(mensagemErro);
-            }
         }
 
         public void DeleteAsync(int buyerId)
         {
-            try
-            {
                 logger.Trace("DeleteAsync");
                 Task.Run(() => {
                     SqlConnection con = new SqlConnection(connectionString);
@@ -311,19 +285,10 @@ namespace WebApi.Donne.Infrastructure
                     cmd.ExecuteNonQuery();
                     con.Close();
                 });
-            }
-            catch (Exception ex)
-            {
-                string mensagemErro = "Erro ao apagar o registro, utilizando a procedure USP_BuyerDelete, assíncrono. " + ex.Message;
-                throw new Exception(mensagemErro);
-            }
-
         }
 
         public void Update(BuyerModel buyerModel)
         {
-            try
-            {
                 logger.Trace("Update");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
@@ -339,20 +304,10 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
                 con.Close();
-            }
-            catch (Exception ex)
-            {
-                string mensagemErro = "Erro ao atualiza o registro, utilizando a procedure USP_BuyerUpdate, síncrono. " + ex.Message;
-                throw new Exception(mensagemErro);
-            }
-
         }
 
         public void UpdateAsync(BuyerModel buyerModel)
         {
-            try
-            {
-                logger.Trace("UpdateAsync");
                 Task.Run(() => {
                     SqlConnection con = new SqlConnection(connectionString);
                     SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
@@ -369,13 +324,6 @@ namespace WebApi.Donne.Infrastructure
                     cmd.ExecuteNonQueryAsync();
                     con.Close();
                 });
-            }
-            catch (Exception ex)
-            {
-                string mensagemErro = "Erro ao atualiza o registro, utilizando a procedure USP_BuyerUpdate, assíncrono. " + ex.Message;
-                throw new Exception(mensagemErro);
-            }
-
         }
 
         #endregion
