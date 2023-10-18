@@ -32,5 +32,32 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Assert
             Assert.IsTrue(result.Count() > 0);
         }
+
+        [TestMethod]
+        public void GetByStatus_Retorno_Diferente_Nulo_Sucesso()
+        {
+            // Arrange
+            BuyerRepository buyerRepository = new BuyerRepository();
+
+            // Act
+            var result = buyerRepository.GetByStatus(1);
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetByStatus_Retorno_Objeto_Populado_Sucesso()
+        {
+            // Arrange
+            BuyerRepository buyerRepository = new BuyerRepository();
+
+            // Act
+            var result = buyerRepository.GetByStatus(1);
+
+            // Assert
+            Assert.IsTrue(result.Count() > 0);
+            Assert.AreEqual("Marcelo", result.First().BuyerName);
+        }
     }
 }
