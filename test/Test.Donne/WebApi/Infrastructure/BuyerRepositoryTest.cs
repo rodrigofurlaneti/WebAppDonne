@@ -9,7 +9,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
     public class BuyerRepositoryTest
     {
         [TestMethod]
-        public void GetAllBuyers_Sucesso()
+        public void GetAllBuyers_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
             BuyerRepository buyerRepository = new BuyerRepository();
@@ -19,6 +19,21 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetAllBuyers_Retorno_Objeto_Populado_Sucesso()
+        {
+            // Arrange
+            BuyerRepository buyerRepository = new BuyerRepository();
+
+            // Act
+            var result = buyerRepository.GetAllBuyers();
+
+            // Assert
+            Assert.IsTrue(result.Count() > 0);
+            Assert.AreEqual("Marcelo", result.ToList()[0].BuyerName);
+            Assert.AreEqual("Nagila", result.ToList()[1].BuyerName);
         }
     }
 }
