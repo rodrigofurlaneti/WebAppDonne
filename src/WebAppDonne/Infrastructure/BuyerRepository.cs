@@ -42,10 +42,10 @@ namespace WebApi.Donne.Infrastructure
                 }
                 return listBuyerModel;
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
                 string mensagemErro = "Erro ao consumir a procedure USP_BuyerGetAll síncrono " + ex.Message;
-                throw new Exception(mensagemErro);
+                throw new ArgumentNullException(mensagemErro);
             }
 
         }
@@ -76,10 +76,10 @@ namespace WebApi.Donne.Infrastructure
                 }
                 return listBuyerModel;
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
                 string mensagemErro = "Erro ao consumir a procedure USP_BuyerGetAll assíncrono " + ex.Message;
-                throw new Exception(mensagemErro);
+                throw new ArgumentNullException(mensagemErro);
             }
         }
 
@@ -112,10 +112,10 @@ namespace WebApi.Donne.Infrastructure
                 }
                 return listBuyerModel;
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
                 string mensagemErro = "Erro ao consumir a procedure USP_GetByStatus síncrono " + ex.Message;
-                throw new Exception(mensagemErro);
+                throw new ArgumentNullException(mensagemErro);
             }
 
         }
@@ -147,10 +147,10 @@ namespace WebApi.Donne.Infrastructure
                 }
                 return listBuyerModel;
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
                 string mensagemErro = "Erro ao consumir a procedure USP_BuyerGetStatus, assíncrono. " + ex.Message;
-                throw new Exception(mensagemErro);
+                throw new ArgumentNullException(mensagemErro);
             }
         }
 
@@ -181,10 +181,10 @@ namespace WebApi.Donne.Infrastructure
                 }
                 return buyerModel;
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
                 string mensagemErro = "Erro ao consumir a procedure USP_BuyerGetById, síncrono. " + ex.Message;
-                throw new Exception(mensagemErro);
+                throw new ArgumentNullException(mensagemErro);
             }
 
         }
@@ -215,10 +215,10 @@ namespace WebApi.Donne.Infrastructure
 
                     return buyerModel;
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
                 string mensagemErro = "Erro ao consumir a procedure USP_BuyerGetId, assíncrono. " + ex.Message;
-                throw new Exception(mensagemErro);
+                throw new ArgumentNullException(mensagemErro);
             }
         }
 

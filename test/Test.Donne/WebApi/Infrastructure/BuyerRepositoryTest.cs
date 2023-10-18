@@ -31,14 +31,14 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
-            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new ArgumentNullException());
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var resultAction = () => buyerRepository.GetAllBuyers();
 
             // Assert
-            Assert.ThrowsException<Exception>(resultAction);
+            Assert.ThrowsException<ArgumentNullException>(resultAction);
         }
 
         [TestMethod]
@@ -62,14 +62,14 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
-            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new ArgumentNullException());
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var resultAction = () => buyerRepository.GetAllBuyersAsync();
 
             // Assert
-            Assert.ThrowsExceptionAsync<Exception>(resultAction);
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(resultAction);
         }
 
         [TestMethod]
@@ -121,14 +121,14 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
-            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new ArgumentNullException());
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var resultAction = () => buyerRepository.GetByStatus(1);
 
             // Assert
-            Assert.ThrowsException<Exception>(resultAction);
+            Assert.ThrowsException<ArgumentNullException>(resultAction);
         }
 
         [TestMethod]
@@ -152,14 +152,14 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
-            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new ArgumentNullException());
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var resultAction = () => buyerRepository.GetByStatusAsync(1);
 
             // Assert
-            Assert.ThrowsExceptionAsync<Exception>(resultAction);
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(resultAction);
         }
 
         [TestMethod]
@@ -241,14 +241,14 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
-            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new ArgumentNullException());
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var resultAction = () => buyerRepository.GetById(1);
 
             // Assert
-            Assert.ThrowsException<Exception>(resultAction);
+            Assert.ThrowsException<ArgumentNullException>(resultAction);
         }
 
         [TestMethod]
@@ -292,14 +292,14 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
-            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new ArgumentNullException());
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
             var resultAction = () => buyerRepository.GetByIdAsync(1);
 
             // Assert
-            Assert.ThrowsExceptionAsync<Exception>(resultAction);
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(resultAction);
         }
 
         [TestMethod]

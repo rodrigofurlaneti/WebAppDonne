@@ -31,7 +31,7 @@ namespace WebApi.Donne.Controllers
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler Buyer, rota GetBuyers " + ex.Message; 
-                throw new Exception(mensagem);
+                throw new ArgumentNullException(mensagem);
             }
 
         }
