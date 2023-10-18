@@ -22,13 +22,13 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         }
 
         [TestMethod]
-        public void GetAllBuyersAsync_Retorno_Diferente_Nulo_Sucesso()
+        public async Task GetAllBuyersAsync_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
             BuyerRepository buyerRepository = new BuyerRepository();
 
             // Act
-            var result = buyerRepository.GetAllBuyersAsync();
+            var result = await buyerRepository.GetAllBuyersAsync();
 
             // Assert
             Assert.IsNotNull(result);
@@ -42,6 +42,19 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Act
             var result = buyerRepository.GetAllBuyers();
+
+            // Assert
+            Assert.IsTrue(result.Count() > 0);
+        }
+
+        [TestMethod]
+        public async Task GetAllBuyersAsync_Retorno_Objeto_Populado_Sucesso()
+        {
+            // Arrange
+            BuyerRepository buyerRepository = new BuyerRepository();
+
+            // Act
+            var result = await buyerRepository.GetAllBuyersAsync();
 
             // Assert
             Assert.IsTrue(result.Count() > 0);
@@ -154,6 +167,37 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Assert
             Assert.IsTrue(result.BuyerName != string.Empty);
             Assert.IsTrue(result.BuyerId != 0);
+        }
+
+        [TestMethod]
+        public async Task GetByIdAsync_Retorno_Objeto_Populado_Sucesso()
+        {
+            // Arrange
+            BuyerRepository buyerRepository = new BuyerRepository();
+            var getAll = buyerRepository.GetAllBuyers();
+            int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
+
+            // Act
+            var result = await buyerRepository.GetByIdAsync(idUltimo);
+
+            // Assert
+            Assert.IsTrue(result.BuyerName != string.Empty);
+            Assert.IsTrue(result.BuyerId != 0);
+        }
+
+        [TestMethod]
+        public async Task GetByIdAsync_Retorno_Objeto_Nulo_Sucesso()
+        {
+            // Arrange
+            BuyerRepository buyerRepository = new BuyerRepository();
+            var getAll = buyerRepository.GetAllBuyers();
+            int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
+
+            // Act
+            var result = await buyerRepository.GetByIdAsync(idUltimo);
+
+            // Assert
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
