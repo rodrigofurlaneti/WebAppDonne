@@ -1,5 +1,4 @@
-﻿using Domain.Donne;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebApi.Donne.Infrastructure;
 
 namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
