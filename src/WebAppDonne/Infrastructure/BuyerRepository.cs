@@ -308,7 +308,8 @@ namespace WebApi.Donne.Infrastructure
 
         public void UpdateAsync(BuyerModel buyerModel)
         {
-                Task.Run(() => {
+            logger.Trace("Update");
+            Task.Run(() => {
                     SqlConnection con = new SqlConnection(connectionString);
                     SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
                     cmd.Parameters.AddWithValue("@BuyerId", buyerModel.BuyerId);

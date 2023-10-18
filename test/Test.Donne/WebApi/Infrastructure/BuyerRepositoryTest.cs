@@ -339,6 +339,9 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Act
             buyerRepository.Insert(buyerModel);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -362,6 +365,9 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Act
             buyerRepository.InsertAsync(buyerModel);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -375,6 +381,10 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             
             // Act
             buyerRepository.Delete(idUltimo);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+
         }
 
         [TestMethod]
@@ -388,6 +398,9 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Act
             buyerRepository.DeleteAsync(idUltimo);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -411,9 +424,11 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             BuyerModel buyerModel = new BuyerModel(buyerId, buyerName, buyerPhone, buyerAddress, status,
                 listDateTime, userId, userName);
 
-
             // Act
             buyerRepository.Update(buyerModel);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -437,9 +452,11 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             BuyerModel buyerModel = new BuyerModel(buyerId, buyerName, buyerPhone, buyerAddress, status,
                 listDateTime, userId, userName);
 
-
             // Act
             buyerRepository.UpdateAsync(buyerModel);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
         }
     }
 }
