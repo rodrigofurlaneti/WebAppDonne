@@ -16,53 +16,73 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<CategoryModel> GetAllCategorys()
         {
-            List<CategoryModel> listCategoryModel = new List<CategoryModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            try
             {
-                SqlCommand cmd = new SqlCommand("USP_CategoryGetAll", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                logger.Trace("GetAllCategorys");
+                List<CategoryModel> listCategoryModel = new List<CategoryModel>();
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    CategoryModel category = new CategoryModel();
-                    category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
-                    category.CategoryName = Convert.ToString(rdr["CategoryName"]);
-                    category.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    category.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    category.UserId = Convert.ToInt32(rdr["UserId"]);
-                    category.UserName = Convert.ToString(rdr["UserName"]);
-                    listCategoryModel.Add(category);
+                    SqlCommand cmd = new SqlCommand("USP_CategoryGetAll", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        CategoryModel category = new CategoryModel();
+                        category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
+                        category.CategoryName = Convert.ToString(rdr["CategoryName"]);
+                        category.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                        category.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                        category.UserId = Convert.ToInt32(rdr["UserId"]);
+                        category.UserName = Convert.ToString(rdr["UserName"]);
+                        listCategoryModel.Add(category);
+                    }
                 }
+                return listCategoryModel;
             }
-            return listCategoryModel;
+            catch (ArgumentNullException ex)
+            {
+                string mensagemErro = "Erro ao lista as categorias, utilizando a procedure USP_CategoryGetAll síncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
 
         public CategoryModel GetById(int id)
         {
-            CategoryModel category = new CategoryModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            try
             {
-                SqlCommand cmd = new SqlCommand("USP_CategoryGetById", con);
-                cmd.Parameters.AddWithValue("@CategoryId", id);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                logger.Trace("GetById - Cartegory");
+                CategoryModel category = new CategoryModel();
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
-                    category.CategoryName = Convert.ToString(rdr["CategoryName"]);
-                    category.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    category.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    category.UserId = Convert.ToInt32(rdr["UserId"]);
-                    category.UserName = Convert.ToString(rdr["UserName"]);
+                    SqlCommand cmd = new SqlCommand("USP_CategoryGetById", con);
+                    cmd.Parameters.AddWithValue("@CategoryId", id);
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
+                        category.CategoryName = Convert.ToString(rdr["CategoryName"]);
+                        category.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                        category.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                        category.UserId = Convert.ToInt32(rdr["UserId"]);
+                        category.UserName = Convert.ToString(rdr["UserName"]);
+                    }
                 }
+                return category;
             }
-            return category;
+            catch (ArgumentNullException ex)
+            {
+                string mensagemErro = "Erro ao lista a categoria, utilizando a procedure USP_CategoryGetById síncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
         }
 
         public void Insert(CategoryModel Category)
         {
+            logger.Trace("Insert - Category");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
             cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
@@ -76,8 +96,28 @@ namespace WebApi.Donne.Infrastructure
             con.Close();
         }
 
+        public void InsertAsync(CategoryModel Category)
+        {
+            logger.Trace("InsertAsync - Category");
+            Task.Run(() =>
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
+                cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
+                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@UserId", Category.UserId);
+                cmd.Parameters.AddWithValue("@UserName", Category.UserName);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                con.Close();
+            });
+        }
+
         public void Delete(int CategoryId)
         {
+            logger.Trace("Delete Category");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryDelete", con);
             cmd.Parameters.AddWithValue("@CategoryId", CategoryId);
@@ -87,8 +127,24 @@ namespace WebApi.Donne.Infrastructure
             con.Close();
         }
 
+        public void DeleteAsync(int CategoryId)
+        {
+            logger.Trace("DeleteAsync - Category");
+            Task.Run(() =>
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_CategoryDelete", con);
+                cmd.Parameters.AddWithValue("@CategoryId", CategoryId);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                con.Close();
+            });
+        }
+
         public void Update(CategoryModel Category)
         {
+            logger.Trace("Update Category");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryUpdate", con);
             cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
@@ -101,6 +157,26 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+        }
+
+        public void UpdateAsync(CategoryModel Category)
+        {
+            logger.Trace("UpdateAsync - Category");
+            Task.Run(() =>
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_CategoryUpdate", con);
+                cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
+                cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
+                cmd.Parameters.AddWithValue("@DateInsert", Category.DateInsert);
+                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@UserId", Category.UserId);
+                cmd.Parameters.AddWithValue("@UserName", Category.UserName);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                con.Close();
+            });
         }
 
         #endregion

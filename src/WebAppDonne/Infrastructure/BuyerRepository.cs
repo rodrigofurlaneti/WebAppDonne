@@ -52,12 +52,12 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<BuyerModel>> GetAllBuyersAsync()
         {
-            logger.Trace("GetAllBuyersAsync");
             List<BuyerModel> listBuyerModel = new List<BuyerModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             using (SqlCommand cmd = new SqlCommand("USP_BuyerGetAll", con))
             try
             {
+                logger.Trace("GetAllBuyersAsync");
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
                 SqlDataReader rdr = await cmd.ExecuteReaderAsync();

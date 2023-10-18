@@ -2,7 +2,7 @@
 {
     public class Logger
     {
-        private readonly ILogger _logger;
+        public readonly ILogger _logger;
         public Logger(ILogger logger)
         {
             this._logger = logger;
