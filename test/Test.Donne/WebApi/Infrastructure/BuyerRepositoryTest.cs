@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Domain.Donne;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Data.SqlClient;
 using WebApi.Donne.Infrastructure;
 
 namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
@@ -58,6 +60,68 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Assert
             Assert.IsTrue(result.Count() > 0);
             Assert.AreEqual("Marcelo", result.First().BuyerName);
+        }
+
+        [TestMethod]
+        public void GetById_Retorno_Diferente_Nulo_Sucesso()
+        {
+            // Arrange
+            BuyerRepository buyerRepository = new BuyerRepository();
+
+            // Act
+            var result = buyerRepository.GetById(1);
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetById_Retorno_Objeto_Populado_Sucesso()
+        {
+            // Arrange
+            BuyerRepository buyerRepository = new BuyerRepository();
+
+            // Act
+            var result = buyerRepository.GetById(1);
+
+            // Assert
+            Assert.AreEqual(1, result.BuyerId);
+            Assert.AreEqual("Marcelo", result.BuyerName);
+            Assert.AreEqual("Rua Jacob", result.BuyerAddress);
+        }
+
+        [TestMethod]
+        public void Insert_Sem_Retorno_Sucesso()
+        {
+            // Arrange
+            BuyerRepository buyerRepository = new BuyerRepository();
+            string buyerAddress = Faker.Address.StreetAddress();
+            string buyerName = Faker.Name.FullName();
+            string userName = Faker.Name.First();
+            int buyerId = Faker.RandomNumber.Next(0, 100);
+            bool status = true;
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            string buyerPhone = Faker.RandomNumber.Next().ToString();
+            int userId = Faker.RandomNumber.Next();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            BuyerModel buyerModel = new BuyerModel(buyerId, buyerName, buyerPhone, buyerAddress, status,
+                listDateTime, userId, userName);
+
+            // Act
+            buyerRepository.Insert(buyerModel);
+        }
+
+        [TestMethod]
+        public void Delete_Sem_Retorno_Sucesso()
+        {
+            // Arrange
+            BuyerRepository buyerRepository = new BuyerRepository();
+            var getAll = buyerRepository.GetAllBuyers();
+            int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
+            
+            // Act
+            buyerRepository.Delete(idUltimo);
         }
     }
 }
