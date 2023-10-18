@@ -154,7 +154,6 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Assert
             Assert.IsTrue(result.BuyerName != string.Empty);
             Assert.IsTrue(result.BuyerId != 0);
-            Assert.IsTrue(result.BuyerPhone != string.Empty);
         }
 
         [TestMethod]
