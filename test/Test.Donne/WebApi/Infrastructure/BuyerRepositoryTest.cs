@@ -130,9 +130,11 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         {
             // Arrange
             BuyerRepository buyerRepository = new BuyerRepository();
+            var getAll = buyerRepository.GetAllBuyers();
+            int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
             // Act
-            var result = buyerRepository.GetById(1);
+            var result = buyerRepository.GetById(idUltimo);
 
             // Assert
             Assert.IsNotNull(result);
@@ -143,9 +145,11 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         {
             // Arrange
             BuyerRepository buyerRepository = new BuyerRepository();
+            var getAll = buyerRepository.GetAllBuyers();
+            int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
             // Act
-            var result = buyerRepository.GetById(1);
+            var result = buyerRepository.GetById(idUltimo);
 
             // Assert
             Assert.IsTrue(result.BuyerName != string.Empty);
