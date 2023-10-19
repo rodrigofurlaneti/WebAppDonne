@@ -116,5 +116,21 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             // Assert
             mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
         }
+
+        [TestMethod]
+        public void Delete_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            PaymentRepository paymentRepository = new PaymentRepository(mockLogger.Object);
+            var getAll = paymentRepository.GetAllPayments();
+            int paymentId = getAll.ToList()[getAll.Count() - 1].PaymentId;
+
+            // Act
+            paymentRepository.Delete(paymentId);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+        }
     }
 }
