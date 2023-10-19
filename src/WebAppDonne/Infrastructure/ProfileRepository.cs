@@ -16,6 +16,7 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<ProfileModel> GetAllProfiles()
         {
+            logger.Trace("GetAllProfiles");
             List<ProfileModel> listProfileModel = new List<ProfileModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -40,6 +41,7 @@ namespace WebApi.Donne.Infrastructure
 
         public ProfileModel GetById(int id)
         {
+            logger.Trace("GetById");
             ProfileModel profileModel = new ProfileModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -63,6 +65,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(ProfileModel profileModel)
         {
+            logger.Trace("Insert");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProfileInsert", con);
             cmd.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
@@ -78,6 +81,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int ProfileId)
         {
+            logger.Trace("Delete");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProfileDelete", con);
             cmd.Parameters.AddWithValue("@ProfileId", ProfileId);
@@ -89,6 +93,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(ProfileModel profileModel)
         {
+            logger.Trace("GetById");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProfileUpdate", con);
             cmd.Parameters.AddWithValue("@ProfileId", profileModel.ProfileId);
