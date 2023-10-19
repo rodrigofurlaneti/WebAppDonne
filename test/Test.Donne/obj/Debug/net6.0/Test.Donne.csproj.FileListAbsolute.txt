@@ -10,8 +10,8 @@ C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\testhost.
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Microsoft.TestPlatform.AdapterUtilities.dll
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.deps.json
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.runtimeconfig.json
+C:\Users\adm\source\repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.deps.json
+C:\Users\adm\source\repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.runtimeconfig.json
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.pdb
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Castle.Core.dll
@@ -131,9 +131,9 @@ C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donn
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.AssemblyInfoInputs.cache
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.AssemblyInfo.cs
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.csproj.CoreCompileInputs.cache
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.csproj.CopyComplete
+C:\Users\adm\source\repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.csproj.CopyComplete
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\refint\Test.Donne.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.pdb
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.genruntimeconfig.cache
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\ref\Test.Donne.dll
+C:\Users\adm\source\repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.genruntimeconfig.cache
+C:\Users\adm\source\repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\ref\Test.Donne.dll

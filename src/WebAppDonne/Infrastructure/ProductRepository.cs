@@ -16,6 +16,7 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<ProductModel> GetAllProducts()
         {
+            logger.Trace("GetAllProducts");
             List<ProductModel> listProductModel = new List<ProductModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -50,6 +51,7 @@ namespace WebApi.Donne.Infrastructure
 
         public ProductModel GetById(int id)
         {
+            logger.Trace("GetById");
             ProductModel product = new ProductModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -82,6 +84,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(ProductModel product)
         {
+            logger.Trace("Insert");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProductInsert", con);
             cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
@@ -108,6 +111,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int ProductId)
         {
+            logger.Trace("Delete");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProductDelete", con);
             cmd.Parameters.AddWithValue("@ProductId", ProductId);
@@ -119,6 +123,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(ProductModel product)
         {
+            logger.Trace("Update");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProductUpdate", con);
             cmd.Parameters.AddWithValue("@ProductId", product.ProductId);
