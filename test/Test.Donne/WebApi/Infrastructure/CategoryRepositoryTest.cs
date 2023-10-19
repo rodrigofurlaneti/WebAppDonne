@@ -84,8 +84,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             var result = categoryRepository.GetById(idUltimo);
 
             // Assert
-            Assert.IsTrue(result.UserName != string.Empty);
-            Assert.IsTrue(result.UserId != 0);
+            Assert.AreEqual(idUltimo, result.CategoryId);
         }
 
         [TestMethod]
