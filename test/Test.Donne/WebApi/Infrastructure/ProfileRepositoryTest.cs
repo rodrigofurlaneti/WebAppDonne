@@ -112,7 +112,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             ProfileModel profileModel = new ProfileModel(profileId, profileName, listDateTime, userId, userName);
 
             // Act
-            profileRepository.Insert(profileModel);
+            profileRepository.Update(profileModel);
 
             //Assert
             mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
