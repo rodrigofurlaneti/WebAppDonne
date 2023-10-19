@@ -16,6 +16,7 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<CommandModel> GetAllCommand()
         {
+            logger.Trace("GetAllCommand");
             List<CommandModel> listCommandsModel = new List<CommandModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -42,6 +43,7 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<CommandModel> GetByStatus(int status)
         {
+            logger.Trace("GetByStatus");
             List<CommandModel> listCommandsModel = new List<CommandModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -63,6 +65,7 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<CommandOrderModel> GetCommandOrder(int id)
         {
+            logger.Trace("GetCommandOrder");
             List<CommandOrderModel> listCommandsModel = new List<CommandOrderModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -90,10 +93,11 @@ namespace WebApi.Donne.Infrastructure
 
         public CommandModel GetById(int id)
         {
+            logger.Trace("GetById");
             CommandModel command = new CommandModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_CommandsGetById", con);
+                SqlCommand cmd = new SqlCommand("USP_CommandGetById", con);
                 cmd.Parameters.AddWithValue("@CommandId", id);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -115,6 +119,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(CommandModel commandModel)
         {
+            logger.Trace("Insert");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CommandInsert", con);
             cmd.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
@@ -132,6 +137,7 @@ namespace WebApi.Donne.Infrastructure
 
         public int InsertReturnId(CommandModel commandModel)
         {
+            logger.Trace("InsertReturnId");
             int newId = 0;
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CommandInsertReturnId", con);
@@ -156,6 +162,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int commandId)
         {
+            logger.Trace("Delete");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CommandDelete", con);
             cmd.Parameters.AddWithValue("@CommandId", commandId);
@@ -167,6 +174,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(CommandModel commandModel)
         {
+            logger.Trace("Update");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CommandUpdate", con);
             cmd.Parameters.AddWithValue("@CommandId", commandModel.CommandId);
