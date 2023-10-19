@@ -16,6 +16,7 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<PaymentModel> GetAllPayments()
         {
+            logger.Trace("GetAllPayments");
             List<PaymentModel> listPaymentModel = new List<PaymentModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -44,6 +45,7 @@ namespace WebApi.Donne.Infrastructure
 
         public PaymentModel GetById(int id)
         {
+            logger.Trace("GetById");
             PaymentModel paymentModel = new PaymentModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -72,6 +74,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(PaymentModel paymentModel)
         {
+            logger.Trace("Insert");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_PaymentInsert", con);
             cmd.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
@@ -91,6 +94,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int PaymentId)
         {
+            logger.Trace("Delete");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_PaymentDelete", con);
             cmd.Parameters.AddWithValue("@PaymentId", PaymentId);
@@ -102,8 +106,10 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(PaymentModel paymentModel)
         {
+            logger.Trace("Update");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_PaymentUpdate", con);
+            cmd.Parameters.AddWithValue("@PaymentId", paymentModel.PaymentId);
             cmd.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
             cmd.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);
             cmd.Parameters.AddWithValue("@FormOfPaymentName", paymentModel.FormOfPaymentName);
