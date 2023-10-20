@@ -39,11 +39,23 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpOptions("{id:int}")]
-        public IEnumerable<BuyerModel> Options(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BuyerModel>))]
+        public async Task<IActionResult> OptionsAsync(int id)
         {
-            BuyerRepository dal = new BuyerRepository(_logger);
-            var ret = dal.GetByStatus(id);
-            return (ret);
+            try
+            {
+                BuyerRepository dal = new BuyerRepository(_logger);
+                var ret = await dal.GetByStatusAsync(id);
+                _logger.Trace("OptionsAsync");
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceExeption("OptionsAsync");
+                string mensagem = "Erro ao consumir a controler Buyer, rota OptionsAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpGet("{id:int}")]
