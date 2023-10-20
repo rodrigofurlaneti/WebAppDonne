@@ -52,6 +52,10 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+<<<<<<< HEAD
+=======
+                logger.Trace("GetById");
+>>>>>>> ddb6784e2d6824d7a0a49cdb526efb926ecb7c8a
                 CategoryModel category = new CategoryModel();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -82,6 +86,10 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(CategoryModel Category)
         {
+<<<<<<< HEAD
+=======
+            logger.Trace("Insert");
+>>>>>>> ddb6784e2d6824d7a0a49cdb526efb926ecb7c8a
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
             cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
@@ -117,6 +125,10 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int CategoryId)
         {
+<<<<<<< HEAD
+=======
+            logger.Trace("Delete");
+>>>>>>> ddb6784e2d6824d7a0a49cdb526efb926ecb7c8a
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryDelete", con);
             cmd.Parameters.AddWithValue("@CategoryId", CategoryId);
@@ -144,6 +156,10 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(CategoryModel Category)
         {
+<<<<<<< HEAD
+=======
+            logger.Trace("Update");
+>>>>>>> ddb6784e2d6824d7a0a49cdb526efb926ecb7c8a
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryUpdate", con);
             cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);

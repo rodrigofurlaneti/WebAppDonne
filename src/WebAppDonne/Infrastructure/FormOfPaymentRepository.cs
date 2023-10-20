@@ -18,6 +18,10 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+<<<<<<< HEAD
+=======
+                logger.Trace("GetAllFormOfPayment");
+>>>>>>> ddb6784e2d6824d7a0a49cdb526efb926ecb7c8a
                 List<FormOfPaymentModel> listFormOfPaymentModel = new List<FormOfPaymentModel>();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -51,6 +55,10 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+<<<<<<< HEAD
+=======
+                logger.Trace("GetById");
+>>>>>>> ddb6784e2d6824d7a0a49cdb526efb926ecb7c8a
                 FormOfPaymentModel formOfPayment = new FormOfPaymentModel();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -81,6 +89,10 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(FormOfPaymentModel FormOfPayment)
         {
+<<<<<<< HEAD
+=======
+            logger.Trace("Insert");
+>>>>>>> ddb6784e2d6824d7a0a49cdb526efb926ecb7c8a
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_FormOfPaymentInsert", con);
             cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
@@ -116,6 +128,10 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int FormOfPaymentId)
         {
+<<<<<<< HEAD
+=======
+            logger.Trace("Delete");
+>>>>>>> ddb6784e2d6824d7a0a49cdb526efb926ecb7c8a
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_FormOfPaymentDelete", con);
             cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPaymentId);
@@ -143,6 +159,10 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(FormOfPaymentModel FormOfPayment)
         {
+<<<<<<< HEAD
+=======
+            logger.Trace("Update");
+>>>>>>> ddb6784e2d6824d7a0a49cdb526efb926ecb7c8a
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_FormOfPaymentUpdate", con);
             cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPayment.FormOfPaymentId);
