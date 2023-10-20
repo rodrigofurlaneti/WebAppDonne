@@ -259,28 +259,26 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int buyerId)
         {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
-                cmd.Parameters.AddWithValue("@BuyerId", buyerId);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
-                con.Close();
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
+            cmd.Parameters.AddWithValue("@BuyerId", buyerId);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.ExecuteNonQuery();
+            con.Close();
             logger.Trace("Delete");
         }
 
-        public void DeleteAsync(int buyerId)
+        public async Task DeleteAsync(int buyerId)
         {
-                logger.Trace("DeleteAsync");
-                Task.Run(() => {
-                    SqlConnection con = new SqlConnection(connectionString);
-                    SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
-                    cmd.Parameters.AddWithValue("@BuyerId", buyerId);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                });
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
+            cmd.Parameters.AddWithValue("@BuyerId", buyerId);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            logger.Trace("DeleteAsync");
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
         }
 
         public void Update(BuyerModel buyerModel)

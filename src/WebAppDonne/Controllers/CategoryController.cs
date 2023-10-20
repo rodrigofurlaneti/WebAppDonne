@@ -16,23 +16,46 @@ namespace WebApi.Donne.Controllers
 
         public CategoryController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
         {
-            _logger = logger;
+            this._logger = logger;
         }
 
-        [HttpGet(Name = "GetCategory")]
-        public IEnumerable<CategoryModel> Get()
+        [HttpGet(Name = "GetCategoryAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CategoryModel>))]
+        public async Task<IActionResult> Get()
         {
-            CategoryRepository dal = new CategoryRepository(_logger);
-            var ret = dal.GetAllCategorys();
-            return (ret);
+            try
+            {
+                CategoryRepository dal = new CategoryRepository(_logger);
+                var ret = await dal.GetAllCategorysAsync();
+                _logger.Trace("GetCategorysAsync");
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("GetCategorysAsync");
+                string mensagem = "Erro ao consumir a controler Category, rota GetAllCategorysAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         [HttpGet("{id:int}")]
-        public CategoryModel Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CategoryModel))]
+        public async Task<IActionResult> Get(int id)
         {
-            CategoryRepository dal = new CategoryRepository(_logger);
-            var ret = dal.GetById(id);
-            return (ret);
+            try
+            {
+                CategoryRepository dal = new CategoryRepository(_logger);
+                var ret = await dal.GetByIdAsync(id);
+                _logger.Trace("GetByIdAsync");
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("GetByIdAsync");
+                string mensagem = "Erro ao consumir a controler Category, rota GetAllCategorysAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpPost(Name = "InsertCategory")]

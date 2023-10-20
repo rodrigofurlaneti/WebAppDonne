@@ -2,7 +2,7 @@
 {
     public class Logger : ILogger
     {
-        public void TraceExeption(string message)
+        public void TraceException(string message)
         {
             string log = message;
         }

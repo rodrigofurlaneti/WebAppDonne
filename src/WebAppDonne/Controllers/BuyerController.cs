@@ -32,7 +32,7 @@ namespace WebApi.Donne.Controllers
             }
             catch (Exception ex)
             {
-                _logger.TraceExeption("GetBuyerAsync");
+                _logger.TraceException("GetBuyerAsync");
                 string mensagem = "Erro ao consumir a controler Buyer, rota GetBuyers " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -51,7 +51,7 @@ namespace WebApi.Donne.Controllers
             }
             catch (Exception ex)
             {
-                _logger.TraceExeption("OptionsAsync");
+                _logger.TraceException("OptionsAsync");
                 string mensagem = "Erro ao consumir a controler Buyer, rota OptionsAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -71,7 +71,7 @@ namespace WebApi.Donne.Controllers
             }
             catch (Exception ex)
             {
-                _logger.TraceExeption("GetByIdAsync");
+                _logger.TraceException("GetByIdAsync");
                 string mensagem = "Erro ao consumir a controler Buyer, rota GetByIdAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -88,7 +88,7 @@ namespace WebApi.Donne.Controllers
             }
             catch (Exception ex)
             {
-                _logger.TraceExeption("InsertAsync");
+                _logger.TraceException("InsertAsync");
                 string mensagem = "Erro ao consumir a controler Buyer, rota Post " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -106,7 +106,7 @@ namespace WebApi.Donne.Controllers
             }
             catch (Exception ex)
             {
-                _logger.TraceExeption("UpdateAsync");
+                _logger.TraceException("UpdateAsync");
                 string mensagem = "Erro ao consumir a controler Buyer, rota Update " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -114,10 +114,21 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            BuyerRepository dal = new BuyerRepository(_logger);
-            dal.DeleteAsync(id);
+            try
+            {
+                _logger.Trace("DeleteAsync");
+                BuyerRepository dal = new BuyerRepository(_logger);
+                await dal.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("DeleteAsync");
+                string mensagem = "Erro ao consumir a controler Buyer, rota DeleteAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
     }
 }

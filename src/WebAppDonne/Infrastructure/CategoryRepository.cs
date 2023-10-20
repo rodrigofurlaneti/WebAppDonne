@@ -16,10 +16,9 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<CategoryModel> GetAllCategorys()
         {
-            try
-            {
-                List<CategoryModel> listCategoryModel = new List<CategoryModel>();
-                using (SqlConnection con = new SqlConnection(connectionString))
+            List<CategoryModel> listCategoryModel = new List<CategoryModel>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+                try
                 {
                     SqlCommand cmd = new SqlCommand("USP_CategoryGetAll", con);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -36,16 +35,77 @@ namespace WebApi.Donne.Infrastructure
                         category.UserName = Convert.ToString(rdr["UserName"]);
                         listCategoryModel.Add(category);
                     }
+                    logger.Trace("GetAllCategorys");
+                    return listCategoryModel;
                 }
-                logger.Trace("GetAllCategorys");
+                catch (ArgumentNullException ex)
+                {
+                    string mensagemErro = "Erro ao lista as categorias, utilizando a procedure USP_CategoryGetAll assíncrono " + ex.Message;
+                    throw new ArgumentNullException(mensagemErro);
+                }
+        }
+
+        public async Task<IEnumerable<CategoryModel>> GetAllCategorysAsync()
+        {
+            List<CategoryModel> listCategoryModel = new List<CategoryModel>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_CategoryGetAll", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
+                while (rdr.Read())
+                {
+                    CategoryModel category = new CategoryModel();
+                    category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
+                    category.CategoryName = Convert.ToString(rdr["CategoryName"]);
+                    category.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    category.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    category.UserId = Convert.ToInt32(rdr["UserId"]);
+                    category.UserName = Convert.ToString(rdr["UserName"]);
+                    listCategoryModel.Add(category);
+                }
+                logger.Trace("GetAllCategorysAsync");
                 return listCategoryModel;
             }
             catch (ArgumentNullException ex)
             {
-                string mensagemErro = "Erro ao lista as categorias, utilizando a procedure USP_CategoryGetAll síncrono " + ex.Message;
+                string mensagemErro = "Erro ao lista as categorias, utilizando a procedure USP_CategoryGetAll assíncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
+        }
 
+        public async Task<CategoryModel> GetByIdAsync(int id)
+        {
+            try
+            {
+                CategoryModel category = new CategoryModel();
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("USP_CategoryGetById", con);
+                    cmd.Parameters.AddWithValue("@CategoryId", id);
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
+                    while (rdr.Read())
+                    {
+                        category.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
+                        category.CategoryName = Convert.ToString(rdr["CategoryName"]);
+                        category.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                        category.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                        category.UserId = Convert.ToInt32(rdr["UserId"]);
+                        category.UserName = Convert.ToString(rdr["UserName"]);
+                    }
+                }
+                logger.Trace("GetByIdAsync");
+                return category;
+            }
+            catch (ArgumentNullException ex)
+            {
+                string mensagemErro = "Erro ao lista a categoria, utilizando a procedure USP_CategoryGetById assíncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
         }
 
         public CategoryModel GetById(int id)

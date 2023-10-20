@@ -3,6 +3,6 @@
     public interface ILogger
     {
         void Trace(string message);
-        void TraceExeption(string message);
+        void TraceException(string message);
     }
 }

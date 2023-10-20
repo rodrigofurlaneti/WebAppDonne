@@ -1,10 +1,10 @@
 ﻿using Domain.Donne;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Test.Donne.Domain
+namespace Test.Donne.Domain.CategoryModelTest
 {
     [TestClass]
-    [TestCategory("Donne > Domain > BuyersModel")]
+    [TestCategory("Donne > Domain > CategoryModel")]
     public class CategoryModelTest
     {
         [TestMethod]
