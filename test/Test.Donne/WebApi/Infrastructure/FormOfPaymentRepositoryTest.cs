@@ -22,6 +22,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllFormOfPayment"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -36,6 +37,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetAllFormOfPayment"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -69,6 +71,8 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllFormOfPayment"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -88,6 +92,8 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             Assert.IsTrue(result.UserId != 0);
             Assert.IsTrue(result.FormOfPaymentName != string.Empty);
             Assert.IsTrue(result.FormOfPaymentId != 0);
+            mockLogger.Verify(x => x.Trace("GetAllFormOfPayment"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -127,7 +133,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             formOfPaymentRepository.Insert(formOfPaymentModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -150,7 +156,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             formOfPaymentRepository.InsertAsync(formOfPaymentModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -174,7 +180,8 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             formOfPaymentRepository.Update(formOfPaymentModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllFormOfPayment"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -198,7 +205,8 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             formOfPaymentRepository.UpdateAsync(formOfPaymentModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllFormOfPayment"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -214,7 +222,8 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             formOfPaymentRepository.Delete(formOfPaymentId);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllFormOfPayment"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -230,7 +239,8 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             formOfPaymentRepository.DeleteAsync(formOfPaymentId);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllFormOfPayment"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
         }
     }
 }

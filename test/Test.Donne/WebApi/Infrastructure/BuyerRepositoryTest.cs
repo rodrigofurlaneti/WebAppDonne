@@ -22,6 +22,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllBuyers"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -53,6 +54,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllBuyersAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -84,6 +86,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetAllBuyers"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -98,6 +101,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetAllBuyersAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -112,6 +116,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetByStatus"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -143,6 +148,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -174,6 +180,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -188,6 +195,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetByStatus"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -202,6 +210,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -216,6 +225,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -232,6 +242,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllBuyers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -266,6 +278,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Assert
             Assert.IsTrue(result.BuyerName != string.Empty);
             Assert.IsTrue(result.BuyerId != 0);
+            mockLogger.Verify(x => x.Trace("GetAllBuyers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -283,6 +297,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Assert
             Assert.IsTrue(result.BuyerName != string.Empty);
             Assert.IsTrue(result.BuyerId != 0);
+            mockLogger.Verify(x => x.Trace("GetAllBuyers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -316,6 +332,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllBuyers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -341,7 +359,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             buyerRepository.Insert(buyerModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -367,7 +385,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             buyerRepository.InsertAsync(buyerModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -383,8 +401,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             buyerRepository.Delete(idUltimo);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
-
+            mockLogger.Verify(x => x.Trace("GetAllBuyers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -400,7 +418,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             buyerRepository.DeleteAsync(idUltimo);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllBuyers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -428,7 +447,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             buyerRepository.Update(buyerModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllBuyers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -456,7 +476,8 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             buyerRepository.UpdateAsync(buyerModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllBuyers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
         }
     }
 }

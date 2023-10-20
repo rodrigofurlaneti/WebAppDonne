@@ -11,7 +11,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
     public class ProfileRepositoryTest
     {
         [TestMethod]
-        public void GetAllProfile_Retorno_Diferente_Nulo_Sucesso()
+        public void GetAllProfiles_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -22,10 +22,11 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllProfiles"), Times.Exactly(1));
         }
 
         [TestMethod]
-        public void GetAllProfile_Retorno_Objeto_Populado_Sucesso()
+        public void GetAllProfiles_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -36,6 +37,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetAllProfiles"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -52,6 +54,8 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllProfiles"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -71,6 +75,8 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             Assert.IsTrue(result.UserName != string.Empty);
             Assert.IsTrue(result.ProfileId != 0);
             Assert.IsTrue(result.UserId != 0);
+            mockLogger.Verify(x => x.Trace("GetAllProfiles"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -92,7 +98,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             profileRepository.Insert(profileModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -115,7 +121,8 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             profileRepository.Update(profileModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllProfiles"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -131,7 +138,8 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             profileRepository.Delete(profileId);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllProfiles"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
 
     }

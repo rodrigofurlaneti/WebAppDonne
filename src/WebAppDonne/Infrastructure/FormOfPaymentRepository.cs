@@ -18,7 +18,6 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                logger.Trace("GetAllFormOfPayment - FormOfPayment");
                 List<FormOfPaymentModel> listFormOfPaymentModel = new List<FormOfPaymentModel>();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -38,6 +37,7 @@ namespace WebApi.Donne.Infrastructure
                         listFormOfPaymentModel.Add(formOfPayment);
                     }
                 }
+                logger.Trace("GetAllFormOfPayment");
                 return listFormOfPaymentModel;
             }
             catch (ArgumentNullException ex)
@@ -51,7 +51,6 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                logger.Trace("GetById - FormOfPayment");
                 FormOfPaymentModel formOfPayment = new FormOfPaymentModel();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -70,6 +69,7 @@ namespace WebApi.Donne.Infrastructure
                         formOfPayment.UserName = Convert.ToString(rdr["UserName"]);
                     }
                 }
+                logger.Trace("GetById");
                 return formOfPayment;
             }
             catch (ArgumentNullException ex)
@@ -81,7 +81,6 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(FormOfPaymentModel FormOfPayment)
         {
-            logger.Trace("Insert - FormOfPayment");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_FormOfPaymentInsert", con);
             cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
@@ -93,11 +92,12 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Insert");
         }
 
         public void InsertAsync(FormOfPaymentModel FormOfPayment)
         {
-            logger.Trace("InsertAsync - FormOfPayment");
+            logger.Trace("InsertAsync");
             Task.Run(() =>
             {
                 SqlConnection con = new SqlConnection(connectionString);
@@ -116,7 +116,6 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int FormOfPaymentId)
         {
-            logger.Trace("DeleteAsync - FormOfPayment");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_FormOfPaymentDelete", con);
             cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPaymentId);
@@ -124,11 +123,12 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Delete");
         }
 
         public void DeleteAsync(int FormOfPaymentId)
         {
-            logger.Trace("DeleteAsync - FormOfPayment");
+            logger.Trace("DeleteAsync");
             Task.Run(() =>
             {
                 SqlConnection con = new SqlConnection(connectionString);
@@ -143,7 +143,6 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(FormOfPaymentModel FormOfPayment)
         {
-            logger.Trace("Update - FormOfPayment");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_FormOfPaymentUpdate", con);
             cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPayment.FormOfPaymentId);
@@ -156,11 +155,12 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Update");
         }
 
         public void UpdateAsync(FormOfPaymentModel FormOfPayment)
         {
-            logger.Trace("UpdateAsync - FormOfPayment");
+            logger.Trace("UpdateAsync");
             Task.Run(() =>
             {
                 SqlConnection con = new SqlConnection(connectionString);

@@ -22,6 +22,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllCategorys"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -36,6 +37,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetAllCategorys"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -69,6 +71,8 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllCategorys"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -85,6 +89,8 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
 
             // Assert
             Assert.AreEqual(idUltimo, result.CategoryId);
+            mockLogger.Verify(x => x.Trace("GetAllCategorys"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -124,7 +130,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             categoryRepository.Insert(categoryModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -147,7 +153,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             categoryRepository.InsertAsync(categoryModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -171,7 +177,8 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             categoryRepository.Update(categoryModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllCategorys"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -195,7 +202,8 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             categoryRepository.UpdateAsync(categoryModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllCategorys"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -211,7 +219,8 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             categoryRepository.Delete(categoryId);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllCategorys"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -227,8 +236,8 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             categoryRepository.DeleteAsync(categoryId);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllCategorys"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
         }
-
     }
 }

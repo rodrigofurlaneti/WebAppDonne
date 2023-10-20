@@ -22,6 +22,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -36,6 +37,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -52,6 +54,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -70,6 +73,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             Assert.AreEqual(idUltimo, result.CommandId);
             Assert.AreNotEqual(0, result.UserId);
             Assert.AreNotEqual(string.Empty, result.UserName);
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -86,6 +90,8 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByStatus"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -102,6 +108,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetCommandOrder"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -126,7 +133,34 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             commandRepository.Insert(commandModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void Insert_Retorno_Id_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            int buyerId = Faker.RandomNumber.Next(0, 100);
+            string buyerName = Faker.Name.FullName();
+            int commandId = Faker.RandomNumber.Next(0, 100);
+            int userId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            bool status = true;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
+                userId, userName);
+
+            // Act
+            var result = commandRepository.InsertReturnId(commandModel);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace("InsertReturnId"), Times.Exactly(1));
+            Assert.IsNotNull(result);
+            Assert.AreNotEqual(commandId, result);
         }
 
         [TestMethod]
@@ -152,7 +186,8 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             commandRepository.Update(commandModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -168,7 +203,8 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             commandRepository.Delete(commandId);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
 
 

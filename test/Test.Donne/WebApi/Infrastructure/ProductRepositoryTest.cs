@@ -1,11 +1,6 @@
 ﻿using Domain.Donne;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApi.Donne.Infrastructure;
 using WebApi.Donne.Infrastructure.SeedWork;
 
@@ -27,6 +22,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -41,6 +37,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -57,6 +54,8 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -76,6 +75,8 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             Assert.IsTrue(result.CategoryName != string.Empty);
             Assert.IsTrue(result.CategoryId != 0);
             Assert.IsTrue(result.UserId != 0);
+            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -110,7 +111,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             productRepository.Insert(productModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -145,7 +146,8 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             productRepository.Update(productModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -161,7 +163,8 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             productRepository.Delete(productId);
 
             // Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
     }
 }

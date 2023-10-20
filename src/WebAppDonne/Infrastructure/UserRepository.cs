@@ -16,7 +16,6 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<UserModel> GetAllUsers()
         {
-            logger.Trace("GetAllUsers");
             List<UserModel> listUserModel = new List<UserModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -36,12 +35,12 @@ namespace WebApi.Donne.Infrastructure
                     listUserModel.Add(User);
                 }
             }
+            logger.Trace("GetAllUsers");
             return listUserModel;
         }
 
         public UserModel GetById(int id)
         {
-            logger.Trace("GetById");
             UserModel User = new UserModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -60,12 +59,12 @@ namespace WebApi.Donne.Infrastructure
                     User.Status = Convert.ToBoolean(rdr["Status"]);
                 }
             }
+            logger.Trace("GetById");
             return User;
         }
 
         public UserModel GetByName(string Name)
         {
-            logger.Trace("GetByName");
             UserModel User = new UserModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -84,12 +83,12 @@ namespace WebApi.Donne.Infrastructure
                     User.Status = Convert.ToBoolean(rdr["Status"]);
                 }
             }
+            logger.Trace("GetByName");
             return User;
         }
 
         public void Insert(UserModel User)
         {
-            logger.Trace("Insert");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_UserInsert", con);
             cmd.Parameters.AddWithValue("@UserName", User.UserName);
@@ -101,11 +100,11 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Insert");
         }
 
         public void Delete(int UserId)
         {
-            logger.Trace("Delete");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_UserDelete", con);
             cmd.Parameters.AddWithValue("@UserId", UserId);
@@ -113,11 +112,11 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Delete");
         }
 
         public void Update(UserModel User)
         {
-            logger.Trace("Update");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_UserUpdate", con);
             cmd.Parameters.AddWithValue("@UserId", User.UserId);
@@ -130,6 +129,7 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Update");
         }
 
         #endregion

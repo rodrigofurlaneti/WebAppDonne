@@ -16,7 +16,6 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<OrderModel> GetAllOrders()
         {
-            logger.Trace("GetAllOrders");
             List<OrderModel> listOrderModel = new List<OrderModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -41,12 +40,12 @@ namespace WebApi.Donne.Infrastructure
                     listOrderModel.Add(orderModel);
                 }
             }
+            logger.Trace("GetAllOrders");
             return listOrderModel;
         }
 
         public OrderModel GetById(int id)
         {
-            logger.Trace("GetById");
             OrderModel orderModel = new OrderModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -70,12 +69,12 @@ namespace WebApi.Donne.Infrastructure
                     orderModel.UserName = Convert.ToString(rdr["UserName"]);
                 }
             }
+            logger.Trace("GetById");
             return orderModel;
         }
 
         public void Insert(OrderModel orderModel)
         {
-                logger.Trace("Insert");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_OrderInsert", con);
                 cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
@@ -92,11 +91,11 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
                 con.Close();
+            logger.Trace("Insert");
         }
 
         public void Delete(int OrderId)
         {
-            logger.Trace("Delete");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_OrderDelete", con);
             cmd.Parameters.AddWithValue("@OrderId", OrderId);
@@ -104,11 +103,11 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Delete");
         }
 
         public void Update(OrderModel orderModel)
         {
-            logger.Trace("Update");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_OrderUpdate", con);
             cmd.Parameters.AddWithValue("@OrderId", orderModel.OrderId);
@@ -126,6 +125,7 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Update");
         }
 
         #endregion

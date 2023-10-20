@@ -16,7 +16,6 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<CommandModel> GetAllCommand()
         {
-            logger.Trace("GetAllCommand");
             List<CommandModel> listCommandsModel = new List<CommandModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -38,12 +37,12 @@ namespace WebApi.Donne.Infrastructure
                     listCommandsModel.Add(command);
                 }
             }
+            logger.Trace("GetAllCommand");
             return listCommandsModel;
         }
 
         public IEnumerable<CommandModel> GetByStatus(int status)
         {
-            logger.Trace("GetByStatus");
             List<CommandModel> listCommandsModel = new List<CommandModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -60,12 +59,12 @@ namespace WebApi.Donne.Infrastructure
                     listCommandsModel.Add(commandModel);
                 }
             }
+            logger.Trace("GetByStatus");
             return listCommandsModel;
         }
 
         public IEnumerable<CommandOrderModel> GetCommandOrder(int id)
         {
-            logger.Trace("GetCommandOrder");
             List<CommandOrderModel> listCommandsModel = new List<CommandOrderModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -88,12 +87,12 @@ namespace WebApi.Donne.Infrastructure
                     listCommandsModel.Add(commandOrderModel);
                 }
             }
+            logger.Trace("GetCommandOrder");
             return listCommandsModel;
         }
 
         public CommandModel GetById(int id)
         {
-            logger.Trace("GetById");
             CommandModel command = new CommandModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -114,12 +113,12 @@ namespace WebApi.Donne.Infrastructure
                     command.Status = Convert.ToBoolean(rdr["Status"]);
                 }
             }
+            logger.Trace("GetById");
             return command;
         }
 
         public void Insert(CommandModel commandModel)
         {
-            logger.Trace("Insert");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CommandInsert", con);
             cmd.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
@@ -133,11 +132,11 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Insert");
         }
 
         public int InsertReturnId(CommandModel commandModel)
         {
-            logger.Trace("InsertReturnId");
             int newId = 0;
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CommandInsertReturnId", con);
@@ -157,12 +156,12 @@ namespace WebApi.Donne.Infrastructure
                 newId = Convert.ToInt32(result);
             }
             con.Close();
+            logger.Trace("InsertReturnId");
             return newId;
         }
 
         public void Delete(int commandId)
         {
-            logger.Trace("Delete");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CommandDelete", con);
             cmd.Parameters.AddWithValue("@CommandId", commandId);
@@ -170,11 +169,11 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Delete");
         }
 
         public void Update(CommandModel commandModel)
         {
-            logger.Trace("Update");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CommandUpdate", con);
             cmd.Parameters.AddWithValue("@CommandId", commandModel.CommandId);
@@ -189,6 +188,7 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Update");
         }
 
         #endregion

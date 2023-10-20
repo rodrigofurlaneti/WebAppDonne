@@ -11,7 +11,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
     public class UserRepositoryTest
     {
         [TestMethod]
-        public void GetAllUser_Retorno_Diferente_Nulo_Sucesso()
+        public void GetAllUsers_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -22,10 +22,11 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
         }
 
         [TestMethod]
-        public void GetAllProfile_Retorno_Objeto_Populado_Sucesso()
+        public void GetAllUsers_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -36,6 +37,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -52,6 +54,8 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -70,6 +74,8 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             Assert.AreEqual(idUltimo, result.UserId);
             Assert.IsTrue(result.UserId != 0);
             Assert.IsTrue(result.UserName != string.Empty);
+            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -86,6 +92,8 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByName"), Times.Exactly(1));
         }
 
 
@@ -105,6 +113,8 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             Assert.AreEqual(nameUltimo, result.UserName);
             Assert.IsTrue(result.UserId != 0);
             Assert.IsTrue(result.UserName != string.Empty);
+            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByName"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -126,7 +136,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             userRepository.Insert(userModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -149,7 +159,8 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             userRepository.Update(userModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -165,7 +176,8 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             userRepository.Delete(userId);
 
             //Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
     }
 }

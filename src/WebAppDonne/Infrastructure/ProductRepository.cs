@@ -16,7 +16,6 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<ProductModel> GetAllProducts()
         {
-            logger.Trace("GetAllProducts");
             List<ProductModel> listProductModel = new List<ProductModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -46,12 +45,12 @@ namespace WebApi.Donne.Infrastructure
                     listProductModel.Add(product);
                 }
             }
+            logger.Trace("GetAllProducts");
             return listProductModel;
         }
 
         public ProductModel GetById(int id)
         {
-            logger.Trace("GetById");
             ProductModel product = new ProductModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -79,12 +78,12 @@ namespace WebApi.Donne.Infrastructure
                     product.Status = Convert.ToBoolean(rdr["Status"]);
                 }
             }
+            logger.Trace("GetById");
             return product;
         }
 
         public void Insert(ProductModel product)
         {
-            logger.Trace("Insert");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProductInsert", con);
             cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
@@ -102,16 +101,15 @@ namespace WebApi.Donne.Infrastructure
             cmd.Parameters.AddWithValue("@UserId", product.UserId);
             cmd.Parameters.AddWithValue("@UserName", product.UserName);
             cmd.Parameters.AddWithValue("@Status", product.Status);
-
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Insert");
         }
 
         public void Delete(int ProductId)
         {
-            logger.Trace("Delete");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProductDelete", con);
             cmd.Parameters.AddWithValue("@ProductId", ProductId);
@@ -119,11 +117,11 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Delete");
         }
 
         public void Update(ProductModel product)
         {
-            logger.Trace("Update");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProductUpdate", con);
             cmd.Parameters.AddWithValue("@ProductId", product.ProductId);
@@ -146,6 +144,7 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Update");
         }
 
         #endregion

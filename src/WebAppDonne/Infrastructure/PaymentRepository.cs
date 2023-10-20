@@ -16,7 +16,6 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<PaymentModel> GetAllPayments()
         {
-            logger.Trace("GetAllPayments");
             List<PaymentModel> listPaymentModel = new List<PaymentModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -40,12 +39,12 @@ namespace WebApi.Donne.Infrastructure
                     listPaymentModel.Add(paymentModel);
                 }
             }
+            logger.Trace("GetAllPayments");
             return listPaymentModel;
         }
 
         public PaymentModel GetById(int id)
         {
-            logger.Trace("GetById");
             PaymentModel paymentModel = new PaymentModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -69,12 +68,12 @@ namespace WebApi.Donne.Infrastructure
                     paymentModel.UserName = Convert.ToString(rdr["UserName"]);
                 }
             }
+            logger.Trace("GetById");
             return paymentModel;
         }
 
         public void Insert(PaymentModel paymentModel)
         {
-            logger.Trace("Insert");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_PaymentInsert", con);
             cmd.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
@@ -90,11 +89,11 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Insert");
         }
 
         public void Delete(int PaymentId)
         {
-            logger.Trace("Delete");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_PaymentDelete", con);
             cmd.Parameters.AddWithValue("@PaymentId", PaymentId);
@@ -102,11 +101,11 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Delete");
         }
 
         public void Update(PaymentModel paymentModel)
         {
-            logger.Trace("Update");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_PaymentUpdate", con);
             cmd.Parameters.AddWithValue("@PaymentId", paymentModel.PaymentId);
@@ -123,6 +122,7 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
+            logger.Trace("Update");
         }
 
         #endregion

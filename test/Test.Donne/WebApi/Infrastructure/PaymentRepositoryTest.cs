@@ -22,6 +22,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllPayments"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -36,6 +37,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetAllPayments"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -58,6 +60,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             Assert.IsTrue(result.PaymentId != 0);
             Assert.IsTrue(result.FormOfPaymentName != string.Empty);
             Assert.IsTrue(result.FormOfPaymentId != 0);
+            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -85,7 +88,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             paymentRepository.Insert(paymentModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -114,7 +117,8 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             paymentRepository.Update(paymentModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllPayments"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -130,7 +134,8 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             paymentRepository.Delete(paymentId);
 
             // Assert
-            mockLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetAllPayments"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
     }
 }

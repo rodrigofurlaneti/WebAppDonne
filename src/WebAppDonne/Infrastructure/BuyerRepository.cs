@@ -18,7 +18,6 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                logger.Trace("GetAllBuyers");
                 List<BuyerModel> listBuyerModel = new List<BuyerModel>();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -40,6 +39,7 @@ namespace WebApi.Donne.Infrastructure
                         listBuyerModel.Add(buyerModel);
                     }
                 }
+                logger.Trace("GetAllBuyers");
                 return listBuyerModel;
             }
             catch (ArgumentNullException ex)
@@ -87,7 +87,6 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                logger.Trace("GetByStatus");
                 List<BuyerModel> listBuyerModel = new List<BuyerModel>();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -110,6 +109,7 @@ namespace WebApi.Donne.Infrastructure
                         listBuyerModel.Add(buyerModel);
                     }
                 }
+                logger.Trace("GetByStatus");
                 return listBuyerModel;
             }
             catch (ArgumentNullException ex)
@@ -158,7 +158,6 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                logger.Trace("GetByIdAsync");
                 BuyerModel buyerModel = new BuyerModel();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -179,6 +178,7 @@ namespace WebApi.Donne.Infrastructure
                         buyerModel.UserName = Convert.ToString(rdr["UserName"]);
                     }
                 }
+                logger.Trace("GetById");
                 return buyerModel;
             }
             catch (ArgumentNullException ex)
@@ -212,7 +212,6 @@ namespace WebApi.Donne.Infrastructure
                     buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
                     buyerModel.UserName = Convert.ToString(rdr["UserName"]);
                 }
-
                     return buyerModel;
             }
             catch (ArgumentNullException ex)
@@ -224,7 +223,6 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(BuyerModel buyerModel)
         {
-                logger.Trace("Insert");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_BuyerInsert", con);
                 cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
@@ -238,6 +236,7 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
                 con.Close();
+            logger.Trace("Insert");
         }
 
         public void InsertAsync(BuyerModel buyerModel)
@@ -263,7 +262,6 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int buyerId)
         {
-                logger.Trace("Delete");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
                 cmd.Parameters.AddWithValue("@BuyerId", buyerId);
@@ -271,6 +269,7 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
                 con.Close();
+            logger.Trace("Delete");
         }
 
         public void DeleteAsync(int buyerId)
@@ -289,7 +288,6 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(BuyerModel buyerModel)
         {
-                logger.Trace("Update");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
                 cmd.Parameters.AddWithValue("@BuyerId", buyerModel.BuyerId);
@@ -304,11 +302,12 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
                 con.Close();
+                logger.Trace("Update");
         }
 
         public void UpdateAsync(BuyerModel buyerModel)
         {
-            logger.Trace("Update");
+            logger.Trace("UpdateAsync");
             Task.Run(() => {
                     SqlConnection con = new SqlConnection(connectionString);
                     SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
