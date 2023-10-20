@@ -52,7 +52,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                logger.Trace("GetById - Cartegory");
+                logger.Trace("GetById");
                 CategoryModel category = new CategoryModel();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -82,7 +82,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(CategoryModel Category)
         {
-            logger.Trace("Insert - Category");
+            logger.Trace("Insert");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
             cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
@@ -98,7 +98,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void InsertAsync(CategoryModel Category)
         {
-            logger.Trace("InsertAsync - Category");
+            logger.Trace("InsertAsync");
             Task.Run(() =>
             {
                 SqlConnection con = new SqlConnection(connectionString);
@@ -117,7 +117,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int CategoryId)
         {
-            logger.Trace("Delete Category");
+            logger.Trace("Delete");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryDelete", con);
             cmd.Parameters.AddWithValue("@CategoryId", CategoryId);
@@ -129,7 +129,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void DeleteAsync(int CategoryId)
         {
-            logger.Trace("DeleteAsync - Category");
+            logger.Trace("DeleteAsync");
             Task.Run(() =>
             {
                 SqlConnection con = new SqlConnection(connectionString);
@@ -144,7 +144,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(CategoryModel Category)
         {
-            logger.Trace("Update Category");
+            logger.Trace("Update");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_CategoryUpdate", con);
             cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
@@ -161,7 +161,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void UpdateAsync(CategoryModel Category)
         {
-            logger.Trace("UpdateAsync - Category");
+            logger.Trace("UpdateAsync");
             Task.Run(() =>
             {
                 SqlConnection con = new SqlConnection(connectionString);

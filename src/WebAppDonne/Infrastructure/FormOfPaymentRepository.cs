@@ -18,7 +18,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                logger.Trace("GetAllFormOfPayment - FormOfPayment");
+                logger.Trace("GetAllFormOfPayment");
                 List<FormOfPaymentModel> listFormOfPaymentModel = new List<FormOfPaymentModel>();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -51,7 +51,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                logger.Trace("GetById - FormOfPayment");
+                logger.Trace("GetById");
                 FormOfPaymentModel formOfPayment = new FormOfPaymentModel();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -81,7 +81,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(FormOfPaymentModel FormOfPayment)
         {
-            logger.Trace("Insert - FormOfPayment");
+            logger.Trace("Insert");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_FormOfPaymentInsert", con);
             cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
@@ -97,7 +97,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void InsertAsync(FormOfPaymentModel FormOfPayment)
         {
-            logger.Trace("InsertAsync - FormOfPayment");
+            logger.Trace("InsertAsync");
             Task.Run(() =>
             {
                 SqlConnection con = new SqlConnection(connectionString);
@@ -116,7 +116,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int FormOfPaymentId)
         {
-            logger.Trace("DeleteAsync - FormOfPayment");
+            logger.Trace("Delete");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_FormOfPaymentDelete", con);
             cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPaymentId);
@@ -128,7 +128,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void DeleteAsync(int FormOfPaymentId)
         {
-            logger.Trace("DeleteAsync - FormOfPayment");
+            logger.Trace("DeleteAsync");
             Task.Run(() =>
             {
                 SqlConnection con = new SqlConnection(connectionString);
@@ -143,7 +143,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(FormOfPaymentModel FormOfPayment)
         {
-            logger.Trace("Update - FormOfPayment");
+            logger.Trace("Update");
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_FormOfPaymentUpdate", con);
             cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPayment.FormOfPaymentId);
@@ -160,7 +160,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void UpdateAsync(FormOfPaymentModel FormOfPayment)
         {
-            logger.Trace("UpdateAsync - FormOfPayment");
+            logger.Trace("UpdateAsync");
             Task.Run(() =>
             {
                 SqlConnection con = new SqlConnection(connectionString);

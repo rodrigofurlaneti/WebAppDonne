@@ -158,7 +158,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                logger.Trace("GetByIdAsync");
+                logger.Trace("GetById");
                 BuyerModel buyerModel = new BuyerModel();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -308,7 +308,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void UpdateAsync(BuyerModel buyerModel)
         {
-            logger.Trace("Update");
+            logger.Trace("UpdateAsync");
             Task.Run(() => {
                     SqlConnection con = new SqlConnection(connectionString);
                     SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
