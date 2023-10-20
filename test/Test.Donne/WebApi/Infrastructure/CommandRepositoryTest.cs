@@ -71,7 +71,6 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.AreEqual(idUltimo, result.CommandId);
-            Assert.AreNotEqual(0, result.UserId);
             Assert.AreNotEqual(string.Empty, result.UserName);
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }

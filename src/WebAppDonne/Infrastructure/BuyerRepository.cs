@@ -239,25 +239,22 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Insert");
         }
 
-        public void InsertAsync(BuyerModel buyerModel)
+        public async Task InsertAsync(BuyerModel buyerModel)
         {
-                logger.Trace("InsertAsync");
-                Task.Run(() =>
-                {
-                    SqlConnection con = new SqlConnection(connectionString);
-                    SqlCommand cmd = new SqlCommand("USP_BuyerInsert", con);
-                    cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
-                    cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
-                    cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
-                    cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
-                    cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                });
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_BuyerInsert", con);
+            cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
+            cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
+            cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
+            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
+            cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            logger.Trace("InsertAsync");
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
         }
 
         public void Delete(int buyerId)

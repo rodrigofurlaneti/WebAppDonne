@@ -32,7 +32,7 @@ namespace WebApi.Donne.Controllers
             }
             catch (Exception ex)
             {
-                _logger.TraceExeption("GetBuyer");
+                _logger.TraceExeption("GetBuyerAsync");
                 string mensagem = "Erro ao consumir a controler Buyer, rota GetBuyers " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -45,8 +45,8 @@ namespace WebApi.Donne.Controllers
             try
             {
                 BuyerRepository dal = new BuyerRepository(_logger);
-                var ret = await dal.GetByStatusAsync(id);
                 _logger.Trace("OptionsAsync");
+                var ret = await dal.GetByStatusAsync(id);
                 return Ok(ret);
             }
             catch (Exception ex)
@@ -67,10 +67,21 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpPost(Name = "InsertBuyer")]
-        public void Post(BuyerModel buyerModel)
+        public async Task Post(BuyerModel buyerModel)
         {
-            BuyerRepository dal = new BuyerRepository(_logger);
-            dal.InsertAsync(buyerModel);
+            try
+            {
+                BuyerRepository dal = new BuyerRepository(_logger);
+                _logger.Trace("InsertAsync");
+                await dal.InsertAsync(buyerModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceExeption("InsertAsync");
+                string mensagem = "Erro ao consumir a controler Buyer, rota Post " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpPut(Name = "UpdateBuyer")]

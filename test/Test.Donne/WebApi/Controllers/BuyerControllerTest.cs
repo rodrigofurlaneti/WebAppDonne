@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain.Donne;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -74,12 +75,15 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
-            mockLogger.Setup(x => x.Trace("GetBuyerAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("OptionsAsync")).Throws(new Exception());
             BuyerController buyerController = new BuyerController(mockLogger.Object);
 
             // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => buyerController.OptionsAsync(1));
+
             // Assert
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => buyerController.GetBuyersAsync());
+            mockLogger.Verify(x => x.TraceExeption("OptionsAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceExeption("OptionsAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -100,6 +104,62 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
             mockLogger.Verify(x => x.Trace("OptionsAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public async Task Insert_Post_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerController buyerController = new BuyerController(mockLogger.Object);
+            string buyerAddress = Faker.Address.StreetAddress();
+            string buyerName = Faker.Name.FullName();
+            string userName = Faker.Name.First();
+            int buyerId = Faker.RandomNumber.Next(0, 100);
+            bool status = true;
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            string buyerPhone = Faker.RandomNumber.Next().ToString();
+            int userId = Faker.RandomNumber.Next();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            BuyerModel buyerModel = new BuyerModel(buyerId, buyerName, buyerPhone, buyerAddress, status,
+                listDateTime, userId, userName);
+
+            // Act
+            await buyerController.Post(buyerModel);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void Insert_Post_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            string buyerAddress = Faker.Address.StreetAddress();
+            string buyerName = Faker.Name.FullName();
+            string userName = Faker.Name.First();
+            int buyerId = Faker.RandomNumber.Next(0, 100);
+            bool status = true;
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            string buyerPhone = Faker.RandomNumber.Next().ToString();
+            int userId = Faker.RandomNumber.Next();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+
+            //Setup
+            mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
+            BuyerController buyerController = new BuyerController(mockLogger.Object);
+            BuyerModel buyerModel = new BuyerModel(buyerId, buyerName, buyerPhone, buyerAddress, status,
+            listDateTime, userId, userName);
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => buyerController.Post(buyerModel));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceExeption("InsertAsync"), Times.Exactly(1));
         }
     }
 }
