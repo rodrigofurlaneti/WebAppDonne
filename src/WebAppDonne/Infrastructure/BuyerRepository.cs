@@ -158,10 +158,6 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-<<<<<<< HEAD
-=======
-                logger.Trace("GetById");
->>>>>>> ddb6784e2d6824d7a0a49cdb526efb926ecb7c8a
                 BuyerModel buyerModel = new BuyerModel();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {

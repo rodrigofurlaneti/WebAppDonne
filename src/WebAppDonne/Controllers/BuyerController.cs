@@ -26,10 +26,12 @@ namespace WebApi.Donne.Controllers
             {
                 BuyerRepository dal = new BuyerRepository(_logger);
                 var ret = dal.GetAllBuyers();
+                _logger.Trace("GetBuyer");
                 return (ret);
             }
             catch (Exception ex)
             {
+                _logger.TraceExeption("GetBuyer");
                 string mensagem = "Erro ao consumir a controler Buyer, rota GetBuyers " + ex.Message; 
                 throw new ArgumentNullException(mensagem);
             }
