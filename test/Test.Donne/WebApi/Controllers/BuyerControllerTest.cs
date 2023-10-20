@@ -31,5 +31,20 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             mockLogger.Verify(x => x.Trace("GetBuyerAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetAllBuyersAsync"), Times.Exactly(1));
         }
+
+        [TestMethod]
+        public void GetBuyersAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace("GetBuyerAsync")).Throws(new ArgumentException());
+            BuyerController buyerController = new BuyerController(mockLogger.Object);
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => buyerController.GetBuyersAsync());
+        }
     }
 }
