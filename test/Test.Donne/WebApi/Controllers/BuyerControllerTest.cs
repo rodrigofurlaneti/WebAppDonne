@@ -107,6 +107,48 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
         }
 
         [TestMethod]
+        public async Task GetById_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerController buyerController = new BuyerController(mockLogger.Object);
+            var getAll = buyerController.GetBuyersAsync();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listBuyers = objResult.Value as List<BuyerModel>;
+
+            // Act
+            var result = await buyerController.Get(listBuyers[0].BuyerId);
+            ObjectResult objectResult = (ObjectResult)result;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(objectResult);
+            Assert.IsNotNull(listBuyers);
+            Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
+            Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void GetById_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
+            BuyerController buyerController = new BuyerController(mockLogger.Object);
+            var getAll = buyerController.GetBuyersAsync();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listBuyers = objResult.Value as List<BuyerModel>;
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => buyerController.Get(listBuyers[0].BuyerId));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceExeption("GetByIdAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
         public async Task Insert_Post_Sucesso()
         {
             // Arrange
@@ -160,6 +202,69 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             // Assert
             mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.TraceExeption("InsertAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public async Task Update_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            bool status = true;
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            string buyerPhone = Faker.RandomNumber.Next().ToString();
+            int userId = Faker.RandomNumber.Next();
+            string buyerAddress = Faker.Address.StreetAddress();
+            string buyerName = Faker.Name.FullName();
+            string userName = Faker.Name.First();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace("OptionsAsync")).Throws(new Exception());
+            BuyerController buyerController = new BuyerController(mockLogger.Object);
+            var getAll = buyerController.GetBuyersAsync();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listBuyers = objResult.Value as List<BuyerModel>;
+            int buyerId = listBuyers[0].BuyerId;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            BuyerModel buyerModel = new BuyerModel(buyerId, buyerName, buyerPhone, buyerAddress, status,
+                listDateTime, userId, userName);
+
+            // Act
+            await buyerController.Update(buyerModel);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void Update_Erro()
+        { 
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
+            BuyerController buyerController = new BuyerController(mockLogger.Object);
+            var getAll = buyerController.GetBuyersAsync();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listBuyers = objResult.Value as List<BuyerModel>;
+            string buyerAddress = Faker.Address.StreetAddress();
+            string buyerName = Faker.Name.FullName();
+            string userName = Faker.Name.First();
+            int buyerId = listBuyers[0].BuyerId;
+            bool status = true;
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            string buyerPhone = Faker.RandomNumber.Next().ToString();
+            int userId = Faker.RandomNumber.Next();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            BuyerModel buyerModel = new BuyerModel(buyerId, buyerName, buyerPhone, buyerAddress, status,
+                listDateTime, userId, userName);
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => buyerController.Update(buyerModel));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceExeption("UpdateAsync"), Times.Exactly(1));
         }
     }
 }

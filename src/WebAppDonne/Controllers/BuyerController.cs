@@ -59,11 +59,22 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public BuyerModel Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BuyerModel>))]
+        public async Task<IActionResult> Get(int id)
         {
-            BuyerRepository dal = new BuyerRepository(_logger);
-            var ret = dal.GetById(id);
-            return (ret);
+            try
+            {
+                BuyerRepository dal = new BuyerRepository(_logger);
+                _logger.Trace("GetByIdAsync");
+                var ret = await dal.GetByIdAsync(id);
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceExeption("GetByIdAsync");
+                string mensagem = "Erro ao consumir a controler Buyer, rota GetByIdAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         [HttpPost(Name = "InsertBuyer")]
@@ -85,10 +96,21 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpPut(Name = "UpdateBuyer")]
-        public void Update(BuyerModel buyerModel)
+        public async Task Update(BuyerModel buyerModel)
         {
-            BuyerRepository dal = new BuyerRepository(_logger);
-            dal.Update(buyerModel);
+            try
+            {
+                BuyerRepository dal = new BuyerRepository(_logger);
+                _logger.Trace("UpdateAsync");
+                await dal.UpdateAsync(buyerModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceExeption("UpdateAsync");
+                string mensagem = "Erro ao consumir a controler Buyer, rota Update " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpDelete("{id:int}")]

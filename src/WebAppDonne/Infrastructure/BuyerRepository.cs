@@ -302,25 +302,23 @@ namespace WebApi.Donne.Infrastructure
                 logger.Trace("Update");
         }
 
-        public void UpdateAsync(BuyerModel buyerModel)
+        public async Task UpdateAsync(BuyerModel buyerModel)
         {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
+            cmd.Parameters.AddWithValue("@BuyerId", buyerModel.BuyerId);
+            cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
+            cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
+            cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
+            cmd.Parameters.AddWithValue("@DateInsert", buyerModel.DateInsert);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
+            cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
             logger.Trace("UpdateAsync");
-            Task.Run(() => {
-                    SqlConnection con = new SqlConnection(connectionString);
-                    SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
-                    cmd.Parameters.AddWithValue("@BuyerId", buyerModel.BuyerId);
-                    cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
-                    cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
-                    cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
-                    cmd.Parameters.AddWithValue("@DateInsert", buyerModel.DateInsert);
-                    cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
-                    cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.ExecuteNonQueryAsync();
-                    con.Close();
-                });
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
         }
 
         #endregion
