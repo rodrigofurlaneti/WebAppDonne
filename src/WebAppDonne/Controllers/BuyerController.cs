@@ -10,32 +10,32 @@ namespace WebApi.Donne.Controllers
     {
         #region Properties
 
-        public readonly WebApi.Donne.Infrastructure.SeedWork.ILogger _logger;
+        private readonly WebApi.Donne.Infrastructure.SeedWork.ILogger _logger;
 
         #endregion
 
         public BuyerController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
         {
-            _logger = logger;
+            this._logger = logger;
         }
 
-        [HttpGet(Name = "GetBuyers")]
-        public IEnumerable<BuyerModel> GetBuyers()
+        [HttpGet(Name = "GetBuyersAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BuyerModel>))]
+        public async Task<IActionResult> GetBuyersAsync()
         {
             try
             {
                 BuyerRepository dal = new BuyerRepository(_logger);
-                var ret = dal.GetAllBuyers();
-                _logger.Trace("GetBuyer");
-                return (ret);
+                var ret = await dal.GetAllBuyersAsync();
+                _logger.Trace("GetBuyerAsync");
+                return Ok(ret);
             }
             catch (Exception ex)
             {
                 _logger.TraceExeption("GetBuyer");
-                string mensagem = "Erro ao consumir a controler Buyer, rota GetBuyers " + ex.Message; 
+                string mensagem = "Erro ao consumir a controler Buyer, rota GetBuyers " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
-
         }
 
         [HttpOptions("{id:int}")]

@@ -1,19 +1,15 @@
 ﻿namespace WebApi.Donne.Infrastructure.SeedWork
 {
-    public class Logger
+    public class Logger : ILogger
     {
-        public readonly ILogger _logger;
-        public Logger(ILogger logger)
+        public void TraceExeption(string message)
         {
-            this._logger = logger;
+            string log = message;
         }
 
-        public bool Trace(string mensagem)
+        void ILogger.Trace(string message)
         {
-            if(mensagem == string.Empty)
-                return false;
-            else
-                return true;
+            string log = message;
         }
     }
 }

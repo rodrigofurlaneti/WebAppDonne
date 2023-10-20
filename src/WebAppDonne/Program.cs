@@ -6,8 +6,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: AllowPolicy, builder => builder.WithOrigins("*")
                                                         .AllowAnyMethod()
-                                                        .AllowAnyHeader());
+    .AllowAnyHeader());
 });
+
+builder.Services.AddScoped<WebApi.Donne.Infrastructure.SeedWork.ILogger, WebApi.Donne.Infrastructure.SeedWork.Logger>();
 
 builder.Services.AddControllers();
 
