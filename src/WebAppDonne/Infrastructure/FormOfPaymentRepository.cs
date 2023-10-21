@@ -157,23 +157,20 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Insert");
         }
 
-        public void InsertAsync(FormOfPaymentModel FormOfPayment)
+        public async Task InsertAsync(FormOfPaymentModel FormOfPayment)
         {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_FormOfPaymentInsert", con);
+            cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
+            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", FormOfPayment.UserId);
+            cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
             logger.Trace("InsertAsync");
-            Task.Run(() =>
-            {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_FormOfPaymentInsert", con);
-                cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
-                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", FormOfPayment.UserId);
-                cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
-                con.Close();
-            });
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
         }
 
         public void Delete(int FormOfPaymentId)
@@ -188,19 +185,16 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Delete");
         }
 
-        public void DeleteAsync(int FormOfPaymentId)
+        public async Task DeleteAsync(int FormOfPaymentId)
         {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_FormOfPaymentDelete", con);
+            cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPaymentId);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
             logger.Trace("DeleteAsync");
-            Task.Run(() =>
-            {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_FormOfPaymentDelete", con);
-                cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPaymentId);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
-                con.Close();
-            });
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
         }
 
         public void Update(FormOfPaymentModel FormOfPayment)
@@ -220,24 +214,21 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Update");
         }
 
-        public void UpdateAsync(FormOfPaymentModel FormOfPayment)
+        public async Task UpdateAsync(FormOfPaymentModel FormOfPayment)
         {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_FormOfPaymentUpdate", con);
+            cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPayment.FormOfPaymentId);
+            cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
+            cmd.Parameters.AddWithValue("@DateInsert", FormOfPayment.DateInsert);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", FormOfPayment.UserId);
+            cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
             logger.Trace("UpdateAsync");
-            Task.Run(() =>
-            {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_FormOfPaymentUpdate", con);
-                cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPayment.FormOfPaymentId);
-                cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
-                cmd.Parameters.AddWithValue("@DateInsert", FormOfPayment.DateInsert);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", FormOfPayment.UserId);
-                cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
-                con.Close();
-            });
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
         }
 
         #endregion

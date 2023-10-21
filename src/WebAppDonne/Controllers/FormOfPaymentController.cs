@@ -59,25 +59,57 @@ namespace WebApi.Donne.Controllers
 
         }
 
-        [HttpPost(Name = "InsertFormOfPayment")]
-        public void Post(FormOfPaymentModel formOfPaymentModel)
+        [HttpPost(Name = "InsertFormOfPaymentAsync")]
+        public async Task Post(FormOfPaymentModel formOfPaymentModel)
         {
-            FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
-            dal.Insert(formOfPaymentModel);
+            try
+            {
+                FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
+                await dal.InsertAsync(formOfPaymentModel);
+                _logger.Trace("InsertFormOfPaymentAsync");
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("InsertFormOfPaymentAsync");
+                string mensagem = "Erro ao consumir a controler FormOfPayment, rota InsertFormOfPaymentAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         [HttpPut(Name = "UpdateFormOfPayment")]
-        public void Update(FormOfPaymentModel FormOfPaymentModel)
+        public async Task Update(FormOfPaymentModel FormOfPaymentModel)
         {
-            FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
-            dal.Update(FormOfPaymentModel);
+            try
+            {
+                FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
+                await dal.UpdateAsync(FormOfPaymentModel);
+                _logger.Trace("UpdateFormOfPaymentAsync");
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("UpdateFormOfPaymentAsync");
+                string mensagem = "Erro ao consumir a controler FormOfPayment, rota UpdateFormOfPaymentAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpDelete("{id:int}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
-            dal.Delete(id);
+            try
+            {
+                FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
+                await dal.DeleteAsync(id);
+                _logger.Trace("DeleteFormOfPaymentAsync");
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("DeleteFormOfPaymentAsync");
+                string mensagem = "Erro ao consumir a controler FormOfPayment, rota DeleteFormOfPaymentAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
     }
 }
