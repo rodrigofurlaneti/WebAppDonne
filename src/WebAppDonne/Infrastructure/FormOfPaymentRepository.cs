@@ -16,10 +16,9 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<FormOfPaymentModel> GetAllFormOfPayment()
         {
-            try
-            {
-                List<FormOfPaymentModel> listFormOfPaymentModel = new List<FormOfPaymentModel>();
-                using (SqlConnection con = new SqlConnection(connectionString))
+            List<FormOfPaymentModel> listFormOfPaymentModel = new List<FormOfPaymentModel>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+                try
                 {
                     SqlCommand cmd = new SqlCommand("USP_FormOfPaymentGetAll", con);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -36,13 +35,45 @@ namespace WebApi.Donne.Infrastructure
                         formOfPayment.UserName = Convert.ToString(rdr["UserName"]);
                         listFormOfPaymentModel.Add(formOfPayment);
                     }
+                    this.logger.Trace("GetAllFormOfPayment");
+                    return listFormOfPaymentModel;
                 }
-                logger.Trace("GetAllFormOfPayment");
+                catch (ArgumentNullException ex)
+                {
+                    string mensagemErro = "Erro ao lista as formas de pagamentos, utilizando a procedure USP_FormOfPaymentGetAll síncrono " + ex.Message;
+                    this.logger.TraceException("GetAllFormOfPayment");
+                    throw new ArgumentNullException(mensagemErro);
+                }
+        }
+
+        public async Task<IEnumerable<FormOfPaymentModel>> GetAllFormOfPaymentAsync()
+        {
+            List<FormOfPaymentModel> listFormOfPaymentModel = new List<FormOfPaymentModel>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_FormOfPaymentGetAll", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
+                while (rdr.Read())
+                {
+                    FormOfPaymentModel formOfPayment = new FormOfPaymentModel();
+                    formOfPayment.FormOfPaymentId = Convert.ToInt32(rdr["FormOfPaymentId"]);
+                    formOfPayment.FormOfPaymentName = Convert.ToString(rdr["FormOfPaymentName"]);
+                    formOfPayment.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    formOfPayment.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    formOfPayment.UserId = Convert.ToInt32(rdr["UserId"]);
+                    formOfPayment.UserName = Convert.ToString(rdr["UserName"]);
+                    listFormOfPaymentModel.Add(formOfPayment);
+                }
+                this.logger.Trace("GetAllFormOfPaymentAsync");
                 return listFormOfPaymentModel;
             }
             catch (ArgumentNullException ex)
             {
-                string mensagemErro = "Erro ao lista as formas de pagamentos, utilizando a procedure USP_FormOfPaymentGetAll síncrono " + ex.Message;
+                string mensagemErro = "Erro ao lista as formas de pagamentos, utilizando a procedure USP_FormOfPaymentGetAll assíncrono " + ex.Message;
+                this.logger.TraceException("GetAllFormOfPaymentAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
         }
@@ -69,12 +100,43 @@ namespace WebApi.Donne.Infrastructure
                         formOfPayment.UserName = Convert.ToString(rdr["UserName"]);
                     }
                 }
-                logger.Trace("GetById");
+                this.logger.Trace("GetById");
                 return formOfPayment;
             }
             catch (ArgumentNullException ex)
             {
                 string mensagemErro = "Erro ao lista a forma de pagamento, utilizando a procedure USP_FormOfPaymentGetById síncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+        }
+
+        public async Task<FormOfPaymentModel> GetByIdAsync(int id)
+        {
+            FormOfPaymentModel formOfPayment = new FormOfPaymentModel();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            try
+            {
+               SqlCommand cmd = new SqlCommand("USP_FormOfPaymentGetById", con);
+               cmd.Parameters.AddWithValue("@FormOfPaymentId", id);
+               con.Open();
+               cmd.CommandType = CommandType.StoredProcedure;
+               SqlDataReader rdr = await cmd.ExecuteReaderAsync();
+               while (rdr.Read())
+               {
+                    formOfPayment.FormOfPaymentId = Convert.ToInt32(rdr["FormOfPaymentId"]);
+                    formOfPayment.FormOfPaymentName = Convert.ToString(rdr["FormOfPaymentName"]);
+                    formOfPayment.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    formOfPayment.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    formOfPayment.UserId = Convert.ToInt32(rdr["UserId"]);
+                    formOfPayment.UserName = Convert.ToString(rdr["UserName"]);
+               }
+               this.logger.Trace("GetByIdAsync");
+               return formOfPayment;
+            }
+            catch (ArgumentNullException ex)
+            {
+                string mensagemErro = "Erro ao lista a forma de pagamento, utilizando a procedure USP_FormOfPaymentGetById síncrono " + ex.Message;
+                this.logger.TraceException("GetByIdAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
         }

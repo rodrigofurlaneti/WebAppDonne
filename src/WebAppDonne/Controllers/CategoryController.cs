@@ -59,24 +59,56 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpPost(Name = "InsertCategory")]
-        public void Post(CategoryModel CategoryModel)
+        public async Task Post(CategoryModel CategoryModel)
         {
-            CategoryRepository dal = new CategoryRepository(_logger);
-            dal.Insert(CategoryModel);
+            try
+            {
+                CategoryRepository dal = new CategoryRepository(_logger);
+                await dal.InsertAsync(CategoryModel);
+                _logger.Trace("InsertAsync");
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("InsertAsync");
+                string mensagem = "Erro ao consumir a controler Category, rota Post " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         [HttpPut(Name = "UpdateCategory")]
-        public void Update(CategoryModel CategoryModel)
+        public async Task Update(CategoryModel CategoryModel)
         {
-            CategoryRepository dal = new CategoryRepository(_logger);
-            dal.Update(CategoryModel);
+            try
+            {
+                CategoryRepository dal = new CategoryRepository(_logger);
+                await dal.UpdateAsync(CategoryModel);
+                _logger.Trace("UpdateAsync");
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("UpdateAsync");
+                string mensagem = "Erro ao consumir a controler Category, rota Update " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpDelete("{id:int}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            CategoryRepository dal = new CategoryRepository(_logger);
-            dal.Delete(id);
+            try
+            {
+                CategoryRepository dal = new CategoryRepository(_logger);
+                await dal.DeleteAsync(id);
+                _logger.Trace("DeleteAsync");
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("DeleteAsync");
+                string mensagem = "Erro ao consumir a controler Category, rota Delete " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
     }
 }

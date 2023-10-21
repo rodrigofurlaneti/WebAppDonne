@@ -84,5 +84,153 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Get(listCategorys[0].CategoryId));
         }
+
+        [TestMethod]
+        public async Task InsertAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CategoryController categoryController = new CategoryController(mockLogger.Object);
+            string categoryName = Faker.Name.Last();
+            int categoryId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            CategoryModel categoryModel = new CategoryModel(categoryId, categoryName, listDateTime,
+                userId, userName);
+
+
+            // Act
+            await categoryController.Post(categoryModel);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void InsertAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            string categoryName = Faker.Name.Last();
+            int categoryId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            CategoryModel categoryModel = new CategoryModel(categoryId, categoryName, listDateTime,
+                userId, userName);
+
+            mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
+            CategoryController categoryController = new CategoryController(mockLogger.Object);
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Post(categoryModel));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public async Task UpdateAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CategoryController categoryController = new CategoryController(mockLogger.Object);
+            var getAll = categoryController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listCategorys = objResult.Value as List<CategoryModel>;
+            int categoryId = listCategorys[0].CategoryId;
+            string categoryName = Faker.Name.Last();
+            string userName = Faker.Name.First();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            CategoryModel categoryModel = new CategoryModel(categoryId, categoryName, listDateTime,
+                userId, userName);
+
+
+            // Act
+            await categoryController.Update(categoryModel);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("GetCategorysAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetAllCategorysAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void UpdateAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
+            CategoryController categoryController = new CategoryController(mockLogger.Object);
+            var getAll = categoryController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listCategorys = objResult.Value as List<CategoryModel>;
+            int categoryId = listCategorys[0].CategoryId;
+            string categoryName = Faker.Name.Last();
+            string userName = Faker.Name.First();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            CategoryModel categoryModel = new CategoryModel(categoryId, categoryName, listDateTime,
+                userId, userName);
+
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Update(categoryModel));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("GetCategorysAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetAllCategorysAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public async Task DeleteAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CategoryController categoryController = new CategoryController(mockLogger.Object);
+            var getAll = categoryController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listCategorys = objResult.Value as List<CategoryModel>;
+            int categoryId = listCategorys[0].CategoryId;
+
+            // Act
+            await categoryController.Delete(categoryId);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void DeleteAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
+            CategoryController categoryController = new CategoryController(mockLogger.Object);
+            var getAll = categoryController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listCategorys = objResult.Value as List<CategoryModel>;
+            int categoryId = listCategorys[0].CategoryId;
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Delete(categoryId));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("DeleteAsync"), Times.Exactly(1));
+        }
+
     }
 }

@@ -19,20 +19,44 @@ namespace WebApi.Donne.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetFormOfPayment")]
-        public IEnumerable<FormOfPaymentModel> Get()
+        [HttpGet(Name = "GetFormOfPaymentAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<FormOfPaymentModel>))]
+        public async Task<IActionResult> Get()
         {
-            FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
-            var ret = dal.GetAllFormOfPayment();
-            return (ret);
+            try
+            {
+                FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
+                var ret = await dal.GetAllFormOfPaymentAsync();
+                _logger.Trace("GetFormOfPaymentAsync");
+                return Ok(ret);
+            }
+            catch (ArgumentNullException ex)
+            {
+                _logger.TraceException("GetFormOfPaymentAsync");
+                string mensagem = "Erro ao consumir a controler FormOfPayment, rota GetFormOfPaymentAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpGet("{id:int}")]
-        public FormOfPaymentModel Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FormOfPaymentModel))]
+        public async Task<IActionResult> Get(int id)
         {
-            FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
-            var ret = dal.GetById(id);
-            return (ret);
+            try
+            {
+                FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
+                var ret = await dal.GetByIdAsync(id);
+                _logger.Trace("GetByIdAsync");
+                return Ok(ret);
+            }
+            catch (ArgumentNullException ex)
+            {
+                _logger.TraceException("GetByIdAsync");
+                string mensagem = "Erro ao consumir a controler FormOfPayment, rota GetByIdAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpPost(Name = "InsertFormOfPayment")]

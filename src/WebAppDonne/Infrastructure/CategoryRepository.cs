@@ -156,23 +156,20 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Insert");
         }
 
-        public void InsertAsync(CategoryModel Category)
+        public async Task InsertAsync(CategoryModel Category)
         {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
+            cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
+            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", Category.UserId);
+            cmd.Parameters.AddWithValue("@UserName", Category.UserName);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
             logger.Trace("InsertAsync");
-            Task.Run(() =>
-            {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
-                cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
-                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", Category.UserId);
-                cmd.Parameters.AddWithValue("@UserName", Category.UserName);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
-                con.Close();
-            });
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
         }
 
         public void Delete(int CategoryId)
@@ -187,19 +184,16 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Delete");
         }
 
-        public void DeleteAsync(int CategoryId)
+        public async Task DeleteAsync(int CategoryId)
         {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_CategoryDelete", con);
+            cmd.Parameters.AddWithValue("@CategoryId", CategoryId);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
             logger.Trace("DeleteAsync");
-            Task.Run(() =>
-            {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_CategoryDelete", con);
-                cmd.Parameters.AddWithValue("@CategoryId", CategoryId);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
-                con.Close();
-            });
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
         }
 
         public void Update(CategoryModel Category)
@@ -219,24 +213,21 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Update");
         }
 
-        public void UpdateAsync(CategoryModel Category)
+        public async Task UpdateAsync(CategoryModel Category)
         {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_CategoryUpdate", con);
+            cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
+            cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
+            cmd.Parameters.AddWithValue("@DateInsert", Category.DateInsert);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", Category.UserId);
+            cmd.Parameters.AddWithValue("@UserName", Category.UserName);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
             logger.Trace("UpdateAsync");
-            Task.Run(() =>
-            {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_CategoryUpdate", con);
-                cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
-                cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
-                cmd.Parameters.AddWithValue("@DateInsert", Category.DateInsert);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", Category.UserId);
-                cmd.Parameters.AddWithValue("@UserName", Category.UserName);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
-                con.Close();
-            });
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
         }
 
         #endregion
