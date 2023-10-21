@@ -7,10 +7,10 @@ using System.Net;
 using WebApi.Donne.Controllers;
 using WebApi.Donne.Infrastructure.SeedWork;
 
-namespace Test.Donne.WebApi.Controllers
+namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
 {
     [TestClass]
-    [TestCategory("Donne > WebApi > Controllers > CategoryController")]
+    [TestCategory("Donne > WebApi > Controllers > FormOfPaymentController")]
     public class FormOfPaymentControllerTest
     {
         [TestMethod]
@@ -38,7 +38,7 @@ namespace Test.Donne.WebApi.Controllers
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("GetFormOfPaymentAsync")).Throws(new ArgumentNullException());
+            mockLogger.Setup(x => x.Trace("GetFormOfPaymentAsync")).Throws(new Exception());
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
 
             // Act
@@ -75,7 +75,7 @@ namespace Test.Donne.WebApi.Controllers
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new ArgumentNullException());
+            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
             var getAll = formOfPaymentController.Get();
             var objResult = (OkObjectResult)getAll.Result;
@@ -116,7 +116,7 @@ namespace Test.Donne.WebApi.Controllers
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("InsertFormOfPaymentAsync")).Throws(new ArgumentNullException());
+            mockLogger.Setup(x => x.Trace("InsertFormOfPaymentAsync")).Throws(new Exception());
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
             int formOfPaymentId = Faker.RandomNumber.Next(0, 100);
             string formOfPaymentName = Faker.Name.FullName();
@@ -167,7 +167,7 @@ namespace Test.Donne.WebApi.Controllers
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("UpdateFormOfPaymentAsync")).Throws(new ArgumentNullException());
+            mockLogger.Setup(x => x.Trace("UpdateFormOfPaymentAsync")).Throws(new Exception());
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
             var getAll = formOfPaymentController.Get();
             var objResult = (OkObjectResult)getAll.Result;
@@ -211,7 +211,7 @@ namespace Test.Donne.WebApi.Controllers
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("DeleteFormOfPaymentAsync")).Throws(new ArgumentNullException());
+            mockLogger.Setup(x => x.Trace("DeleteFormOfPaymentAsync")).Throws(new Exception());
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
             var getAll = formOfPaymentController.Get();
             var objResult = (OkObjectResult)getAll.Result;

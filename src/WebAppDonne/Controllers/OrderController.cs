@@ -19,12 +19,24 @@ namespace WebApi.Donne.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetOrder")]
-        public IEnumerable<OrderModel> Get()
+        [HttpGet(Name = "GetOrderAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OrderModel>))]
+        public async Task<IActionResult> Get()
         {
-            OrderRepository dal = new OrderRepository(_logger);
-            var ret = dal.GetAllOrders();
-            return (ret);
+            try
+            {
+                OrderRepository dal = new OrderRepository(_logger);
+                var ret = await dal.GetAllOrdersAsync();
+                _logger.Trace("GetOrdersAsync");
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("GetAllOrdersAsync");
+                string mensagem = "Erro ao consumir a controler Order, rota GetAllOrdersAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpGet("{id:int}")]

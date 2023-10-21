@@ -44,6 +44,43 @@ namespace WebApi.Donne.Infrastructure
             return listOrderModel;
         }
 
+        public async Task<IEnumerable<OrderModel>> GetAllOrdersAsync()
+        {
+            List<OrderModel> listOrderModel = new List<OrderModel>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_OrderGetAll", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
+                while (rdr.Read())
+                {
+                    OrderModel orderModel = new OrderModel();
+                    orderModel.OrderId = Convert.ToInt32(rdr["OrderId"]);
+                    orderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
+                    orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
+                    orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
+                    orderModel.SalePrice = Convert.ToString(rdr["SalePrice"]);
+                    orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
+                    orderModel.TotalSalePrice = Convert.ToString(rdr["TotalSalePrice"]);
+                    orderModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    orderModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    orderModel.UserId = Convert.ToInt32(rdr["UserId"]);
+                    orderModel.UserName = Convert.ToString(rdr["UserName"]);
+                    listOrderModel.Add(orderModel);
+                }
+                logger.Trace("GetAllOrdersAsync");
+                return listOrderModel;
+            }
+            catch (Exception ex)
+            {
+                string mensagemErro = "Erro ao lista os pedidos, utilizando a procedure USP_OrderGetAll assíncrono " + ex.Message;
+                this.logger.TraceException("GetAllOrdersAsync");
+                throw new ArgumentNullException(mensagemErro);
+            }
+        }
+
         public OrderModel GetById(int id)
         {
             OrderModel orderModel = new OrderModel();
