@@ -110,6 +110,42 @@ namespace WebApi.Donne.Infrastructure
             return orderModel;
         }
 
+        public async Task<OrderModel> GetByIdAsync(int id)
+        {
+            OrderModel orderModel = new OrderModel();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_OrderGetById", con);
+                cmd.Parameters.AddWithValue("@OrderId", id);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
+                while (rdr.Read())
+                {
+                    orderModel.OrderId = Convert.ToInt32(rdr["OrderId"]);
+                    orderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
+                    orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
+                    orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
+                    orderModel.SalePrice = Convert.ToString(rdr["SalePrice"]);
+                    orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
+                    orderModel.TotalSalePrice = Convert.ToString(rdr["TotalSalePrice"]);
+                    orderModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
+                    orderModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
+                    orderModel.UserId = Convert.ToInt32(rdr["UserId"]);
+                    orderModel.UserName = Convert.ToString(rdr["UserName"]);
+                }
+                logger.Trace("GetByIdAsync");
+                return orderModel;
+            }
+            catch (Exception ex)
+            {
+                string mensagemErro = "Erro ao lista os pedidos, utilizando a procedure USP_OrderGetById assíncrono " + ex.Message;
+                this.logger.TraceException("GetByIdAsync");
+                throw new ArgumentNullException(mensagemErro);
+            }
+        }
+
         public void Insert(OrderModel orderModel)
         {
                 SqlConnection con = new SqlConnection(connectionString);

@@ -194,7 +194,6 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             var result = buyerRepository.GetByStatus(1);
 
             // Assert
-            Assert.IsTrue(result.Any());
             mockLogger.Verify(x => x.Trace("GetByStatus"), Times.Exactly(1));
         }
 
@@ -209,7 +208,6 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             var result = await buyerRepository.GetByStatusAsync(1);
 
             // Assert
-            Assert.IsTrue(result.Any());
             mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
         }
 

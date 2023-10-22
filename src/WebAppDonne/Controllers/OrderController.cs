@@ -40,11 +40,23 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public OrderModel Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FormOfPaymentModel))]
+        public async Task<IActionResult> Get(int id)
         {
-            OrderRepository dal = new OrderRepository(_logger);
-            var ret = dal.GetById(id);
-            return (ret);
+            try
+            {
+                OrderRepository dal = new OrderRepository(_logger);
+                var ret = await dal.GetByIdAsync(id);
+                _logger.Trace("GetByIdAsync");
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("GetAllOrdersAsync");
+                string mensagem = "Erro ao consumir a controler Order, rota GetAllOrdersAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpPost(Name = "InsertOrder")]
