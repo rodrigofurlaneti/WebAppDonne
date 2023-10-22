@@ -59,25 +59,58 @@ namespace WebApi.Donne.Controllers
 
         }
 
-        [HttpPost(Name = "InsertOrder")]
-        public void Post(OrderModel OrderModel)
+        [HttpPost(Name = "InsertAsync")]
+        public async Task Post(OrderModel OrderModel)
         {
-            OrderRepository dal = new OrderRepository(_logger);
-            dal.Insert(OrderModel);
+            try
+            {
+                OrderRepository dal = new OrderRepository(_logger);
+                _logger.Trace("InsertAsync");
+                await dal.InsertAsync(OrderModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("InsertAsync");
+                string mensagem = "Erro ao consumir a controler Order, rota InsertAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
-        [HttpPut(Name = "UpdateOrder")]
-        public void Update(OrderModel OrderModel)
+        [HttpPut(Name = "UpdateAsync")]
+        public async Task Update(OrderModel OrderModel)
         {
-            OrderRepository dal = new OrderRepository(_logger);
-            dal.Update(OrderModel);
+            try
+            {
+                OrderRepository dal = new OrderRepository(_logger);
+                _logger.Trace("UpdateAsync");
+                await dal.UpdateAsync(OrderModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("UpdateAsync");
+                string mensagem = "Erro ao consumir a controler Order, rota UpdateAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpDelete("{id:int}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            OrderRepository dal = new OrderRepository(_logger);
-            dal.Delete(id);
+            try
+            {
+                OrderRepository dal = new OrderRepository(_logger);
+                _logger.Trace("DeleteAsync");
+                await dal.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("DeleteAsync");
+                string mensagem = "Erro ao consumir a controler Order, rota DeleteAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
     }
 }

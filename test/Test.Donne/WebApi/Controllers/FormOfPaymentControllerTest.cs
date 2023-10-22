@@ -42,8 +42,10 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentException>(() => formOfPaymentController.Get());
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("GetFormOfPaymentAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -83,8 +85,10 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
             int formOfPaymentId = listCategorys[0].FormOfPaymentId;
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentException>(() => formOfPaymentController.Get(formOfPaymentId));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
         }
 
         [TestMethod]

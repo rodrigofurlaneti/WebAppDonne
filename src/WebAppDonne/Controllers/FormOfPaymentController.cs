@@ -26,8 +26,8 @@ namespace WebApi.Donne.Controllers
             try
             {
                 FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
-                var ret = await dal.GetAllFormOfPaymentAsync();
                 _logger.Trace("GetFormOfPaymentAsync");
+                var ret = await dal.GetAllFormOfPaymentAsync();
                 return Ok(ret);
             }
             catch (ArgumentNullException ex)
@@ -46,8 +46,8 @@ namespace WebApi.Donne.Controllers
             try
             {
                 FormOfPaymentRepository dal = new FormOfPaymentRepository(_logger);
-                var ret = await dal.GetByIdAsync(id);
                 _logger.Trace("GetByIdAsync");
+                var ret = await dal.GetByIdAsync(id);
                 return Ok(ret);
             }
             catch (ArgumentNullException ex)

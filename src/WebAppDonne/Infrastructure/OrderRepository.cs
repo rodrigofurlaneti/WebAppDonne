@@ -167,6 +167,28 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Insert");
         }
 
+        public async Task InsertAsync(OrderModel orderModel)
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_OrderInsert", con);
+            cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
+            cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
+            cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+            cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
+            cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
+            cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
+            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
+            cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
+            logger.Trace("InsertAsync");
+        }
+
+
         public void Delete(int OrderId)
         {
             SqlConnection con = new SqlConnection(connectionString);
@@ -177,6 +199,18 @@ namespace WebApi.Donne.Infrastructure
             cmd.ExecuteNonQuery();
             con.Close();
             logger.Trace("Delete");
+        }
+
+        public async Task DeleteAsync(int OrderId)
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_OrderDelete", con);
+            cmd.Parameters.AddWithValue("@OrderId", OrderId);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
+            logger.Trace("DeleteAsync");
         }
 
         public void Update(OrderModel orderModel)
@@ -199,6 +233,28 @@ namespace WebApi.Donne.Infrastructure
             cmd.ExecuteNonQuery();
             con.Close();
             logger.Trace("Update");
+        }
+
+        public async Task UpdateAsync(OrderModel orderModel)
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_OrderUpdate", con);
+            cmd.Parameters.AddWithValue("@OrderId", orderModel.OrderId);
+            cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
+            cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
+            cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+            cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
+            cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
+            cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
+            cmd.Parameters.AddWithValue("@DateInsert", orderModel.DateInsert);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
+            cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            await cmd.ExecuteNonQueryAsync();
+            con.Close();
+            logger.Trace("UpdateAsync");
         }
 
         #endregion
