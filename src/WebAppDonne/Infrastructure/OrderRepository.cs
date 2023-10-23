@@ -169,23 +169,32 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task InsertAsync(OrderModel orderModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_OrderInsert", con);
-            cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
-            cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
-            cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
-            cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
-            cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
-            cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
-            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
-            logger.Trace("InsertAsync");
+            try
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_OrderInsert", con);
+                cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
+                cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
+                cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+                cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
+                cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
+                cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
+                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
+                cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                await cmd.ExecuteNonQueryAsync();
+                con.Close();
+                logger.Trace("InsertAsync");
+            }
+            catch (Exception ex)
+            {
+                string mensagemErro = "Erro ao inserir um novo pedido, utilizando a procedure USP_OrderInsert assíncrono " + ex.Message;
+                this.logger.TraceException("GetByIdAsync");
+                throw new ArgumentNullException(mensagemErro);
+            }
         }
 
 
@@ -203,14 +212,24 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task DeleteAsync(int OrderId)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_OrderDelete", con);
-            cmd.Parameters.AddWithValue("@OrderId", OrderId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
-            logger.Trace("DeleteAsync");
+            try
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_OrderDelete", con);
+                cmd.Parameters.AddWithValue("@OrderId", OrderId);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                await cmd.ExecuteNonQueryAsync();
+                con.Close();
+                logger.Trace("DeleteAsync");
+            }
+            catch (Exception ex)
+            {
+                string mensagemErro = "Erro ao excluir o pedido, utilizando a procedure USP_OrderDelete assíncrono " + ex.Message;
+                this.logger.TraceException("DeleteAsync");
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
 
         public void Update(OrderModel orderModel)
@@ -237,24 +256,34 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task UpdateAsync(OrderModel orderModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_OrderUpdate", con);
-            cmd.Parameters.AddWithValue("@OrderId", orderModel.OrderId);
-            cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
-            cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
-            cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
-            cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
-            cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
-            cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
-            cmd.Parameters.AddWithValue("@DateInsert", orderModel.DateInsert);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
-            logger.Trace("UpdateAsync");
+            try
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_OrderUpdate", con);
+                cmd.Parameters.AddWithValue("@OrderId", orderModel.OrderId);
+                cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
+                cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
+                cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+                cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
+                cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
+                cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
+                cmd.Parameters.AddWithValue("@DateInsert", orderModel.DateInsert);
+                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
+                cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                await cmd.ExecuteNonQueryAsync();
+                con.Close();
+                logger.Trace("UpdateAsync");
+            }
+            catch (Exception ex)
+            {
+                string mensagemErro = "Erro ao atualizar o pedido, utilizando a procedure USP_OrderUpdate assíncrono " + ex.Message;
+                this.logger.TraceException("UpdateAsync");
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
 
         #endregion

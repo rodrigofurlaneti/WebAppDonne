@@ -16,44 +16,100 @@ namespace WebApi.Donne.Controllers
 
         public PaymentController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
         {
-            _logger = logger;
+            this._logger = logger;
         }
 
-        [HttpGet(Name = "GetPayment")]
-        public IEnumerable<PaymentModel> Get()
+        [HttpGet(Name = "GetPaymentAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<PaymentModel>))]
+        public async Task<IActionResult> Get()
         {
-            PaymentRepository dal = new PaymentRepository(_logger);
-            var ret = dal.GetAllPayments();
-            return (ret);
+            try
+            {
+                PaymentRepository dal = new PaymentRepository(_logger);
+                var ret = await dal.GetAllPaymentsAsync();
+                _logger.Trace("GetPaymentAsync");
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("GetAllPaymentsAsync");
+                string mensagem = "Erro ao consumir a controler Payments, rota GetAllPaymentsAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         [HttpGet("{id:int}")]
-        public PaymentModel Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaymentModel))]
+        public async Task<IActionResult> Get(int id)
         {
-            PaymentRepository dal = new PaymentRepository(_logger);
-            var ret = dal.GetById(id);
-            return (ret);
+            try
+            {
+                PaymentRepository dal = new PaymentRepository(_logger);
+                var ret = await dal.GetByIdAsync(id);
+                _logger.Trace("GetByIdAsync");
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("GetByIdAsync");
+                string mensagem = "Erro ao consumir a controler Payments, rota GetAllPaymentsAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpPost(Name = "InsertPayment")]
-        public void Post(PaymentModel PaymentModel)
+        public async Task Post(PaymentModel PaymentModel)
         {
-            PaymentRepository dal = new PaymentRepository(_logger);
-            dal.Insert(PaymentModel);
+            try
+            {
+                PaymentRepository dal = new PaymentRepository(_logger);
+                await dal.InsertAsync(PaymentModel);
+                _logger.Trace("InsertAsync");
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("InsertAsync");
+                string mensagem = "Erro ao inserir um novo pagamento, consumir a controler Payments, rota GetAllPaymentsAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpPut(Name = "UpdatePayment")]
-        public void Update(PaymentModel PaymentModel)
+        public async Task Update(PaymentModel PaymentModel)
         {
-            PaymentRepository dal = new PaymentRepository(_logger);
-            dal.Update(PaymentModel);
+            try
+            {
+                PaymentRepository dal = new PaymentRepository(_logger);
+                await dal.UpdateAsync(PaymentModel);
+                _logger.Trace("UpdateAsync");
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("InsertAsync");
+                string mensagem = "Erro ao inserir um novo pagamento, consumir a controler Payments, rota GetAllPaymentsAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpDelete("{id:int}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            PaymentRepository dal = new PaymentRepository(_logger);
-            dal.Delete(id);
+            try
+            {
+                PaymentRepository dal = new PaymentRepository(_logger);
+                await dal.DeleteAsync(id);
+                _logger.Trace("DeleteAsync");
+            }
+            catch (Exception ex)
+            {
+                _logger.TraceException("DeleteAsync");
+                string mensagem = "Erro ao excluir um pagamento, consumir a controler Payments, rota GetAllPaymentsAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
     }
 }

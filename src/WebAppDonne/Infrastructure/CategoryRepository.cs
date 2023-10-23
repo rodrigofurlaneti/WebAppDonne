@@ -158,18 +158,28 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task InsertAsync(CategoryModel Category)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
-            cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
-            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", Category.UserId);
-            cmd.Parameters.AddWithValue("@UserName", Category.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("InsertAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            try
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_CategoryInsert", con);
+                cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
+                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@UserId", Category.UserId);
+                cmd.Parameters.AddWithValue("@UserName", Category.UserName);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                logger.Trace("InsertAsync");
+                await cmd.ExecuteNonQueryAsync();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                string mensagemErro = "Erro ao inserir uma nova categoria, utilizando a procedure USP_CategoryInsert assíncrono " + ex.Message;
+                logger.TraceException("InsertAsync");
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
 
         public void Delete(int CategoryId)
@@ -186,14 +196,23 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task DeleteAsync(int CategoryId)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_CategoryDelete", con);
-            cmd.Parameters.AddWithValue("@CategoryId", CategoryId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("DeleteAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            try
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_CategoryDelete", con);
+                cmd.Parameters.AddWithValue("@CategoryId", CategoryId);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                logger.Trace("DeleteAsync");
+                await cmd.ExecuteNonQueryAsync();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                string mensagemErro = "Erro ao deletar uma categoria, utilizando a procedure USP_CategoryDelete assíncrono " + ex.Message;
+                logger.TraceException("InsertAsync");
+                throw new ArgumentNullException(mensagemErro);
+            }
         }
 
         public void Update(CategoryModel Category)
@@ -215,19 +234,29 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task UpdateAsync(CategoryModel Category)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_CategoryUpdate", con);
-            cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
-            cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
-            cmd.Parameters.AddWithValue("@DateInsert", Category.DateInsert);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", Category.UserId);
-            cmd.Parameters.AddWithValue("@UserName", Category.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("UpdateAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            try
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_CategoryUpdate", con);
+                cmd.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
+                cmd.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
+                cmd.Parameters.AddWithValue("@DateInsert", Category.DateInsert);
+                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@UserId", Category.UserId);
+                cmd.Parameters.AddWithValue("@UserName", Category.UserName);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                logger.Trace("UpdateAsync");
+                await cmd.ExecuteNonQueryAsync();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                string mensagemErro = "Erro ao atualizar uma categoria, utilizando a procedure USP_CategoryUpdate assíncrono " + ex.Message;
+                logger.TraceException("InsertAsync");
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
 
         #endregion

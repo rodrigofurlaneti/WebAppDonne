@@ -159,18 +159,28 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task InsertAsync(FormOfPaymentModel FormOfPayment)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_FormOfPaymentInsert", con);
-            cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
-            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", FormOfPayment.UserId);
-            cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("InsertAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            try
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_FormOfPaymentInsert", con);
+                cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
+                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@UserId", FormOfPayment.UserId);
+                cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                logger.Trace("InsertAsync");
+                await cmd.ExecuteNonQueryAsync();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                string mensagemErro = "Erro ao inserir uma nova forma de pagamento, utilizando a procedure USP_FormOfPaymentInsert assíncrono " + ex.Message;
+                this.logger.TraceException("InsertAsync");
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
 
         public void Delete(int FormOfPaymentId)
@@ -187,14 +197,24 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task DeleteAsync(int FormOfPaymentId)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_FormOfPaymentDelete", con);
-            cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPaymentId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("DeleteAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            try
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_FormOfPaymentDelete", con);
+                cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPaymentId);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                logger.Trace("DeleteAsync");
+                await cmd.ExecuteNonQueryAsync();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                string mensagemErro = "Erro ao excluir uma forma de pagamento, utilizando a procedure USP_FormOfPaymentDelete assíncrono " + ex.Message;
+                this.logger.TraceException("DeleteAsync");
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
 
         public void Update(FormOfPaymentModel FormOfPayment)
@@ -216,19 +236,29 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task UpdateAsync(FormOfPaymentModel FormOfPayment)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_FormOfPaymentUpdate", con);
-            cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPayment.FormOfPaymentId);
-            cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
-            cmd.Parameters.AddWithValue("@DateInsert", FormOfPayment.DateInsert);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", FormOfPayment.UserId);
-            cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("UpdateAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            try
+            {
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("USP_FormOfPaymentUpdate", con);
+                cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPayment.FormOfPaymentId);
+                cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
+                cmd.Parameters.AddWithValue("@DateInsert", FormOfPayment.DateInsert);
+                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@UserId", FormOfPayment.UserId);
+                cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                logger.Trace("UpdateAsync");
+                await cmd.ExecuteNonQueryAsync();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                string mensagemErro = "Erro ao atualizar uma forma de pagamento, utilizando a procedure USP_FormOfPaymentUpdate assíncrono " + ex.Message;
+                this.logger.TraceException("DeleteAsync");
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
 
         #endregion
