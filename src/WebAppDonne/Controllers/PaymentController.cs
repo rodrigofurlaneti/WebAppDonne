@@ -27,12 +27,12 @@ namespace WebApi.Donne.Controllers
             {
                 PaymentRepository dal = new PaymentRepository(_logger);
                 var ret = await dal.GetAllPaymentsAsync();
-                _logger.Trace("GetPaymentAsync");
+                this._logger.Trace("GetPaymentAsync");
                 return Ok(ret);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("GetAllPaymentsAsync");
+                this._logger.TraceException("GetPaymentAsync");
                 string mensagem = "Erro ao consumir a controler Payments, rota GetAllPaymentsAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
