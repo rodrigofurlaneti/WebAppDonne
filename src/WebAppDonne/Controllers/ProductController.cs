@@ -19,43 +19,97 @@ namespace WebApi.Donne.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetProduct")]
-        public IEnumerable<ProductModel> Get()
+        [HttpGet(Name = "GetProductAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductModel>))]
+        public async Task<IActionResult> Get()
         {
-            ProductRepository dal = new ProductRepository(_logger);
-            var ret = dal.GetAllProducts();
-            return (ret);
+            try
+            {
+                ProductRepository dal = new ProductRepository(_logger);
+                var ret = await dal.GetAllProductsAsync();
+                this._logger.Trace("GetProductAsync");
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                this._logger.TraceException("GetProductAsync");
+                string mensagem = "Erro ao consumir a controler Product, rota GetProductAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpGet("{id:int}")]
-        public ProductModel Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductModel))]
+        public async Task<IActionResult> Get(int id)
         {
-            ProductRepository dal = new ProductRepository(_logger);
-            var ret = dal.GetById(id);
-            return (ret);
+            try
+            {
+                ProductRepository dal = new ProductRepository(_logger);
+                var ret = await dal.GetByIdAsync(id);
+                this._logger.Trace("GetByIdAsync");
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                this._logger.TraceException("GetByIdAsync");
+                string mensagem = "Erro ao consumir a controler Product, rota GetByIdAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
-        [HttpPost(Name = "InsertProduct")]
-        public void Post(ProductModel productModel)
+        [HttpPost(Name = "InsertProductAsync")]
+        public async Task Post(ProductModel productModel)
         {
-            ProductRepository dal = new ProductRepository(_logger);
-            dal.Insert(productModel);
+            try
+            {
+                ProductRepository dal = new ProductRepository(_logger);
+                await dal.InsertAsync(productModel);
+                this._logger.Trace("InsertProductAsync");
+            }
+            catch (Exception ex)
+            {
+                this._logger.TraceException("InsertProductAsync");
+                string mensagem = "Erro ao consumir a controler Product, rota InsertProductAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
-        [HttpPut(Name = "UpdateProduct")]
-        public void Update(ProductModel productModel)
+        [HttpPut(Name = "UpdateProductAsync")]
+        public async Task Update(ProductModel productModel)
         {
-            ProductRepository dal = new ProductRepository(_logger);
-            dal.Update(productModel);
+            try
+            {
+                ProductRepository dal = new ProductRepository(_logger);
+                await dal.UpdateAsync(productModel);
+                this._logger.Trace("UpdateProductAsync");
+            }
+            catch (Exception ex)
+            {
+                this._logger.TraceException("UpdateProductAsync");
+                string mensagem = "Erro ao consumir a controler Product, rota UpdateProductAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpDelete("{id:int}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            ProductRepository dal = new ProductRepository(_logger);
-            dal.Delete(id);
+            try
+            {
+                ProductRepository dal = new ProductRepository(_logger);
+                await dal.DeleteAsync(id);
+                this._logger.Trace("DeleteProductAsync");
+            }
+            catch (Exception ex)
+            {
+                this._logger.TraceException("DeleteProductAsync");
+                string mensagem = "Erro ao consumir a controler Product, rota DeleteProductAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
         }
-
-
     }
 }
