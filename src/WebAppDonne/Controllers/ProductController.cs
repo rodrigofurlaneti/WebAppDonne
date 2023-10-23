@@ -30,10 +30,10 @@ namespace WebApi.Donne.Controllers
                 this._logger.Trace("GetProductAsync");
                 return Ok(ret);
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
-                this._logger.TraceException("GetProductAsync");
                 string mensagem = "Erro ao consumir a controler Product, rota GetProductAsync " + ex.Message;
+                this._logger.TraceException("GetProductAsync");
                 throw new ArgumentNullException(mensagem);
             }
 

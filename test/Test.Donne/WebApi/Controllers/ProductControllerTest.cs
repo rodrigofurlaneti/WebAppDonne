@@ -40,13 +40,15 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
-            mockLogger.Setup(x => x.Trace("GetPaymentAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("GetProductAsync")).Throws(new Exception());
             ProductController productController = new ProductController(mockLogger.Object);
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentException>(() => productController.Get());
 
+            // Assert
+            mockLogger.Verify(x => x.Trace("GetAllProductAsync"), Times.Exactly(0));
+            mockLogger.Verify(x => x.TraceException("GetProductAsync"), Times.Exactly(0));
         }
 
         [TestMethod]
