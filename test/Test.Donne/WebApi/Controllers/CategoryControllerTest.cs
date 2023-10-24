@@ -49,14 +49,17 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryController categoryController = new CategoryController(mockLogger.Object);
             var getAll = categoryController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
+            if (listCategorys != null)
+                id = listCategorys[0].CategoryId;
 
             // Act
-            var result = await categoryController.Get(listCategorys[0].CategoryId);
+            var result = await categoryController.Get(id);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -72,6 +75,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
         public void GetByIdAsync_Erro()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             // Setup
@@ -80,9 +84,11 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             var getAll = categoryController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
+            if (listCategorys != null)
+                id = listCategorys[0].CategoryId;
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Get(listCategorys[0].CategoryId));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Get(id));
         }
 
         [TestMethod]
@@ -138,19 +144,21 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryController categoryController = new CategoryController(mockLogger.Object);
             var getAll = categoryController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
-            int categoryId = listCategorys[0].CategoryId;
+            if (listCategorys != null)
+                id = listCategorys[0].CategoryId;
             string categoryName = Faker.Name.Last();
             string userName = Faker.Name.First();
             int userId = Faker.RandomNumber.Next(0, 100);
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
-            CategoryModel categoryModel = new CategoryModel(categoryId, categoryName, listDateTime,
+            CategoryModel categoryModel = new CategoryModel(id, categoryName, listDateTime,
                 userId, userName);
 
 
@@ -167,20 +175,22 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
         public void UpdateAsync_Erro()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
             CategoryController categoryController = new CategoryController(mockLogger.Object);
             var getAll = categoryController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
-            int categoryId = listCategorys[0].CategoryId;
+            if (listCategorys != null)
+                id = listCategorys[0].CategoryId;
             string categoryName = Faker.Name.Last();
             string userName = Faker.Name.First();
             int userId = Faker.RandomNumber.Next(0, 100);
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
-            CategoryModel categoryModel = new CategoryModel(categoryId, categoryName, listDateTime,
+            CategoryModel categoryModel = new CategoryModel(id, categoryName, listDateTime,
                 userId, userName);
 
 
@@ -198,15 +208,17 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryController categoryController = new CategoryController(mockLogger.Object);
             var getAll = categoryController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
-            int categoryId = listCategorys[0].CategoryId;
+            if (listCategorys != null)
+                id = listCategorys[0].CategoryId;
 
             // Act
-            await categoryController.Delete(categoryId);
+            await categoryController.Delete(id);
 
             // Assert
             mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
@@ -216,16 +228,18 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
         public void DeleteAsync_Erro()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
             CategoryController categoryController = new CategoryController(mockLogger.Object);
             var getAll = categoryController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
-            int categoryId = listCategorys[0].CategoryId;
+            if (listCategorys != null)
+                id = listCategorys[0].CategoryId;
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Delete(categoryId));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Delete(id));
 
             // Assert
             mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));

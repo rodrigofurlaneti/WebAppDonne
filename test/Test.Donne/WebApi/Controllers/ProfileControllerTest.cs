@@ -54,12 +54,14 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProfileController profileController = new ProfileController(mockLogger.Object);
             var getAll = profileController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
-            int id = listProfile[0].ProfileId;
+            if (listProfile != null)
+                id = listProfile[0].ProfileId;
 
             // Act
             var result = await profileController.Get(id);
@@ -77,13 +79,15 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
         public void GetByIdAsync_Erro()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
             ProfileController profileController = new ProfileController(mockLogger.Object);
             var getAll = profileController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
-            int id = listProfile[0].ProfileId;
+            if (listProfile != null)
+                id = listProfile[0].ProfileId;
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Get(id));
@@ -142,12 +146,14 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
+            int profileId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProfileController profileController = new ProfileController(mockLogger.Object);
             var getAll = profileController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
-            int profileId = listProfile[0].ProfileId;
+            if(listProfile != null)
+                profileId = listProfile[0].ProfileId;
             string profileName = Faker.Name.First();
             int userId = Faker.RandomNumber.Next(0, 100);
             string userName = Faker.Name.First();
@@ -168,13 +174,15 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
         public void UpdateAsync_Erro()
         {
             // Arrange
+            int profileId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
             ProfileController profileController = new ProfileController(mockLogger.Object);
             var getAll = profileController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
-            int profileId = listProfile[0].ProfileId;
+            if (listProfile != null)
+                profileId = listProfile[0].ProfileId;
             string profileName = Faker.Name.First();
             int userId = Faker.RandomNumber.Next(0, 100);
             string userName = Faker.Name.First();
@@ -194,12 +202,14 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
+            int profileId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProfileController profileController = new ProfileController(mockLogger.Object);
             var getAll = profileController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
-            int profileId = listProfile[0].ProfileId;
+            if (listProfile != null)
+                profileId = listProfile[0].ProfileId;
 
             // Act
             await profileController.Delete(profileId);
@@ -212,13 +222,15 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
         public void DeleteAsync_Erro()
         {
             // Arrange
+            int profileId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
             ProfileController profileController = new ProfileController(mockLogger.Object);
             var getAll = profileController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
-            int profileId = listProfile[0].ProfileId;
+            if (listProfile != null)
+                profileId = listProfile[0].ProfileId;
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Delete(profileId));

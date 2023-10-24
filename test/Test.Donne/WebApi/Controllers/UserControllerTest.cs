@@ -54,12 +54,14 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserController userController = new UserController(mockLogger.Object);
             var getAll = userController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
-            int id = list[0].UserId;
+            if(list != null)
+                id = list[0].UserId;
 
             // Act
             var result = await userController.Get(id);
@@ -77,13 +79,15 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
         public void GetByIdAsync_Erro()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
             UserController userController = new UserController(mockLogger.Object);
             var getAll = userController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
-            int id = list[0].UserId;
+            if (list != null)
+                id = list[0].UserId;
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => userController.Get(id));
@@ -96,12 +100,14 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
         public async Task GetByNameAsync_Sucesso()
         {
             // Arrange
+            string name = string.Empty;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserController userController = new UserController(mockLogger.Object);
             var getAll = userController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
-            string name = list[0].UserName;
+            if (list != null)
+                name = list[0].UserName;
 
             // Act
             var result = await userController.Get(name);
@@ -119,13 +125,15 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
         public void GetByNameAsync_Erro()
         {
             // Arrange
+            string name = string.Empty;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("GetByNameAsync")).Throws(new Exception());
             UserController userController = new UserController(mockLogger.Object);
             var getAll = userController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
-            string name = list[0].UserName;
+            if (list != null)
+                name = list[0].UserName;
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => userController.Get(name));
@@ -184,18 +192,20 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserController userController = new UserController(mockLogger.Object);
             var getAll = userController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
-            int userId = list[0].UserId;
+            if (list != null)
+                id = list[0].UserId;
             int profileId = Faker.RandomNumber.Next(0, 1000);
             string profileName = Faker.Name.First();
             string userName = Faker.Name.First();
             string userPassword = Faker.Name.First();
             bool status = true;
-            UserModel userModel = new UserModel(userId, userName,
+            UserModel userModel = new UserModel(id, userName,
                 userPassword, profileId, profileName, status);
 
 
@@ -210,19 +220,21 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
         public void UpdateAsync_Erro()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
             UserController userController = new UserController(mockLogger.Object);
             var getAll = userController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
-            int userId = list[0].UserId;
+            if (list != null)
+                id = list[0].UserId;
             int profileId = Faker.RandomNumber.Next(0, 1000);
             string profileName = Faker.Name.First();
             string userName = Faker.Name.First();
             string userPassword = Faker.Name.First();
             bool status = true;
-            UserModel userModel = new UserModel(userId, userName,
+            UserModel userModel = new UserModel(id, userName,
                 userPassword, profileId, profileName, status);
 
             // Act
@@ -230,6 +242,48 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
 
             // Assert
             mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
+        }
+
+
+        [TestMethod]
+        public async Task DeleteAsync_Sucesso()
+        {
+            // Arrange
+            int id = 0;
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            UserController userController = new UserController(mockLogger.Object);
+            var getAll = userController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var list = objResult.Value as List<UserModel>;
+            if (list != null)
+                id = list[0].UserId;
+
+            // Act
+            await userController.Delete(id);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void DeleteAsync_Erro()
+        {
+            // Arrange
+            int id = 0;
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
+            UserController userController = new UserController(mockLogger.Object);
+            var getAll = userController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var list = objResult.Value as List<UserModel>;
+            if (list != null)
+                id = list[0].UserId;
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => userController.Delete(id));
+
+            // Assert
+            mockLogger.Verify(x => x.TraceException("DeleteAsync"), Times.Exactly(1));
         }
     }
 }

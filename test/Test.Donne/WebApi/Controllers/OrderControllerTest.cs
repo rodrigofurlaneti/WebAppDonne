@@ -50,12 +50,14 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
+            int orderId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderController orderController = new OrderController(mockLogger.Object);
             var getAll = orderController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listOrders = objResult.Value as List<OrderModel>;
-            int orderId = listOrders[0].OrderId;
+            if(listOrders != null)
+                orderId = listOrders[0].OrderId;
 
             // Act
             var result = await orderController.Get(orderId);
@@ -73,6 +75,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
         public void GetByIdAsync_Erro()
         {
             // Arrange
+            int orderId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
@@ -81,7 +84,8 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             var getAll = orderController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listOrders = objResult.Value as List<OrderModel>;
-            int orderId = listOrders[0].OrderId;
+            if (listOrders != null)
+                orderId = listOrders[0].OrderId;
 
             // Act
             // Assert
@@ -150,12 +154,14 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
         public async Task Update_Sucesso()
         {
             // Arrange
+            int orderId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderController orderController = new OrderController(mockLogger.Object);
             var getAll = orderController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listOrders = objResult.Value as List<OrderModel>;
-            int orderId = listOrders[0].OrderId;
+            if (listOrders != null)
+                orderId = listOrders[0].OrderId;
             int commandId = Faker.RandomNumber.Next(0, 100);
             int productId = Faker.RandomNumber.Next(0, 100);
             string productName = Faker.Name.FullName();
@@ -181,20 +187,25 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
         public void Update_Erro()
         {
             // Arrange
+            int orderId = 0;
+            DateTime dateInsert = DateTime.Now;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
             OrderController orderController = new OrderController(mockLogger.Object);
             var getAll = orderController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listOrders = objResult.Value as List<OrderModel>;
-            int orderId = listOrders[0].OrderId;
+            if (listOrders != null)
+            {
+                orderId = listOrders[0].OrderId;
+                dateInsert = listOrders[0].DateInsert;
+            }
             int commandId = Faker.RandomNumber.Next(0, 100);
             int productId = Faker.RandomNumber.Next(0, 100);
             string productName = Faker.Name.FullName();
             string salePrice = Faker.RandomNumber.Next(0, 1000).ToString();
             int amount = Faker.RandomNumber.Next(0, 100);
             string totalSalePrice = Faker.RandomNumber.Next(0, 1000).ToString();
-            DateTime dateInsert = listOrders[0].DateInsert;
             DateTime dateUpdate = Faker.Finance.Maturity();
             int userId = Faker.RandomNumber.Next(0, 1000);
             string userName = Faker.Name.Last();
@@ -214,12 +225,14 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
         public async Task Delete_Sucesso()
         {
             // Arrange
+            int orderId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderController orderController = new OrderController(mockLogger.Object);
             var getAll = orderController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listOrders = objResult.Value as List<OrderModel>;
-            int orderId = listOrders[0].OrderId;
+            if (listOrders != null)
+                orderId = listOrders[0].OrderId;
 
             // Act
             await orderController.Delete(orderId);
@@ -232,13 +245,15 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
         public void Delete_Erro()
         {
             // Arrange
+            int orderId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
             OrderController orderController = new OrderController(mockLogger.Object);
             var getAll = orderController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listOrders = objResult.Value as List<OrderModel>;
-            int orderId = listOrders[0].OrderId;
+            if (listOrders != null)
+                orderId = listOrders[0].OrderId;
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => orderController.Delete(orderId));

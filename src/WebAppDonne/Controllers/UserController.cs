@@ -111,7 +111,7 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task DeleteAsync(int id)
+        public async Task Delete(int id)
         {
             try
             {

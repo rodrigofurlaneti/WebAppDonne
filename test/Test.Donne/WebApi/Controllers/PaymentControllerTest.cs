@@ -55,14 +55,17 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             PaymentController paymentController = new PaymentController(mockLogger.Object);
             var getAll = paymentController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listPayment = objResult.Value as List<PaymentModel>;
+            if (listPayment != null)
+                id = listPayment[0].PaymentId;
 
             // Act
-            var result = await paymentController.Get(listPayment[0].PaymentId);
+            var result = await paymentController.Get(id);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -77,6 +80,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
         public void GetByIdAsync_Erro()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
@@ -85,9 +89,11 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             var getAll = paymentController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listPayment = objResult.Value as List<PaymentModel>;
+            if (listPayment != null)
+                id = listPayment[0].PaymentId;
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => paymentController.Get(listPayment[0].PaymentId));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => paymentController.Get(id));
 
             // Assert
             //mockLogger.Verify(x => x.TraceException("GetPaymentAsync"), Times.Once());
@@ -156,12 +162,14 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             PaymentController paymentController = new PaymentController(mockLogger.Object);
             var getAll = paymentController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listPayment = objResult.Value as List<PaymentModel>;
-            int paymentId = listPayment[0].PaymentId;
+            if (listPayment != null)
+                id = listPayment[0].PaymentId;
             int commandId = Faker.RandomNumber.Next(0, 100);
             int formOfPaymentId = Faker.RandomNumber.Next(0, 100);
             string formOfPaymentName = Faker.Name.First();
@@ -172,7 +180,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             int userId = Faker.RandomNumber.Next(0, 1000);
             string userName = Faker.Name.Last();
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
-            PaymentModel paymentModel = new PaymentModel(paymentId, commandId,
+            PaymentModel paymentModel = new PaymentModel(id, commandId,
                 formOfPaymentId, formOfPaymentName, paymentAmount, paymentType, listDateTime,
                 userId, userName);
 
@@ -187,6 +195,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
         public void UpdateAsync_Erro()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
@@ -195,7 +204,8 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             var getAll = paymentController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listPayment = objResult.Value as List<PaymentModel>;
-            int paymentId = listPayment[0].PaymentId;
+            if (listPayment != null)
+                id = listPayment[0].PaymentId;
             int commandId = Faker.RandomNumber.Next(0, 100);
             int formOfPaymentId = Faker.RandomNumber.Next(0, 100);
             string formOfPaymentName = Faker.Name.First();
@@ -206,7 +216,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             int userId = Faker.RandomNumber.Next(0, 1000);
             string userName = Faker.Name.Last();
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
-            PaymentModel paymentModel = new PaymentModel(paymentId, commandId,
+            PaymentModel paymentModel = new PaymentModel(id, commandId,
                 formOfPaymentId, formOfPaymentName, paymentAmount, paymentType, listDateTime,
                 userId, userName);
 
@@ -239,6 +249,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
         public void DeleteAsync_Erro()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
@@ -247,10 +258,11 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             var getAll = paymentController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listPayment = objResult.Value as List<PaymentModel>;
-            int paymentId = listPayment[0].PaymentId;
+            if (listPayment != null)
+                id = listPayment[0].PaymentId;
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => paymentController.Delete(paymentId));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => paymentController.Delete(id));
 
             // Assert
             //mockLogger.Verify(x => x.TraceException("GetPaymentAsync"), Times.Once());

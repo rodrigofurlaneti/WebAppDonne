@@ -54,12 +54,14 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
+            int idProduct = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProductController productController = new ProductController(mockLogger.Object);
             var getAll = productController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listProduct = objResult.Value as List<ProductModel>;
-            int idProduct = listProduct[0].ProductId;
+            if(listProduct != null)
+                idProduct = listProduct[0].ProductId;
 
             // Act
             var result = await productController.Get(idProduct);
@@ -79,6 +81,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
         public void GetByIdAsync_Erro()
         {
             // Arrange
+            int idProduct = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
@@ -87,7 +90,8 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             var getAll = productController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listProduct = objResult.Value as List<ProductModel>;
-            int idProduct = listProduct[0].ProductId;
+            if (listProduct != null)
+                idProduct = listProduct[0].ProductId;
 
             // Act
             // Assert
@@ -98,12 +102,14 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
+            int idProduct = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProductController productController = new ProductController(mockLogger.Object);
             var getAll = productController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listProduct = objResult.Value as List<ProductModel>;
-            int productId = listProduct[0].ProductId;
+            if (listProduct != null)
+                idProduct = listProduct[0].ProductId;
             string productName = Faker.Name.First();
             int categoryId = Faker.RandomNumber.Next(0, 1000);
             string categoryName = Faker.Name.First();
@@ -120,7 +126,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             DateTime dateUpdate = Faker.Finance.Maturity();
             DateTime dateInsert = Faker.Finance.Maturity();
             List<string> listString = new List<string>() { productName, categoryName, costPrice, salePrice, totalValueCostOfInventory, totalValueSaleStock, userName };
-            List<int> listInts = new List<int>() { productId, categoryId, quantityStock, minimumStockQuantity, userId };
+            List<int> listInts = new List<int>() { idProduct, categoryId, quantityStock, minimumStockQuantity, userId };
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             ProductModel productModel = new ProductModel(listInts, listString, status, listDateTime, needToPrint);
 
@@ -135,6 +141,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
         public void UpdateAsync_Erro()
         {
             // Arrange
+            int idProduct = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             string productName = Faker.Name.First();
             int categoryId = Faker.RandomNumber.Next(0, 1000);
@@ -160,8 +167,9 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             var getAll = productController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listProduct = objResult.Value as List<ProductModel>;
-            int productId = listProduct[0].ProductId;
-            List<int> listInts = new List<int>() { productId, categoryId, quantityStock, minimumStockQuantity, userId };
+            if (listProduct != null)
+                idProduct = listProduct[0].ProductId;
+            List<int> listInts = new List<int>() { idProduct, categoryId, quantityStock, minimumStockQuantity, userId };
             ProductModel productModel = new ProductModel(listInts, listString, status, listDateTime, needToPrint);
 
             // Act
