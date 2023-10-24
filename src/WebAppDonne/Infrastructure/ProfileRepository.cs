@@ -117,7 +117,7 @@ namespace WebApi.Donne.Infrastructure
                         profileModel.UserName = Convert.ToString(rdr["UserName"]);
                     }
                 }
-                logger.Trace("GetById");
+                logger.Trace("GetByIdAsync");
                 return profileModel;
             }
             catch (ArgumentNullException ex)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain.Donne;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -30,6 +31,184 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
             mockLogger.Verify(x => x.Trace("GetProfileAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetAllProfilesAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetProfileAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace("GetProductAsync")).Throws(new Exception());
+            ProfileController profileController = new ProfileController(mockLogger.Object);
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Get());
+        }
+
+        [TestMethod]
+        public async Task GetByIdAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            ProfileController profileController = new ProfileController(mockLogger.Object);
+            var getAll = profileController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listProfile = objResult.Value as List<ProfileModel>;
+            int id = listProfile[0].ProfileId;
+
+            // Act
+            var result = await profileController.Get(id);
+            ObjectResult objectResult = (ObjectResult)result;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(objectResult);
+            Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
+            Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void GetByIdAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
+            ProfileController profileController = new ProfileController(mockLogger.Object);
+            var getAll = profileController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listProfile = objResult.Value as List<ProfileModel>;
+            int id = listProfile[0].ProfileId;
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Get(id));
+        }
+
+        [TestMethod]
+        public async Task InsertAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            ProfileController profileController = new ProfileController(mockLogger.Object);
+            int profileId = Faker.RandomNumber.Next(0, 1000);
+            string profileName = Faker.Name.First();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            DateTime dateUpdate = Faker.Finance.Maturity();
+            DateTime dateInsert = Faker.Finance.Maturity();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            ProfileModel profileModel = new ProfileModel(profileId, profileName, listDateTime, userId, userName);
+
+
+            // Act
+            await profileController.Post(profileModel);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void InsertAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
+            ProfileController profileController = new ProfileController(mockLogger.Object);
+            int profileId = Faker.RandomNumber.Next(0, 1000);
+            string profileName = Faker.Name.First();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            DateTime dateUpdate = Faker.Finance.Maturity();
+            DateTime dateInsert = Faker.Finance.Maturity();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            ProfileModel profileModel = new ProfileModel(profileId, profileName, listDateTime, userId, userName);
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Post(profileModel));
+        }
+
+        [TestMethod]
+        public async Task UpdateAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            ProfileController profileController = new ProfileController(mockLogger.Object);
+            var getAll = profileController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listProfile = objResult.Value as List<ProfileModel>;
+            int profileId = listProfile[0].ProfileId;
+            string profileName = Faker.Name.First();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            DateTime dateUpdate = Faker.Finance.Maturity();
+            DateTime dateInsert = Faker.Finance.Maturity();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            ProfileModel profileModel = new ProfileModel(profileId, profileName, listDateTime, userId, userName);
+
+
+            // Act
+            await profileController.Update(profileModel);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void UpdateAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
+            ProfileController profileController = new ProfileController(mockLogger.Object);
+            var getAll = profileController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listProfile = objResult.Value as List<ProfileModel>;
+            int profileId = listProfile[0].ProfileId;
+            string profileName = Faker.Name.First();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            DateTime dateUpdate = Faker.Finance.Maturity();
+            DateTime dateInsert = Faker.Finance.Maturity();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            ProfileModel profileModel = new ProfileModel(profileId, profileName, listDateTime, userId, userName);
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Update(profileModel));
+        }
+
+        [TestMethod]
+        public async Task DeleteAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            ProfileController profileController = new ProfileController(mockLogger.Object);
+            var getAll = profileController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listProfile = objResult.Value as List<ProfileModel>;
+            int profileId = listProfile[0].ProfileId;
+
+            // Act
+            await profileController.Delete(profileId);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void DeleteAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            ProfileController profileController = new ProfileController(mockLogger.Object);
+            var getAll = profileController.Get();
+            var objResult = (OkObjectResult)getAll.Result;
+            var listProfile = objResult.Value as List<ProfileModel>;
+            int profileId = listProfile[0].ProfileId;
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Delete(profileId));
         }
     }
 }
