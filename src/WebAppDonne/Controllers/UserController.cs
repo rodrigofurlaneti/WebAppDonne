@@ -19,49 +19,113 @@ namespace WebApi.Donne.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetUser")]
-        public IEnumerable<UserModel> Get()
+        [HttpGet(Name = "GetUserAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserModel>))]
+        public async Task<IActionResult> Get()
         {
-            UserRepository dal = new UserRepository(_logger);
-            var ret = dal.GetAllUsers();
-            return (ret);
+            try
+            {
+                UserRepository dal = new UserRepository(_logger);
+                this._logger.Trace("GetUserAsync");
+                var ret = await dal.GetAllUsersAsync();
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                string mensagem = "Erro ao consumir a controler User, rota GetUserAsync " + ex.Message;
+                this._logger.TraceException("GetUserAsync");
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         [HttpGet("{id:int}")]
-        public UserModel Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserModel))]
+        public async Task<IActionResult> Get(int id)
         {
-            UserRepository dal = new UserRepository(_logger);
-            var ret = dal.GetById(id);
-            return (ret);
+            try
+            {
+                UserRepository dal = new UserRepository(_logger);
+                this._logger.Trace("GetByIdAsync");
+                var ret = await dal.GetByIdAsync(id);
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                string mensagem = "Erro ao consumir a controler User, rota GetByIdAsync " + ex.Message;
+                this._logger.TraceException("GetByIdAsync");
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         [HttpGet("{name}")]
-        public UserModel Get(string name)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserModel))]
+        public async Task<IActionResult> Get(string name)
         {
-            UserRepository dal = new UserRepository(_logger);
-            var ret = dal.GetByName(name);
-            return (ret);
+            try
+            {
+                UserRepository dal = new UserRepository(_logger);
+                this._logger.Trace("GetByNameAsync");
+                var ret = await dal.GetByNameAsync(name);
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                string mensagem = "Erro ao consumir a controler User, rota GetByNameAsync " + ex.Message;
+                this._logger.TraceException("GetByNameAsync");
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         [HttpPost(Name = "InsertUser")]
-        public void Post(UserModel UserModel)
+        public async Task Post(UserModel UserModel)
         {
-            UserRepository dal = new UserRepository(_logger);
-            dal.Insert(UserModel);
+            try
+            {
+                UserRepository dal = new UserRepository(_logger);
+                this._logger.Trace("InsertAsync");
+                await dal.InsertAsync(UserModel);
+            }
+            catch (Exception ex)
+            {
+                string mensagem = "Erro ao consumir a controler User, rota InsertUser " + ex.Message;
+                this._logger.TraceException("InsertAsync");
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         [HttpPut(Name = "UpdateUser")]
-        public void Update(UserModel UserModel)
+        public async Task Update(UserModel UserModel)
         {
-            UserRepository dal = new UserRepository(_logger);
-            dal.Update(UserModel);
+            try
+            {
+                UserRepository dal = new UserRepository(_logger);
+                this._logger.Trace("UpdateAsync");
+                await dal.UpdateAsync(UserModel);
+            }
+            catch (Exception ex)
+            {
+                string mensagem = "Erro ao consumir a controler User, rota UpdateAsync " + ex.Message;
+                this._logger.TraceException("UpdateAsync");
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         [HttpDelete("{id:int}")]
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            UserRepository dal = new UserRepository(_logger);
-            dal.Delete(id);
+            try
+            {
+                UserRepository dal = new UserRepository(_logger);
+                this._logger.Trace("DeleteAsync");
+                await dal.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                string mensagem = "Erro ao consumir a controler User, rota DeleteAsync " + ex.Message;
+                this._logger.TraceException("DeleteAsync");
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
     }
 }
