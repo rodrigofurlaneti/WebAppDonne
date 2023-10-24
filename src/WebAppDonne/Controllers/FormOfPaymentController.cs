@@ -30,7 +30,7 @@ namespace WebApi.Donne.Controllers
                 var ret = await dal.GetAllFormOfPaymentAsync();
                 return Ok(ret);
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 _logger.TraceException("GetFormOfPaymentAsync");
                 string mensagem = "Erro ao consumir a controler FormOfPayment, rota GetFormOfPaymentAsync " + ex.Message;
@@ -50,7 +50,7 @@ namespace WebApi.Donne.Controllers
                 var ret = await dal.GetByIdAsync(id);
                 return Ok(ret);
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 _logger.TraceException("GetByIdAsync");
                 string mensagem = "Erro ao consumir a controler FormOfPayment, rota GetByIdAsync " + ex.Message;

@@ -45,7 +45,7 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => formOfPaymentController.Get());
 
             // Assert
-            mockLogger.Verify(x => x.Trace("GetFormOfPaymentAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("GetFormOfPaymentAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -89,6 +89,7 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
 
             // Assert
             mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
