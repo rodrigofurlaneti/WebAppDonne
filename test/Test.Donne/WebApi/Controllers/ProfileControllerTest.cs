@@ -40,11 +40,14 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
-            mockLogger.Setup(x => x.Trace("GetProductAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("GetProfileAsync")).Throws(new Exception());
             ProfileController profileController = new ProfileController(mockLogger.Object);
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Get());
+
+            //Assert
+            mockLogger.Verify(x => x.TraceException("GetProfileAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -84,6 +87,9 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Get(id));
+
+            //Assert
+            mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -127,6 +133,9 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Post(profileModel));
+
+            //Assert
+            mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -176,6 +185,9 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Update(profileModel));
+
+            //Assert
+            mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -210,6 +222,9 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Delete(profileId));
+
+            //Assert
+            mockLogger.Verify(x => x.TraceException("DeleteAsync"), Times.Exactly(1));
         }
     }
 }

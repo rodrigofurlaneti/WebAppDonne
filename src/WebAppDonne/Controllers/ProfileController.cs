@@ -30,7 +30,7 @@ namespace WebApi.Donne.Controllers
                 var ret = await dal.GetAllProfilesAsync();
                 return Ok(ret);
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler Profile, rota GetProfileAsync " + ex.Message;
                 this._logger.TraceException("GetProfileAsync");
@@ -50,7 +50,7 @@ namespace WebApi.Donne.Controllers
                 var ret = await dal.GetByIdAsync(id);
                 return Ok(ret);
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler Profile, rota GetByIdAsync " + ex.Message;
                 this._logger.TraceException("GetByIdAsync");
@@ -68,7 +68,7 @@ namespace WebApi.Donne.Controllers
                 this._logger.Trace("InsertAsync");
                 await dal.InsertAsync(ProfileModel);
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler Profile, rota InsertProfileAsync " + ex.Message;
                 this._logger.TraceException("InsertAsync");
@@ -85,7 +85,7 @@ namespace WebApi.Donne.Controllers
                 this._logger.Trace("UpdateAsync");
                 await dal.UpdateAsync(ProfileModel);
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler Profile, rota UpdateProfileAsync " + ex.Message;
                 this._logger.TraceException("UpdateAsync");
@@ -103,7 +103,7 @@ namespace WebApi.Donne.Controllers
                 this._logger.Trace("DeleteAsync");
                 await dal.DeleteAsync(id);
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler Profile, rota DeleteProfileAsync " + ex.Message;
                 this._logger.TraceException("DeleteAsync");
