@@ -19,41 +19,96 @@ namespace WebApi.Donne.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetProfile")]
-        public IEnumerable<ProfileModel> Get()
+        [HttpGet(Name = "GetProfileAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProfileModel>))]
+        public async Task<IActionResult> Get()
         {
-            ProfileRepository dal = new ProfileRepository(_logger);
-            var ret = dal.GetAllProfiles();
-            return (ret);
+            try
+            {
+                ProfileRepository dal = new ProfileRepository(_logger);
+                var ret = await dal.GetAllProfilesAsync();
+                this._logger.Trace("GetProfileAsync");
+                return Ok(ret);
+            }
+            catch (ArgumentNullException ex)
+            {
+                string mensagem = "Erro ao consumir a controler Profile, rota GetProfileAsync " + ex.Message;
+                this._logger.TraceException("GetProfileAsync");
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpGet("{id:int}")]
-        public ProfileModel Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProfileModel))]
+        public async Task<IActionResult> Get(int id)
         {
-            ProfileRepository dal = new ProfileRepository(_logger);
-            var ret = dal.GetById(id);
-            return (ret);
+            try
+            {
+                ProfileRepository dal = new ProfileRepository(_logger);
+                var ret = await dal.GetByIdAsync(id);
+                this._logger.Trace("GetByIdAsync");
+                return Ok(ret);
+            }
+            catch (ArgumentNullException ex)
+            {
+                string mensagem = "Erro ao consumir a controler Profile, rota GetByIdAsync " + ex.Message;
+                this._logger.TraceException("GetByIdAsync");
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
-        [HttpPost(Name = "InsertProfile")]
-        public void Post(ProfileModel ProfileModel)
+        [HttpPost(Name = "InsertProfileAsync")]
+        public async Task Post(ProfileModel ProfileModel)
         {
-            ProfileRepository dal = new ProfileRepository(_logger);
-            dal.Insert(ProfileModel);
+            try
+            {
+                ProfileRepository dal = new ProfileRepository(_logger);
+                await dal.InsertAsync(ProfileModel);
+                this._logger.Trace("InsertAsync");
+            }
+            catch (ArgumentNullException ex)
+            {
+                string mensagem = "Erro ao consumir a controler Profile, rota InsertProfileAsync " + ex.Message;
+                this._logger.TraceException("InsertAsync");
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
-        [HttpPut(Name = "UpdateProfile")]
-        public void Update(ProfileModel ProfileModel)
+        [HttpPut(Name = "UpdateProfileAsync")]
+        public async Task Update(ProfileModel ProfileModel)
         {
-            ProfileRepository dal = new ProfileRepository(_logger);
-            dal.Update(ProfileModel);
+            try
+            {
+                ProfileRepository dal = new ProfileRepository(_logger);
+                await dal.UpdateAsync(ProfileModel);
+                this._logger.Trace("UpdateAsync");
+            }
+            catch (ArgumentNullException ex)
+            {
+                string mensagem = "Erro ao consumir a controler Profile, rota UpdateProfileAsync " + ex.Message;
+                this._logger.TraceException("UpdateAsync");
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpDelete("{id:int}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            ProfileRepository dal = new ProfileRepository(_logger);
-            dal.Delete(id);
+            try
+            {
+                ProfileRepository dal = new ProfileRepository(_logger);
+                await dal.DeleteAsync(id);
+                this._logger.Trace("DeleteAsync");
+            }
+            catch (ArgumentNullException ex)
+            {
+                string mensagem = "Erro ao consumir a controler Profile, rota DeleteProfileAsync " + ex.Message;
+                this._logger.TraceException("DeleteAsync");
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
     }
