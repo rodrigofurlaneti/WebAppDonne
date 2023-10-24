@@ -201,6 +201,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
             ProfileController profileController = new ProfileController(mockLogger.Object);
             var getAll = profileController.Get();
             var objResult = (OkObjectResult)getAll.Result;

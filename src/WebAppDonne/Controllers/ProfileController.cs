@@ -26,8 +26,8 @@ namespace WebApi.Donne.Controllers
             try
             {
                 ProfileRepository dal = new ProfileRepository(_logger);
-                var ret = await dal.GetAllProfilesAsync();
                 this._logger.Trace("GetProfileAsync");
+                var ret = await dal.GetAllProfilesAsync();
                 return Ok(ret);
             }
             catch (ArgumentNullException ex)
@@ -46,8 +46,8 @@ namespace WebApi.Donne.Controllers
             try
             {
                 ProfileRepository dal = new ProfileRepository(_logger);
-                var ret = await dal.GetByIdAsync(id);
                 this._logger.Trace("GetByIdAsync");
+                var ret = await dal.GetByIdAsync(id);
                 return Ok(ret);
             }
             catch (ArgumentNullException ex)
@@ -65,8 +65,8 @@ namespace WebApi.Donne.Controllers
             try
             {
                 ProfileRepository dal = new ProfileRepository(_logger);
-                await dal.InsertAsync(ProfileModel);
                 this._logger.Trace("InsertAsync");
+                await dal.InsertAsync(ProfileModel);
             }
             catch (ArgumentNullException ex)
             {
@@ -82,8 +82,8 @@ namespace WebApi.Donne.Controllers
             try
             {
                 ProfileRepository dal = new ProfileRepository(_logger);
-                await dal.UpdateAsync(ProfileModel);
                 this._logger.Trace("UpdateAsync");
+                await dal.UpdateAsync(ProfileModel);
             }
             catch (ArgumentNullException ex)
             {
@@ -100,8 +100,8 @@ namespace WebApi.Donne.Controllers
             try
             {
                 ProfileRepository dal = new ProfileRepository(_logger);
-                await dal.DeleteAsync(id);
                 this._logger.Trace("DeleteAsync");
+                await dal.DeleteAsync(id);
             }
             catch (ArgumentNullException ex)
             {
