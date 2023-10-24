@@ -47,8 +47,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => productController.Get());
 
             // Assert
-            mockLogger.Verify(x => x.Trace("GetAllProductAsync"), Times.Exactly(0));
-            mockLogger.Verify(x => x.TraceException("GetProductAsync"), Times.Exactly(0));
+            mockLogger.Verify(x => x.TraceException("GetProductAsync"), Times.Exactly(1));
         }
 
         [TestMethod]

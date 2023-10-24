@@ -26,11 +26,11 @@ namespace WebApi.Donne.Controllers
             try
             {
                 ProductRepository dal = new ProductRepository(_logger);
-                var ret = await dal.GetAllProductsAsync();
                 this._logger.Trace("GetProductAsync");
+                var ret = await dal.GetAllProductsAsync();
                 return Ok(ret);
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler Product, rota GetProductAsync " + ex.Message;
                 this._logger.TraceException("GetProductAsync");
