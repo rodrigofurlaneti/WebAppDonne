@@ -161,7 +161,7 @@ namespace WebApi.Donne.Infrastructure
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir o metodo InsertAsync " + ex.Message;
                 this.logger.TraceException("InsertAsync");

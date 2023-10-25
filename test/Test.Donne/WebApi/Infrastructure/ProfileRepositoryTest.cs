@@ -216,7 +216,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             // Act
             // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => profileRepository.InsertAsync(profileModel));
-            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
