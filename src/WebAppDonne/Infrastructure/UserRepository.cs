@@ -19,6 +19,7 @@ namespace WebApi.Donne.Infrastructure
             List<UserModel> listUserModel = new List<UserModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
+                logger.Trace("GetAllUsers");
                 SqlCommand cmd = new SqlCommand("USP_UserGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
@@ -35,7 +36,6 @@ namespace WebApi.Donne.Infrastructure
                     listUserModel.Add(User);
                 }
             }
-            logger.Trace("GetAllUsers");
             return listUserModel;
         }
 
@@ -45,6 +45,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+                this.logger.Trace("GetAllUserAsync");
                 SqlCommand cmd = new SqlCommand("USP_UserGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
@@ -60,13 +61,12 @@ namespace WebApi.Donne.Infrastructure
                     User.Status = Convert.ToBoolean(rdr["Status"]);
                     listUserModel.Add(User);
                 }
-                this.logger.Trace("GetAllUserAsync");
                 return listUserModel;
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler User, rota GetUserAsync " + ex.Message;
-                this.logger.TraceException("GetUserAsyncAsync");
+                this.logger.TraceException("GetAllUserAsync");
                 throw new ArgumentNullException(mensagem);
             }
 
@@ -102,6 +102,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+                this.logger.Trace("GetByIdAsync");
                 SqlCommand cmd = new SqlCommand("USP_UserGetById", con);
                 cmd.Parameters.AddWithValue("@UserId", id);
                 con.Open();
@@ -116,7 +117,6 @@ namespace WebApi.Donne.Infrastructure
                     userModel.ProfileName = Convert.ToString(rdr["ProfileName"]);
                     userModel.Status = Convert.ToBoolean(rdr["Status"]);
                 }
-                logger.Trace("GetByIdAsync");
                 return userModel;
             }
             catch (Exception ex)
@@ -158,6 +158,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+                logger.Trace("GetByNameAsync");
                 SqlCommand cmd = new SqlCommand("USP_UserGetByName", con);
                 cmd.Parameters.AddWithValue("@UserName", Name);
                 con.Open();
@@ -172,7 +173,6 @@ namespace WebApi.Donne.Infrastructure
                     user.ProfileName = Convert.ToString(rdr["ProfileName"]);
                     user.Status = Convert.ToBoolean(rdr["Status"]);
                 }
-                logger.Trace("GetByNameAsync");
                 return user;
             }
             catch (Exception ex)
@@ -203,6 +203,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                logger.Trace("InsertAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_UserInsert", con);
                 cmd.Parameters.AddWithValue("@UserName", User.UserName);
@@ -214,7 +215,6 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("InsertAsync");
             }
             catch (Exception ex)
             {
@@ -241,6 +241,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                logger.Trace("DeleteAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_UserDelete", con);
                 cmd.Parameters.AddWithValue("@UserId", UserId);
@@ -248,7 +249,6 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("DeleteAsync");
             }
             catch (Exception ex)
             {
@@ -280,6 +280,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                logger.Trace("UpdateAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_UserUpdate", con);
                 cmd.Parameters.AddWithValue("@UserId", User.UserId);
@@ -292,7 +293,6 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("UpdateAsync");
             }
             catch (Exception ex)
             {
