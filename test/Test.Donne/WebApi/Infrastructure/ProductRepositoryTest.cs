@@ -41,6 +41,35 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
         }
 
         [TestMethod]
+        public async Task GetAllProductsAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            ProductRepository productRepository = new ProductRepository(mockLogger.Object);
+
+            // Act
+            var result = await productRepository.GetAllProductsAsync();
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllProductsAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetAllProductsAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("GetAllProductsAsync")).Throws(new Exception());
+            ProductRepository productRepository = new ProductRepository(mockLogger.Object);
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => productRepository.GetAllProductsAsync());
+            mockLogger.Verify(x => x.Trace("GetAllProductsAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange

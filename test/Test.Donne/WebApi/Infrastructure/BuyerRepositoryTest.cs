@@ -105,7 +105,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         }
 
         [TestMethod]
-        public void GetByStatus_Retorno_Diferente_Nulo_Sucesso()
+        public void GetByStatus_Status_Igual_Um_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -120,7 +120,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
         }
 
         [TestMethod]
-        public void GetByStatus_Erro()
+        public void GetByStatus_Status_Igual_Um_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -131,6 +131,38 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
 
             // Act
             var resultAction = () => buyerRepository.GetByStatus(1);
+
+            // Assert
+            Assert.ThrowsException<ArgumentNullException>(resultAction);
+        }
+
+        [TestMethod]
+        public void GetByStatus_Status_Igual_Zero_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
+
+            // Act
+            var result = buyerRepository.GetByStatus(0);
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetByStatus"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetByStatus_Status_Igual_Zero_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new ArgumentNullException());
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
+
+            // Act
+            var resultAction = () => buyerRepository.GetByStatus(0);
 
             // Assert
             Assert.ThrowsException<ArgumentNullException>(resultAction);

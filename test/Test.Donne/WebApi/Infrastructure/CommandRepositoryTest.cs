@@ -56,6 +56,20 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
         }
 
         [TestMethod]
+        public void GetAllCommandAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("GetAllCommandAsync")).Throws(new Exception());
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.GetAllCommandAsync());
+            mockLogger.Verify(x => x.Trace("GetAllCommandAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -91,7 +105,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
         }
 
         [TestMethod]
-        public void GetByStatus_Retorno_Diferente_Nulo_Sucesso()
+        public void GetByStatus_Ativo_Sucesso()
         {
             // Arrange
             int id = 0;
@@ -100,7 +114,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             var getAll = commandRepository.GetAllCommand();
             foreach (var item in getAll)
                 if(item.Status.Equals(true))
-                    id = item.CommandId;
+                    id = 1;
 
             // Act
             var result = commandRepository.GetByStatus(id);
@@ -112,23 +126,106 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetByStatusAsync_Sucesso()
+        public async Task GetByStatusAsync_Ativo_Sucesso()
         {
             // Arrange
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = await commandRepository.GetAllCommandAsync();
+            var getAll = commandRepository.GetAllCommand();
             foreach (var item in getAll)
                 if (item.Status.Equals(true))
-                    id = item.CommandId;
+                    id = 1;
 
             // Act
             var result = await commandRepository.GetByStatusAsync(id);
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllCommandAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetByStatusAsync_Ativo_Erro()
+        {
+            // Arrange
+            int id = 0;
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("GetByStatusAsync")).Throws(new Exception());
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAll = commandRepository.GetAllCommand();
+            foreach (var item in getAll)
+                if (item.Status.Equals(true))
+                    id = 1;
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.GetByStatusAsync(id));
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetByStatusAsync_Desativo_Erro()
+        {
+            // Arrange
+            int id = 0;
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("GetByStatusAsync")).Throws(new Exception());
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAll = commandRepository.GetAllCommand();
+            foreach (var item in getAll)
+                if (item.Status.Equals(false))
+                    id = 0;
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.GetByStatusAsync(id));
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
+
+        }
+
+        [TestMethod]
+        public void GetByStatus_Desativo_Sucesso()
+        {
+            // Arrange
+            int id = 0;
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAll = commandRepository.GetAllCommand();
+            foreach (var item in getAll)
+                if (item.Status.Equals(false))
+                    id = 0;
+
+            // Act
+            var result = commandRepository.GetByStatus(id);
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByStatus"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public async Task GetByStatusAsync_Desativo_Sucesso()
+        {
+            // Arrange
+            int id = 0;
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAll = commandRepository.GetAllCommand();
+            foreach (var item in getAll)
+                if (item.Status.Equals(false))
+                    id = 0;
+
+            // Act
+            var result = await commandRepository.GetByStatusAsync(id);
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
         }
 

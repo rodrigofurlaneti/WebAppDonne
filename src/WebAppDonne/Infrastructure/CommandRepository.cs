@@ -47,6 +47,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+                this.logger.Trace("GetAllCommandAsync");
                 SqlCommand cmd = new SqlCommand("USP_CommandGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
@@ -64,7 +65,6 @@ namespace WebApi.Donne.Infrastructure
                     command.Status = Convert.ToBoolean(rdr["Status"]);
                     listCommandsModel.Add(command);
                 }
-                this.logger.Trace("GetAllCommandAsync");
                 return listCommandsModel;
             }
             catch (Exception ex)
@@ -104,6 +104,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+                this.logger.Trace("GetByStatusAsync");
                 SqlCommand cmd = new SqlCommand("USP_CommandGetByStatus", con);
                 cmd.Parameters.AddWithValue("@Status", status);
                 con.Open();
@@ -116,7 +117,6 @@ namespace WebApi.Donne.Infrastructure
                     commandModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     listCommandsModel.Add(commandModel);
                 }
-                this.logger.Trace("GetByStatusAsync");
                 return listCommandsModel;
             }
             catch (Exception ex)

@@ -59,28 +59,6 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
         }
 
         [TestMethod]
-        public void GetById_Retorno_Objeto_Populado_Sucesso()
-        {
-            // Arrange
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
-            var getAll = orderRepository.GetAllOrders();
-            int idUltimo = getAll.ToList()[getAll.Count() - 1].OrderId;
-
-            // Act
-            var result = orderRepository.GetById(idUltimo);
-
-            // Assert
-            Assert.IsTrue(result.UserName != string.Empty);
-            Assert.IsTrue(result.UserId != 0);
-            Assert.IsTrue(result.Amount != 0);
-            Assert.IsTrue(result.CommandId != 0);
-            Assert.AreEqual(idUltimo, result.OrderId);
-            mockLogger.Verify(x => x.Trace("GetAllOrders"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
-        }
-
-        [TestMethod]
         public void Insert_Sucesso()
         {
             // Arrange

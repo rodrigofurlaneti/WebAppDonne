@@ -56,6 +56,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
                 try
                 {
+                    logger.Trace("GetAllProductsAsync");
                     SqlCommand cmd = new SqlCommand("USP_ProductGetAll", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
@@ -81,7 +82,6 @@ namespace WebApi.Donne.Infrastructure
                         product.Status = Convert.ToBoolean(rdr["Status"]);
                         listProductModel.Add(product);
                     }
-                    logger.Trace("GetAllProductsAsync");
                     return listProductModel;
                 }
                 catch (Exception ex)
