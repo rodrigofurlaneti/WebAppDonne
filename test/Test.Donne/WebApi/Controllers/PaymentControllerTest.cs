@@ -231,15 +231,17 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             PaymentController paymentController = new PaymentController(mockLogger.Object);
             var getAll = paymentController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listPayment = objResult.Value as List<PaymentModel>;
-            int paymentId = listPayment[0].PaymentId;
+            if(listPayment != null)
+                id = listPayment[0].PaymentId;
 
             // Act
-            await paymentController.Delete(paymentId);
+            await paymentController.Delete(id);
 
             // Assert
             mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));

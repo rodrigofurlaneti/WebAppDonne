@@ -149,7 +149,6 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
         public async Task InsertReturnIntAsync_Sucesso()
         {
             // Arrange
-            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandController commandController = new CommandController(mockLogger.Object);
             int buyerId = Faker.RandomNumber.Next(0, 100);
@@ -180,7 +179,6 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
         public void InsertReturnIntAsync_Erro()
         {
             // Arrange
-            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("InsertReturnIntAsync")).Throws(new Exception());
             CommandController commandController = new CommandController(mockLogger.Object);

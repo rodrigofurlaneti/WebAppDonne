@@ -66,11 +66,12 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             // Act
             var result = await productController.Get(idProduct);
             ObjectResult objectResult = (ObjectResult)result;
-            ProductModel model = (ProductModel)objectResult.Value;
+            var model = objectResult.Value as ProductModel;
 
             // Assert
             Assert.IsNotNull(result);
             Assert.IsNotNull(objectResult);
+            Assert.IsNotNull(model);
             Assert.AreEqual(idProduct, model.ProductId);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);

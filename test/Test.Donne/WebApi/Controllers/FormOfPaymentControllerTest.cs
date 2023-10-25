@@ -52,15 +52,17 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
             var getAll = formOfPaymentController.Get();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<FormOfPaymentModel>;
-            int formOfPaymentId = listCategorys[0].FormOfPaymentId;
+            if(listCategorys != null)
+                id = listCategorys[0].FormOfPaymentId;
 
             // Act
-            var result = await formOfPaymentController.Get(formOfPaymentId);
+            var result = await formOfPaymentController.Get(id);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
