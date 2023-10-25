@@ -288,6 +288,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                logger.Trace("InsertReturnIdAsync");
                 int newId = 0;
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_CommandInsertReturnId", con);
@@ -307,7 +308,6 @@ namespace WebApi.Donne.Infrastructure
                     newId = Convert.ToInt32(result);
                 }
                 con.Close();
-                logger.Trace("InsertReturnIntAsync");
                 return newId;
             }
             catch (Exception ex)
