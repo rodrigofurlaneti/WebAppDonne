@@ -11,7 +11,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
     public class CommandRepositoryTest
     {
         [TestMethod]
-        public void GetAllFormOfPayment_Retorno_Diferente_Nulo_Sucesso()
+        public void GetAllCommand_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -38,6 +38,21 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Assert
             Assert.IsTrue(result.Any());
             mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public async Task GetAllCommandAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+
+            // Act
+            var result = await commandRepository.GetAllCommandAsync();
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllCommandAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -79,13 +94,16 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
         public void GetByStatus_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
             var getAll = commandRepository.GetAllCommand();
-            int idUltimo = getAll.ToList()[getAll.Count() - 1].CommandId;
+            foreach (var item in getAll)
+                if(item.Status.Equals(true))
+                    id = item.CommandId;
 
             // Act
-            var result = commandRepository.GetByStatus(idUltimo);
+            var result = commandRepository.GetByStatus(id);
 
             // Assert
             Assert.IsNotNull(result);
@@ -94,16 +112,40 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
         }
 
         [TestMethod]
+        public async Task GetByStatusAsync_Sucesso()
+        {
+            // Arrange
+            int id = 0;
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAll = await commandRepository.GetAllCommandAsync();
+            foreach (var item in getAll)
+                if (item.Status.Equals(true))
+                    id = item.CommandId;
+
+            // Act
+            var result = await commandRepository.GetByStatusAsync(id);
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllCommandAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
         public void GetCommandOrder_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
+            int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
             var getAll = commandRepository.GetAllCommand();
-            int idUltimo = getAll.ToList()[getAll.Count() - 1].CommandId;
+            foreach (var item in getAll)
+                if (item.Status.Equals(true))
+                    id = item.CommandId;
 
             // Act
-            var result = commandRepository.GetCommandOrder(idUltimo);
+            var result = commandRepository.GetCommandOrder(id);
 
             // Assert
             Assert.IsNotNull(result);

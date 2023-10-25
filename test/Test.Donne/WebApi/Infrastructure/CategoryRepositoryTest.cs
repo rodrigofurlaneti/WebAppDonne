@@ -46,8 +46,8 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
-            //Setup
-            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new ArgumentNullException());
+            // Setup
+            mockLogger.Setup(x => x.Trace("GetAllCategorys")).Throws(new Exception());
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
 
             // Act

@@ -38,7 +38,7 @@ namespace WebApi.Donne.Infrastructure
                     logger.Trace("GetAllCategorys");
                     return listCategoryModel;
                 }
-                catch (ArgumentNullException ex)
+                catch (Exception ex)
                 {
                     string mensagemErro = "Erro ao lista as categorias, utilizando a procedure USP_CategoryGetAll assíncrono " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
@@ -69,7 +69,7 @@ namespace WebApi.Donne.Infrastructure
                 logger.Trace("GetAllCategorysAsync");
                 return listCategoryModel;
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagemErro = "Erro ao lista as categorias, utilizando a procedure USP_CategoryGetAll assíncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
@@ -101,7 +101,7 @@ namespace WebApi.Donne.Infrastructure
                 logger.Trace("GetByIdAsync");
                 return category;
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagemErro = "Erro ao lista a categoria, utilizando a procedure USP_CategoryGetById assíncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
@@ -133,7 +133,7 @@ namespace WebApi.Donne.Infrastructure
                 logger.Trace("GetById");
                 return category;
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagemErro = "Erro ao lista a categoria, utilizando a procedure USP_CategoryGetById síncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
