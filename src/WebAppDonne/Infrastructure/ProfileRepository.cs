@@ -45,6 +45,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+                    this.logger.Trace("GetAllProfilesAsync");
                     SqlCommand cmd = new SqlCommand("USP_ProfileGetAll", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
@@ -60,13 +61,12 @@ namespace WebApi.Donne.Infrastructure
                         profileModel.UserName = Convert.ToString(rdr["UserName"]);
                         listProfileModel.Add(profileModel);
                     }
-                this.logger.Trace("GetAllProfilesAsync");
                 return listProfileModel;
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                     string mensagem = "Erro ao consumir o metodo GetAllProfilesAsync " + ex.Message;
-                    this.logger.TraceException("GetProductAsync");
+                    this.logger.TraceException("GetAllProfilesAsync");
                     throw new ArgumentNullException(mensagem);
             }
         }
@@ -99,6 +99,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                this.logger.Trace("GetByIdAsync");
                 ProfileModel profileModel = new ProfileModel();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -117,13 +118,12 @@ namespace WebApi.Donne.Infrastructure
                         profileModel.UserName = Convert.ToString(rdr["UserName"]);
                     }
                 }
-                logger.Trace("GetByIdAsync");
                 return profileModel;
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir o metodo GetAllProfilesAsync " + ex.Message;
-                this.logger.TraceException("GetById");
+                this.logger.TraceException("GetByIdAsync");
                 throw new ArgumentNullException(mensagem);
             }
         }

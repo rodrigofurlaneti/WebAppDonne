@@ -41,6 +41,80 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
         }
 
         [TestMethod]
+        public async Task GetAllProfilesAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            ProfileRepository profileRepository = new ProfileRepository(mockLogger.Object);
+
+            // Act
+            var result = await profileRepository.GetAllProfilesAsync();
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllProfilesAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetAllProfilesAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace("GetAllProfilesAsync")).Throws(new Exception());
+            ProfileRepository profileRepository = new ProfileRepository(mockLogger.Object);
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => profileRepository.GetAllProfilesAsync());
+            mockLogger.Verify(x => x.TraceException("GetAllProfilesAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public async Task GetByIdAsync_Sucesso()
+        {
+            // Arrange
+            int id = 0;
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            ProfileRepository profileRepository = new ProfileRepository(mockLogger.Object);
+
+            // Setup
+            var getAll = profileRepository.GetAllProfiles();
+            if (!getAll.Equals(null))
+                id = getAll.ToList()[0].ProfileId;
+
+            // Act
+            var result = await profileRepository.GetByIdAsync(id);
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetByIdAsync_Erro()
+        {
+            // Arrange
+            int id = 0;
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            //Setup
+            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
+            ProfileRepository profileRepository = new ProfileRepository(mockLogger.Object);
+
+            // Setup
+            var getAll = profileRepository.GetAllProfiles();
+            if (!getAll.Equals(null))
+                id = getAll.ToList()[0].ProfileId;
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => profileRepository.GetByIdAsync(id));
+            mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
