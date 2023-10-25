@@ -50,6 +50,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+                logger.Trace("GetAllOrdersAsync");
                 SqlCommand cmd = new SqlCommand("USP_OrderGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
@@ -70,7 +71,6 @@ namespace WebApi.Donne.Infrastructure
                     orderModel.UserName = Convert.ToString(rdr["UserName"]);
                     listOrderModel.Add(orderModel);
                 }
-                logger.Trace("GetAllOrdersAsync");
                 return listOrderModel;
             }
             catch (Exception ex)
@@ -148,22 +148,22 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(OrderModel orderModel)
         {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_OrderInsert", con);
-                cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
-                cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
-                cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
-                cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
-                cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
-                cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
-                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
-                cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
-                con.Close();
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("USP_OrderInsert", con);
+            cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
+            cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
+            cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+            cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
+            cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
+            cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
+            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@UserId", orderModel.UserId);
+            cmd.Parameters.AddWithValue("@UserName", orderModel.UserName);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.ExecuteNonQuery();
+            con.Close();
             logger.Trace("Insert");
         }
 
@@ -171,6 +171,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                this.logger.Trace("InsertAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_OrderInsert", con);
                 cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
@@ -187,7 +188,6 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("InsertAsync");
             }
             catch (Exception ex)
             {
@@ -214,6 +214,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                this.logger.Trace("DeleteAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_OrderDelete", con);
                 cmd.Parameters.AddWithValue("@OrderId", OrderId);
@@ -221,7 +222,6 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("DeleteAsync");
             }
             catch (Exception ex)
             {
@@ -258,6 +258,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                this.logger.Trace("UpdateAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_OrderUpdate", con);
                 cmd.Parameters.AddWithValue("@OrderId", orderModel.OrderId);
@@ -275,7 +276,6 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("UpdateAsync");
             }
             catch (Exception ex)
             {
