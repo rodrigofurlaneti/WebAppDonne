@@ -172,7 +172,8 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
-            mockLogger.Verify(x => x.Trace("InsertReturnIntAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("InsertReturnIntAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("InsertReturnIdAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
