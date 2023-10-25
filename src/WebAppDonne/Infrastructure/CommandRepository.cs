@@ -236,6 +236,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                logger.Trace("InsertAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_CommandInsert", con);
                 cmd.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
@@ -249,7 +250,6 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("InsertAsync");
             }
             catch (Exception ex)
             {

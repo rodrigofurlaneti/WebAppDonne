@@ -432,5 +432,55 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
             mockLogger.Verify(x => x.TraceException("DeleteAsync"), Times.Exactly(1));
         }
+
+        [TestMethod]
+        public async Task InsertAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            int buyerId = Faker.RandomNumber.Next(0, 100);
+            string buyerName = Faker.Name.FullName();
+            int commandId = Faker.RandomNumber.Next(0, 100);
+            int userId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            bool status = true;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
+                userId, userName);
+
+            // Act
+            await commandRepository.InsertAsync(commandModel);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void InsertAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            int buyerId = Faker.RandomNumber.Next(0, 100);
+            string buyerName = Faker.Name.FullName();
+            int commandId = Faker.RandomNumber.Next(0, 100);
+            int userId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = DateTime.Now;
+            bool status = true;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
+                userId, userName);
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.InsertAsync(commandModel));
+            mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
+        }
     }
 }
