@@ -41,6 +41,38 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
         }
 
         [TestMethod]
+        public async Task GetAllPaymentAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            PaymentRepository paymentRepository = new PaymentRepository(mockLogger.Object);
+
+            // Act
+            var result = await paymentRepository.GetAllPaymentsAsync();
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetAllPaymentsAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetAllPaymentAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            // Setup
+            mockLogger.Setup(x => x.Trace("GetAllPaymentsAsync")).Throws(new Exception());
+            PaymentRepository paymentRepository = new PaymentRepository(mockLogger.Object);
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => paymentRepository.GetAllPaymentsAsync());
+
+            // Assert
+            mockLogger.Verify(x => x.TraceException("GetAllPaymentsAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
         public void GetById_Sucesso()
         {
             // Arrange

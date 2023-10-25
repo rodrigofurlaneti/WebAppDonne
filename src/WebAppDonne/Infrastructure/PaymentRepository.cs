@@ -49,6 +49,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+                this.logger.Trace("GetAllPaymentsAsync");
                 SqlCommand cmd = new SqlCommand("USP_PaymentGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
@@ -68,13 +69,12 @@ namespace WebApi.Donne.Infrastructure
                         paymentModel.UserName = Convert.ToString(rdr["UserName"]);
                         listPaymentModel.Add(paymentModel);
                 }
-                logger.Trace("GetAllPaymentsAsync");
                 return listPaymentModel;
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a método GetAllPaymentsAsync " + ex.Message;
-                logger.TraceException("GetAllPaymentsAsync");
+                this.logger.TraceException("GetAllPaymentsAsync");
                 throw new ArgumentNullException(mensagem);
             }
         }
