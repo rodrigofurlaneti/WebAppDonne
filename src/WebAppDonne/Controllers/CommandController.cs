@@ -19,57 +19,116 @@ namespace WebApi.Donne.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetCommand")]
-        public IEnumerable<CommandModel> GetCommand()
+        [HttpGet(Name = "GetCommandAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CommandModel>))]
+        public async Task<IActionResult> Get()
         {
-            CommandRepository dal = new CommandRepository(_logger);
-            var ret = dal.GetAllCommand();
-            return (ret);
+            try
+            {
+                CommandRepository dal = new CommandRepository(_logger);
+                this._logger.Trace("GetCommandAsync");
+                var ret = await dal.GetAllCommandAsync();
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                this._logger.TraceException("GetCommandAsync");
+                string mensagem = "Erro ao consumir a controler Command, rota GetAllCommandsAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
         }
+
         [HttpOptions("{id:int}")]
-        public IEnumerable<CommandModel> Options(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CommandModel>))]
+        public async Task<IActionResult> Options(int id)
         {
-            CommandRepository dal = new CommandRepository(_logger);
-            var ret = dal.GetByStatus(id);
-            return (ret);
+            try
+            {
+                CommandRepository dal = new CommandRepository(_logger);
+                this._logger.Trace("GetByStatusAsync");
+                var ret = await dal.GetByStatusAsync(id);
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                this._logger.TraceException("GetByStatusAsync");
+                string mensagem = "Erro ao consumir a controler Command, rota GetByStatusAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
         }
-
-        [HttpPatch("{id:int}")]
-        public IEnumerable<CommandOrderModel> Patch(int id)
-        {
-            CommandRepository dal = new CommandRepository(_logger);
-            var ret = dal.GetCommandOrder(id);
-            return (ret);
-        }
-
 
         [HttpGet("{id:int}")]
-        public CommandModel Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommandModel))]
+        public async Task<IActionResult> Get(int id)
         {
-            CommandRepository dal = new CommandRepository(_logger);
-            var ret = dal.GetById(id);
-            return (ret);
+            try
+            {
+                CommandRepository dal = new CommandRepository(_logger);
+                this._logger.Trace("GetByIdAsync");
+                var ret = await dal.GetByIdAsync(id);
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                this._logger.TraceException("GetByIdAsync");
+                string mensagem = "Erro ao consumir a controler Command, rota GetByIdAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpPost(Name = "InsertCommand")]
-        public int Post(CommandModel commandModel)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
+        public async Task<IActionResult> Post(CommandModel commandModel)
         {
-            CommandRepository dal = new CommandRepository(_logger);
-            return dal.InsertReturnId(commandModel);
+            try
+            {
+                CommandRepository dal = new CommandRepository(_logger);
+                this._logger.Trace("InsertReturnIntAsync");
+                var ret = await dal.InsertReturnIdAsync(commandModel);
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                this._logger.TraceException("InsertReturnIntAsync");
+                string mensagem = "Erro ao consumir a controler Command, rota GetByIdAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         [HttpPut(Name = "UpdateCommands")]
-        public void Update(CommandModel commandModel)
+        public async Task Update(CommandModel commandModel)
         {
-            CommandRepository dal = new CommandRepository(_logger);
-            dal.Update(commandModel);
+            try
+            {
+                this._logger.Trace("UpdateAsync");
+                CommandRepository dal = new CommandRepository(_logger);
+                await dal.UpdateAsync(commandModel);
+            }
+            catch (Exception ex)
+            {
+                this._logger.TraceException("UpdateAsync");
+                string mensagem = "Erro ao consumir a controler Command, rota UpdateAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+
         }
 
         [HttpDelete("{id:int}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            CommandRepository dal = new CommandRepository(_logger);
-            dal.Delete(id);
+            try
+            {
+                CommandRepository dal = new CommandRepository(_logger);
+                this._logger.Trace("DeleteAsync");
+                await dal.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                this._logger.TraceException("DeleteAsync");
+                string mensagem = "Erro ao consumir a controler Command, rota DeleteAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
         }
     }
 }
