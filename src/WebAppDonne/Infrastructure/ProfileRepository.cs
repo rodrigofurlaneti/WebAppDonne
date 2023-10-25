@@ -148,6 +148,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                logger.Trace("InsertAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_ProfileInsert", con);
                 cmd.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
@@ -159,7 +160,6 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("InsertAsync");
             }
             catch (ArgumentNullException ex)
             {
@@ -185,6 +185,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                logger.Trace("DeleteAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_ProfileDelete", con);
                 cmd.Parameters.AddWithValue("@ProfileId", ProfileId);
@@ -192,9 +193,8 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("DeleteAsync");
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir o metodo DeleteAsync " + ex.Message;
                 this.logger.TraceException("DeleteAsync");
@@ -223,6 +223,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                logger.Trace("UpdateAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_ProfileUpdate", con);
                 cmd.Parameters.AddWithValue("@ProfileId", profileModel.ProfileId);
@@ -235,9 +236,8 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("UpdateAsync");
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir o metodo UpdateAsync " + ex.Message;
                 this.logger.TraceException("UpdateAsync");
