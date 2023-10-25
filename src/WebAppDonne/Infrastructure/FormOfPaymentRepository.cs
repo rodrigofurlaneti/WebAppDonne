@@ -52,6 +52,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+                this.logger.Trace("GetAllFormOfPaymentAsync");
                 SqlCommand cmd = new SqlCommand("USP_FormOfPaymentGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
@@ -67,10 +68,9 @@ namespace WebApi.Donne.Infrastructure
                     formOfPayment.UserName = Convert.ToString(rdr["UserName"]);
                     listFormOfPaymentModel.Add(formOfPayment);
                 }
-                this.logger.Trace("GetAllFormOfPaymentAsync");
                 return listFormOfPaymentModel;
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagemErro = "Erro ao lista as formas de pagamentos, utilizando a procedure USP_FormOfPaymentGetAll assíncrono " + ex.Message;
                 this.logger.TraceException("GetAllFormOfPaymentAsync");
@@ -116,6 +116,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+               this.logger.Trace("GetByIdAsync");
                SqlCommand cmd = new SqlCommand("USP_FormOfPaymentGetById", con);
                cmd.Parameters.AddWithValue("@FormOfPaymentId", id);
                con.Open();
@@ -130,10 +131,9 @@ namespace WebApi.Donne.Infrastructure
                     formOfPayment.UserId = Convert.ToInt32(rdr["UserId"]);
                     formOfPayment.UserName = Convert.ToString(rdr["UserName"]);
                }
-               this.logger.Trace("GetByIdAsync");
                return formOfPayment;
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 string mensagemErro = "Erro ao lista a forma de pagamento, utilizando a procedure USP_FormOfPaymentGetById síncrono " + ex.Message;
                 this.logger.TraceException("GetByIdAsync");
@@ -161,6 +161,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                this.logger.Trace("InsertAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_FormOfPaymentInsert", con);
                 cmd.Parameters.AddWithValue("@FormOfPaymentName", FormOfPayment.FormOfPaymentName);
@@ -170,7 +171,6 @@ namespace WebApi.Donne.Infrastructure
                 cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
-                logger.Trace("InsertAsync");
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
             }
@@ -199,12 +199,12 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                this.logger.Trace("DeleteAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_FormOfPaymentDelete", con);
                 cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPaymentId);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
-                logger.Trace("DeleteAsync");
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
             }
@@ -238,6 +238,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                this.logger.Trace("UpdateAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_FormOfPaymentUpdate", con);
                 cmd.Parameters.AddWithValue("@FormOfPaymentId", FormOfPayment.FormOfPaymentId);
@@ -248,14 +249,13 @@ namespace WebApi.Donne.Infrastructure
                 cmd.Parameters.AddWithValue("@UserName", FormOfPayment.UserName);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
-                logger.Trace("UpdateAsync");
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
             }
             catch (Exception ex)
             {
                 string mensagemErro = "Erro ao atualizar uma forma de pagamento, utilizando a procedure USP_FormOfPaymentUpdate assíncrono " + ex.Message;
-                this.logger.TraceException("DeleteAsync");
+                this.logger.TraceException("UpdateAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
 
