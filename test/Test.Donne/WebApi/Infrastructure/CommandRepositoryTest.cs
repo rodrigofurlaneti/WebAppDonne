@@ -329,6 +329,60 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
         }
 
         [TestMethod]
+        public async Task UpdateAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAll = commandRepository.GetAllCommand();
+            int commandId = getAll.ToList()[getAll.Count() - 1].CommandId;
+            int buyerId = Faker.RandomNumber.Next(0, 100);
+            string buyerName = Faker.Name.FullName();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = getAll.ToList()[getAll.Count() - 1].DateInsert;
+            bool status = true;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
+                userId, userName);
+
+            // Act
+            await commandRepository.UpdateAsync(commandModel);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void UpdateAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAll = commandRepository.GetAllCommand();
+            int commandId = getAll.ToList()[getAll.Count() - 1].CommandId;
+            int buyerId = Faker.RandomNumber.Next(0, 100);
+            string buyerName = Faker.Name.FullName();
+            int userId = Faker.RandomNumber.Next(0, 100);
+            string userName = Faker.Name.First();
+            DateTime dateUpdate = DateTime.Now;
+            DateTime dateInsert = getAll.ToList()[getAll.Count() - 1].DateInsert;
+            bool status = true;
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
+                userId, userName);
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.UpdateAsync(commandModel));
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
         public void Delete_Sucesso()
         {
             // Arrange
@@ -345,6 +399,38 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
 
+        [TestMethod]
+        public async Task DeleteAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAll = commandRepository.GetAllCommand();
+            int commandId = getAll.ToList()[getAll.Count() - 1].CommandId;
 
+            // Act
+            await commandRepository.DeleteAsync(commandId);
+
+            //Assert
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void DeleteAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAll = commandRepository.GetAllCommand();
+            int commandId = getAll.ToList()[getAll.Count() - 1].CommandId;
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.DeleteAsync(commandId));
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("DeleteAsync"), Times.Exactly(1));
+        }
     }
 }

@@ -335,6 +335,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                this.logger.Trace("DeleteAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_CommandDelete", con);
                 cmd.Parameters.AddWithValue("@CommandId", commandId);
@@ -342,7 +343,6 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("DeleteAsync");
             }
             catch (Exception ex)
             {
@@ -376,6 +376,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                logger.Trace("UpdateAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_CommandUpdate", con);
                 cmd.Parameters.AddWithValue("@CommandId", commandModel.CommandId);
@@ -390,7 +391,6 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("UpdateAsync");
             }
             catch (Exception ex)
             {
