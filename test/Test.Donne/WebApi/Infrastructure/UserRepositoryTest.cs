@@ -262,6 +262,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
             UserRepository userRepository = new UserRepository(mockLogger.Object);
             int profileId = Faker.RandomNumber.Next(0, 1000);
             string profileName = Faker.Name.First();
@@ -275,7 +276,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             // Act
             // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.InsertAsync(userModel));
-            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
         }
 
         [TestMethod]

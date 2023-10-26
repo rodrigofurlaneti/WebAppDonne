@@ -187,6 +187,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+                this.logger.Trace("GetByIdAsync");
                 SqlCommand cmd = new SqlCommand("USP_CommandGetById", con);
                 cmd.Parameters.AddWithValue("@CommandId", id);
                 con.Open();
@@ -203,7 +204,6 @@ namespace WebApi.Donne.Infrastructure
                     command.UserName = Convert.ToString(rdr["UserName"]);
                     command.Status = Convert.ToBoolean(rdr["Status"]);
                 }
-                logger.Trace("GetByIdAsync");
                 return command;
             }
             catch (Exception ex)

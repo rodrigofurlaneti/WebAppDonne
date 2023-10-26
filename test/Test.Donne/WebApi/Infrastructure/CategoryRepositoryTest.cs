@@ -58,6 +58,35 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
         }
 
         [TestMethod]
+        public async Task GetAllCategorysAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
+
+            // Act
+            var result = await categoryRepository.GetAllCategorysAsync();
+
+            // Assert
+            Assert.IsTrue(result.Any());
+            mockLogger.Verify(x => x.Trace("GetAllCategorysAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetAllCategorysAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("GetAllCategorysAsync")).Throws(new Exception());
+            CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => categoryRepository.GetAllCategorysAsync());
+            mockLogger.Verify(x => x.TraceException("GetAllCategorysAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -100,7 +129,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             //Setup
-            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new ArgumentNullException());
+            mockLogger.Setup(x => x.Trace(It.IsAny<string>())).Throws(new Exception());
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
 
             // Act

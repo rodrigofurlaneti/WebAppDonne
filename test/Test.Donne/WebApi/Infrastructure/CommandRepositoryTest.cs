@@ -105,6 +105,42 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
         }
 
         [TestMethod]
+        public async Task GetByIdAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAll = commandRepository.GetAllCommand();
+            int idUltimo = getAll.ToList()[getAll.Count() - 1].CommandId;
+
+            // Act
+            var result = await commandRepository.GetByIdAsync(idUltimo);
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetByIdAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+
+            // Setup 
+            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAll = commandRepository.GetAllCommand();
+            int idUltimo = getAll.ToList()[getAll.Count() - 1].CommandId;
+
+            // Act
+            // Assert
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.GetByIdAsync(idUltimo));
+            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
         public void GetByStatus_Ativo_Sucesso()
         {
             // Arrange

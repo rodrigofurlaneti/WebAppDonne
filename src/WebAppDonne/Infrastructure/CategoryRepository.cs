@@ -20,6 +20,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
                 try
                 {
+                    this.logger.Trace("GetAllCategorys");
                     SqlCommand cmd = new SqlCommand("USP_CategoryGetAll", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
@@ -35,12 +36,12 @@ namespace WebApi.Donne.Infrastructure
                         category.UserName = Convert.ToString(rdr["UserName"]);
                         listCategoryModel.Add(category);
                     }
-                    logger.Trace("GetAllCategorys");
                     return listCategoryModel;
                 }
                 catch (Exception ex)
                 {
                     string mensagemErro = "Erro ao lista as categorias, utilizando a procedure USP_CategoryGetAll assíncrono " + ex.Message;
+                    this.logger.TraceException("GetAllCategorys");
                     throw new ArgumentNullException(mensagemErro);
                 }
         }
@@ -51,6 +52,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlConnection con = new SqlConnection(connectionString))
             try
             {
+                this.logger.Trace("GetAllCategorysAsync");
                 SqlCommand cmd = new SqlCommand("USP_CategoryGetAll", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
@@ -66,12 +68,12 @@ namespace WebApi.Donne.Infrastructure
                     category.UserName = Convert.ToString(rdr["UserName"]);
                     listCategoryModel.Add(category);
                 }
-                logger.Trace("GetAllCategorysAsync");
                 return listCategoryModel;
             }
             catch (Exception ex)
             {
                 string mensagemErro = "Erro ao lista as categorias, utilizando a procedure USP_CategoryGetAll assíncrono " + ex.Message;
+                this.logger.TraceException("GetAllCategorysAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
         }
