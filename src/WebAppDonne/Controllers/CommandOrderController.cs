@@ -17,9 +17,9 @@ namespace WebApi.Donne.Controllers
             _logger = logger;
         }
 
-        [HttpPatch("{id:int}")]
+        [HttpPatch("CommandOrder/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CommandOrderModel>))]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Patch(int id)
         {
             try
             {
