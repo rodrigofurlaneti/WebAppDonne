@@ -1,4 +1,13 @@
+var AllowPolicy = "_AllowPolicy";
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AllowPolicy, builder => builder.WithOrigins("*")
+                                                        .AllowAnyMethod()
+    .AllowAnyHeader());
+});
 
 builder.Services.AddScoped<WebApi.Donne.Infrastructure.SeedWork.ILogger, WebApi.Donne.Infrastructure.SeedWork.Logger>();
 
@@ -18,7 +27,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 
-app.UseCors();
+app.UseCors(AllowPolicy);
 
 app.UseAuthorization();
 
