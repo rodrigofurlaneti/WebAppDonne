@@ -83,4 +83,6 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /o:"${{ secrets.SONAR_ORGANIZATIONS }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }} /d:sonar.cs.opencover.reportsPaths="D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\TestResults\*\coverage.opencover.xml" /d:sonar.cs.xunit.reportsPaths="D:\a\WebAppDonne\WebAppDonne\test\Test.Donne\TestResults\TestOutput.xml"
           dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln -nr:false
           dotnet test --no-build "D:\a\WebAppDonne\WebAppDonne\test\Test.Donne" --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"         
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+    
+
