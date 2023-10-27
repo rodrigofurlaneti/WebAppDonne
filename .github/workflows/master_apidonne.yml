@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}\WebAppDonne\WebAppDonne\src\WebAppDonne
+          path: ${{env.DOTNET_ROOT}}\WebAppDonne\WebAppDonne\src\WebAppDonne\bin\release\net6.0\publish
 
   deploy:
     runs-on: windows-latest
