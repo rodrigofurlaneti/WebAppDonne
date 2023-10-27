@@ -23,16 +23,16 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dir ${{env.DOTNET_ROOT}}
+        run: dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}\subscriptions\fcb4cdce-a389-483e-b3e4-d2357049163a\resourceGroups\apiDonne\providers\Microsoft.Web\sites\apiDonne
+        run: dotnet publish D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.csproj -c Release -o ${{env.DOTNET_ROOT}}/apiDonne
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}\subscriptions\fcb4cdce-a389-483e-b3e4-d2357049163a\resourceGroups\apiDonne\providers\Microsoft.Web\sites\apiDonne
+          path: ${{env.DOTNET_ROOT}}/apiDonne
 
   deploy:
     runs-on: windows-latest
