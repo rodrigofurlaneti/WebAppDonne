@@ -20,7 +20,7 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release OutputPath="$(build.artifactStagingDirectory)\src"
+        run: dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln --configuration Release
 
 
       - name: dotnet publish
