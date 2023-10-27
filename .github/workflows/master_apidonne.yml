@@ -23,7 +23,7 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: cd ${{env.DOTNET_ROOT}} dir
+        run: dir ${{env.DOTNET_ROOT}}
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}\subscriptions\fcb4cdce-a389-483e-b3e4-d2357049163a\resourceGroups\apiDonne\providers\Microsoft.Web\sites\apiDonne
