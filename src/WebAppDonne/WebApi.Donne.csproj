@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <AspNetCoreModuleName>AspNetCoreModuleV2</AspNetCoreModuleName>
-    <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
-    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
-	<ProjectGuid>{B1E36758-8A06-4793-A7D2-216DE578732D}</ProjectGuid>
-  </PropertyGroup>
+	<PropertyGroup>
+		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AspNetCoreModuleName>AspNetCoreModuleV2</AspNetCoreModuleName>
+		<IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+		<ProjectGuid>{B1E36758-8A06-4793-A7D2-216DE578732D}</ProjectGuid>
+	</PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="logs\**" />
