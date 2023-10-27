@@ -26,13 +26,13 @@ jobs:
         run: dotnet build D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne.sln --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}\WebAppDonne\WebAppDonne\src\WebAppDonne\bin\release\net6.0\publish
+        run: dotnet publish -c Release -o D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne\bin\Release\net6.0
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}\WebAppDonne\WebAppDonne\src\WebAppDonne\bin\release\net6.0\publish
+          path: D:\a\WebAppDonne\WebAppDonne\src\WebAppDonne\bin\Release\net6.0
 
   deploy:
     runs-on: windows-latest
