@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: AllowPolicy, builder => builder.WithOrigins("*")
+    options.AddPolicy(name: AllowPolicy, builder => builder.WithOrigins("https://orange-ocean-0e4330d10.4.azurestaticapps.net")
                                                         .AllowAnyMethod()
     .AllowAnyHeader());
 });

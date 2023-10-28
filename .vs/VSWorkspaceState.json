@@ -1,10 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.github",
+    "\\.github\\workflows",
     "\\src",
-    "\\src\\WebAppDonne",
-    "\\src\\WebAppDonne\\Controllers"
+    "\\src\\WebAppDonne"
   ],
-  "SelectedNode": "\\src\\WebAppDonne\\Controllers\\CommandOrderController.cs",
+  "SelectedNode": "\\src\\WebAppDonne.sln",
   "PreviewInSolutionExplorer": false
 }
