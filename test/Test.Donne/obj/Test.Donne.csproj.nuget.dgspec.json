@@ -105,6 +105,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Azure.Core": {
+              "target": "Package",
+              "version": "[1.35.0, )"
+            },
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.10.3, )"
+            },
             "Microsoft.AspNet.WebApi.Core": {
               "target": "Package",
               "version": "[5.2.9, )"

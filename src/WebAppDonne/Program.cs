@@ -1,5 +1,5 @@
 using Azure.Identity;
-
+using Microsoft.Extensions.Configuration;
 
 var AllowPolicy = "_AllowPolicy";
 
@@ -7,15 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: AllowPolicy, builder => builder.WithOrigins("https://orange-ocean-0e4330d10.4.azurestaticapps.net")
+    options.AddPolicy(name: AllowPolicy, builder => builder.WithOrigins("*")
                                                         .AllowAnyMethod()
     .AllowAnyHeader());
 });
-
-builder.Configuration.AddAzureAppConfiguration(options =>
-    options.Connect(
-        new Uri(builder.Configuration["AppConfig:Endpoint"]),
-        new ManagedIdentityCredential()));
 
 builder.Services.AddScoped<WebApi.Donne.Infrastructure.SeedWork.ILogger, WebApi.Donne.Infrastructure.SeedWork.Logger>();
 
