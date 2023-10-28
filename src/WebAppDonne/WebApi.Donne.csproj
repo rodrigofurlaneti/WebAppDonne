@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	 <PackageReference Include="Azure.Identity" Version="1.10.3" />
 	 <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
 	<PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
 	<PackageReference Include="System.Data.SqlClient" Version="4.6.0" />

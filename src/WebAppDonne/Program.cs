@@ -1,3 +1,6 @@
+using Azure.Identity;
+
+
 var AllowPolicy = "_AllowPolicy";
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +11,11 @@ builder.Services.AddCors(options =>
                                                         .AllowAnyMethod()
     .AllowAnyHeader());
 });
+
+builder.Configuration.AddAzureAppConfiguration(options =>
+    options.Connect(
+        new Uri(builder.Configuration["AppConfig:Endpoint"]),
+        new ManagedIdentityCredential()));
 
 builder.Services.AddScoped<WebApi.Donne.Infrastructure.SeedWork.ILogger, WebApi.Donne.Infrastructure.SeedWork.Logger>();
 
