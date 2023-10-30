@@ -1,4 +1,5 @@
 ﻿using Domain.Donne;
+using Business.Donne;
 using System.Data.SqlClient;
 using System.Data;
 
@@ -76,13 +77,7 @@ namespace WebApi.Donne.Infrastructure
 
                     if(listShoppingListModel.Count > 0)
                     {
-                        foreach (var shoppingListModel in listShoppingListModel)
-                        {
-                            if (shoppingListModel.QuantityToBuy > 0)
-                            {
-                                listShoppingListModelRet.Add(shoppingListModel);
-                            }
-                        }
+                        listShoppingListModelRet = ShoppingListBusiness.ShoppingListBusinessValid(listShoppingListModel);
                     }
 
                     return listShoppingListModelRet;
