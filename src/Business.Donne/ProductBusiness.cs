@@ -8,7 +8,7 @@ namespace Business.Donne
         {
             if (productModel.MinimumStockQuantity >= productModel.QuantityStock)
             {
-                productModel.QuantityToBuy = productModel.QuantityStock - productModel.MinimumStockQuantity;
+                productModel.QuantityToBuy = productModel.MinimumStockQuantity - productModel.QuantityStock;
                 Decimal valueCostPrice = Convert.ToDecimal(productModel.CostPrice);
                 Decimal valueOfLastPurchase = productModel.QuantityToBuy * valueCostPrice;
                 productModel.TotalValueOfLastPurchase = valueOfLastPurchase.ToString();
