@@ -1,11 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\.github",
-    "\\.github\\workflows",
     "\\src",
-    "\\src\\WebAppDonne"
+    "\\src\\WebAppDonne",
+    "\\src\\WebAppDonne\\Infrastructure"
   ],
-  "SelectedNode": "\\src\\WebAppDonne\\WebApi.Donne.csproj",
+  "SelectedNode": "\\src\\WebAppDonne.sln",
   "PreviewInSolutionExplorer": false
 }
