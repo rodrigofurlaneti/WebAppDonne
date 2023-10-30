@@ -1,4 +1,5 @@
-﻿using Domain.Donne;
+﻿using Business.Donne;
+using Domain.Donne;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -168,6 +169,7 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(ProductModel product)
         {
+            product = ProductBusiness.ProductModelValid(product);
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_ProductInsert", con);
             cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
@@ -185,6 +187,8 @@ namespace WebApi.Donne.Infrastructure
             cmd.Parameters.AddWithValue("@UserId", product.UserId);
             cmd.Parameters.AddWithValue("@UserName", product.UserName);
             cmd.Parameters.AddWithValue("@Status", product.Status);
+            cmd.Parameters.AddWithValue("@QuantityToBuy", product.QuantityToBuy);
+            cmd.Parameters.AddWithValue("@TotalValueOfLastPurchase", product.TotalValueOfLastPurchase);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -196,6 +200,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                product = ProductBusiness.ProductModelValid(product);
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_ProductInsert", con);
                 cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
@@ -213,6 +218,8 @@ namespace WebApi.Donne.Infrastructure
                 cmd.Parameters.AddWithValue("@UserId", product.UserId);
                 cmd.Parameters.AddWithValue("@UserName", product.UserName);
                 cmd.Parameters.AddWithValue("@Status", product.Status);
+                cmd.Parameters.AddWithValue("@QuantityToBuy", product.QuantityToBuy);
+                cmd.Parameters.AddWithValue("@TotalValueOfLastPurchase", product.TotalValueOfLastPurchase);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();

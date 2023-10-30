@@ -17,6 +17,8 @@ namespace Domain.Donne
         public string TotalValueSaleStock { get; set; }
         public bool NeedToPrint { get; set; }
         public bool Status { get; set; }
+        public int QuantityToBuy { get; set; }
+        public string TotalValueOfLastPurchase { get; set; }
 
         public ProductModel()
         {
