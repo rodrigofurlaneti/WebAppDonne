@@ -26,7 +26,7 @@ namespace Domain.Donne
 
         public ProductModel(List<int> listInts, List<string> listStrings, bool status, 
             List<DateTime> listDateTime, bool needToPrint)
-            : base(listDateTime, listInts[4], listStrings[6])
+            : base(listDateTime, listInts[5], listStrings[7])
         {
             this.ProductId = listInts[0];
             this.ProductName = listStrings[0];
@@ -44,6 +44,8 @@ namespace Domain.Donne
             this.UserId = listInts[4];
             this.UserName = listStrings[6];
             this.Status = status;
+            this.QuantityToBuy = listInts[5];
+            this.TotalValueOfLastPurchase = listStrings[7];
         }
     }
 }
