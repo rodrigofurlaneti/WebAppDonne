@@ -43,6 +43,8 @@ namespace WebApi.Donne.Infrastructure
                     product.UserId = Convert.ToInt32(rdr["UserId"]);
                     product.UserName = Convert.ToString(rdr["UserName"]);
                     product.Status = Convert.ToBoolean(rdr["Status"]);
+                    product.QuantityToBuy = Convert.ToInt32(rdr["QuantityToBuy"]);
+                    product.TotalValueOfLastPurchase = Convert.ToString(rdr["TotalValueOfLastPurchase"]);
                     listProductModel.Add(product);
                 }
             }
@@ -81,6 +83,8 @@ namespace WebApi.Donne.Infrastructure
                         product.UserId = Convert.ToInt32(rdr["UserId"]);
                         product.UserName = Convert.ToString(rdr["UserName"]);
                         product.Status = Convert.ToBoolean(rdr["Status"]);
+                        product.QuantityToBuy = Convert.ToInt32(rdr["QuantityToBuy"]);
+                        product.TotalValueOfLastPurchase = Convert.ToString(rdr["TotalValueOfLastPurchase"]);
                         listProductModel.Add(product);
                     }
                     return listProductModel;
@@ -120,6 +124,8 @@ namespace WebApi.Donne.Infrastructure
                     product.UserId = Convert.ToInt32(rdr["UserId"]);
                     product.UserName = Convert.ToString(rdr["UserName"]);
                     product.Status = Convert.ToBoolean(rdr["Status"]);
+                    product.QuantityToBuy = Convert.ToInt32(rdr["QuantityToBuy"]);
+                    product.TotalValueOfLastPurchase = Convert.ToString(rdr["TotalValueOfLastPurchase"]);
                 }
             }
             logger.Trace("GetById");
@@ -155,6 +161,8 @@ namespace WebApi.Donne.Infrastructure
                         product.UserId = Convert.ToInt32(rdr["UserId"]);
                         product.UserName = Convert.ToString(rdr["UserName"]);
                         product.Status = Convert.ToBoolean(rdr["Status"]);
+                        product.QuantityToBuy = Convert.ToInt32(rdr["QuantityToBuy"]);
+                        product.TotalValueOfLastPurchase = Convert.ToString(rdr["TotalValueOfLastPurchase"]);
                     }
                 logger.Trace("GetByIdAsync");
                 return product;
@@ -288,6 +296,8 @@ namespace WebApi.Donne.Infrastructure
             cmd.Parameters.AddWithValue("@UserId", product.UserId);
             cmd.Parameters.AddWithValue("@UserName", product.UserName);
             cmd.Parameters.AddWithValue("@Status", product.Status);
+            cmd.Parameters.AddWithValue("@QuantityToBuy", product.QuantityToBuy);
+            cmd.Parameters.AddWithValue("TotalValueOfLastPurchase", product.TotalValueOfLastPurchase);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -317,6 +327,8 @@ namespace WebApi.Donne.Infrastructure
                 cmd.Parameters.AddWithValue("@UserId", product.UserId);
                 cmd.Parameters.AddWithValue("@UserName", product.UserName);
                 cmd.Parameters.AddWithValue("@Status", product.Status);
+                cmd.Parameters.AddWithValue("@QuantityToBuy", product.QuantityToBuy);
+                cmd.Parameters.AddWithValue("TotalValueOfLastPurchase", product.TotalValueOfLastPurchase);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
