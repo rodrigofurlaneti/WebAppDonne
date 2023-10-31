@@ -188,6 +188,37 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
+
+                ProductRepository productRepository = new ProductRepository(logger);
+                
+                var productModel = await productRepository.GetByIdAsync(orderModel.ProductId);
+                
+                productModel.QuantityStock = productModel.QuantityStock - orderModel.Amount;
+                
+                productModel.DateUpdate = DateTime.Now;
+                
+                var totalValueCostOfInventory = Convert.ToDecimal(productModel.CostPrice) * productModel.QuantityStock;
+                
+                var totalValueCost = String.Format("{0:0.##}", totalValueCostOfInventory.ToString());
+                
+                productModel.TotalValueCostOfInventory = totalValueCost.ToString();
+                
+                var totalValueSaleStock = Convert.ToDecimal(productModel.SalePrice) * productModel.QuantityStock;
+                
+                var totalValueSale = String.Format("{0:0.##}", totalValueSaleStock.ToString());
+
+                productModel.TotalValueSaleStock = totalValueSale.ToString();
+
+                if (productModel.QuantityStock < productModel.MinimumStockQuantity)
+                {
+                    productModel.QuantityToBuy = productModel.MinimumStockQuantity - productModel.QuantityStock;
+                    
+                    var totalValueOfLastPurchase = productModel.QuantityToBuy * Convert.ToDecimal(productModel.CostPrice);
+                    
+                    productModel.TotalValueOfLastPurchase = totalValueOfLastPurchase.ToString();
+                }
+
+                await productRepository.UpdateAsync(productModel);
             }
             catch (Exception ex)
             {
