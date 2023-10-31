@@ -126,8 +126,10 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = Faker.Finance.Maturity();
             DateTime dateInsert = Faker.Finance.Maturity();
-            List<string> listString = new List<string>() { productName, categoryName, costPrice, salePrice, totalValueCostOfInventory, totalValueSaleStock, userName };
-            List<int> listInts = new List<int>() { idProduct, categoryId, quantityStock, minimumStockQuantity, userId };
+            int quantityToBuy = Faker.RandomNumber.Next(0, 10);
+            string totalValueOfLastPurchase = Faker.RandomNumber.Next(0, 10).ToString();
+            List<string> listString = new List<string>() { productName, categoryName, costPrice, salePrice, totalValueCostOfInventory, totalValueSaleStock, userName, totalValueOfLastPurchase };
+            List<int> listInts = new List<int>() { idProduct, categoryId, quantityStock, minimumStockQuantity, userId, quantityToBuy };
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             ProductModel productModel = new ProductModel(listInts, listString, status, listDateTime, needToPrint);
 
@@ -159,7 +161,9 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = Faker.Finance.Maturity();
             DateTime dateInsert = Faker.Finance.Maturity();
-            List<string> listString = new List<string>() { productName, categoryName, costPrice, salePrice, totalValueCostOfInventory, totalValueSaleStock, userName };
+            int quantityToBuy = Faker.RandomNumber.Next(0, 10);
+            string totalValueOfLastPurchase = Faker.RandomNumber.Next(0, 10).ToString();
+            List<string> listString = new List<string>() { productName, categoryName, costPrice, salePrice, totalValueCostOfInventory, totalValueSaleStock, userName, totalValueOfLastPurchase };
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
             //Setup
@@ -170,7 +174,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             var listProduct = objResult.Value as List<ProductModel>;
             if (listProduct != null)
                 idProduct = listProduct[0].ProductId;
-            List<int> listInts = new List<int>() { idProduct, categoryId, quantityStock, minimumStockQuantity, userId };
+            List<int> listInts = new List<int>() { idProduct, categoryId, quantityStock, minimumStockQuantity, userId, quantityToBuy };
             ProductModel productModel = new ProductModel(listInts, listString, status, listDateTime, needToPrint);
 
             // Act
@@ -201,8 +205,10 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = Faker.Finance.Maturity();
             DateTime dateInsert = Faker.Finance.Maturity();
-            List<string> listString = new List<string>() { productName, categoryName, costPrice, salePrice, totalValueCostOfInventory, totalValueSaleStock, userName };
-            List<int> listInts = new List<int>() { productId, categoryId, quantityStock, minimumStockQuantity, userId };
+            int quantityToBuy = Faker.RandomNumber.Next(0, 10);
+            string totalValueOfLastPurchase = Faker.RandomNumber.Next(0, 10).ToString();
+            List<string> listString = new List<string>() { productName, categoryName, costPrice, salePrice, totalValueCostOfInventory, totalValueSaleStock, userName, totalValueOfLastPurchase };
+            List<int> listInts = new List<int>() { productId, categoryId, quantityStock, minimumStockQuantity, userId, quantityToBuy };
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             ProductModel productModel = new ProductModel(listInts, listString, status, listDateTime, needToPrint);
 
@@ -238,8 +244,10 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = Faker.Finance.Maturity();
             DateTime dateInsert = Faker.Finance.Maturity();
-            List<string> listString = new List<string>() { productName, categoryName, costPrice, salePrice, totalValueCostOfInventory, totalValueSaleStock, userName };
-            List<int> listInts = new List<int>() { productId, categoryId, quantityStock, minimumStockQuantity, userId };
+            int quantityToBuy = Faker.RandomNumber.Next(0, 10);
+            string totalValueOfLastPurchase = Faker.RandomNumber.Next(0, 10).ToString();
+            List<string> listString = new List<string>() { productName, categoryName, costPrice, salePrice, totalValueCostOfInventory, totalValueSaleStock, userName, totalValueOfLastPurchase };
+            List<int> listInts = new List<int>() { productId, categoryId, quantityStock, minimumStockQuantity, userId, quantityToBuy };
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             ProductModel productModel = new ProductModel(listInts, listString, status, listDateTime, needToPrint);
 

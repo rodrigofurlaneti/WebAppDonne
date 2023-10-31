@@ -70,8 +70,12 @@ namespace Test.Donne.Domain.ProductModelTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = Faker.Finance.Maturity();
             DateTime dateInsert = Faker.Finance.Maturity();
-            List<string> listString = new List<string>() { productName, categoryName, costPrice, salePrice, totalValueCostOfInventory, totalValueSaleStock, userName };
-            List<int> listInts = new List<int>() { productId, categoryId, quantityStock, minimumStockQuantity, userId };
+            int quantityToBuy = Faker.RandomNumber.Next(0, 100);
+            string totalValueOfLastPurchase = Faker.RandomNumber.Next(0, 100).ToString();
+            List<string> listString = new List<string>() { productName, categoryName, costPrice, salePrice,
+                totalValueCostOfInventory, totalValueSaleStock, userName, totalValueOfLastPurchase };
+            List<int> listInts = new List<int>() { productId, categoryId, quantityStock, minimumStockQuantity, 
+                userId, quantityToBuy };
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
             // Act
