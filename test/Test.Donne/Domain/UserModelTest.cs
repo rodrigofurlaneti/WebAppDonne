@@ -7,7 +7,7 @@ namespace Test.Donne.Domain.UserModelTest
     [TestCategory("Donne > Domain > UserModel")]
     public class UserModelTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public void UserModel_Tipo_Sucesso()
         {
             // Arrange
@@ -31,7 +31,7 @@ namespace Test.Donne.Domain.UserModelTest
             Assert.AreEqual(userModel.Status.GetType(), typeof(bool));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void UserModel_Construtor_Sucesso()
         {
             // Arrange

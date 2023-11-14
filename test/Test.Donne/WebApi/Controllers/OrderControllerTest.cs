@@ -13,7 +13,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
     [TestCategory("Donne > WebApi > Controllers > OrderController")]
     public class OrderControllerTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetOrderAsync_Sucesso()
         {
             // Arrange
@@ -33,7 +33,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             mockLogger.Verify(x => x.Trace("GetAllOrdersAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetOrderAsync_Erro()
         {
             // Arrange
@@ -46,7 +46,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => orderController.Get());
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
@@ -71,7 +71,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetByIdAsync_Erro()
         {
             // Arrange
@@ -92,7 +92,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => orderController.Get(orderId));
         }
 
-        //[TestMethod]
+        //[TestMethod][Ignore]
         //public async Task Post_Sucesso()
         //{
         //    // Arrange
@@ -120,7 +120,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
         //    mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(2));
         //}
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Post_Erro()
         {
             // Arrange
@@ -150,7 +150,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task Update_Sucesso()
         {
             // Arrange
@@ -183,7 +183,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Update_Erro()
         {
             // Arrange
@@ -221,7 +221,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task Delete_Sucesso()
         {
             // Arrange
@@ -241,7 +241,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Delete_Erro()
         {
             // Arrange

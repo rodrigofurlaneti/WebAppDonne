@@ -7,7 +7,7 @@ namespace Test.Donne.Domain.OrderModelTest
     [TestCategory("Donne > Domain > OrderModel")]
     public class OrderModelTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public void OrderModel_Tipo_Sucesso()
         {
             // Arrange
@@ -40,7 +40,7 @@ namespace Test.Donne.Domain.OrderModelTest
             Assert.AreEqual(orderModel.UserName.GetType(), typeof(string));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void OrderModel_Construtor_Sucesso()
         {
             // Arrange

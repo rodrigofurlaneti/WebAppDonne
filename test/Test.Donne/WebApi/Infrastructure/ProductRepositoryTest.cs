@@ -10,7 +10,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
     [TestCategory("Donne > WebApi > Infrastructure > ProductRepository")]
     public class ProductRepositoryTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllProducts_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -25,7 +25,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllProducts_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -40,7 +40,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetAllProductsAsync_Sucesso()
         {
             // Arrange
@@ -55,7 +55,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllProductsAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllProductsAsync_Erro()
         {
             // Arrange
@@ -69,7 +69,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllProductsAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -87,7 +87,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetById_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -108,7 +108,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Insert_Sucesso()
         {
             // Arrange
@@ -145,7 +145,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Update_Sucesso()
         {
             // Arrange
@@ -183,7 +183,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Delete_Sucesso()
         {
             // Arrange

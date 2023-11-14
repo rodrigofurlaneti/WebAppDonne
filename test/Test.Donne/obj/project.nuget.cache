@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "meSmUhzzRkd5Ukfjs6cQXGKk1i6NDMlCsRw2d6cRRTSZZ826qtTGjDKoILSV/ltSkesT4hcFfDhFO3X67dO2sA==",
+  "dgSpecHash": "iWbfsDSPRWVrHKCSKSfxpV3hGzT5GI+DiEMKjzki6ZXqkeJ3nivjQHJE5Ia/01nOljWWNwj49aGGWiJ9C27F8g==",
   "success": true,
   "projectFilePath": "C:\\Users\\adm\\Source\\Repos\\WebAppDonne\\test\\Test.Donne\\Test.Donne.csproj",
   "expectedPackageFiles": [
@@ -75,7 +75,9 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encoding.codepages\\4.5.0\\system.text.encoding.codepages.4.5.0.nupkg.sha512",
     "C:\\Users\\adm\\.nuget\\packages\\system.text.encodings.web\\4.7.2\\system.text.encodings.web.4.7.2.nupkg.sha512",
     "C:\\Users\\adm\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512",
-    "C:\\Users\\adm\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512"
+    "C:\\Users\\adm\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
+    "C:\\Users\\adm\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
+    "C:\\Users\\adm\\.nuget\\packages\\xunit.extensibility.core\\2.6.1\\xunit.extensibility.core.2.6.1.nupkg.sha512"
   ],
   "logs": [
     {

@@ -315,6 +315,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.2.0, )"
+            },
+            "xunit.extensibility.core": {
+              "target": "Package",
+              "version": "[2.6.1, )"
             }
           },
           "imports": [

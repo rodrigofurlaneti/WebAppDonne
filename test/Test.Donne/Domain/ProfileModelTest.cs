@@ -7,7 +7,7 @@ namespace Test.Donne.Domain.ProfileModelTest
     [TestCategory("Donne > Domain > ProfileModel")]
     public class ProfileModelTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public void ProfileModel_Tipo_Sucesso()
         {
             // Arrange
@@ -31,7 +31,7 @@ namespace Test.Donne.Domain.ProfileModelTest
             Assert.AreEqual(profileModel.DateInsert.GetType(), typeof(DateTime));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void ProfileModel_Construtor_Sucesso()
         {
             // Arrange

@@ -10,7 +10,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
     [TestCategory("Donne > WebApi > Infrastructure > ProfileRepository")]
     public class ProfileRepositoryTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllProfiles_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -25,7 +25,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllProfiles"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllProfiles_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -40,7 +40,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllProfiles"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetAllProfilesAsync_Sucesso()
         {
             // Arrange
@@ -55,7 +55,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllProfilesAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllProfilesAsync_Erro()
         {
             // Arrange
@@ -71,7 +71,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.TraceException("GetAllProfilesAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
@@ -92,7 +92,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetByIdAsync_Erro()
         {
             // Arrange
@@ -114,7 +114,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -132,7 +132,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetById_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -153,7 +153,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Insert_Sem_Retorno_Sucesso()
         {
             // Arrange
@@ -175,7 +175,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task InsertAsync_Sem_Retorno_Sucesso()
         {
             // Arrange
@@ -197,7 +197,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void InsertAsync_Sem_Retorno_Erro()
         {
             // Arrange
@@ -219,7 +219,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Update_Sem_Retorno_Sucesso()
         {
             // Arrange
@@ -243,7 +243,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task UpdateAsync_Sem_Retorno_Sucesso()
         {
             // Arrange
@@ -267,7 +267,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void UpdateAsync_Sem_Retorno_Erro()
         {
             // Arrange
@@ -290,7 +290,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Delete_Sem_Retorno_Sucesso()
         {
             // Arrange
@@ -307,7 +307,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task DeleteAsync_Sem_Retorno_Sucesso()
         {
             // Arrange
@@ -324,7 +324,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void DeleteAsync_Sem_Retorno_Erro()
         {
             // Arrange

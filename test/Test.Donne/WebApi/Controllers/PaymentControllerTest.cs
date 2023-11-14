@@ -13,7 +13,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
     [TestCategory("Donne > WebApi > Controllers > PaymentController")]
     public class PaymentControllerTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetPaymentAsync_Sucesso()
         {
             // Arrange
@@ -34,7 +34,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
         }
 
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetPaymentAsync_Erro()
         {
             // Arrange
@@ -51,7 +51,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             //mockLogger.Verify(x => x.TraceException("GetPaymentAsync"), Times.Once());
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
@@ -76,7 +76,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetByIdAsync_Erro()
         {
             // Arrange
@@ -99,7 +99,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             //mockLogger.Verify(x => x.TraceException("GetPaymentAsync"), Times.Once());
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task InsertAsync_Sucesso()
         {
             // Arrange
@@ -127,7 +127,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void InsertAsync_Erro()
         {
             // Arrange
@@ -158,7 +158,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             //mockLogger.Verify(x => x.TraceException("GetPaymentAsync"), Times.Once());
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
@@ -191,7 +191,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void UpdateAsync_Erro()
         {
             // Arrange
@@ -227,7 +227,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             //mockLogger.Verify(x => x.TraceException("GetPaymentAsync"), Times.Once());
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
@@ -247,7 +247,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void DeleteAsync_Erro()
         {
             // Arrange

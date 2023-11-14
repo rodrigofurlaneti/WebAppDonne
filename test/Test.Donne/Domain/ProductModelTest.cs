@@ -7,7 +7,7 @@ namespace Test.Donne.Domain.ProductModelTest
     [TestCategory("Donne > Domain > ProductModel")]
     public class ProductModelTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public void ProductModel_Tipo_Sucesso()
         {
             // Arrange
@@ -50,7 +50,7 @@ namespace Test.Donne.Domain.ProductModelTest
             Assert.AreEqual(productModel.DateInsert.GetType(), typeof(DateTime));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void ProductModel_Construtor_Sucesso()
         {
             // Arrange

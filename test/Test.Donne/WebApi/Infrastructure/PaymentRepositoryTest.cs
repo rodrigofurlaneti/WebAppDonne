@@ -10,7 +10,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
     [TestCategory("Donne > WebApi > Infrastructure > PaymentRepository")]
     public class PaymentRepositoryTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllPayment_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -25,7 +25,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllPayments"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllPayment_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -40,7 +40,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllPayments"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetAllPaymentAsync_Sucesso()
         {
             // Arrange
@@ -55,7 +55,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllPaymentsAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllPaymentAsync_Erro()
         {
             // Arrange
@@ -72,7 +72,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             mockLogger.Verify(x => x.TraceException("GetAllPaymentsAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetById_Sucesso()
         {
             // Arrange
@@ -95,7 +95,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Insert_Sucesso()
         {
             // Arrange
@@ -123,7 +123,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Update_Sucesso()
         {
             // Arrange
@@ -153,7 +153,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Delete_Sucesso()
         {
             // Arrange

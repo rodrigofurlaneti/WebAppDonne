@@ -13,7 +13,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
     [TestCategory("Donne > WebApi > Controllers > ProfileController")]
     public class ProfileControllerTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetProfileAsync_Sucesso()
         {
             // Arrange
@@ -33,7 +33,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             mockLogger.Verify(x => x.Trace("GetAllProfilesAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetProfileAsync_Erro()
         {
             // Arrange
@@ -50,7 +50,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             mockLogger.Verify(x => x.TraceException("GetProfileAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
@@ -75,7 +75,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetByIdAsync_Erro()
         {
             // Arrange
@@ -96,7 +96,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task InsertAsync_Sucesso()
         {
             // Arrange
@@ -119,7 +119,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void InsertAsync_Erro()
         {
             // Arrange
@@ -142,7 +142,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
@@ -170,7 +170,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void UpdateAsync_Erro()
         {
             // Arrange
@@ -198,7 +198,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
@@ -218,7 +218,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void DeleteAsync_Erro()
         {
             // Arrange

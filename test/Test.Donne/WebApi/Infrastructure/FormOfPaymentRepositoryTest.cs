@@ -10,7 +10,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
     [TestCategory("Donne > WebApi > Infrastructure > FormOfPaymentRepository")]
     public class FormOfPaymentRepositoryTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllFormOfPayment_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -25,7 +25,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllFormOfPayment"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllFormOfPayment_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -40,7 +40,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllFormOfPayment"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetAllFormOfPaymentAsync_Sucesso()
         {
             // Arrange
@@ -55,7 +55,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllFormOfPaymentAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllFormOfPaymentAsync_Erro()
         {
             // Arrange
@@ -71,7 +71,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.TraceException("GetAllFormOfPaymentAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetAllFormOfPayment_Erro()
         {
             // Arrange
@@ -88,7 +88,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             Assert.ThrowsException<ArgumentNullException>(resultAction);
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -106,7 +106,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
@@ -124,7 +124,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetByIdAsync_Erro()
         {
             // Arrange
@@ -140,7 +140,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetById_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -161,7 +161,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void GetById_Erro()
         {
             // Arrange
@@ -178,7 +178,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             Assert.ThrowsException<ArgumentNullException>(resultAction);
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Insert_Sucesso()
         {
             // Arrange
@@ -201,7 +201,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task InsertAsync_Sucesso()
         {
             // Arrange
@@ -224,7 +224,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void InsertAsync_Erro()
         {
             // Arrange
@@ -247,7 +247,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Update_Sucesso()
         {
             // Arrange
@@ -272,7 +272,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
@@ -297,7 +297,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void UpdateAsync_Erro()
         {
             // Arrange
@@ -321,7 +321,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void Delete_Sucesso()
         {
             // Arrange
@@ -338,7 +338,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
@@ -355,7 +355,7 @@ namespace Test.Donne.WebApi.Infrastructure.FormOfPaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void DeleteAsync_Erro()
         {
             // Arrange

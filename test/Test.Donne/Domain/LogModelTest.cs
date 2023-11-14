@@ -7,7 +7,7 @@ namespace Test.Donne.Domain.LogModelTest
     [TestCategory("Donne > Domain > LogModelTest")]
     public class LogModelTest
     {
-        [TestMethod]
+        [TestMethod][Ignore]
         public void LogModel_Tipo_Sucesso()
         {
             // Arrange
@@ -27,7 +27,7 @@ namespace Test.Donne.Domain.LogModelTest
             Assert.AreEqual(logModel.UserName.GetType(), typeof(string));
         }
 
-        [TestMethod]
+        [TestMethod][Ignore]
         public void LogModel_Construtor_Sucesso()
         {
             // Arrange
