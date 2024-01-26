@@ -25,6 +25,7 @@ C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\System.Ne
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\System.Web.Http.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Microsoft.Extensions.Configuration.AzureAppConfiguration.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Microsoft.Identity.Client.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll

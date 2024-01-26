@@ -22,7 +22,7 @@
     <Import Project="$(NuGetPackageRoot)coverlet.msbuild\3.2.0\build\coverlet.msbuild.props" Condition="Exists('$(NuGetPackageRoot)coverlet.msbuild\3.2.0\build\coverlet.msbuild.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">C:\Users\adm\.nuget\packages\microsoft.extensions.apidescription.server\3.0.0</PkgMicrosoft_Extensions_ApiDescription_Server>
+    <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">C:\Users\adm\.nuget\packages\microsoft.extensions.apidescription.server\6.0.5</PkgMicrosoft_Extensions_ApiDescription_Server>
     <PkgReportGenerator Condition=" '$(PkgReportGenerator)' == '' ">C:\Users\adm\.nuget\packages\reportgenerator\5.1.13</PkgReportGenerator>
   </PropertyGroup>
 </Project>

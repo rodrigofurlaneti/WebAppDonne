@@ -172,11 +172,11 @@
           "dependencies": {
             "Azure.Core": {
               "target": "Package",
-              "version": "[1.35.0, )"
+              "version": "[1.37.0, )"
             },
             "Azure.Identity": {
               "target": "Package",
-              "version": "[1.10.3, )"
+              "version": "[1.10.4, )"
             },
             "Microsoft.AspNet.WebApi.Core": {
               "target": "Package",
@@ -188,27 +188,27 @@
             },
             "Microsoft.Extensions.Configuration.AzureAppConfiguration": {
               "target": "Package",
-              "version": "[6.1.1, )"
+              "version": "[7.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.2.3, )"
+              "version": "[6.5.0, )"
             },
             "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
-              "version": "[6.2.3, )"
+              "version": "[6.5.0, )"
             },
             "Swashbuckle.AspNetCore.SwaggerGen": {
               "target": "Package",
-              "version": "[6.2.3, )"
+              "version": "[6.5.0, )"
             },
             "Swashbuckle.AspNetCore.SwaggerUI": {
               "target": "Package",
-              "version": "[6.2.3, )"
+              "version": "[6.5.0, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
-              "version": "[4.6.0, )"
+              "version": "[4.8.6, )"
             }
           },
           "imports": [
