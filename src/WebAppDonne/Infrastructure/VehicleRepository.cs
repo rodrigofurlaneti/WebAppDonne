@@ -28,17 +28,7 @@ namespace WebApi.Donne.Infrastructure
                     while (rdr.Read())
                     {
                         VehicleModel vehicleModel = new VehicleModel();
-                        vehicleModel.VehicleId = Convert.ToInt32(rdr["VehicleId"]);
-                        vehicleModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        vehicleModel.ModelId = Convert.ToInt32(rdr["ModelId"]);
-                        vehicleModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        vehicleModel.Plate = Convert.ToString(rdr["Plate"]);
-                        vehicleModel.EntryDate = Convert.ToString(rdr["EntryDate"]);
-                        vehicleModel.EntryTime = Convert.ToString(rdr["EntryTime"]);
-                        vehicleModel.DepartureDate = Convert.ToString(rdr["DepartureDate"]);
-                        vehicleModel.DepartureTime = Convert.ToString(rdr["DepartureTime"]);
-                        vehicleModel.Parked = Convert.ToBoolean(rdr["Parked"]);
+                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
                         listVehicleModel.Add(vehicleModel);
                     }
                 }
@@ -67,17 +57,7 @@ namespace WebApi.Donne.Infrastructure
                     while (rdr.Read())
                     {
                         VehicleModel vehicleModel = new VehicleModel();
-                        vehicleModel.VehicleId = Convert.ToInt32(rdr["VehicleId"]);
-                        vehicleModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        vehicleModel.ModelId = Convert.ToInt32(rdr["ModelId"]);
-                        vehicleModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        vehicleModel.Plate = Convert.ToString(rdr["Plate"]);
-                        vehicleModel.EntryDate = Convert.ToString(rdr["EntryDate"]);
-                        vehicleModel.EntryTime = Convert.ToString(rdr["EntryTime"]);
-                        vehicleModel.DepartureDate = Convert.ToString(rdr["DepartureDate"]);
-                        vehicleModel.DepartureTime = Convert.ToString(rdr["DepartureTime"]);
-                        vehicleModel.Parked = Convert.ToBoolean(rdr["Parked"]);
+                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
                         listVehicleModel.Add(vehicleModel);
                     }
                     return listVehicleModel;
@@ -104,17 +84,7 @@ namespace WebApi.Donne.Infrastructure
                     while (rdr.Read())
                     {
                         VehicleModel vehicleModel = new VehicleModel();
-                        vehicleModel.VehicleId = Convert.ToInt32(rdr["VehicleId"]);
-                        vehicleModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        vehicleModel.ModelId = Convert.ToInt32(rdr["ModelId"]);
-                        vehicleModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        vehicleModel.Plate = Convert.ToString(rdr["Plate"]);
-                        vehicleModel.EntryDate = Convert.ToString(rdr["EntryDate"]);
-                        vehicleModel.EntryTime = Convert.ToString(rdr["EntryTime"]);
-                        vehicleModel.DepartureDate = Convert.ToString(rdr["DepartureDate"]);
-                        vehicleModel.DepartureTime = Convert.ToString(rdr["DepartureTime"]);
-                        vehicleModel.Parked = Convert.ToBoolean(rdr["Parked"]);
+                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
                         listVehicleModel.Add(vehicleModel);
                     }
                 }
@@ -144,17 +114,7 @@ namespace WebApi.Donne.Infrastructure
                     while (rdr.Read())
                     {
                         VehicleModel vehicleModel = new VehicleModel();
-                        vehicleModel.VehicleId = Convert.ToInt32(rdr["VehicleId"]);
-                        vehicleModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        vehicleModel.ModelId = Convert.ToInt32(rdr["ModelId"]);
-                        vehicleModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        vehicleModel.Plate = Convert.ToString(rdr["Plate"]);
-                        vehicleModel.EntryDate = Convert.ToString(rdr["EntryDate"]);
-                        vehicleModel.EntryTime = Convert.ToString(rdr["EntryTime"]);
-                        vehicleModel.DepartureDate = Convert.ToString(rdr["DepartureDate"]);
-                        vehicleModel.DepartureTime = Convert.ToString(rdr["DepartureTime"]);
-                        vehicleModel.Parked = Convert.ToBoolean(rdr["Parked"]);
+                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
                         listVehicleModel.Add(vehicleModel);
                     }
                     return listVehicleModel;
@@ -180,17 +140,7 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-                        vehicleModel.VehicleId = Convert.ToInt32(rdr["VehicleId"]);
-                        vehicleModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        vehicleModel.ModelId = Convert.ToInt32(rdr["ModelId"]);
-                        vehicleModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        vehicleModel.Plate = Convert.ToString(rdr["Plate"]);
-                        vehicleModel.EntryDate = Convert.ToString(rdr["EntryDate"]);
-                        vehicleModel.EntryTime = Convert.ToString(rdr["EntryTime"]);
-                        vehicleModel.DepartureDate = Convert.ToString(rdr["DepartureDate"]);
-                        vehicleModel.DepartureTime = Convert.ToString(rdr["DepartureTime"]);
-                        vehicleModel.Parked = Convert.ToBoolean(rdr["Parked"]);
+                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
                     }
                 }
                 logger.Trace("GetById");
@@ -218,17 +168,7 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader rdr = await cmd.ExecuteReaderAsync();
                     while (rdr.Read())
                     {
-                        vehicleModel.VehicleId = Convert.ToInt32(rdr["VehicleId"]);
-                        vehicleModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        vehicleModel.ModelId = Convert.ToInt32(rdr["ModelId"]);
-                        vehicleModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        vehicleModel.Plate = Convert.ToString(rdr["Plate"]);
-                        vehicleModel.EntryDate = Convert.ToString(rdr["EntryDate"]);
-                        vehicleModel.EntryTime = Convert.ToString(rdr["EntryTime"]);
-                        vehicleModel.DepartureDate = Convert.ToString(rdr["DepartureDate"]);
-                        vehicleModel.DepartureTime = Convert.ToString(rdr["DepartureTime"]);
-                        vehicleModel.Parked = Convert.ToBoolean(rdr["Parked"]);
+                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
                     }
                     return vehicleModel;
                 }
@@ -244,9 +184,13 @@ namespace WebApi.Donne.Infrastructure
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_VehicleInsert", con);
             cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleModel.VehicleTypeId);
+            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleModel.VehicleTypeName);
             cmd.Parameters.AddWithValue("@BrandId", vehicleModel.BrandId);
+            cmd.Parameters.AddWithValue("@BrandName", vehicleModel.BrandName);
             cmd.Parameters.AddWithValue("@ModelId", vehicleModel.ModelId);
+            cmd.Parameters.AddWithValue("@ModelName", vehicleModel.ModelName);
             cmd.Parameters.AddWithValue("@ColorId", vehicleModel.ColorId);
+            cmd.Parameters.AddWithValue("@ColorName", vehicleModel.ColorName);
             cmd.Parameters.AddWithValue("@Plate", vehicleModel.Plate);
             cmd.Parameters.AddWithValue("@EntryDate", vehicleModel.EntryDate);
             cmd.Parameters.AddWithValue("@EntryTime", vehicleModel.EntryTime);
@@ -265,9 +209,13 @@ namespace WebApi.Donne.Infrastructure
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_VehicleInsert", con);
             cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleModel.VehicleTypeId);
+            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleModel.VehicleTypeName);
             cmd.Parameters.AddWithValue("@BrandId", vehicleModel.BrandId);
+            cmd.Parameters.AddWithValue("@BrandName", vehicleModel.BrandName);
             cmd.Parameters.AddWithValue("@ModelId", vehicleModel.ModelId);
+            cmd.Parameters.AddWithValue("@ModelName", vehicleModel.ModelName);
             cmd.Parameters.AddWithValue("@ColorId", vehicleModel.ColorId);
+            cmd.Parameters.AddWithValue("@ColorName", vehicleModel.ColorName);
             cmd.Parameters.AddWithValue("@Plate", vehicleModel.Plate);
             cmd.Parameters.AddWithValue("@EntryDate", vehicleModel.EntryDate);
             cmd.Parameters.AddWithValue("@EntryTime", vehicleModel.EntryTime);
@@ -309,11 +257,14 @@ namespace WebApi.Donne.Infrastructure
         {
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_VehicleUpdate", con);
-            cmd.Parameters.AddWithValue("@VehicleId", vehicleModel.VehicleId);
             cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleModel.VehicleTypeId);
+            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleModel.VehicleTypeName);
             cmd.Parameters.AddWithValue("@BrandId", vehicleModel.BrandId);
+            cmd.Parameters.AddWithValue("@BrandName", vehicleModel.BrandName);
             cmd.Parameters.AddWithValue("@ModelId", vehicleModel.ModelId);
+            cmd.Parameters.AddWithValue("@ModelName", vehicleModel.ModelName);
             cmd.Parameters.AddWithValue("@ColorId", vehicleModel.ColorId);
+            cmd.Parameters.AddWithValue("@ColorName", vehicleModel.ColorName);
             cmd.Parameters.AddWithValue("@Plate", vehicleModel.Plate);
             cmd.Parameters.AddWithValue("@EntryDate", vehicleModel.EntryDate);
             cmd.Parameters.AddWithValue("@EntryTime", vehicleModel.EntryTime);
@@ -331,11 +282,14 @@ namespace WebApi.Donne.Infrastructure
         {
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_VehicleUpdate", con);
-            cmd.Parameters.AddWithValue("@VehicleId", vehicleModel.VehicleId);
             cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleModel.VehicleTypeId);
+            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleModel.VehicleTypeName);
             cmd.Parameters.AddWithValue("@BrandId", vehicleModel.BrandId);
+            cmd.Parameters.AddWithValue("@BrandName", vehicleModel.BrandName);
             cmd.Parameters.AddWithValue("@ModelId", vehicleModel.ModelId);
+            cmd.Parameters.AddWithValue("@ModelName", vehicleModel.ModelName);
             cmd.Parameters.AddWithValue("@ColorId", vehicleModel.ColorId);
+            cmd.Parameters.AddWithValue("@ColorName", vehicleModel.ColorName);
             cmd.Parameters.AddWithValue("@Plate", vehicleModel.Plate);
             cmd.Parameters.AddWithValue("@EntryDate", vehicleModel.EntryDate);
             cmd.Parameters.AddWithValue("@EntryTime", vehicleModel.EntryTime);
@@ -347,6 +301,26 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("UpdateAsync");
             await cmd.ExecuteNonQueryAsync();
             con.Close();
+        }
+
+        public VehicleModel GetVehicleModel(VehicleModel vehicleModel, SqlDataReader rdr)
+        {
+            vehicleModel.VehicleId = Convert.ToInt32(rdr["VehicleId"]);
+            vehicleModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
+            vehicleModel.VehicleTypeName = Convert.ToString(rdr["VehicleTypeName"]);
+            vehicleModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
+            vehicleModel.BrandName = Convert.ToString(rdr["BrandName"]);
+            vehicleModel.ModelId = Convert.ToInt32(rdr["ModelId"]);
+            vehicleModel.ModelName = Convert.ToString(rdr["ModelName"]);
+            vehicleModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
+            vehicleModel.ColorName = Convert.ToString(rdr["ColorName"]);
+            vehicleModel.Plate = Convert.ToString(rdr["Plate"]);
+            vehicleModel.EntryDate = Convert.ToString(rdr["EntryDate"]);
+            vehicleModel.EntryTime = Convert.ToString(rdr["EntryTime"]);
+            vehicleModel.DepartureDate = Convert.ToString(rdr["DepartureDate"]);
+            vehicleModel.DepartureTime = Convert.ToString(rdr["DepartureTime"]);
+            vehicleModel.Parked = Convert.ToBoolean(rdr["Parked"]);
+            return vehicleModel;
         }
 
         #endregion
