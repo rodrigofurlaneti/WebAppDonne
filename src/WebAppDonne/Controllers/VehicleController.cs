@@ -20,14 +20,14 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpGet(Name = "GetVehiclesAsync")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleModel>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Vehicle>))]
         public async Task<IActionResult> GetVehiclesAsync()
         {
             try
             {
                 VehicleRepository dal = new VehicleRepository(_logger);
                 var ret = await dal.GetAllVehiclesAsync();
-                _logger.Trace("GetVehicleAsync");
+                _logger.Trace("GetAllVehicleAsync");
                 return Ok(ret);
             }
             catch (Exception ex)
@@ -39,7 +39,7 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpOptions("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleModel>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Vehicle>))]
         public async Task<IActionResult> OptionsAsync(int id)
         {
             try
@@ -59,7 +59,7 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleModel>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Vehicle>))]
         public async Task<IActionResult> Get(int id)
         {
             try
@@ -78,7 +78,7 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpPost(Name = "InsertVehicle")]
-        public async Task Post(VehicleModel VehicleModel)
+        public async Task Post(Vehicle VehicleModel)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpPut(Name = "UpdateVehicle")]
-        public async Task Update(VehicleModel VehicleModel)
+        public async Task Update(Vehicle VehicleModel)
         {
             try
             {

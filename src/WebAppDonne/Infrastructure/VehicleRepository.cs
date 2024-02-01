@@ -14,11 +14,11 @@ namespace WebApi.Donne.Infrastructure
 
         #region Methods 
 
-        public IEnumerable<VehicleModel> GetAllVehicles()
+        public IEnumerable<Vehicle> GetAllVehicles()
         {
             try
             {
-                List<VehicleModel> listVehicleModel = new List<VehicleModel>();
+                List<Vehicle> listVehicleModel = new List<Vehicle>();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     SqlCommand cmd = new SqlCommand("USP_VehicleGetAll", con);
@@ -27,7 +27,7 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-                        VehicleModel vehicleModel = new VehicleModel();
+                        Vehicle vehicleModel = new Vehicle();
                         vehicleModel = GetVehicleModel(vehicleModel, rdr);
                         listVehicleModel.Add(vehicleModel);
                     }
@@ -43,11 +43,11 @@ namespace WebApi.Donne.Infrastructure
 
         }
 
-        public async Task<IEnumerable<VehicleModel>> GetAllVehiclesAsync()
+        public async Task<IEnumerable<Vehicle>> GetAllVehiclesAsync()
         {
-            List<VehicleModel> listVehicleModel = new List<VehicleModel>();
+            List<Vehicle> listVehicleModel = new List<Vehicle>();
             using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_VehicleGetAll", con))
+            using (SqlCommand cmd = new SqlCommand("USP_VehicleModelsGetAll", con))
                 try
                 {
                     logger.Trace("GetAllVehiclesAsync");
@@ -56,7 +56,7 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader rdr = await cmd.ExecuteReaderAsync();
                     while (rdr.Read())
                     {
-                        VehicleModel vehicleModel = new VehicleModel();
+                        Vehicle vehicleModel = new Vehicle();
                         vehicleModel = GetVehicleModel(vehicleModel, rdr);
                         listVehicleModel.Add(vehicleModel);
                     }
@@ -69,11 +69,11 @@ namespace WebApi.Donne.Infrastructure
                 }
         }
 
-        public IEnumerable<VehicleModel> GetByStatus(int status)
+        public IEnumerable<Vehicle> GetByStatus(int status)
         {
             try
             {
-                List<VehicleModel> listVehicleModel = new List<VehicleModel>();
+                List<Vehicle> listVehicleModel = new List<Vehicle>();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     SqlCommand cmd = new SqlCommand("USP_VehicleGetStatus", con);
@@ -83,7 +83,7 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-                        VehicleModel vehicleModel = new VehicleModel();
+                        Vehicle vehicleModel = new Vehicle();
                         vehicleModel = GetVehicleModel(vehicleModel, rdr);
                         listVehicleModel.Add(vehicleModel);
                     }
@@ -99,9 +99,9 @@ namespace WebApi.Donne.Infrastructure
 
         }
 
-        public async Task<IEnumerable<VehicleModel>> GetByStatusAsync(int status)
+        public async Task<IEnumerable<Vehicle>> GetByStatusAsync(int status)
         {
-            List<VehicleModel> listVehicleModel = new List<VehicleModel>();
+            List<Vehicle> listVehicleModel = new List<Vehicle>();
             using (SqlConnection con = new SqlConnection(connectionString))
             using (SqlCommand cmd = new SqlCommand("USP_VehicleGetStatus", con))
                 try
@@ -113,7 +113,7 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader rdr = await cmd.ExecuteReaderAsync();
                     while (rdr.Read())
                     {
-                        VehicleModel vehicleModel = new VehicleModel();
+                        Vehicle vehicleModel = new Vehicle();
                         vehicleModel = GetVehicleModel(vehicleModel, rdr);
                         listVehicleModel.Add(vehicleModel);
                     }
@@ -126,11 +126,11 @@ namespace WebApi.Donne.Infrastructure
                 }
         }
 
-        public VehicleModel GetById(int id)
+        public Vehicle GetById(int id)
         {
             try
             {
-                VehicleModel vehicleModel = new VehicleModel();
+                Vehicle vehicleModel = new Vehicle();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     SqlCommand cmd = new SqlCommand("USP_VehicleGetById", con);
@@ -154,9 +154,9 @@ namespace WebApi.Donne.Infrastructure
 
         }
 
-        public async Task<VehicleModel> GetByIdAsync(int id)
+        public async Task<Vehicle> GetByIdAsync(int id)
         {
-            VehicleModel vehicleModel = new VehicleModel();
+            Vehicle vehicleModel = new Vehicle();
             using (SqlConnection con = new SqlConnection(connectionString))
             using (SqlCommand cmd = new SqlCommand("USP_VehicleGetById", con))
                 try
@@ -179,7 +179,7 @@ namespace WebApi.Donne.Infrastructure
                 }
         }
 
-        public void Insert(VehicleModel vehicleModel)
+        public void Insert(Vehicle vehicleModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_VehicleInsert", con);
@@ -204,7 +204,7 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Insert");
         }
 
-        public async Task InsertAsync(VehicleModel vehicleModel)
+        public async Task InsertAsync(Vehicle vehicleModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_VehicleInsert", con);
@@ -253,7 +253,7 @@ namespace WebApi.Donne.Infrastructure
             con.Close();
         }
 
-        public void Update(VehicleModel vehicleModel)
+        public void Update(Vehicle vehicleModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_VehicleUpdate", con);
@@ -278,7 +278,7 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Update");
         }
 
-        public async Task UpdateAsync(VehicleModel vehicleModel)
+        public async Task UpdateAsync(Vehicle vehicleModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("USP_VehicleUpdate", con);
@@ -303,7 +303,7 @@ namespace WebApi.Donne.Infrastructure
             con.Close();
         }
 
-        public VehicleModel GetVehicleModel(VehicleModel vehicleModel, SqlDataReader rdr)
+        public Vehicle GetVehicleModel(Vehicle vehicleModel, SqlDataReader rdr)
         {
             vehicleModel.VehicleId = Convert.ToInt32(rdr["VehicleId"]);
             vehicleModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
