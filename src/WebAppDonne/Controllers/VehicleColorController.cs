@@ -6,7 +6,7 @@ namespace WebApi.Donne.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ColorController : ControllerBase
+    public class VehicleColorController : ControllerBase
     {
         #region Properties
 
@@ -14,37 +14,37 @@ namespace WebApi.Donne.Controllers
 
         #endregion
 
-        public ColorController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
+        public VehicleColorController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
         {
             this._logger = logger;
         }
 
         [HttpGet(Name = "GetColorsAsync")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ColorModel>))]
-        public async Task<IActionResult> GetColorsAsync()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleColorModel>))]
+        public async Task<IActionResult> GetVehicleColorsAsync()
         {
             try
             {
-                ColorRepository dal = new ColorRepository(_logger);
-                var ret = await dal.GetAllColorsAsync();
+                VehicleColorRepository dal = new VehicleColorRepository(_logger);
+                var ret = await dal.GetAllVehicleColorsAsync();
                 _logger.Trace("GetColorAsync");
                 return Ok(ret);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("GetColorAsync");
+                _logger.TraceException("GetVehicleColorAsync");
                 string mensagem = "Erro ao consumir a controler Color, rota GetColors " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
         }
 
         [HttpOptions("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ColorModel>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleColorModel>))]
         public async Task<IActionResult> OptionsAsync(int id)
         {
             try
             {
-                ColorRepository dal = new ColorRepository(_logger);
+                VehicleColorRepository dal = new VehicleColorRepository(_logger);
                 _logger.Trace("OptionsAsync");
                 var ret = await dal.GetByStatusAsync(id);
                 return Ok(ret);
@@ -59,12 +59,12 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ColorModel>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleColorModel>))]
         public async Task<IActionResult> Get(int id)
         {
             try
             {
-                ColorRepository dal = new ColorRepository(_logger);
+                VehicleColorRepository dal = new VehicleColorRepository(_logger);
                 _logger.Trace("GetByIdAsync");
                 var ret = await dal.GetByIdAsync(id);
                 return Ok(ret);
@@ -78,11 +78,11 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpPost(Name = "InsertColor")]
-        public async Task Post(ColorModel ColorModel)
+        public async Task Post(VehicleColorModel ColorModel)
         {
             try
             {
-                ColorRepository dal = new ColorRepository(_logger);
+                VehicleColorRepository dal = new VehicleColorRepository(_logger);
                 _logger.Trace("InsertAsync");
                 await dal.InsertAsync(ColorModel);
             }
@@ -96,11 +96,11 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpPut(Name = "UpdateColor")]
-        public async Task Update(ColorModel ColorModel)
+        public async Task Update(VehicleColorModel ColorModel)
         {
             try
             {
-                ColorRepository dal = new ColorRepository(_logger);
+                VehicleColorRepository dal = new VehicleColorRepository(_logger);
                 _logger.Trace("UpdateAsync");
                 await dal.UpdateAsync(ColorModel);
             }
@@ -119,7 +119,7 @@ namespace WebApi.Donne.Controllers
             try
             {
                 _logger.Trace("DeleteAsync");
-                ColorRepository dal = new ColorRepository(_logger);
+                VehicleColorRepository dal = new VehicleColorRepository(_logger);
                 await dal.DeleteAsync(id);
             }
             catch (Exception ex)

@@ -4,78 +4,78 @@ using System.Data;
 
 namespace WebApi.Donne.Infrastructure
 {
-    public class ColorRepository : BaseRepository
+    public class VehicleColorRepository : BaseRepository
     {
         #region Constructor
 
-        public ColorRepository(WebApi.Donne.Infrastructure.SeedWork.ILogger logger) : base(logger) { }
+        public VehicleColorRepository(WebApi.Donne.Infrastructure.SeedWork.ILogger logger) : base(logger) { }
 
         #endregion
 
         #region Methods 
 
-        public IEnumerable<ColorModel> GetAllColors()
+        public IEnumerable<VehicleColorModel> GetAllVehicleColors()
         {
             try
             {
-                List<ColorModel> listColorModel = new List<ColorModel>();
+                List<VehicleColorModel> listColorModel = new List<VehicleColorModel>();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_ColorGetAll", con);
+                    SqlCommand cmd = new SqlCommand("USP_VehicleColorGetAll", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-                        ColorModel ColorModel = new ColorModel();
-                        ColorModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        ColorModel.ColorName = Convert.ToString(rdr["ColorName"]);
-                        listColorModel.Add(ColorModel);
+                        VehicleColorModel vehicleColorModel = new VehicleColorModel();
+                        vehicleColorModel.VehicleColorId = Convert.ToInt32(rdr["VehicleColorId"]);
+                        vehicleColorModel.VehicleColorName = Convert.ToString(rdr["VehicleColorName"]);
+                        listColorModel.Add(vehicleColorModel);
                     }
                 }
-                logger.Trace("GetAllColors");
+                logger.Trace("GetAllVehicleColors");
                 return listColorModel;
             }
             catch (ArgumentNullException ex)
             {
-                string mensagemErro = "Erro ao consumir a procedure USP_ColorGetAll síncrono " + ex.Message;
+                string mensagemErro = "Erro ao consumir a procedure USP_VehicleColorGetAll síncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
 
         }
 
-        public async Task<IEnumerable<ColorModel>> GetAllColorsAsync()
+        public async Task<IEnumerable<VehicleColorModel>> GetAllVehicleColorsAsync()
         {
-            List<ColorModel> listColorModel = new List<ColorModel>();
+            List<VehicleColorModel> listColorModel = new List<VehicleColorModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_ColorGetAll", con))
+            using (SqlCommand cmd = new SqlCommand("USP_VehicleColorGetAll", con))
                 try
                 {
-                    logger.Trace("GetAllColorsAsync");
+                    logger.Trace("GetAllVehicleColorsAsync");
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     SqlDataReader rdr = await cmd.ExecuteReaderAsync();
                     while (rdr.Read())
                     {
-                        ColorModel ColorModel = new ColorModel();
-                        ColorModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        ColorModel.ColorName = Convert.ToString(rdr["ColorName"]);
-                        listColorModel.Add(ColorModel);
+                        VehicleColorModel vehicleColorModel = new VehicleColorModel();
+                        vehicleColorModel.VehicleColorId = Convert.ToInt32(rdr["VehicleColorId"]);
+                        vehicleColorModel.VehicleColorName = Convert.ToString(rdr["VehicleColorName"]);
+                        listColorModel.Add(vehicleColorModel);
                     }
                     return listColorModel;
                 }
                 catch (ArgumentNullException ex)
                 {
-                    string mensagemErro = "Erro ao consumir a procedure USP_ColorGetAll assíncrono " + ex.Message;
+                    string mensagemErro = "Erro ao consumir a procedure USP_VehicleColorGetAll assíncrono " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }
         }
 
-        public IEnumerable<ColorModel> GetByStatus(int status)
+        public IEnumerable<VehicleColorModel> GetByStatus(int status)
         {
             try
             {
-                List<ColorModel> listColorModel = new List<ColorModel>();
+                List<VehicleColorModel> listColorModel = new List<VehicleColorModel>();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     SqlCommand cmd = new SqlCommand("USP_ColorGetStatus", con);
@@ -85,10 +85,10 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-                        ColorModel ColorModel = new ColorModel();
-                        ColorModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        ColorModel.ColorName = Convert.ToString(rdr["ColorName"]);
-                        listColorModel.Add(ColorModel);
+                        VehicleColorModel vehicleColorModel = new VehicleColorModel();
+                        vehicleColorModel.VehicleColorId = Convert.ToInt32(rdr["VehicleColorId"]);
+                        vehicleColorModel.VehicleColorName = Convert.ToString(rdr["VehicleColorName"]);
+                        listColorModel.Add(vehicleColorModel);
                     }
                 }
                 logger.Trace("GetByStatus");
@@ -102,11 +102,11 @@ namespace WebApi.Donne.Infrastructure
 
         }
 
-        public async Task<IEnumerable<ColorModel>> GetByStatusAsync(int status)
+        public async Task<IEnumerable<VehicleColorModel>> GetByStatusAsync(int status)
         {
-            List<ColorModel> listColorModel = new List<ColorModel>();
+            List<VehicleColorModel> listColorModel = new List<VehicleColorModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_ColorGetStatus", con))
+            using (SqlCommand cmd = new SqlCommand("USP_VehicleColorGetStatus", con))
                 try
                 {
                     logger.Trace("GetByStatusAsync");
@@ -116,10 +116,10 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader rdr = await cmd.ExecuteReaderAsync();
                     while (rdr.Read())
                     {
-                        ColorModel ColorModel = new ColorModel();
-                        ColorModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        ColorModel.ColorName = Convert.ToString(rdr["ColorName"]);
-                        listColorModel.Add(ColorModel);
+                        VehicleColorModel vehicleColorModel = new VehicleColorModel();
+                        vehicleColorModel.VehicleColorId = Convert.ToInt32(rdr["VehicleColorId"]);
+                        vehicleColorModel.VehicleColorName = Convert.ToString(rdr["VehicleColorName"]);
+                        listColorModel.Add(vehicleColorModel);
                     }
                     return listColorModel;
                 }
@@ -130,66 +130,66 @@ namespace WebApi.Donne.Infrastructure
                 }
         }
 
-        public ColorModel GetById(int id)
+        public VehicleColorModel GetById(int id)
         {
             try
             {
-                ColorModel ColorModel = new ColorModel();
+                VehicleColorModel vehicleColorModel = new VehicleColorModel();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_ColorGetById", con);
-                    cmd.Parameters.AddWithValue("@ColorId", id);
+                    SqlCommand cmd = new SqlCommand("USP_VehicleColorGetById", con);
+                    cmd.Parameters.AddWithValue("@VehicleColorId", id);
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-                        ColorModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        ColorModel.ColorName = Convert.ToString(rdr["ColorName"]);
+                        vehicleColorModel.VehicleColorId = Convert.ToInt32(rdr["VehicleColorId"]);
+                        vehicleColorModel.VehicleColorName = Convert.ToString(rdr["VehicleColorName"]);
                     }
                 }
                 logger.Trace("GetById");
-                return ColorModel;
+                return vehicleColorModel;
             }
             catch (ArgumentNullException ex)
             {
-                string mensagemErro = "Erro ao consumir a procedure USP_ColorGetById, síncrono. " + ex.Message;
+                string mensagemErro = "Erro ao consumir a procedure USP_VehicleColorGetById, síncrono. " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
 
         }
 
-        public async Task<ColorModel> GetByIdAsync(int id)
+        public async Task<VehicleColorModel> GetByIdAsync(int id)
         {
-            ColorModel ColorModel = new ColorModel();
+            VehicleColorModel vehicleColorModel = new VehicleColorModel();
             using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_ColorGetById", con))
+            using (SqlCommand cmd = new SqlCommand("USP_VehicleColorGetById", con))
                 try
                 {
                     logger.Trace("GetByIdAsync");
-                    cmd.Parameters.AddWithValue("@ColorId", id);
+                    cmd.Parameters.AddWithValue("@VehicleColorId", id);
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     SqlDataReader rdr = await cmd.ExecuteReaderAsync();
                     while (rdr.Read())
                     {
-                        ColorModel.ColorId = Convert.ToInt32(rdr["ColorId"]);
-                        ColorModel.ColorName = Convert.ToString(rdr["ColorName"]);
+                        vehicleColorModel.VehicleColorId = Convert.ToInt32(rdr["VehicleColorId"]);
+                        vehicleColorModel.VehicleColorName = Convert.ToString(rdr["VehicleColorName"]);
                     }
-                    return ColorModel;
+                    return vehicleColorModel;
                 }
                 catch (ArgumentNullException ex)
                 {
-                    string mensagemErro = "Erro ao consumir a procedure USP_ColorGetId, assíncrono. " + ex.Message;
+                    string mensagemErro = "Erro ao consumir a procedure USP_VehicleColorGetId, assíncrono. " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }
         }
 
-        public void Insert(ColorModel ColorModel)
+        public void Insert(VehicleColorModel vehicleColorModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ColorInsert", con);
-            cmd.Parameters.AddWithValue("@ColorName", ColorModel.ColorName);
+            SqlCommand cmd = new SqlCommand("USP_VehicleColorInsert", con);
+            cmd.Parameters.AddWithValue("@VehicleColorName", vehicleColorModel.VehicleColorName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -197,11 +197,11 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Insert");
         }
 
-        public async Task InsertAsync(ColorModel ColorModel)
+        public async Task InsertAsync(VehicleColorModel vehicleColorModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ColorInsert", con);
-            cmd.Parameters.AddWithValue("@ColorName", ColorModel.ColorName);
+            SqlCommand cmd = new SqlCommand("USP_VehicleColorInsert", con);
+            cmd.Parameters.AddWithValue("@VehicleColorName", vehicleColorModel.VehicleColorName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             logger.Trace("InsertAsync");
@@ -212,8 +212,8 @@ namespace WebApi.Donne.Infrastructure
         public void Delete(int ColorId)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ColorDelete", con);
-            cmd.Parameters.AddWithValue("@ColorId", ColorId);
+            SqlCommand cmd = new SqlCommand("USP_VehicleColorDelete", con);
+            cmd.Parameters.AddWithValue("@VehicleColorId", ColorId);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -224,8 +224,8 @@ namespace WebApi.Donne.Infrastructure
         public async Task DeleteAsync(int ColorId)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ColorDelete", con);
-            cmd.Parameters.AddWithValue("@ColorId", ColorId);
+            SqlCommand cmd = new SqlCommand("USP_VehicleColorDelete", con);
+            cmd.Parameters.AddWithValue("@VehicleColorId", ColorId);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             logger.Trace("DeleteAsync");
@@ -233,12 +233,12 @@ namespace WebApi.Donne.Infrastructure
             con.Close();
         }
 
-        public void Update(ColorModel ColorModel)
+        public void Update(VehicleColorModel vehicleColorModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ColorUpdate", con);
-            cmd.Parameters.AddWithValue("@ColorId", ColorModel.ColorId);
-            cmd.Parameters.AddWithValue("@ColorName", ColorModel.ColorName);
+            SqlCommand cmd = new SqlCommand("USP_VehicleColorUpdate", con);
+            cmd.Parameters.AddWithValue("@VehicleColorId", vehicleColorModel.VehicleColorId);
+            cmd.Parameters.AddWithValue("@VehicleColorName", vehicleColorModel.VehicleColorName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -246,12 +246,12 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Update");
         }
 
-        public async Task UpdateAsync(ColorModel ColorModel)
+        public async Task UpdateAsync(VehicleColorModel vehicleColorModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ColorUpdate", con);
-            cmd.Parameters.AddWithValue("@ColorId", ColorModel.ColorId);
-            cmd.Parameters.AddWithValue("@ColorName", ColorModel.ColorName);
+            SqlCommand cmd = new SqlCommand("USP_VehicleColorUpdate", con);
+            cmd.Parameters.AddWithValue("@VehicleColorId", vehicleColorModel.VehicleColorId);
+            cmd.Parameters.AddWithValue("@VehicleColorName", vehicleColorModel.VehicleColorName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             logger.Trace("UpdateAsync");
