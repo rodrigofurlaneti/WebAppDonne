@@ -120,106 +120,106 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
         //    mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(2));
         //}
 
-        [TestMethod][Ignore]
-        public void Post_Erro()
-        {
-            // Arrange
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
-            OrderController orderController = new OrderController(mockLogger.Object);
-            int orderId = Faker.RandomNumber.Next(0, 100);
-            int commandId = Faker.RandomNumber.Next(0, 100);
-            int productId = Faker.RandomNumber.Next(0, 100);
-            string productName = Faker.Name.FullName();
-            string salePrice = Faker.RandomNumber.Next(0, 1000).ToString();
-            int amount = Faker.RandomNumber.Next(0, 100);
-            string totalSalePrice = Faker.RandomNumber.Next(0, 1000).ToString();
-            DateTime dateInsert = Faker.Finance.Maturity();
-            DateTime dateUpdate = Faker.Finance.Maturity();
-            int userId = Faker.RandomNumber.Next(0, 1000);
-            string userName = Faker.Name.Last();
-            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
-            OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, salePrice,
-                amount, totalSalePrice, listDateTime, userId, userName);
+        //[TestMethod][Ignore]
+        //public void Post_Erro()
+        //{
+        //    // Arrange
+        //    Mock<ILogger> mockLogger = new Mock<ILogger>();
+        //    mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
+        //    OrderController orderController = new OrderController(mockLogger.Object);
+        //    int orderId = Faker.RandomNumber.Next(0, 100);
+        //    int commandId = Faker.RandomNumber.Next(0, 100);
+        //    int productId = Faker.RandomNumber.Next(0, 100);
+        //    string productName = Faker.Name.FullName();
+        //    string salePrice = Faker.RandomNumber.Next(0, 1000).ToString();
+        //    int amount = Faker.RandomNumber.Next(0, 100);
+        //    string totalSalePrice = Faker.RandomNumber.Next(0, 1000).ToString();
+        //    DateTime dateInsert = Faker.Finance.Maturity();
+        //    DateTime dateUpdate = Faker.Finance.Maturity();
+        //    int userId = Faker.RandomNumber.Next(0, 1000);
+        //    string userName = Faker.Name.Last();
+        //    List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+        //    OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, salePrice,
+        //        amount, totalSalePrice, listDateTime, userId, userName);
 
-            // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => orderController.Post(orderModel));
+        //    // Act
+        //    Assert.ThrowsExceptionAsync<ArgumentException>(() => orderController.Post(orderModel));
 
-            // Assert
-            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
-        }
+        //    // Assert
+        //    mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+        //    mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
+        //}
 
-        [TestMethod][Ignore]
-        public async Task Update_Sucesso()
-        {
-            // Arrange
-            int orderId = 0;
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            OrderController orderController = new OrderController(mockLogger.Object);
-            var getAll = orderController.Get();
-            var objResult = (OkObjectResult)getAll.Result;
-            var listOrders = objResult.Value as List<OrderModel>;
-            if (listOrders != null)
-                orderId = listOrders[0].OrderId;
-            int commandId = Faker.RandomNumber.Next(0, 100);
-            int productId = Faker.RandomNumber.Next(0, 100);
-            string productName = Faker.Name.FullName();
-            string salePrice = Faker.RandomNumber.Next(0, 1000).ToString();
-            int amount = Faker.RandomNumber.Next(0, 100);
-            string totalSalePrice = Faker.RandomNumber.Next(0, 1000).ToString();
-            DateTime dateInsert = Faker.Finance.Maturity();
-            DateTime dateUpdate = Faker.Finance.Maturity();
-            int userId = Faker.RandomNumber.Next(0, 1000);
-            string userName = Faker.Name.Last();
-            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
-            OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, salePrice,
-                amount, totalSalePrice, listDateTime, userId, userName);
+        //[TestMethod][Ignore]
+        //public async Task Update_Sucesso()
+        //{
+        //    // Arrange
+        //    int orderId = 0;
+        //    Mock<ILogger> mockLogger = new Mock<ILogger>();
+        //    OrderController orderController = new OrderController(mockLogger.Object);
+        //    var getAll = orderController.Get();
+        //    var objResult = (OkObjectResult)getAll.Result;
+        //    var listOrders = objResult.Value as List<OrderModel>;
+        //    if (listOrders != null)
+        //        orderId = listOrders[0].OrderId;
+        //    int commandId = Faker.RandomNumber.Next(0, 100);
+        //    int productId = Faker.RandomNumber.Next(0, 100);
+        //    string productName = Faker.Name.FullName();
+        //    string salePrice = Faker.RandomNumber.Next(0, 1000).ToString();
+        //    int amount = Faker.RandomNumber.Next(0, 100);
+        //    string totalSalePrice = Faker.RandomNumber.Next(0, 1000).ToString();
+        //    DateTime dateInsert = Faker.Finance.Maturity();
+        //    DateTime dateUpdate = Faker.Finance.Maturity();
+        //    int userId = Faker.RandomNumber.Next(0, 1000);
+        //    string userName = Faker.Name.Last();
+        //    List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+        //    OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, salePrice,
+        //        amount, totalSalePrice, listDateTime, userId, userName);
 
-            // Act
-            await orderController.Update(orderModel);
+        //    // Act
+        //    await orderController.Update(orderModel);
 
-            // Assert
-            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
-        }
+        //    // Assert
+        //    mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
+        //}
 
-        [TestMethod][Ignore]
-        public void Update_Erro()
-        {
-            // Arrange
-            int orderId = 0;
-            DateTime dateInsert = DateTime.Now;
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
-            OrderController orderController = new OrderController(mockLogger.Object);
-            var getAll = orderController.Get();
-            var objResult = (OkObjectResult)getAll.Result;
-            var listOrders = objResult.Value as List<OrderModel>;
-            if (listOrders != null)
-            {
-                orderId = listOrders[0].OrderId;
-                dateInsert = listOrders[0].DateInsert;
-            }
-            int commandId = Faker.RandomNumber.Next(0, 100);
-            int productId = Faker.RandomNumber.Next(0, 100);
-            string productName = Faker.Name.FullName();
-            string salePrice = Faker.RandomNumber.Next(0, 1000).ToString();
-            int amount = Faker.RandomNumber.Next(0, 100);
-            string totalSalePrice = Faker.RandomNumber.Next(0, 1000).ToString();
-            DateTime dateUpdate = Faker.Finance.Maturity();
-            int userId = Faker.RandomNumber.Next(0, 1000);
-            string userName = Faker.Name.Last();
-            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
-            OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, salePrice,
-                amount, totalSalePrice, listDateTime, userId, userName);
+        //[TestMethod][Ignore]
+        //public void Update_Erro()
+        //{
+        //    // Arrange
+        //    int orderId = 0;
+        //    DateTime dateInsert = DateTime.Now;
+        //    Mock<ILogger> mockLogger = new Mock<ILogger>();
+        //    mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
+        //    OrderController orderController = new OrderController(mockLogger.Object);
+        //    var getAll = orderController.Get();
+        //    var objResult = (OkObjectResult)getAll.Result;
+        //    var listOrders = objResult.Value as List<OrderModel>;
+        //    if (listOrders != null)
+        //    {
+        //        orderId = listOrders[0].OrderId;
+        //        dateInsert = listOrders[0].DateInsert;
+        //    }
+        //    int commandId = Faker.RandomNumber.Next(0, 100);
+        //    int productId = Faker.RandomNumber.Next(0, 100);
+        //    string productName = Faker.Name.FullName();
+        //    string salePrice = Faker.RandomNumber.Next(0, 1000).ToString();
+        //    int amount = Faker.RandomNumber.Next(0, 100);
+        //    string totalSalePrice = Faker.RandomNumber.Next(0, 1000).ToString();
+        //    DateTime dateUpdate = Faker.Finance.Maturity();
+        //    int userId = Faker.RandomNumber.Next(0, 1000);
+        //    string userName = Faker.Name.Last();
+        //    List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+        //    OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, salePrice,
+        //        amount, totalSalePrice, listDateTime, userId, userName);
 
-            // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => orderController.Update(orderModel));
+        //    // Act
+        //    Assert.ThrowsExceptionAsync<ArgumentException>(() => orderController.Update(orderModel));
 
-            // Assert
-            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
-        }
+        //    // Assert
+        //    mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
+        //    mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
+        //}
 
         [TestMethod][Ignore]
         public async Task Delete_Sucesso()
