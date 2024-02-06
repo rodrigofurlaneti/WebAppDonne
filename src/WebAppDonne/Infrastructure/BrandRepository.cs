@@ -14,41 +14,41 @@ namespace WebApi.Donne.Infrastructure
 
         #region Methods 
 
-        public IEnumerable<BrandModel> GetAllBrands()
+        public IEnumerable<VehicleBrandModel> GetAllVehicleBrands()
         {
             try
             {
-                List<BrandModel> listBrandModel = new List<BrandModel>();
+                List<VehicleBrandModel> listBrandModel = new List<VehicleBrandModel>();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_BrandGetAll", con);
+                    SqlCommand cmd = new SqlCommand("USP_VehicleBrandGetAll", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-                        BrandModel BrandModel = new BrandModel();
-                        BrandModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        BrandModel.BrandName = Convert.ToString(rdr["BrandName"]);
-                        listBrandModel.Add(BrandModel);
+                        VehicleBrandModel vehicleBrandModel = new VehicleBrandModel();
+                        vehicleBrandModel.VehicleBrandId = Convert.ToInt32(rdr["VehicleBrandId"]);
+                        vehicleBrandModel.VehicleBrandName = Convert.ToString(rdr["VehicleBrandName"]);
+                        listBrandModel.Add(vehicleBrandModel);
                     }
                 }
-                logger.Trace("GetAllBrands");
+                logger.Trace("VehicleBrandGetAll");
                 return listBrandModel;
             }
             catch (ArgumentNullException ex)
             {
-                string mensagemErro = "Erro ao consumir a procedure USP_BrandGetAll síncrono " + ex.Message;
+                string mensagemErro = "Erro ao consumir a procedure USP_VehicleBrandGetAll síncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
 
         }
 
-        public async Task<IEnumerable<BrandModel>> GetAllBrandsAsync()
+        public async Task<IEnumerable<VehicleBrandModel>> GetAllVehicleBrandsAsync()
         {
-            List<BrandModel> listBrandModel = new List<BrandModel>();
+            List<VehicleBrandModel> listBrandModel = new List<VehicleBrandModel>();
             using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_BrandGetAll", con))
+            using (SqlCommand cmd = new SqlCommand("USP_VehicleBrandGetAll", con))
                 try
                 {
                     logger.Trace("GetAllBrandsAsync");
@@ -57,139 +57,80 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader rdr = await cmd.ExecuteReaderAsync();
                     while (rdr.Read())
                     {
-                        BrandModel BrandModel = new BrandModel();
-                        BrandModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        BrandModel.BrandName = Convert.ToString(rdr["BrandName"]);
-                        listBrandModel.Add(BrandModel);
+                        VehicleBrandModel vehicleBrandModel = new VehicleBrandModel();
+                        vehicleBrandModel.VehicleBrandId = Convert.ToInt32(rdr["VehicleBrandId"]);
+                        vehicleBrandModel.VehicleBrandName = Convert.ToString(rdr["VehicleBrandName"]);
+                        listBrandModel.Add(vehicleBrandModel);
                     }
                     return listBrandModel;
                 }
                 catch (ArgumentNullException ex)
                 {
-                    string mensagemErro = "Erro ao consumir a procedure USP_BrandGetAll assíncrono " + ex.Message;
+                    string mensagemErro = "Erro ao consumir a procedure USP_VehicleBrandGetAll assíncrono " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }
         }
-
-        public IEnumerable<BrandModel> GetByStatus(int status)
+        
+        public VehicleBrandModel GetById(int id)
         {
             try
             {
-                List<BrandModel> listBrandModel = new List<BrandModel>();
+                VehicleBrandModel vehicleBrandModel = new VehicleBrandModel();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_BrandGetStatus", con);
-                    cmd.Parameters.AddWithValue("@Status", status);
+                    SqlCommand cmd = new SqlCommand("USP_VehicleBrandGetById", con);
+                    cmd.Parameters.AddWithValue("@VehicleBrandId", id);
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-                        BrandModel BrandModel = new BrandModel();
-                        BrandModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        BrandModel.BrandName = Convert.ToString(rdr["BrandName"]);
-                        listBrandModel.Add(BrandModel);
+                        vehicleBrandModel.VehicleBrandId = Convert.ToInt32(rdr["VehicleBrandId"]);
+                        vehicleBrandModel.VehicleBrandName = Convert.ToString(rdr["VehicleBrandName"]);
                     }
                 }
-                logger.Trace("GetByStatus");
-                return listBrandModel;
+                logger.Trace("VehicleBrand_GetById");
+                return vehicleBrandModel;
             }
             catch (ArgumentNullException ex)
             {
-                string mensagemErro = "Erro ao consumir a procedure USP_GetByStatus síncrono " + ex.Message;
+                string mensagemErro = "Erro ao consumir a procedure USP_VehicleBrand_GetById, síncrono. " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
 
         }
 
-        public async Task<IEnumerable<BrandModel>> GetByStatusAsync(int status)
+        public async Task<VehicleBrandModel> GetByIdAsync(int id)
         {
-            List<BrandModel> listBrandModel = new List<BrandModel>();
+            VehicleBrandModel vehicleBrandModel = new VehicleBrandModel();
             using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_BrandGetStatus", con))
+            using (SqlCommand cmd = new SqlCommand("USP_VehicleBrandGetById", con))
                 try
                 {
-                    logger.Trace("GetByStatusAsync");
-                    cmd.Parameters.AddWithValue("@Status", status);
+                    logger.Trace("VehicleBrand_GetByIdAsync");
+                    cmd.Parameters.AddWithValue("@VehicleBrandId", id);
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     SqlDataReader rdr = await cmd.ExecuteReaderAsync();
                     while (rdr.Read())
                     {
-                        BrandModel BrandModel = new BrandModel();
-                        BrandModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        BrandModel.BrandName = Convert.ToString(rdr["BrandName"]);
-                        listBrandModel.Add(BrandModel);
+                        vehicleBrandModel.VehicleBrandId = Convert.ToInt32(rdr["VehicleBrandId"]);
+                        vehicleBrandModel.VehicleBrandName = Convert.ToString(rdr["VehicleBrandName"]);
                     }
-                    return listBrandModel;
+                    return vehicleBrandModel;
                 }
                 catch (ArgumentNullException ex)
                 {
-                    string mensagemErro = "Erro ao consumir a procedure USP_BrandGetStatus, assíncrono. " + ex.Message;
+                    string mensagemErro = "Erro ao consumir a procedure USP_VehicleBrandGetId, assíncrono. " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }
         }
 
-        public BrandModel GetById(int id)
-        {
-            try
-            {
-                BrandModel BrandModel = new BrandModel();
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    SqlCommand cmd = new SqlCommand("USP_BrandGetById", con);
-                    cmd.Parameters.AddWithValue("@BrandId", id);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
-                    {
-                        BrandModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        BrandModel.BrandName = Convert.ToString(rdr["BrandName"]);
-                    }
-                }
-                logger.Trace("GetById");
-                return BrandModel;
-            }
-            catch (ArgumentNullException ex)
-            {
-                string mensagemErro = "Erro ao consumir a procedure USP_BrandGetById, síncrono. " + ex.Message;
-                throw new ArgumentNullException(mensagemErro);
-            }
-
-        }
-
-        public async Task<BrandModel> GetByIdAsync(int id)
-        {
-            BrandModel BrandModel = new BrandModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_BrandGetById", con))
-                try
-                {
-                    logger.Trace("GetByIdAsync");
-                    cmd.Parameters.AddWithValue("@BrandId", id);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
-                    {
-                        BrandModel.BrandId = Convert.ToInt32(rdr["BrandId"]);
-                        BrandModel.BrandName = Convert.ToString(rdr["BrandName"]);
-                    }
-                    return BrandModel;
-                }
-                catch (ArgumentNullException ex)
-                {
-                    string mensagemErro = "Erro ao consumir a procedure USP_BrandGetId, assíncrono. " + ex.Message;
-                    throw new ArgumentNullException(mensagemErro);
-                }
-        }
-
-        public void Insert(BrandModel BrandModel)
+        public void Insert(VehicleBrandModel vehicleBrandModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BrandInsert", con);
-            cmd.Parameters.AddWithValue("@BrandName", BrandModel.BrandName);
+            SqlCommand cmd = new SqlCommand("USP_VehicleBrandInsert", con);
+            cmd.Parameters.AddWithValue("@VehicleBrandName", vehicleBrandModel.VehicleBrandName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
@@ -197,14 +138,14 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Insert");
         }
 
-        public async Task InsertAsync(BrandModel BrandModel)
+        public async Task InsertAsync(VehicleBrandModel vehicleBrandModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BrandInsert", con);
-            cmd.Parameters.AddWithValue("@BrandName", BrandModel.BrandName);
+            SqlCommand cmd = new SqlCommand("USP_VehicleBrandInsert", con);
+            cmd.Parameters.AddWithValue("@VehicleBrandName", vehicleBrandModel.VehicleBrandName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("InsertAsync");
+            logger.Trace("VehicleBrand_InsertAsync");
             await cmd.ExecuteNonQueryAsync();
             con.Close();
         }
@@ -212,49 +153,49 @@ namespace WebApi.Donne.Infrastructure
         public void Delete(int BrandId)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BrandDelete", con);
-            cmd.Parameters.AddWithValue("@BrandId", BrandId);
+            SqlCommand cmd = new SqlCommand("USP_VehicleBrandDelete", con);
+            cmd.Parameters.AddWithValue("@VehicleBrandId", BrandId);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
-            logger.Trace("Delete");
+            logger.Trace("VehicleBrand_Delete");
         }
 
         public async Task DeleteAsync(int BrandId)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BrandDelete", con);
-            cmd.Parameters.AddWithValue("@BrandId", BrandId);
+            SqlCommand cmd = new SqlCommand("USP_VehicleBrandDelete", con);
+            cmd.Parameters.AddWithValue("@VehicleBrandId", BrandId);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("DeleteAsync");
+            logger.Trace("VehicleBrand_DeleteAsync");
             await cmd.ExecuteNonQueryAsync();
             con.Close();
         }
 
-        public void Update(BrandModel BrandModel)
+        public void Update(VehicleBrandModel vehicleBrandModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BrandUpdate", con);
-            cmd.Parameters.AddWithValue("@BrandId", BrandModel.BrandId);
-            cmd.Parameters.AddWithValue("@BrandName", BrandModel.BrandName);
+            SqlCommand cmd = new SqlCommand("USP_VehicleBrandUpdate", con);
+            cmd.Parameters.AddWithValue("@VehicleBrandId", vehicleBrandModel.VehicleBrandId);
+            cmd.Parameters.AddWithValue("@VehicleBrandName", vehicleBrandModel.VehicleBrandName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
-            logger.Trace("Update");
+            logger.Trace("VehicleVehicle_Update");
         }
 
-        public async Task UpdateAsync(BrandModel BrandModel)
+        public async Task UpdateAsync(VehicleBrandModel vehicleBrandModel)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BrandUpdate", con);
-            cmd.Parameters.AddWithValue("@BrandId", BrandModel.BrandId);
-            cmd.Parameters.AddWithValue("@BrandName", BrandModel.BrandName);
+            SqlCommand cmd = new SqlCommand("USP_VehicleBrandUpdate", con);
+            cmd.Parameters.AddWithValue("@VehicleBrandId", vehicleBrandModel.VehicleBrandId);
+            cmd.Parameters.AddWithValue("@VehicleBrandName", vehicleBrandModel.VehicleBrandName);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("UpdateAsync");
+            logger.Trace("VehicleBrand_UpdateAsync");
             await cmd.ExecuteNonQueryAsync();
             con.Close();
         }

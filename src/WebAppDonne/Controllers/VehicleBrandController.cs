@@ -6,7 +6,7 @@ namespace WebApi.Donne.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BrandController : ControllerBase
+    public class VehicleBrandController : ControllerBase
     {
         #region Properties
 
@@ -14,52 +14,32 @@ namespace WebApi.Donne.Controllers
 
         #endregion
 
-        public BrandController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
+        public VehicleBrandController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
         {
             this._logger = logger;
         }
 
         [HttpGet(Name = "GetBrandsAsync")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BrandModel>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleBrandModel>))]
         public async Task<IActionResult> GetBrandsAsync()
         {
             try
             {
                 BrandRepository dal = new BrandRepository(_logger);
-                var ret = await dal.GetAllBrandsAsync();
+                var ret = await dal.GetAllVehicleBrandsAsync();
                 _logger.Trace("GetBrandAsync");
                 return Ok(ret);
             }
             catch (Exception ex)
             {
                 _logger.TraceException("GetBrandAsync");
-                string mensagem = "Erro ao consumir a controler Brand, rota GetBrands " + ex.Message;
+                string mensagem = "Erro ao consumir a controler VehicleBrand, rota GetVehicleBrands " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
-        }
-
-        [HttpOptions("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BrandModel>))]
-        public async Task<IActionResult> OptionsAsync(int id)
-        {
-            try
-            {
-                BrandRepository dal = new BrandRepository(_logger);
-                _logger.Trace("OptionsAsync");
-                var ret = await dal.GetByStatusAsync(id);
-                return Ok(ret);
-            }
-            catch (Exception ex)
-            {
-                _logger.TraceException("OptionsAsync");
-                string mensagem = "Erro ao consumir a controler Brand, rota OptionsAsync " + ex.Message;
-                throw new ArgumentNullException(mensagem);
-            }
-
         }
 
         [HttpGet("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BrandModel>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleBrandModel>))]
         public async Task<IActionResult> Get(int id)
         {
             try
@@ -72,42 +52,42 @@ namespace WebApi.Donne.Controllers
             catch (Exception ex)
             {
                 _logger.TraceException("GetByIdAsync");
-                string mensagem = "Erro ao consumir a controler Brand, rota GetByIdAsync " + ex.Message;
+                string mensagem = "Erro ao consumir a controler VehicleBrand, rota GetByIdAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
         }
 
         [HttpPost(Name = "InsertBrand")]
-        public async Task Post(BrandModel BrandModel)
+        public async Task Post(VehicleBrandModel BrandModel)
         {
             try
             {
                 BrandRepository dal = new BrandRepository(_logger);
-                _logger.Trace("InsertAsync");
+                _logger.Trace("VehicleBrand_InsertAsync");
                 await dal.InsertAsync(BrandModel);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("InsertAsync");
-                string mensagem = "Erro ao consumir a controler Brand, rota Post " + ex.Message;
+                _logger.TraceException("VehicleBrand_InsertAsync");
+                string mensagem = "Erro ao consumir a controler VehicleBrand, rota Post " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
 
         }
 
         [HttpPut(Name = "UpdateBrand")]
-        public async Task Update(BrandModel BrandModel)
+        public async Task Update(VehicleBrandModel BrandModel)
         {
             try
             {
                 BrandRepository dal = new BrandRepository(_logger);
-                _logger.Trace("UpdateAsync");
+                _logger.Trace("VehicleBrand_UpdateAsync");
                 await dal.UpdateAsync(BrandModel);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("UpdateAsync");
-                string mensagem = "Erro ao consumir a controler Brand, rota Update " + ex.Message;
+                _logger.TraceException("VehicleBrand_UpdateAsync");
+                string mensagem = "Erro ao consumir a controler VehicleBrand, rota Update " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
 
@@ -118,14 +98,14 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                _logger.Trace("DeleteAsync");
+                _logger.Trace("VehicleBrand_DeleteAsync");
                 BrandRepository dal = new BrandRepository(_logger);
                 await dal.DeleteAsync(id);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("DeleteAsync");
-                string mensagem = "Erro ao consumir a controler Brand, rota DeleteAsync " + ex.Message;
+                _logger.TraceException("VehicleBrand_DeleteAsync");
+                string mensagem = "Erro ao consumir a controler VehicleBrand, rota DeleteAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
 
