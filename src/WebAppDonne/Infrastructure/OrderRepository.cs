@@ -30,6 +30,7 @@ namespace WebApi.Donne.Infrastructure
                     orderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
                     orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
                     orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
+                    orderModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     orderModel.SalePrice = Convert.ToString(rdr["SalePrice"]);
                     orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
                     orderModel.TotalSalePrice = Convert.ToString(rdr["TotalSalePrice"]);
@@ -62,6 +63,7 @@ namespace WebApi.Donne.Infrastructure
                     orderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
                     orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
                     orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
+                    orderModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     orderModel.SalePrice = Convert.ToString(rdr["SalePrice"]);
                     orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
                     orderModel.TotalSalePrice = Convert.ToString(rdr["TotalSalePrice"]);
@@ -97,6 +99,7 @@ namespace WebApi.Donne.Infrastructure
                     orderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
                     orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
                     orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
+                    orderModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     orderModel.SalePrice = Convert.ToString(rdr["SalePrice"]);
                     orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
                     orderModel.TotalSalePrice = Convert.ToString(rdr["TotalSalePrice"]);
@@ -127,6 +130,7 @@ namespace WebApi.Donne.Infrastructure
                     orderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
                     orderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
                     orderModel.ProductName = Convert.ToString(rdr["ProductName"]);
+                    orderModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
                     orderModel.SalePrice = Convert.ToString(rdr["SalePrice"]);
                     orderModel.Amount = Convert.ToInt32(rdr["Amount"]);
                     orderModel.TotalSalePrice = Convert.ToString(rdr["TotalSalePrice"]);
@@ -153,6 +157,7 @@ namespace WebApi.Donne.Infrastructure
             cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
             cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
             cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+            cmd.Parameters.AddWithValue("@BuyerName", orderModel.BuyerName);
             cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
             cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
             cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
@@ -177,6 +182,7 @@ namespace WebApi.Donne.Infrastructure
                 cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
                 cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
                 cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+                cmd.Parameters.AddWithValue("@BuyerName", orderModel.BuyerName);
                 cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
                 cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
                 cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
@@ -271,6 +277,7 @@ namespace WebApi.Donne.Infrastructure
             cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
             cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
             cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+            cmd.Parameters.AddWithValue("@BuyerName", orderModel.BuyerName);
             cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
             cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
             cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
@@ -296,6 +303,7 @@ namespace WebApi.Donne.Infrastructure
                 cmd.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
                 cmd.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
                 cmd.Parameters.AddWithValue("@ProductName", orderModel.ProductName);
+                cmd.Parameters.AddWithValue("@BuyerName", orderModel.BuyerName);
                 cmd.Parameters.AddWithValue("@SalePrice", orderModel.SalePrice);
                 cmd.Parameters.AddWithValue("@Amount", orderModel.Amount);
                 cmd.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);

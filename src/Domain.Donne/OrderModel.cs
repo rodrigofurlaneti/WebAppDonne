@@ -9,6 +9,7 @@ namespace Domain.Donne
         public int CommandId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
+        public string BuyerName { get; set; }
         public string SalePrice { get; set; }
         public int Amount { get; set; }
         public string TotalSalePrice { get; set; }
@@ -17,7 +18,7 @@ namespace Domain.Donne
         {
         }
 
-        public OrderModel(int orderId, int commandId, int productId, string productName, string salePrice, 
+        public OrderModel(int orderId, int commandId, int productId, string productName, string buyerName, string salePrice, 
             int amount, string totalSalePrice, List<DateTime> listDateTime, int userId, string userName) 
             : base(listDateTime, userId, userName)
         {
@@ -25,6 +26,7 @@ namespace Domain.Donne
             CommandId = commandId;
             ProductId = productId;
             ProductName = productName;
+            BuyerName = buyerName;
             SalePrice = salePrice;
             Amount = amount;
             TotalSalePrice = totalSalePrice;
