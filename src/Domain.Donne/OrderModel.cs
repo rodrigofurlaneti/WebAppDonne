@@ -14,6 +14,7 @@ namespace Domain.Donne
         public int Amount { get; set; }
         public string TotalSalePrice { get; set; }
 
+
         public OrderModel()
         {
         }
