@@ -47,10 +47,10 @@ namespace WebApi.Donne.Infrastructure
         {
             List<Vehicle> listVehicleModel = new List<Vehicle>();
             using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_VehicleModelsGetAll", con))
+            using (SqlCommand cmd = new SqlCommand("USP_VehicleGetAll", con))
                 try
                 {
-                    logger.Trace("GetAllVehiclesAsync");
+                    logger.Trace("VehicleGetAll");
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     SqlDataReader rdr = await cmd.ExecuteReaderAsync();
