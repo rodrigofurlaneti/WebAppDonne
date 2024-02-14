@@ -39,27 +39,9 @@ namespace WebApi.Donne.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AuthenticationModel))]
-        public async Task<IActionResult> Get(int id)
-        {
-            try
-            {
-                AuthenticationRepository dal = new AuthenticationRepository(_logger);
-                this._logger.Trace("User_GetByIdAsync");
-                var ret = await dal.GetByIdAsync(id);
-                return Ok(ret);
-            }
-            catch (Exception ex)
-            {
-                string mensagem = "Erro ao consumir a controler User, rota GetByIdAsync " + ex.Message;
-                this._logger.TraceException("User_GetByIdAsync");
-                throw new ArgumentNullException(mensagem);
-            }
-        }
-
         [HttpPost(Name = "InsertAuthentication")]
-        public async Task Post(UserModel userModel)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserModel))]
+        public async Task<IActionResult> Post(AuthenticationUserModel authenticationUserModel)
         {
             try
             {
@@ -68,16 +50,29 @@ namespace WebApi.Donne.Controllers
                 AuthenticationRepository authenticationRepository = new AuthenticationRepository(_logger);
                 UserRepository userRepository = new UserRepository(_logger);
                 UserBusiness userBusiness = new UserBusiness();
-                var userModelBd = await userRepository.GetByNameAsync(userModel.UserName);
+                var userModelBd = await userRepository.GetByNameAsync(authenticationUserModel.UserName);
+                authenticationModel.ClientInternetProtocol = authenticationUserModel.ClientInternetProtocol;
+                authenticationModel.NavigatorUserAgent = authenticationUserModel.NavigatorUserAgent;
                 if (userModelBd.UserName == null)
+                {
                     authenticationModel = authenticationBusiness.SimpleAuthenticationInvalidUserName(authenticationModel);
+                    this._logger.Trace("Authentication_InvalidUserName_InsertAsync");
+                }   
                 else
-                    if (userBusiness.SimpleAuthentication(userModel, userModelBd))
-                    authenticationModel = authenticationBusiness.SimpleAuthenticationSuccess(authenticationModel);
-                else
-                    authenticationModel = authenticationBusiness.SimpleAuthenticationInvalidPassword(authenticationModel);
-                this._logger.Trace("Authentication_InsertAsync");
+                {
+                    if (userBusiness.SimpleAuthentication(authenticationUserModel, userModelBd))
+                    {
+                        authenticationModel = authenticationBusiness.SimpleAuthenticationSuccess(authenticationModel);
+                        this._logger.Trace("Authentication_Success_InsertAsync");
+                    }
+                    else
+                    {
+                        authenticationModel = authenticationBusiness.SimpleAuthenticationInvalidPassword(authenticationModel);
+                        this._logger.Trace("Authentication_InvalidPassword_InsertAsync");
+                    }
+                }
                 await authenticationRepository.InsertAsync(authenticationModel);
+                return Ok(userModelBd);
             }
             catch (Exception ex)
             {

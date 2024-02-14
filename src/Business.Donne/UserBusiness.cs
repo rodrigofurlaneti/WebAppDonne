@@ -6,7 +6,7 @@ namespace Business.Donne
     {
         public UserBusiness() { }
 
-        public bool SimpleAuthentication(UserModel userModelRequest, UserModel userModelBd)
+        public bool SimpleAuthentication(AuthenticationUserModel userModelRequest, UserModel userModelBd)
         {
             if (userModelRequest.UserPassword.Equals(userModelBd.UserPassword))
                 return true;

@@ -220,7 +220,7 @@ namespace WebApi.Donne.Infrastructure
             authenticationModel.HostedServerName = Convert.ToString(sqlDataReader["HostedServerName"]);
             authenticationModel.ServerInternetProtocol = Convert.ToString(sqlDataReader["ServerInternetProtocol"]);
             authenticationModel.AuthenticationDateTime = Convert.ToString(sqlDataReader["AuthenticationDateTime"]);
-            authenticationModel.RequestedCustomerName = Convert.ToString(sqlDataReader["RequestedCustomerName"]);
+            authenticationModel.NavigatorUserAgent = Convert.ToString(sqlDataReader["NavigatorUserAgent"]);
             authenticationModel.ClientInternetProtocol = Convert.ToString(sqlDataReader["ClientInternetProtocol"]);
             authenticationModel.Authenticated = Convert.ToString(sqlDataReader["Authenticated"]);
             authenticationModel.Status = Convert.ToString(sqlDataReader["Status"]);
@@ -232,7 +232,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@HostedServerName", authenticationModel.HostedServerName);
             sqlCommand.Parameters.AddWithValue("@ServerInternetProtocol", authenticationModel.ServerInternetProtocol);
             sqlCommand.Parameters.AddWithValue("@AuthenticationDateTime", authenticationModel.AuthenticationDateTime);
-            sqlCommand.Parameters.AddWithValue("@RequestedCustomerName", authenticationModel.RequestedCustomerName);
+            sqlCommand.Parameters.AddWithValue("@NavigatorUserAgent", authenticationModel.NavigatorUserAgent);
             sqlCommand.Parameters.AddWithValue("@ClientInternetProtocol", authenticationModel.ClientInternetProtocol);
             sqlCommand.Parameters.AddWithValue("@Authenticated", Convert.ToInt32(authenticationModel.Authenticated));
             sqlCommand.Parameters.AddWithValue("@Status", authenticationModel.Status);
