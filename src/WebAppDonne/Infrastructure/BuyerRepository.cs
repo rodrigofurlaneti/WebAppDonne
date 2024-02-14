@@ -19,24 +19,15 @@ namespace WebApi.Donne.Infrastructure
             try
             {
                 List<BuyerModel> listBuyerModel = new List<BuyerModel>();
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_BuyerGetAll", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand("USP_Buyer_GetAll", sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
                     {
-                        BuyerModel buyerModel = new BuyerModel();
-                        buyerModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                        buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                        buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
-                        buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
-                        buyerModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                        buyerModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                        buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                        buyerModel.UserName = Convert.ToString(rdr["UserName"]);
-                        listBuyerModel.Add(buyerModel);
+                        listBuyerModel = GetListBuyerModel(sqlDataReader, listBuyerModel);
                     }
                 }
                 logger.Trace("GetAllBuyers");
@@ -44,35 +35,25 @@ namespace WebApi.Donne.Infrastructure
             }
             catch (ArgumentNullException ex)
             {
-                string mensagemErro = "Erro ao consumir a procedure USP_BuyerGetAll síncrono " + ex.Message;
+                string mensagemErro = "Erro ao consumir a procedure USP_Buyer_GetAll síncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
-
         }
 
         public async Task<IEnumerable<BuyerModel>> GetAllBuyersAsync()
         {
             List<BuyerModel> listBuyerModel = new List<BuyerModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_BuyerGetAll", con))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlCommand sqlCommand = new SqlCommand("USP_Buyer_GetAll", sqlConnection))
             try
             {
                 logger.Trace("GetAllBuyersAsync");
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                while (rdr.Read())
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                while (sqlDataReader.Read())
                 {
-                    BuyerModel buyerModel = new BuyerModel();
-                    buyerModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                    buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                    buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
-                    buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
-                    buyerModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    buyerModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                    buyerModel.UserName = Convert.ToString(rdr["UserName"]);
-                    listBuyerModel.Add(buyerModel);
+                    listBuyerModel = GetListBuyerModel(sqlDataReader, listBuyerModel);
                 }
                 return listBuyerModel;
             }
@@ -88,25 +69,16 @@ namespace WebApi.Donne.Infrastructure
             try
             {
                 List<BuyerModel> listBuyerModel = new List<BuyerModel>();
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_BuyerGetStatus", con);
-                    cmd.Parameters.AddWithValue("@Status", status);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand("USP_Buyer_GetStatus", sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("@Status", status);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
                     {
-                        BuyerModel buyerModel = new BuyerModel();
-                        buyerModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                        buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                        buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
-                        buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
-                        buyerModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                        buyerModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                        buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                        buyerModel.UserName = Convert.ToString(rdr["UserName"]);
-                        listBuyerModel.Add(buyerModel);
+                        listBuyerModel = GetListBuyerModel(sqlDataReader, listBuyerModel);
                     }
                 }
                 logger.Trace("GetByStatus");
@@ -123,27 +95,18 @@ namespace WebApi.Donne.Infrastructure
         public async Task<IEnumerable<BuyerModel>> GetByStatusAsync(int status)
         {
             List<BuyerModel> listBuyerModel = new List<BuyerModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_BuyerGetStatus", con))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlCommand sqlCommand = new SqlCommand("USP_Buyer_GetStatus", sqlConnection))
             try
             {
                 logger.Trace("GetByStatusAsync");
-                cmd.Parameters.AddWithValue("@Status", status);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                while (rdr.Read())
+                sqlCommand.Parameters.AddWithValue("@Status", status);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                while (sqlDataReader.Read())
                 {
-                    BuyerModel buyerModel = new BuyerModel();
-                    buyerModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                    buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                    buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
-                    buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
-                    buyerModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    buyerModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                    buyerModel.UserName = Convert.ToString(rdr["UserName"]);
-                    listBuyerModel.Add(buyerModel);
+                    listBuyerModel = GetListBuyerModel(sqlDataReader, listBuyerModel);
                 }
                 return listBuyerModel;
             }
@@ -159,23 +122,16 @@ namespace WebApi.Donne.Infrastructure
             try
             {
                 BuyerModel buyerModel = new BuyerModel();
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_BuyerGetById", con);
-                    cmd.Parameters.AddWithValue("@BuyerId", id);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand("USP_Buyer_GetById", sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("@BuyerId", id);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
                     {
-                        buyerModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                        buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                        buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
-                        buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
-                        buyerModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                        buyerModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                        buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                        buyerModel.UserName = Convert.ToString(rdr["UserName"]);
+                        buyerModel = GetBuyerModel(sqlDataReader, buyerModel);
                     }
                 }
                 logger.Trace("GetById");
@@ -192,27 +148,20 @@ namespace WebApi.Donne.Infrastructure
         public async Task<BuyerModel> GetByIdAsync(int id)
         {
             BuyerModel buyerModel = new BuyerModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_BuyerGetById", con))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlCommand sqlCommand = new SqlCommand("USP_Buyer_GetById", sqlConnection))
             try
             {
-                logger.Trace("GetByIdAsync");
-                cmd.Parameters.AddWithValue("@BuyerId", id);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                while (rdr.Read())
+                logger.Trace("Buyer_GetByIdAsync");
+                sqlCommand.Parameters.AddWithValue("@BuyerId", id);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                while (sqlDataReader.Read())
                 {
-                    buyerModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                    buyerModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                    buyerModel.BuyerPhone = Convert.ToString(rdr["BuyerPhone"]);
-                    buyerModel.BuyerAddress = Convert.ToString(rdr["BuyerAddress"]);
-                    buyerModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    buyerModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    buyerModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                    buyerModel.UserName = Convert.ToString(rdr["UserName"]);
+                    buyerModel = GetBuyerModel(sqlDataReader, buyerModel);
                 }
-                    return buyerModel;
+                return buyerModel;
             }
             catch (ArgumentNullException ex)
             {
@@ -223,100 +172,110 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(BuyerModel buyerModel)
         {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_BuyerInsert", con);
-                cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
-                cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
-                cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
-                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
-                cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
-                con.Close();
-            logger.Trace("Insert");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Buyer_Insert", sqlConnection);
+            GetSqlCommandBuyerModel(sqlCommand, buyerModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Buyer_Insert");
         }
 
         public async Task InsertAsync(BuyerModel buyerModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BuyerInsert", con);
-            cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
-            cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
-            cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
-            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("InsertAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Buyer_Insert", sqlConnection);
+            GetSqlCommandBuyerModel(sqlCommand, buyerModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            logger.Trace("Buyer_InsertAsync");
+            await sqlCommand.ExecuteNonQueryAsync();
+            sqlConnection.Close();
         }
 
         public void Delete(int buyerId)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
+            SqlCommand cmd = new SqlCommand("USP_Buyer_Delete", con);
             cmd.Parameters.AddWithValue("@BuyerId", buyerId);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
-            logger.Trace("Delete");
+            logger.Trace("Buyer_Delete");
         }
 
         public async Task DeleteAsync(int buyerId)
         {
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BuyerDelete", con);
+            SqlCommand cmd = new SqlCommand("USP_Buyer_Delete", con);
             cmd.Parameters.AddWithValue("@BuyerId", buyerId);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("DeleteAsync");
+            logger.Trace("Buyer_DeleteAsync");
             await cmd.ExecuteNonQueryAsync();
             con.Close();
         }
 
         public void Update(BuyerModel buyerModel)
         {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
-                cmd.Parameters.AddWithValue("@BuyerId", buyerModel.BuyerId);
-                cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
-                cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
-                cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
-                cmd.Parameters.AddWithValue("@DateInsert", buyerModel.DateInsert);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
-                cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
-                con.Close();
-                logger.Trace("Update");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Buyer_Update", sqlConnection);
+            GetSqlCommandBuyerModel(sqlCommand, buyerModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Buyer_Update");
         }
 
         public async Task UpdateAsync(BuyerModel buyerModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_BuyerUpdate", con);
-            cmd.Parameters.AddWithValue("@BuyerId", buyerModel.BuyerId);
-            cmd.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
-            cmd.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
-            cmd.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
-            cmd.Parameters.AddWithValue("@DateInsert", buyerModel.DateInsert);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", buyerModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", buyerModel.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            logger.Trace("UpdateAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Buyer_Update", sqlConnection);
+            GetSqlCommandBuyerModel(sqlCommand, buyerModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            logger.Trace("Buyer_UpdateAsync");
+            await sqlCommand.ExecuteNonQueryAsync();
+            sqlConnection.Close();
+        }
+
+        #endregion
+
+        #region Helpers
+        private List<BuyerModel> GetListBuyerModel(SqlDataReader sqlDataReader, List<BuyerModel> listBuyerModel)
+        {
+            BuyerModel buyerModel = new BuyerModel();
+            buyerModel = GetBuyerModel(sqlDataReader, buyerModel);
+            listBuyerModel.Add(buyerModel);
+            return listBuyerModel;
+        }
+
+        private BuyerModel GetBuyerModel(SqlDataReader sqlDataReader, BuyerModel buyerModel)
+        {
+            buyerModel.BuyerId = Convert.ToInt32(sqlDataReader["BuyerId"]);
+            buyerModel.BuyerName = Convert.ToString(sqlDataReader["BuyerName"]);
+            buyerModel.BuyerPhone = Convert.ToString(sqlDataReader["BuyerPhone"]);
+            buyerModel.BuyerAddress = Convert.ToString(sqlDataReader["BuyerAddress"]);
+            buyerModel.DateInsert = Convert.ToDateTime(sqlDataReader["DateInsert"]);
+            buyerModel.DateUpdate = Convert.ToDateTime(sqlDataReader["DateUpdate"]);
+            buyerModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
+            buyerModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
+            return buyerModel;
+        }
+
+        private void GetSqlCommandBuyerModel(SqlCommand sqlCommand, BuyerModel buyerModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@BuyerId", buyerModel.BuyerId);
+            sqlCommand.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
+            sqlCommand.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
+            sqlCommand.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", buyerModel.DateInsert);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@UserId", buyerModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", buyerModel.UserName);
         }
 
         #endregion

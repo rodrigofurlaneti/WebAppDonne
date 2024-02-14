@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
 using WebApi.Donne.Infrastructure;
+using System.Data.SqlClient;
 
 namespace WebApi.Donne.Controllers
 {
@@ -14,10 +15,16 @@ namespace WebApi.Donne.Controllers
 
         #endregion
 
+        #region Constructor
+
         public BuyerController(WebApi.Donne.Infrastructure.SeedWork.ILogger logger)
         {
             this._logger = logger;
         }
+
+        #endregion
+
+        #region Methods
 
         [HttpGet(Name = "GetBuyersAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BuyerModel>))]
@@ -130,5 +137,7 @@ namespace WebApi.Donne.Controllers
             }
 
         }
+
+        #endregion
     }
 }
