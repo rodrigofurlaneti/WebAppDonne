@@ -27,7 +27,7 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                     while (sqlDataReader.Read())
                     {
-                        listCategoryModel = GetListCategoryModel(sqlDataReader, listCategoryModel);
+                        GetListCategoryModel(sqlDataReader, listCategoryModel);
                     }
                     return listCategoryModel;
                 }
@@ -52,7 +52,7 @@ namespace WebApi.Donne.Infrastructure
                 SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
                 while (sqlDataReader.Read())
                 {
-                    listCategoryModel = GetListCategoryModel(sqlDataReader, listCategoryModel);
+                    GetListCategoryModel(sqlDataReader, listCategoryModel);
                 }
                 return listCategoryModel;
             }
@@ -78,7 +78,7 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
                     while (sqlDataReader.Read())
                     {
-                        categoryModel = GetCategoryModel(sqlDataReader, categoryModel);
+                        GetCategoryModel(sqlDataReader, categoryModel);
                     }
                 }
                 logger.Trace("Donne_GetByIdAsync");
@@ -105,7 +105,7 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                     while (sqlDataReader.Read())
                     {
-                        categoryModel = GetCategoryModel(sqlDataReader, categoryModel);
+                        GetCategoryModel(sqlDataReader, categoryModel);
                     }
                 }
                 logger.Trace("Donne_GetById");
@@ -122,7 +122,7 @@ namespace WebApi.Donne.Infrastructure
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_Insert", sqlConnection);
-            GetSqlCommandBuyerModel(sqlCommand, categoryModel);
+            GetSqlCommandBuyerModelInsert(sqlCommand, categoryModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
@@ -136,7 +136,7 @@ namespace WebApi.Donne.Infrastructure
             {
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_Insert", sqlConnection);
-                GetSqlCommandBuyerModel(sqlCommand, categoryModel);
+                GetSqlCommandBuyerModelInsert(sqlCommand, categoryModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 logger.Trace("Donne_InsertAsync");
@@ -184,16 +184,11 @@ namespace WebApi.Donne.Infrastructure
             }
         }
 
-        public void Update(CategoryModel Category)
+        public void Update(CategoryModel categoryModel)
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_CategoryUpdate", sqlConnection);
-            sqlCommand.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
-            sqlCommand.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
-            sqlCommand.Parameters.AddWithValue("@DateInsert", Category.DateInsert);
-            sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            sqlCommand.Parameters.AddWithValue("@UserId", Category.UserId);
-            sqlCommand.Parameters.AddWithValue("@UserName", Category.UserName);
+            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_Update", sqlConnection);
+            GetSqlCommandBuyerModelUpdate(sqlCommand, categoryModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
@@ -201,18 +196,13 @@ namespace WebApi.Donne.Infrastructure
             logger.Trace("Update");
         }
 
-        public async Task UpdateAsync(CategoryModel Category)
+        public async Task UpdateAsync(CategoryModel categoryModel)
         {
             try
             {
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_CategoryUpdate", sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@CategoryId", Category.CategoryId);
-                sqlCommand.Parameters.AddWithValue("@CategoryName", Category.CategoryName);
-                sqlCommand.Parameters.AddWithValue("@DateInsert", Category.DateInsert);
-                sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                sqlCommand.Parameters.AddWithValue("@UserId", Category.UserId);
-                sqlCommand.Parameters.AddWithValue("@UserName", Category.UserName);
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_Update", sqlConnection);
+                GetSqlCommandBuyerModelUpdate(sqlCommand, categoryModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 logger.Trace("UpdateAsync");
@@ -250,7 +240,16 @@ namespace WebApi.Donne.Infrastructure
             return categoryModel;
         }
 
-        private void GetSqlCommandBuyerModel(SqlCommand sqlCommand, CategoryModel categoryModel)
+        private void GetSqlCommandBuyerModelInsert(SqlCommand sqlCommand, CategoryModel categoryModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@CategoryName", categoryModel.CategoryName);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", categoryModel.DateInsert);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@UserId", categoryModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", categoryModel.UserName);
+        }
+
+        private void GetSqlCommandBuyerModelUpdate(SqlCommand sqlCommand, CategoryModel categoryModel)
         {
             sqlCommand.Parameters.AddWithValue("@CategoryId", categoryModel.CategoryId);
             sqlCommand.Parameters.AddWithValue("@CategoryName", categoryModel.CategoryName);

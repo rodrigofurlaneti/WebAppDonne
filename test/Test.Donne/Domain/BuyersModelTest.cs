@@ -17,7 +17,7 @@ namespace Test.Donne.Domain.BuyersModelTest
             buyerModel.BuyerName = Faker.Name.FullName();
             buyerModel.UserName = Faker.Name.First();
             buyerModel.BuyerId = Faker.RandomNumber.Next(0, 100);
-            buyerModel.Status = true;
+            buyerModel.Status = 1;
             buyerModel.DateUpdate = DateTime.Now;
             buyerModel.DateInsert = DateTime.Now;
             buyerModel.BuyerPhone = Faker.RandomNumber.Next().ToString();
@@ -54,7 +54,7 @@ namespace Test.Donne.Domain.BuyersModelTest
             string buyerName = Faker.Name.FullName();
             string userName = Faker.Name.First();
             int buyerId = Faker.RandomNumber.Next(0, 100);
-            bool status = true;
+            int status = 1;
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
             string buyerPhone = Faker.RandomNumber.Next().ToString();

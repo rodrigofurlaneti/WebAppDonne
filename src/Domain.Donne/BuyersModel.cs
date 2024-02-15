@@ -9,13 +9,13 @@ namespace Domain.Donne
         public string BuyerName { get; set; }
         public string BuyerPhone { get; set; }
         public string BuyerAddress { get; set; }
-        public bool Status { get; set; }
+        public int Status { get; set; }
 
         public BuyerModel()
         {
         }
 
-        public BuyerModel(int buyerId, string buyerName, string buyerPhone, string buyerAddress, bool status,
+        public BuyerModel(int buyerId, string buyerName, string buyerPhone, string buyerAddress, int status,
             List<DateTime> listDateTime, int userId, string userName) 
             : base(listDateTime, userId, userName)
         {

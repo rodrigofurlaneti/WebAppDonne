@@ -164,7 +164,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             string buyerName = Faker.Name.FullName();
             string userName = Faker.Name.First();
             int buyerId = Faker.RandomNumber.Next(0, 100);
-            bool status = true;
+            int status = 1;
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
             string buyerPhone = Faker.RandomNumber.Next().ToString();
@@ -189,7 +189,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             string buyerName = Faker.Name.FullName();
             string userName = Faker.Name.First();
             int buyerId = Faker.RandomNumber.Next(0, 100);
-            bool status = true;
+            int status = 1;
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
             string buyerPhone = Faker.RandomNumber.Next().ToString();
@@ -216,7 +216,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             // Arrange
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            bool status = true;
+            int status = 1;
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
             string buyerPhone = Faker.RandomNumber.Next().ToString();
@@ -259,7 +259,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             string userName = Faker.Name.First();
             if (listBuyers != null)
                 id = listBuyers[0].BuyerId;
-            bool status = true;
+            int status = 1;
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
             string buyerPhone = Faker.RandomNumber.Next().ToString();

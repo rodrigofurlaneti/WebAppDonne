@@ -376,7 +376,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             string buyerName = Faker.Name.FullName();
             string userName = Faker.Name.First();
             int buyerId = Faker.RandomNumber.Next(0, 100);
-            bool status = true;
+            int status = 1;
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
             string buyerPhone = Faker.RandomNumber.Next().ToString();
@@ -402,7 +402,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             string buyerName = Faker.Name.FullName();
             string userName = Faker.Name.First();
             int buyerId = Faker.RandomNumber.Next(0, 100);
-            bool status = true;
+            int status = 1;
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
             string buyerPhone = Faker.RandomNumber.Next().ToString();
@@ -464,7 +464,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             string buyerName = Faker.Name.FullName();
             string userName = Faker.Name.First();
             int buyerId = idUltimo;
-            bool status = true;
+            int status = 1;
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = getAll.ToList()[getAll.Count() - 1].DateInsert;
             string buyerPhone = Faker.RandomNumber.Next().ToString();
@@ -493,7 +493,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             string buyerName = Faker.Name.FullName();
             string userName = Faker.Name.First();
             int buyerId = idUltimo;
-            bool status = true;
+            int status = 1;
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = getAll.ToList()[getAll.Count() - 1].DateInsert;
             string buyerPhone = Faker.RandomNumber.Next().ToString();

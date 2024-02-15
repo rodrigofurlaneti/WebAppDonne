@@ -81,39 +81,5 @@ namespace WebApi.Donne.Controllers
                 throw new ArgumentNullException(mensagem);
             }
         }
-
-        [HttpPut(Name = "UpdateAuthentication")]
-        public async Task Update(AuthenticationModel AuthenticationModel)
-        {
-            try
-            {
-                AuthenticationRepository dal = new AuthenticationRepository(_logger);
-                this._logger.Trace("Authentication_UpdateAsync");
-                await dal.UpdateAsync(AuthenticationModel);
-            }
-            catch (Exception ex)
-            {
-                string mensagem = "Erro ao consumir a controler Authentication, rota UpdateAsync " + ex.Message;
-                this._logger.TraceException("Authentication_UpdateAsync");
-                throw new ArgumentNullException(mensagem);
-            }
-        }
-
-        [HttpDelete("{id:int}")]
-        public async Task Delete(int id)
-        {
-            try
-            {
-                AuthenticationRepository dal = new AuthenticationRepository(_logger);
-                this._logger.Trace("Authentication_DeleteAsync");
-                await dal.DeleteAsync(id);
-            }
-            catch (Exception ex)
-            {
-                string mensagem = "Erro ao consumir a controler Authentication, rota DeleteAsync " + ex.Message;
-                this._logger.TraceException("Authentication_DeleteAsync");
-                throw new ArgumentNullException(mensagem);
-            }
-        }
     }
 }

@@ -26,7 +26,7 @@ namespace WebApi.Donne.Infrastructure
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
-                    listUserModel = GetListUserModel(sqlDataReader, listUserModel);
+                    GetListUserModel(sqlDataReader, listUserModel);
                 }
             }
             return listUserModel;

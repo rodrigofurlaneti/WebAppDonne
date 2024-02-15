@@ -107,7 +107,7 @@ namespace WebApi.Donne.Infrastructure
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand sqlCommand = new SqlCommand("USP_Donne_Authentication_Insert", sqlConnection);
-            GetSqlCommandAuthenticationModel(sqlCommand, AuthenticationModel);
+            GetSqlCommandAuthenticationModelInsert(sqlCommand, AuthenticationModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
@@ -122,7 +122,7 @@ namespace WebApi.Donne.Infrastructure
                 logger.Trace("InsertAsync");
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand("USP_Donne_Authentication_Insert", sqlConnection);
-                GetSqlCommandAuthenticationModel(sqlCommand, AuthenticationModel);
+                GetSqlCommandAuthenticationModelInsert(sqlCommand, AuthenticationModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 await sqlCommand.ExecuteNonQueryAsync();
@@ -135,72 +135,6 @@ namespace WebApi.Donne.Infrastructure
                 throw new ArgumentNullException(mensagem);
             }
 
-        }
-
-        public void Delete(int id)
-        {
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Authentication_Delete", sqlConnection);
-            sqlCommand.Parameters.AddWithValue("@Id", id);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.ExecuteNonQuery();
-            sqlConnection.Close();
-            logger.Trace("Authentication_Delete");
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            try
-            {
-                logger.Trace("DeleteAsync");
-                SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Authentication_Delete", sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@Id", id);
-                sqlConnection.Open();
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                await sqlCommand.ExecuteNonQueryAsync();
-                sqlConnection.Close();
-            }
-            catch (Exception ex)
-            {
-                string mensagem = "Erro ao consumir a controler Authentication, rota DeleteAsync " + ex.Message;
-                logger.TraceException("Authentication_DeleteAsync");
-                throw new ArgumentNullException(mensagem);
-            }
-        }
-
-        public void Update(AuthenticationModel AuthenticationModel)
-        {
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Authentication_Update", sqlConnection);
-            GetSqlCommandAuthenticationModel(sqlCommand, AuthenticationModel);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.ExecuteNonQuery();
-            sqlConnection.Close();
-            logger.Trace("Authentication_Update");
-        }
-
-        public async Task UpdateAsync(AuthenticationModel AuthenticationModel)
-        {
-            try
-            {
-                logger.Trace("UpdateAsync");
-                SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Authentication_Update", sqlConnection);
-                GetSqlCommandAuthenticationModel(sqlCommand, AuthenticationModel);
-                sqlConnection.Open();
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                await sqlCommand.ExecuteNonQueryAsync();
-                sqlConnection.Close();
-            }
-            catch (Exception ex)
-            {
-                string mensagem = "Erro ao consumir a controler Authentication, rota UpdateAsync " + ex.Message;
-                logger.TraceException("UpdateAsync");
-                throw new ArgumentNullException(mensagem);
-            }
         }
 
         #endregion
@@ -227,7 +161,7 @@ namespace WebApi.Donne.Infrastructure
             return authenticationModel;
         }
 
-        private void GetSqlCommandAuthenticationModel(SqlCommand sqlCommand, AuthenticationModel authenticationModel)
+        private void GetSqlCommandAuthenticationModelInsert(SqlCommand sqlCommand, AuthenticationModel authenticationModel)
         {
             sqlCommand.Parameters.AddWithValue("@HostedServerName", authenticationModel.HostedServerName);
             sqlCommand.Parameters.AddWithValue("@ServerInternetProtocol", authenticationModel.ServerInternetProtocol);
