@@ -17,23 +17,16 @@ namespace WebApi.Donne.Infrastructure
         public IEnumerable<UserModel> GetAllUsers()
         {
             List<UserModel> listUserModel = new List<UserModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
                 logger.Trace("GetAllUsers");
-                SqlCommand cmd = new SqlCommand("USP_Donne_User_GetAll", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_GetAll", sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    UserModel User = new UserModel();
-                    User.UserId = Convert.ToInt32(rdr["UserId"]);
-                    User.UserName = Convert.ToString(rdr["UserName"]);
-                    User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    User.ProfileName = Convert.ToString(rdr["ProfileName"]);
-                    User.Status = Convert.ToBoolean(rdr["Status"]);
-                    listUserModel.Add(User);
+                    listUserModel = GetListUserModel(sqlDataReader, listUserModel);
                 }
             }
             return listUserModel;
@@ -42,31 +35,24 @@ namespace WebApi.Donne.Infrastructure
         public async Task<IEnumerable<UserModel>> GetAllUsersAsync()
         {
             List<UserModel> listUserModel = new List<UserModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                this.logger.Trace("GetAllUserAsync");
-                SqlCommand cmd = new SqlCommand("USP_Donne_User_GetAll", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_GetAll", sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                while (sqlDataReader.Read())
                 {
-                    UserModel User = new UserModel();
-                    User.UserId = Convert.ToInt32(rdr["UserId"]);
-                    User.UserName = Convert.ToString(rdr["UserName"]);
-                    User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    User.ProfileName = Convert.ToString(rdr["ProfileName"]);
-                    User.Status = Convert.ToBoolean(rdr["Status"]);
-                    listUserModel.Add(User);
+                    listUserModel = GetListUserModel(sqlDataReader, listUserModel);
                 }
+                this.logger.Trace("User_GetAllUserAsync");
                 return listUserModel;
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler User, rota GetUserAsync " + ex.Message;
-                this.logger.TraceException("GetAllUserAsync");
+                this.logger.TraceException("User_GetAllUserAsync");
                 throw new ArgumentNullException(mensagem);
             }
 
@@ -74,147 +60,119 @@ namespace WebApi.Donne.Infrastructure
 
         public UserModel GetById(int id)
         {
-            UserModel User = new UserModel();
+            UserModel userModel = new UserModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("USP_UserGetById", con);
                 cmd.Parameters.AddWithValue("@UserId", id);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    User.UserId = Convert.ToInt32(rdr["UserId"]);
-                    User.UserName = Convert.ToString(rdr["UserName"]);
-                    User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    User.ProfileName = Convert.ToString(rdr["ProfileName"]);
-                    User.Status = Convert.ToBoolean(rdr["Status"]);
+                    userModel = GetUserModel(sqlDataReader, userModel);
                 }
             }
             logger.Trace("GetById");
-            return User;
+            return userModel;
         }
 
         public async Task<UserModel> GetByIdAsync(int id)
         {
             UserModel userModel = new UserModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                this.logger.Trace("GetByIdAsync");
-                SqlCommand cmd = new SqlCommand("USP_Donne_User_GetById", con);
-                cmd.Parameters.AddWithValue("@UserId", id);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_GetById", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@UserId", id);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                while (sqlDataReader.Read())
                 {
-                    userModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                    userModel.UserName = Convert.ToString(rdr["UserName"]);
-                    userModel.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    userModel.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    userModel.ProfileName = Convert.ToString(rdr["ProfileName"]);
-                    userModel.Status = Convert.ToBoolean(rdr["Status"]);
+                    userModel = GetUserModel(sqlDataReader, userModel);
                 }
+                this.logger.Trace("User_GetByIdAsync");
                 return userModel;
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler User, rota GetByIdAsync " + ex.Message;
-                this.logger.TraceException("GetByIdAsync");
+                this.logger.TraceException("User_GetByIdAsync");
                 throw new ArgumentNullException(mensagem);
             }
         }
 
-        public UserModel GetByName(string Name)
+        public UserModel GetByName(string userName)
         {
-            UserModel User = new UserModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            UserModel userModel = new UserModel();
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_Donne_User_GetByName", con);
-                cmd.Parameters.AddWithValue("@UserName", Name);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_GetByName", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@UserName", userName);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    User.UserId = Convert.ToInt32(rdr["UserId"]);
-                    User.UserName = Convert.ToString(rdr["UserName"]);
-                    User.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    User.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    User.ProfileName = Convert.ToString(rdr["ProfileName"]);
-                    User.Status = Convert.ToBoolean(rdr["Status"]);
+                    userModel = GetUserModel(sqlDataReader, userModel);
                 }
             }
-            logger.Trace("GetByName");
-            return User;
+            logger.Trace("User_GetByName");
+            return userModel;
         }
 
 
-        public async Task<UserModel> GetByNameAsync(string Name)
+        public async Task<UserModel> GetByNameAsync(string userName)
         {
-            UserModel user = new UserModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            UserModel userModel = new UserModel();
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                logger.Trace("GetByNameAsync");
-                SqlCommand cmd = new SqlCommand("USP_Donne_User_GetByName", con);
-                cmd.Parameters.AddWithValue("@UserName", Name);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_GetByName", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@UserName", userName);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                while (sqlDataReader.Read())
                 {
-                    user.UserId = Convert.ToInt32(rdr["UserId"]);
-                    user.UserName = Convert.ToString(rdr["UserName"]);
-                    user.UserPassword = Convert.ToString(rdr["UserPassword"]);
-                    user.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    user.ProfileName = Convert.ToString(rdr["ProfileName"]);
-                    user.Status = Convert.ToBoolean(rdr["Status"]);
+                    userModel = GetUserModel(sqlDataReader, userModel);
                 }
-                return user;
+                logger.Trace("User_GetByNameAsync");
+                return userModel;
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler User, rota GetByNameAsync " + ex.Message;
-                this.logger.TraceException("GetByNameAsync");
+                this.logger.TraceException("User_GetByNameAsync");
                 throw new ArgumentNullException(mensagem);
             }
         }
 
-        public void Insert(UserModel User)
+        public void Insert(UserModel userModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_Donne_User_Insert", con);
-            cmd.Parameters.AddWithValue("@UserName", User.UserName);
-            cmd.Parameters.AddWithValue("@UserPassword", User.UserPassword);
-            cmd.Parameters.AddWithValue("@ProfileId", User.ProfileId);
-            cmd.Parameters.AddWithValue("@ProfileName", User.ProfileName);
-            cmd.Parameters.AddWithValue("@Status", User.Status);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Insert");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_Insert", sqlConnection);
+            GetSqlCommandUserModelInsert(sqlCommand, userModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("User_Insert");
         }
 
-        public async Task InsertAsync(UserModel User)
+        public async Task InsertAsync(UserModel userModel)
         {
             try
             {
-                logger.Trace("InsertAsync");
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_Donne_User_Insert", con);
-                cmd.Parameters.AddWithValue("@UserName", User.UserName);
-                cmd.Parameters.AddWithValue("@UserPassword", User.UserPassword);
-                cmd.Parameters.AddWithValue("@ProfileId", User.ProfileId);
-                cmd.Parameters.AddWithValue("@ProfileName", User.ProfileName);
-                cmd.Parameters.AddWithValue("@Status", User.Status);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_Insert", sqlConnection);
+                GetSqlCommandUserModelInsert(sqlCommand, userModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("User_InsertAsync");
             }
             catch (Exception ex)
             {
@@ -234,14 +192,13 @@ namespace WebApi.Donne.Infrastructure
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             con.Close();
-            logger.Trace("Delete");
+            logger.Trace("User_Delete");
         }
 
         public async Task DeleteAsync(int UserId)
         {
             try
             {
-                logger.Trace("DeleteAsync");
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand("USP_Donne_User_Delete", con);
                 cmd.Parameters.AddWithValue("@UserId", UserId);
@@ -249,50 +206,41 @@ namespace WebApi.Donne.Infrastructure
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
+                logger.Trace("User_DeleteAsync");
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler User, rota DeleteAsync " + ex.Message;
-                this.logger.TraceException("DeleteAsync");
+                this.logger.TraceException("User_DeleteAsync");
                 throw new ArgumentNullException(mensagem);
             }
 
         }
 
-        public void Update(UserModel User)
+        public void Update(UserModel userModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_Donne_User_Update", con);
-            cmd.Parameters.AddWithValue("@UserId", User.UserId);
-            cmd.Parameters.AddWithValue("@UserName", User.UserName);
-            cmd.Parameters.AddWithValue("@UserPassword", User.UserPassword);
-            cmd.Parameters.AddWithValue("@ProfileId", User.ProfileId);
-            cmd.Parameters.AddWithValue("@ProfileName", User.ProfileName);
-            cmd.Parameters.AddWithValue("@Status", User.Status);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Update");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_Update", sqlConnection);
+            GetSqlCommandUserModelUpdate(sqlCommand, userModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("User_Update");
         }
 
-        public async Task UpdateAsync(UserModel User)
+        public async Task UpdateAsync(UserModel userModel)
         {
             try
             {
-                logger.Trace("UpdateAsync");
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_Donne_User_Update", con);
-                cmd.Parameters.AddWithValue("@UserId", User.UserId);
-                cmd.Parameters.AddWithValue("@UserName", User.UserName);
-                cmd.Parameters.AddWithValue("@UserPassword", User.UserPassword);
-                cmd.Parameters.AddWithValue("@ProfileId", User.ProfileId);
-                cmd.Parameters.AddWithValue("@ProfileName", User.ProfileName);
-                cmd.Parameters.AddWithValue("@Status", User.Status);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_Update", sqlConnection);
+                GetSqlCommandUserModelUpdate(sqlCommand, userModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("User_UpdateAsync");
             }
             catch (Exception ex)
             {
@@ -300,6 +248,47 @@ namespace WebApi.Donne.Infrastructure
                 this.logger.TraceException("UpdateAsync");
                 throw new ArgumentNullException(mensagem);
             }
+        }
+
+        #endregion
+
+        #region Helpers
+        private List<UserModel> GetListUserModel(SqlDataReader sqlDataReader, List<UserModel> listUserModel)
+        {
+            UserModel UserModel = new UserModel();
+            UserModel = GetUserModel(sqlDataReader, UserModel);
+            listUserModel.Add(UserModel);
+            return listUserModel;
+        }
+
+        private UserModel GetUserModel(SqlDataReader sqlDataReader, UserModel userModel)
+        {
+            userModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
+            userModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
+            userModel.UserPassword = Convert.ToString(sqlDataReader["UserPassword"]);
+            userModel.ProfileId = Convert.ToInt32(sqlDataReader["ProfileId"]);
+            userModel.ProfileName = Convert.ToString(sqlDataReader["ProfileName"]);
+            userModel.Status = Convert.ToInt32(sqlDataReader["Status"]);
+            return userModel;
+        }
+
+        private void GetSqlCommandUserModelUpdate(SqlCommand sqlCommand, UserModel userModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@UserId", userModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", userModel.UserName);
+            sqlCommand.Parameters.AddWithValue("@UserPassword", userModel.UserPassword);
+            sqlCommand.Parameters.AddWithValue("@ProfileId", Convert.ToInt32(userModel.ProfileId));
+            sqlCommand.Parameters.AddWithValue("@ProfileName", userModel.ProfileName);
+            sqlCommand.Parameters.AddWithValue("@Status", Convert.ToInt32(userModel.Status));
+        }
+
+        private void GetSqlCommandUserModelInsert(SqlCommand sqlCommand, UserModel userModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@UserName", userModel.UserName);
+            sqlCommand.Parameters.AddWithValue("@UserPassword", userModel.UserPassword);
+            sqlCommand.Parameters.AddWithValue("@ProfileId", Convert.ToInt32(userModel.ProfileId));
+            sqlCommand.Parameters.AddWithValue("@ProfileName", userModel.ProfileName);
+            sqlCommand.Parameters.AddWithValue("@Status", Convert.ToInt32(userModel.Status));
         }
 
         #endregion

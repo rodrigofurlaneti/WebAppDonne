@@ -153,7 +153,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             int userId = Faker.RandomNumber.Next(0, 100);
             string userName = Faker.Name.First();
             string userPassword = Faker.Name.First();
-            bool status = true;
+            int status = 1;
             UserModel userModel = new UserModel(userId, userName,
                 userPassword, profileId, profileName, status);
 
@@ -177,7 +177,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             int userId = Faker.RandomNumber.Next(0, 100);
             string userName = Faker.Name.First();
             string userPassword = Faker.Name.First();
-            bool status = true;
+            int status = 1;
             UserModel userModel = new UserModel(userId, userName,
                 userPassword, profileId, profileName, status);
 
@@ -204,7 +204,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             string profileName = Faker.Name.First();
             string userName = Faker.Name.First();
             string userPassword = Faker.Name.First();
-            bool status = true;
+            int status = 1;
             UserModel userModel = new UserModel(id, userName,
                 userPassword, profileId, profileName, status);
 
@@ -233,7 +233,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             string profileName = Faker.Name.First();
             string userName = Faker.Name.First();
             string userPassword = Faker.Name.First();
-            bool status = true;
+            int status = 1;
             UserModel userModel = new UserModel(id, userName,
                 userPassword, profileId, profileName, status);
 
