@@ -17,56 +17,42 @@ namespace WebApi.Donne.Infrastructure
         public IEnumerable<ProfileModel> GetAllProfiles()
         {
             List<ProfileModel> listProfileModel = new List<ProfileModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_ProfileGetAll", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_GetAll", sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    ProfileModel profileModel = new ProfileModel();
-                    profileModel.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    profileModel.ProfileName = Convert.ToString(rdr["ProfileName"]);
-                    profileModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    profileModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    profileModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                    profileModel.UserName = Convert.ToString(rdr["UserName"]);
-                    listProfileModel.Add(profileModel);
+                    GetListProfileModel(sqlDataReader, listProfileModel);
                 }
             }
-            logger.Trace("GetAllProfiles");
+            logger.Trace("Profile_GetAll");
             return listProfileModel;
         }
 
         public async Task<IEnumerable<ProfileModel>> GetAllProfilesAsync()
         {
             List<ProfileModel> listProfileModel = new List<ProfileModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                    this.logger.Trace("GetAllProfilesAsync");
-                    SqlCommand cmd = new SqlCommand("USP_ProfileGetAll", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
+                    this.logger.Trace("Profile_GetAllAsync");
+                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_GetAll", sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
                     {
-                        ProfileModel profileModel = new ProfileModel();
-                        profileModel.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                        profileModel.ProfileName = Convert.ToString(rdr["ProfileName"]);
-                        profileModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                        profileModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                        profileModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                        profileModel.UserName = Convert.ToString(rdr["UserName"]);
-                        listProfileModel.Add(profileModel);
+                        GetListProfileModel(sqlDataReader, listProfileModel);
                     }
                 return listProfileModel;
             }
             catch (Exception ex)
             {
                     string mensagem = "Erro ao consumir o metodo GetAllProfilesAsync " + ex.Message;
-                    this.logger.TraceException("GetAllProfilesAsync");
+                    this.logger.TraceException("Profile_GetAllAsync");
                     throw new ArgumentNullException(mensagem);
             }
         }
@@ -74,24 +60,19 @@ namespace WebApi.Donne.Infrastructure
         public ProfileModel GetById(int id)
         {
             ProfileModel profileModel = new ProfileModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_ProfileGetById", con);
-                cmd.Parameters.AddWithValue("@ProfileId", id);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_GetById", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@ProfileId", id);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    profileModel.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                    profileModel.ProfileName = Convert.ToString(rdr["ProfileName"]);
-                    profileModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    profileModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    profileModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                    profileModel.UserName = Convert.ToString(rdr["UserName"]);
+                    GetProfileModel(sqlDataReader, profileModel);
                 }
             }
-            logger.Trace("GetById");
+            logger.Trace("Profile_GetById");
             return profileModel;
         }
 
@@ -99,123 +80,105 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                this.logger.Trace("GetByIdAsync");
                 ProfileModel profileModel = new ProfileModel();
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_ProfileGetById", con);
-                    cmd.Parameters.AddWithValue("@ProfileId", id);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_GetById", sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("@ProfileId", id);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
                     {
-                        profileModel.ProfileId = Convert.ToInt32(rdr["ProfileId"]);
-                        profileModel.ProfileName = Convert.ToString(rdr["ProfileName"]);
-                        profileModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                        profileModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                        profileModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                        profileModel.UserName = Convert.ToString(rdr["UserName"]);
+                        GetProfileModel(sqlDataReader, profileModel);
                     }
                 }
+                this.logger.Trace("Profile_GetByIdAsync");
                 return profileModel;
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir o metodo GetAllProfilesAsync " + ex.Message;
-                this.logger.TraceException("GetByIdAsync");
+                this.logger.TraceException("Profile_GetByIdAsync");
                 throw new ArgumentNullException(mensagem);
             }
         }
 
         public void Insert(ProfileModel profileModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ProfileInsert", con);
-            cmd.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
-            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", profileModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", profileModel.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Insert");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Insert", sqlConnection);
+            GetSqlCommandProfileModelInsert(sqlCommand, profileModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Profile_Insert");
         }
 
         public async Task InsertAsync(ProfileModel profileModel)
         {
             try
             {
-                logger.Trace("InsertAsync");
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_ProfileInsert", con);
-                cmd.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
-                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", profileModel.UserId);
-                cmd.Parameters.AddWithValue("@UserName", profileModel.UserName);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Insert", sqlConnection);
+                GetSqlCommandProfileModelInsert(sqlCommand, profileModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("Profile_InsertAsync");
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir o metodo InsertAsync " + ex.Message;
-                this.logger.TraceException("InsertAsync");
+                this.logger.TraceException("Profile_InsertAsync");
                 throw new ArgumentNullException(mensagem);
             }
         }
 
         public void Delete(int ProfileId)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ProfileDelete", con);
-            cmd.Parameters.AddWithValue("@ProfileId", ProfileId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Delete");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Delete", sqlConnection);
+            sqlCommand.Parameters.AddWithValue("@ProfileId", ProfileId);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Profile_Delete");
         }
 
         public async Task DeleteAsync(int ProfileId)
         {
             try
             {
-                logger.Trace("DeleteAsync");
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_ProfileDelete", con);
-                cmd.Parameters.AddWithValue("@ProfileId", ProfileId);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Delete", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@ProfileId", ProfileId);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("Profile_DeleteAsync");
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir o metodo DeleteAsync " + ex.Message;
-                this.logger.TraceException("DeleteAsync");
+                this.logger.TraceException("Profile_DeleteAsync");
                 throw new ArgumentNullException(mensagem);
             }
         }
 
         public void Update(ProfileModel profileModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ProfileUpdate", con);
-            cmd.Parameters.AddWithValue("@ProfileId", profileModel.ProfileId);
-            cmd.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
-            cmd.Parameters.AddWithValue("@DateInsert", profileModel.DateInsert);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", profileModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", profileModel.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Update", sqlConnection);
+            GetSqlCommandProfileModelUpdate(sqlCommand, profileModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
             logger.Trace("Update");
         }
 
@@ -223,29 +186,65 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                logger.Trace("UpdateAsync");
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_ProfileUpdate", con);
-                cmd.Parameters.AddWithValue("@ProfileId", profileModel.ProfileId);
-                cmd.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
-                cmd.Parameters.AddWithValue("@DateInsert", profileModel.DateInsert);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", profileModel.UserId);
-                cmd.Parameters.AddWithValue("@UserName", profileModel.UserName);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
+                logger.Trace("Profile_UpdateAsync");
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Update", sqlConnection);
+                GetSqlCommandProfileModelUpdate(sqlCommand, profileModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("Profile_UpdateAsync");
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir o metodo UpdateAsync " + ex.Message;
-                this.logger.TraceException("UpdateAsync");
+                this.logger.TraceException("Profile_UpdateAsync");
                 throw new ArgumentNullException(mensagem);
             }
 
         }
 
+        #endregion
+
+        #region Helpers
+        private List<ProfileModel> GetListProfileModel(SqlDataReader sqlDataReader, List<ProfileModel> listProfileModel)
+        {
+            ProfileModel profileModel = new ProfileModel();
+            profileModel = GetProfileModel(sqlDataReader, profileModel);
+            listProfileModel.Add(profileModel);
+            return listProfileModel;
+        }
+
+        private ProfileModel GetProfileModel(SqlDataReader sqlDataReader, ProfileModel profileModel)
+        {
+            profileModel.ProfileId = Convert.ToInt32(sqlDataReader["ProfileId"]);
+            profileModel.ProfileName = Convert.ToString(sqlDataReader["ProfileName"]);
+            profileModel.DateInsert = Convert.ToDateTime(sqlDataReader["DateInsert"]);
+            profileModel.DateUpdate = Convert.ToDateTime(sqlDataReader["DateUpdate"]);
+            profileModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
+            profileModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
+            return profileModel;
+        }
+
+        private void GetSqlCommandProfileModelInsert(SqlCommand sqlCommand, ProfileModel profileModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", profileModel.DateUpdate);
+            sqlCommand.Parameters.AddWithValue("@UserId", profileModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", profileModel.UserName);
+        }
+
+        private void GetSqlCommandProfileModelUpdate(SqlCommand sqlCommand, ProfileModel profileModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@ProfileId", profileModel.ProfileId);
+            sqlCommand.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", profileModel.DateInsert);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@UserId", profileModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", profileModel.UserName);
+        }
         #endregion
     }
 }
