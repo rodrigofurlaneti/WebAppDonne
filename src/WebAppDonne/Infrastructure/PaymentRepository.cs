@@ -17,64 +17,42 @@ namespace WebApi.Donne.Infrastructure
         public IEnumerable<PaymentModel> GetAllPayments()
         {
             List<PaymentModel> listPaymentModel = new List<PaymentModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_PaymentGetAll", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_GetAll", sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    PaymentModel paymentModel = new PaymentModel();
-                    paymentModel.PaymentId = Convert.ToInt32(rdr["PaymentId"]);
-                    paymentModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
-                    paymentModel.FormOfPaymentId = Convert.ToInt32(rdr["FormOfPaymentId"]);
-                    paymentModel.FormOfPaymentName = Convert.ToString(rdr["FormOfPaymentName"]);
-                    paymentModel.PaymentAmount = Convert.ToString(rdr["PaymentAmount"]);
-                    paymentModel.PaymentType = Convert.ToString(rdr["PaymentType"]);
-                    paymentModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    paymentModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    paymentModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                    paymentModel.UserName = Convert.ToString(rdr["UserName"]);
-                    listPaymentModel.Add(paymentModel);
+                    GetListPaymentModel(sqlDataReader, listPaymentModel);
                 }
             }
-            logger.Trace("GetAllPayments");
+            logger.Trace("Payment_GetAll");
             return listPaymentModel;
         }
 
         public async Task<IEnumerable<PaymentModel>> GetAllPaymentsAsync()
         {
             List<PaymentModel> listPaymentModel = new List<PaymentModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                this.logger.Trace("GetAllPaymentsAsync");
-                SqlCommand cmd = new SqlCommand("USP_PaymentGetAll", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_GetAll", sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                while (sqlDataReader.Read())
                 {
-                        PaymentModel paymentModel = new PaymentModel();
-                        paymentModel.PaymentId = Convert.ToInt32(rdr["PaymentId"]);
-                        paymentModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
-                        paymentModel.FormOfPaymentId = Convert.ToInt32(rdr["FormOfPaymentId"]);
-                        paymentModel.FormOfPaymentName = Convert.ToString(rdr["FormOfPaymentName"]);
-                        paymentModel.PaymentAmount = Convert.ToString(rdr["PaymentAmount"]);
-                        paymentModel.PaymentType = Convert.ToString(rdr["PaymentType"]);
-                        paymentModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                        paymentModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                        paymentModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                        paymentModel.UserName = Convert.ToString(rdr["UserName"]);
-                        listPaymentModel.Add(paymentModel);
+                    GetListPaymentModel(sqlDataReader, listPaymentModel);
                 }
+                this.logger.Trace("Payment_GetAllAsync");
                 return listPaymentModel;
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a método GetAllPaymentsAsync " + ex.Message;
-                this.logger.TraceException("GetAllPaymentsAsync");
+                this.logger.TraceException("Payment_GetAllAsync");
                 throw new ArgumentNullException(mensagem);
             }
         }
@@ -82,26 +60,16 @@ namespace WebApi.Donne.Infrastructure
         public PaymentModel GetById(int id)
         {
             PaymentModel paymentModel = new PaymentModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_PaymentGetById", con);
-                cmd.Parameters.AddWithValue("@PaymentId", id);
-
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_GetById", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@PaymentId", id);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    paymentModel.PaymentId = Convert.ToInt32(rdr["PaymentId"]);
-                    paymentModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
-                    paymentModel.FormOfPaymentId = Convert.ToInt32(rdr["FormOfPaymentId"]);
-                    paymentModel.FormOfPaymentName = Convert.ToString(rdr["FormOfPaymentName"]);
-                    paymentModel.PaymentAmount = Convert.ToString(rdr["PaymentAmount"]);
-                    paymentModel.PaymentType = Convert.ToString(rdr["PaymentType"]);
-                    paymentModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    paymentModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    paymentModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                    paymentModel.UserName = Convert.ToString(rdr["UserName"]);
+                    GetPaymentModel(sqlDataReader, paymentModel);
                 }
             }
             logger.Trace("GetById");
@@ -111,117 +79,91 @@ namespace WebApi.Donne.Infrastructure
         public async Task<PaymentModel> GetByIdAsync(int id)
         {
             PaymentModel paymentModel = new PaymentModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                    SqlCommand cmd = new SqlCommand("USP_PaymentGetById", con);
-                    cmd.Parameters.AddWithValue("@PaymentId", id);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_GetById", sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("@PaymentId", id);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
                     {
-                        paymentModel.PaymentId = Convert.ToInt32(rdr["PaymentId"]);
-                        paymentModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
-                        paymentModel.FormOfPaymentId = Convert.ToInt32(rdr["FormOfPaymentId"]);
-                        paymentModel.FormOfPaymentName = Convert.ToString(rdr["FormOfPaymentName"]);
-                        paymentModel.PaymentAmount = Convert.ToString(rdr["PaymentAmount"]);
-                        paymentModel.PaymentType = Convert.ToString(rdr["PaymentType"]);
-                        paymentModel.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                        paymentModel.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                        paymentModel.UserId = Convert.ToInt32(rdr["UserId"]);
-                        paymentModel.UserName = Convert.ToString(rdr["UserName"]);
+                        GetPaymentModel(sqlDataReader, paymentModel);
                     }
-                logger.Trace("GetByIdAsync");
+                logger.Trace("Payment_GetByIdAsync");
                 return paymentModel;
             }
             catch (Exception ex)
             {
                     string mensagem = "Erro ao consumir a método GetByIdAsync " + ex.Message;
-                    logger.TraceException("GetByIdAsync");
+                    logger.TraceException("Payment_GetByIdAsync");
                     throw new ArgumentNullException(mensagem);
             }
         }
 
         public void Insert(PaymentModel paymentModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_PaymentInsert", con);
-            cmd.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
-            cmd.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);
-            cmd.Parameters.AddWithValue("@FormOfPaymentName", paymentModel.FormOfPaymentName);
-            cmd.Parameters.AddWithValue("PaymentAmount", paymentModel.PaymentAmount);
-            cmd.Parameters.AddWithValue("PaymentType", paymentModel.PaymentType);
-            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", paymentModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", paymentModel.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Insert");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Insert", sqlConnection);
+            GetSqlCommandPaymentModelInsert(sqlCommand, paymentModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Payment_Insert");
         }
-
 
         public async Task InsertAsync(PaymentModel paymentModel)
         {
             try
             {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_PaymentInsert", con);
-                cmd.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
-                cmd.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);
-                cmd.Parameters.AddWithValue("@FormOfPaymentName", paymentModel.FormOfPaymentName);
-                cmd.Parameters.AddWithValue("PaymentAmount", paymentModel.PaymentAmount);
-                cmd.Parameters.AddWithValue("PaymentType", paymentModel.PaymentType);
-                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", paymentModel.UserId);
-                cmd.Parameters.AddWithValue("@UserName", paymentModel.UserName);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
-                logger.Trace("InsertAsync");
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Insert", sqlConnection);
+                GetSqlCommandPaymentModelInsert(sqlCommand, paymentModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("Payment_InsertAsync");
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a método InsertAsync " + ex.Message;
-                logger.TraceException("InsertAsync");
+                logger.TraceException("Payment_InsertAsync");
                 throw new ArgumentNullException(mensagem);
             }
 
         }
         public void Delete(int PaymentId)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_PaymentDelete", con);
-            cmd.Parameters.AddWithValue("@PaymentId", PaymentId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Delete");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Delete", sqlConnection);
+            sqlCommand.Parameters.AddWithValue("@PaymentId", PaymentId);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Payment_Delete");
         }
 
         public async Task DeleteAsync(int PaymentId)
         {
             try
             {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_PaymentDelete", con);
-                cmd.Parameters.AddWithValue("@PaymentId", PaymentId);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
-                logger.Trace("DeleteAsync");
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Delete", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@PaymentId", PaymentId);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("Payment_DeleteAsync");
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a método InsertAsync " + ex.Message;
-                logger.TraceException("InsertAsync");
+                logger.TraceException("Payment_InsertAsync");
                 throw new ArgumentNullException(mensagem);
             }
 
@@ -229,55 +171,89 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(PaymentModel paymentModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_PaymentUpdate", con);
-            cmd.Parameters.AddWithValue("@PaymentId", paymentModel.PaymentId);
-            cmd.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
-            cmd.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);
-            cmd.Parameters.AddWithValue("@FormOfPaymentName", paymentModel.FormOfPaymentName);
-            cmd.Parameters.AddWithValue("@PaymentAmount", paymentModel.PaymentAmount);
-            cmd.Parameters.AddWithValue("@PaymentType", paymentModel.PaymentType);
-            cmd.Parameters.AddWithValue("@DateInsert", paymentModel.DateInsert);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", paymentModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", paymentModel.UserName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Update");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Update", sqlConnection);
+            GetSqlCommandPaymentModelUpdate(sqlCommand, paymentModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Payment_Update");
         }
 
         public async Task UpdateAsync(PaymentModel paymentModel)
         {
             try
             {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_PaymentUpdate", con);
-                cmd.Parameters.AddWithValue("@PaymentId", paymentModel.PaymentId);
-                cmd.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
-                cmd.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);
-                cmd.Parameters.AddWithValue("@FormOfPaymentName", paymentModel.FormOfPaymentName);
-                cmd.Parameters.AddWithValue("@PaymentAmount", paymentModel.PaymentAmount);
-                cmd.Parameters.AddWithValue("@PaymentType", paymentModel.PaymentType);
-                cmd.Parameters.AddWithValue("@DateInsert", paymentModel.DateInsert);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", paymentModel.UserId);
-                cmd.Parameters.AddWithValue("@UserName", paymentModel.UserName);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
-                logger.Trace("UpdateAsync");
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Update", sqlConnection);
+                GetSqlCommandPaymentModelUpdate(sqlCommand, paymentModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("Payment_UpdateAsync");
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a método UpdateAsync " + ex.Message;
-                logger.TraceException("UpdatetAsync");
+                logger.TraceException("Payment_UpdatetAsync");
                 throw new ArgumentNullException(mensagem);
             }
         }
 
+        #endregion
+
+        #region Helpers
+        private List<PaymentModel> GetListPaymentModel(SqlDataReader sqlDataReader, List<PaymentModel> listPaymentModel)
+        {
+            PaymentModel paymentModel = new PaymentModel();
+            paymentModel = GetPaymentModel(sqlDataReader, paymentModel);
+            listPaymentModel.Add(paymentModel);
+            return listPaymentModel;
+        }
+
+        private PaymentModel GetPaymentModel(SqlDataReader sqlDataReader, PaymentModel paymentModel)
+        {
+            paymentModel.PaymentId = Convert.ToInt32(sqlDataReader["PaymentId"]);
+            paymentModel.CommandId = Convert.ToInt32(sqlDataReader["CommandId"]);
+            paymentModel.FormOfPaymentId = Convert.ToInt32(sqlDataReader["FormOfPaymentId"]);
+            paymentModel.FormOfPaymentName = Convert.ToString(sqlDataReader["FormOfPaymentName"]);
+            paymentModel.PaymentAmount = Convert.ToString(sqlDataReader["PaymentAmount"]);
+            paymentModel.PaymentType = Convert.ToString(sqlDataReader["PaymentType"]);
+            paymentModel.DateInsert = Convert.ToDateTime(sqlDataReader["DateInsert"]);
+            paymentModel.DateUpdate = Convert.ToDateTime(sqlDataReader["DateUpdate"]);
+            paymentModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
+            paymentModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
+            return paymentModel;
+        }
+
+        private void GetSqlCommandPaymentModelInsert(SqlCommand sqlCommand, PaymentModel paymentModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
+            sqlCommand.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);
+            sqlCommand.Parameters.AddWithValue("@FormOfPaymentName", paymentModel.FormOfPaymentName);
+            sqlCommand.Parameters.AddWithValue("@PaymentAmount", paymentModel.PaymentAmount);
+            sqlCommand.Parameters.AddWithValue("@PaymentType", paymentModel.PaymentType);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", paymentModel.DateUpdate);
+            sqlCommand.Parameters.AddWithValue("@UserId", paymentModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", paymentModel.UserName);
+        }
+
+        private void GetSqlCommandPaymentModelUpdate(SqlCommand sqlCommand, PaymentModel paymentModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@PaymentId", paymentModel.PaymentId);
+            sqlCommand.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
+            sqlCommand.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);
+            sqlCommand.Parameters.AddWithValue("@FormOfPaymentName", paymentModel.FormOfPaymentName);
+            sqlCommand.Parameters.AddWithValue("@PaymentAmount", paymentModel.PaymentAmount);
+            sqlCommand.Parameters.AddWithValue("@PaymentType", paymentModel.PaymentType);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", paymentModel.DateInsert);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@UserId", paymentModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", paymentModel.UserName);
+        }
         #endregion
     }
 }
