@@ -17,155 +17,88 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<ProductModel> GetAllProducts()
         {
+            commandText = "USP_Donne_Product_GetAll";
             List<ProductModel> listProductModel = new List<ProductModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection  = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_ProductGetAll", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    ProductModel product = new ProductModel();
-                    product.ProductId = Convert.ToInt32(rdr["ProductId"]);
-                    product.ProductName = Convert.ToString(rdr["ProductName"]);
-                    product.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
-                    product.CategoryName = Convert.ToString(rdr["CategoryName"]);
-                    product.CostPrice = Convert.ToString(rdr["CostPrice"]);
-                    product.SalePrice = Convert.ToString(rdr["SalePrice"]);
-                    product.QuantityStock = Convert.ToInt32(rdr["QuantityStock"]);
-                    product.MinimumStockQuantity = Convert.ToInt32(rdr["MinimumStockQuantity"]);
-                    product.TotalValueCostOfInventory = Convert.ToString(rdr["TotalValueCostOfInventory"]);
-                    product.TotalValueSaleStock = Convert.ToString(rdr["TotalValueSaleStock"]);
-                    product.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    product.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    product.NeedToPrint = Convert.ToBoolean(rdr["NeedToPrint"]);
-                    product.UserId = Convert.ToInt32(rdr["UserId"]);
-                    product.UserName = Convert.ToString(rdr["UserName"]);
-                    product.Status = Convert.ToBoolean(rdr["Status"]);
-                    product.QuantityToBuy = Convert.ToInt32(rdr["QuantityToBuy"]);
-                    product.TotalValueOfLastPurchase = Convert.ToString(rdr["TotalValueOfLastPurchase"]);
-                    listProductModel.Add(product);
+                    GetListProductModel(sqlDataReader, listProductModel);
                 }
             }
-            logger.Trace("GetAllProducts");
+            logger.Trace("Product_GetAll");
             return listProductModel;
         }
 
 
         public async Task<IEnumerable<ProductModel>> GetAllProductsAsync()
         {
+            commandText = "USP_Donne_Product_GetAll";
             List<ProductModel> listProductModel = new List<ProductModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection  = new SqlConnection(connectionString))
                 try
                 {
-                    logger.Trace("GetAllProductsAsync");
-                    SqlCommand cmd = new SqlCommand("USP_ProductGetAll", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
                     {
-                        ProductModel product = new ProductModel();
-                        product.ProductId = Convert.ToInt32(rdr["ProductId"]);
-                        product.ProductName = Convert.ToString(rdr["ProductName"]);
-                        product.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
-                        product.CategoryName = Convert.ToString(rdr["CategoryName"]);
-                        product.CostPrice = Convert.ToString(rdr["CostPrice"]);
-                        product.SalePrice = Convert.ToString(rdr["SalePrice"]);
-                        product.QuantityStock = Convert.ToInt32(rdr["QuantityStock"]);
-                        product.MinimumStockQuantity = Convert.ToInt32(rdr["MinimumStockQuantity"]);
-                        product.TotalValueCostOfInventory = Convert.ToString(rdr["TotalValueCostOfInventory"]);
-                        product.TotalValueSaleStock = Convert.ToString(rdr["TotalValueSaleStock"]);
-                        product.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                        product.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                        product.NeedToPrint = Convert.ToBoolean(rdr["NeedToPrint"]);
-                        product.UserId = Convert.ToInt32(rdr["UserId"]);
-                        product.UserName = Convert.ToString(rdr["UserName"]);
-                        product.Status = Convert.ToBoolean(rdr["Status"]);
-                        product.QuantityToBuy = Convert.ToInt32(rdr["QuantityToBuy"]);
-                        product.TotalValueOfLastPurchase = Convert.ToString(rdr["TotalValueOfLastPurchase"]);
-                        listProductModel.Add(product);
+                        GetListProductModel(sqlDataReader, listProductModel);
                     }
+                    logger.Trace("Product_GetAllAsync");
                     return listProductModel;
                 }
                 catch (Exception ex)
                 {
                     string mensagem = "Erro ao consumir a método GetAllPaymentsAsync " + ex.Message;
-                    logger.TraceException("GetAllPaymentsAsync");
+                    logger.TraceException("Product_GetAllPaymentsAsync");
                     throw new ArgumentNullException(mensagem);
                 }                
         }
 
         public ProductModel GetById(int id)
         {
-            ProductModel product = new ProductModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            commandText = "USP_Donne_Product_GetById";
+            ProductModel productModel = new ProductModel();
+            using (SqlConnection sqlConnection  = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_ProductGetById", con);
-                cmd.Parameters.AddWithValue("@ProductId", id);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@ProductId", id);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    product.ProductName = Convert.ToString(rdr["ProductName"]);
-                    product.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
-                    product.CategoryName = Convert.ToString(rdr["CategoryName"]);
-                    product.CostPrice = Convert.ToString(rdr["CostPrice"]);
-                    product.SalePrice = Convert.ToString(rdr["SalePrice"]);
-                    product.QuantityStock = Convert.ToInt32(rdr["QuantityStock"]);
-                    product.MinimumStockQuantity = Convert.ToInt32(rdr["MinimumStockQuantity"]);
-                    product.TotalValueCostOfInventory = Convert.ToString(rdr["TotalValueCostOfInventory"]);
-                    product.TotalValueSaleStock = Convert.ToString(rdr["TotalValueSaleStock"]);
-                    product.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    product.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    product.NeedToPrint = Convert.ToBoolean(rdr["NeedToPrint"]);
-                    product.UserId = Convert.ToInt32(rdr["UserId"]);
-                    product.UserName = Convert.ToString(rdr["UserName"]);
-                    product.Status = Convert.ToBoolean(rdr["Status"]);
-                    product.QuantityToBuy = Convert.ToInt32(rdr["QuantityToBuy"]);
-                    product.TotalValueOfLastPurchase = Convert.ToString(rdr["TotalValueOfLastPurchase"]);
+                    GetProductModel(sqlDataReader, productModel);
                 }
             }
             logger.Trace("GetById");
-            return product;
+            return productModel;
         }
 
         public async Task<ProductModel> GetByIdAsync(int id)
         {
-            ProductModel product = new ProductModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            commandText = "USP_Donne_Product_GetById";
+            ProductModel productModel = new ProductModel();
+            using (SqlConnection sqlConnection  = new SqlConnection(connectionString))
             try
             {
-                    SqlCommand cmd = new SqlCommand("USP_ProductGetById", con);
-                    cmd.Parameters.AddWithValue("@ProductId", id);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("@ProductId", id);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
                     {
-                        product.ProductId = Convert.ToInt32(rdr["ProductId"]);
-                        product.ProductName = Convert.ToString(rdr["ProductName"]);
-                        product.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
-                        product.CategoryName = Convert.ToString(rdr["CategoryName"]);
-                        product.CostPrice = Convert.ToString(rdr["CostPrice"]);
-                        product.SalePrice = Convert.ToString(rdr["SalePrice"]);
-                        product.QuantityStock = Convert.ToInt32(rdr["QuantityStock"]);
-                        product.MinimumStockQuantity = Convert.ToInt32(rdr["MinimumStockQuantity"]);
-                        product.TotalValueCostOfInventory = Convert.ToString(rdr["TotalValueCostOfInventory"]);
-                        product.TotalValueSaleStock = Convert.ToString(rdr["TotalValueSaleStock"]);
-                        product.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                        product.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                        product.NeedToPrint = Convert.ToBoolean(rdr["NeedToPrint"]);
-                        product.UserId = Convert.ToInt32(rdr["UserId"]);
-                        product.UserName = Convert.ToString(rdr["UserName"]);
-                        product.Status = Convert.ToBoolean(rdr["Status"]);
-                        product.QuantityToBuy = Convert.ToInt32(rdr["QuantityToBuy"]);
-                        product.TotalValueOfLastPurchase = Convert.ToString(rdr["TotalValueOfLastPurchase"]);
+                        GetProductModel(sqlDataReader, productModel);
                     }
                 logger.Trace("GetByIdAsync");
-                return product;
+                return productModel;
             }
             catch (Exception ex)
             {
@@ -175,69 +108,39 @@ namespace WebApi.Donne.Infrastructure
             }
         }
 
-        public void Insert(ProductModel product)
+        public void Insert(ProductModel productModel)
         {
-            product = ProductBusiness.ProductModelValid(product);
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ProductInsert", con);
-            cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
-            cmd.Parameters.AddWithValue("@CategoryId", product.CategoryId);
-            cmd.Parameters.AddWithValue("@CategoryName", product.CategoryName);
-            cmd.Parameters.AddWithValue("@CostPrice", product.CostPrice);
-            cmd.Parameters.AddWithValue("@SalePrice", product.SalePrice);
-            cmd.Parameters.AddWithValue("@QuantityStock", product.QuantityStock);
-            cmd.Parameters.AddWithValue("@MinimumStockQuantity", product.MinimumStockQuantity);
-            cmd.Parameters.AddWithValue("@TotalValueCostOfInventory", product.TotalValueCostOfInventory);
-            cmd.Parameters.AddWithValue("@TotalValueSaleStock", product.TotalValueSaleStock);
-            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@NeedToPrint", product.NeedToPrint);
-            cmd.Parameters.AddWithValue("@UserId", product.UserId);
-            cmd.Parameters.AddWithValue("@UserName", product.UserName);
-            cmd.Parameters.AddWithValue("@Status", product.Status);
-            cmd.Parameters.AddWithValue("@QuantityToBuy", product.QuantityToBuy);
-            cmd.Parameters.AddWithValue("@TotalValueOfLastPurchase", product.TotalValueOfLastPurchase);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Insert");
+            commandText = "USP_Donne_Product_Insert";
+            productModel = ProductBusiness.ProductModelValid(productModel);
+            SqlConnection sqlConnection  = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandProductModelInsert(sqlCommand, productModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Product_Insert");
         }
 
-        public async Task InsertAsync(ProductModel product)
+        public async Task InsertAsync(ProductModel productModel)
         {
             try
             {
-                product = ProductBusiness.ProductModelValid(product);
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_ProductInsert", con);
-                cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
-                cmd.Parameters.AddWithValue("@CategoryId", product.CategoryId);
-                cmd.Parameters.AddWithValue("@CategoryName", product.CategoryName);
-                cmd.Parameters.AddWithValue("@CostPrice", product.CostPrice);
-                cmd.Parameters.AddWithValue("@SalePrice", product.SalePrice);
-                cmd.Parameters.AddWithValue("@QuantityStock", product.QuantityStock);
-                cmd.Parameters.AddWithValue("@MinimumStockQuantity", product.MinimumStockQuantity);
-                cmd.Parameters.AddWithValue("@TotalValueCostOfInventory", product.TotalValueCostOfInventory);
-                cmd.Parameters.AddWithValue("@TotalValueSaleStock", product.TotalValueSaleStock);
-                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@NeedToPrint", product.NeedToPrint);
-                cmd.Parameters.AddWithValue("@UserId", product.UserId);
-                cmd.Parameters.AddWithValue("@UserName", product.UserName);
-                cmd.Parameters.AddWithValue("@Status", product.Status);
-                cmd.Parameters.AddWithValue("@QuantityToBuy", product.QuantityToBuy);
-                cmd.Parameters.AddWithValue("@TotalValueOfLastPurchase", product.TotalValueOfLastPurchase);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
-                logger.Trace("InsertProductAsync");
+                commandText = "USP_Donne_Product_Insert";
+                productModel = ProductBusiness.ProductModelValid(productModel);
+                SqlConnection sqlConnection  = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandProductModelInsert(sqlCommand, productModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("Product_InsertAsync");
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a método InsertAsync " + ex.Message;
-                logger.TraceException("InsertAsync");
+                logger.TraceException("Product_InsertAsync");
                 throw new ArgumentNullException(mensagem);
             }
 
@@ -245,105 +148,151 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int ProductId)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ProductDelete", con);
-            cmd.Parameters.AddWithValue("@ProductId", ProductId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Delete");
+            commandText = "USP_Donne_Product_Delete";
+            SqlConnection sqlConnection  = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            sqlCommand.Parameters.AddWithValue("@ProductId", ProductId);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Product_Delete");
         }
 
         public async Task DeleteAsync(int ProductId)
         {
             try
             {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_ProductDelete", con);
-                cmd.Parameters.AddWithValue("@ProductId", ProductId);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
-                logger.Trace("DeleteProductAsync");
+                commandText = "USP_Donne_Product_Delete";
+                SqlConnection sqlConnection  = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@ProductId", ProductId);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("Product_DeleteAsync");
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a método DeleteAsync " + ex.Message;
-                logger.TraceException("DeleteAsync");
+                logger.TraceException("Product_DeleteAsync");
                 throw new ArgumentNullException(mensagem);
             }
         }
 
-        public void Update(ProductModel product)
+        public void Update(ProductModel productModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_ProductUpdate", con);
-            cmd.Parameters.AddWithValue("@ProductId", product.ProductId);
-            cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
-            cmd.Parameters.AddWithValue("@CategoryId", product.CategoryId);
-            cmd.Parameters.AddWithValue("@CategoryName", product.CategoryName);
-            cmd.Parameters.AddWithValue("@CostPrice", product.CostPrice);
-            cmd.Parameters.AddWithValue("@SalePrice", product.SalePrice);
-            cmd.Parameters.AddWithValue("@QuantityStock", product.QuantityStock);
-            cmd.Parameters.AddWithValue("@MinimumStockQuantity", product.MinimumStockQuantity);
-            cmd.Parameters.AddWithValue("@TotalValueCostOfInventory", product.TotalValueCostOfInventory);
-            cmd.Parameters.AddWithValue("@TotalValueSaleStock", product.TotalValueSaleStock);
-            cmd.Parameters.AddWithValue("@DateInsert", product.DateInsert);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@NeedToPrint", product.NeedToPrint);
-            cmd.Parameters.AddWithValue("@UserId", product.UserId);
-            cmd.Parameters.AddWithValue("@UserName", product.UserName);
-            cmd.Parameters.AddWithValue("@Status", product.Status);
-            cmd.Parameters.AddWithValue("@QuantityToBuy", product.QuantityToBuy);
-            cmd.Parameters.AddWithValue("TotalValueOfLastPurchase", product.TotalValueOfLastPurchase);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Update");
+            commandText = "USP_Donne_Product_Update";
+            SqlConnection sqlConnection  = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandProductModelUpdate(sqlCommand, productModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Product_Update");
         }
 
-        public async Task UpdateAsync(ProductModel product)
+        public async Task UpdateAsync(ProductModel productModel)
         {
             try
             {
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_ProductUpdate", con);
-                cmd.Parameters.AddWithValue("@ProductId", product.ProductId);
-                cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
-                cmd.Parameters.AddWithValue("@CategoryId", product.CategoryId);
-                cmd.Parameters.AddWithValue("@CategoryName", product.CategoryName);
-                cmd.Parameters.AddWithValue("@CostPrice", product.CostPrice);
-                cmd.Parameters.AddWithValue("@SalePrice", product.SalePrice);
-                cmd.Parameters.AddWithValue("@QuantityStock", product.QuantityStock);
-                cmd.Parameters.AddWithValue("@MinimumStockQuantity", product.MinimumStockQuantity);
-                cmd.Parameters.AddWithValue("@TotalValueCostOfInventory", product.TotalValueCostOfInventory);
-                cmd.Parameters.AddWithValue("@TotalValueSaleStock", product.TotalValueSaleStock);
-                cmd.Parameters.AddWithValue("@DateInsert", product.DateInsert);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@NeedToPrint", product.NeedToPrint);
-                cmd.Parameters.AddWithValue("@UserId", product.UserId);
-                cmd.Parameters.AddWithValue("@UserName", product.UserName);
-                cmd.Parameters.AddWithValue("@Status", product.Status);
-                cmd.Parameters.AddWithValue("@QuantityToBuy", product.QuantityToBuy);
-                cmd.Parameters.AddWithValue("TotalValueOfLastPurchase", product.TotalValueOfLastPurchase);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
-                logger.Trace("UpdateProductAsync");
+                commandText = "USP_Donne_Product_Update";
+                SqlConnection sqlConnection  = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandProductModelUpdate(sqlCommand, productModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("Product_UpdateAsync");
             }
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a método UpdateAsync " + ex.Message;
-                logger.TraceException("UpdateProductAsync");
+                logger.TraceException("Product_UpdateAsync");
                 throw new ArgumentNullException(mensagem);
             }
 
         }
 
+        #endregion
+
+        #region Helpers
+        private List<ProductModel> GetListProductModel(SqlDataReader sqlDataReader, List<ProductModel> listProductModel)
+        {
+            ProductModel productModel = new ProductModel();
+            productModel = GetProductModel(sqlDataReader, productModel);
+            listProductModel.Add(productModel);
+            return listProductModel;
+        }
+
+        private ProductModel GetProductModel(SqlDataReader sqlDataReader, ProductModel productModel)
+        {
+            productModel.ProductId = Convert.ToInt32(sqlDataReader["ProductId"]);
+            productModel.ProductName = Convert.ToString(sqlDataReader["ProductName"]);
+            productModel.CategoryId = Convert.ToInt32(sqlDataReader["CategoryId"]);
+            productModel.CategoryName = Convert.ToString(sqlDataReader["CategoryName"]);
+            productModel.CostPrice = Convert.ToString(sqlDataReader["CostPrice"]);
+            productModel.SalePrice = Convert.ToString(sqlDataReader["SalePrice"]);
+            productModel.QuantityStock = Convert.ToInt32(sqlDataReader["QuantityStock"]);
+            productModel.MinimumStockQuantity = Convert.ToInt32(sqlDataReader["MinimumStockQuantity"]);
+            productModel.TotalValueCostOfInventory = Convert.ToString(sqlDataReader["TotalValueCostOfInventory"]);
+            productModel.TotalValueSaleStock = Convert.ToString(sqlDataReader["TotalValueSaleStock"]);
+            productModel.DateInsert = Convert.ToDateTime(sqlDataReader["DateInsert"]);
+            productModel.DateUpdate = Convert.ToDateTime(sqlDataReader["DateUpdate"]);
+            productModel.NeedToPrint = Convert.ToInt32(sqlDataReader["NeedToPrint"]);
+            productModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
+            productModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
+            productModel.Status = Convert.ToInt32(sqlDataReader["Status"]);
+            productModel.QuantityToBuy = Convert.ToInt32(sqlDataReader["QuantityToBuy"]);
+            productModel.TotalValueOfLastPurchase = Convert.ToString(sqlDataReader["TotalValueOfLastPurchase"]);
+            return productModel;
+        }
+
+        private void GetSqlCommandProductModelInsert(SqlCommand sqlCommand, ProductModel productModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@ProductName", productModel.ProductName);
+            sqlCommand.Parameters.AddWithValue("@CategoryId", productModel.CategoryId);
+            sqlCommand.Parameters.AddWithValue("@CategoryName", productModel.CategoryName);
+            sqlCommand.Parameters.AddWithValue("@CostPrice", productModel.CostPrice);
+            sqlCommand.Parameters.AddWithValue("@SalePrice", productModel.SalePrice);
+            sqlCommand.Parameters.AddWithValue("@QuantityStock", productModel.QuantityStock);
+            sqlCommand.Parameters.AddWithValue("@MinimumStockQuantity", productModel.MinimumStockQuantity);
+            sqlCommand.Parameters.AddWithValue("@TotalValueCostOfInventory", productModel.TotalValueCostOfInventory);
+            sqlCommand.Parameters.AddWithValue("@TotalValueSaleStock", productModel.TotalValueSaleStock);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", productModel.DateUpdate);
+            sqlCommand.Parameters.AddWithValue("@NeedToPrint", productModel.NeedToPrint);
+            sqlCommand.Parameters.AddWithValue("@UserId", productModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", productModel.UserName);
+            sqlCommand.Parameters.AddWithValue("@Status", productModel.Status);
+            sqlCommand.Parameters.AddWithValue("@QuantityToBuy", productModel.QuantityToBuy);
+            sqlCommand.Parameters.AddWithValue("@TotalValueOfLastPurchase", productModel.TotalValueOfLastPurchase);
+        }
+
+        private void GetSqlCommandProductModelUpdate(SqlCommand sqlCommand, ProductModel productModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@ProductId", productModel.ProductId);
+            sqlCommand.Parameters.AddWithValue("@ProductName", productModel.ProductName);
+            sqlCommand.Parameters.AddWithValue("@CategoryId", productModel.CategoryId);
+            sqlCommand.Parameters.AddWithValue("@CategoryName", productModel.CategoryName);
+            sqlCommand.Parameters.AddWithValue("@CostPrice", productModel.CostPrice);
+            sqlCommand.Parameters.AddWithValue("@SalePrice", productModel.SalePrice);
+            sqlCommand.Parameters.AddWithValue("@QuantityStock", productModel.QuantityStock);
+            sqlCommand.Parameters.AddWithValue("@MinimumStockQuantity", productModel.MinimumStockQuantity);
+            sqlCommand.Parameters.AddWithValue("@TotalValueCostOfInventory", productModel.TotalValueCostOfInventory);
+            sqlCommand.Parameters.AddWithValue("@TotalValueSaleStock", productModel.TotalValueSaleStock);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", productModel.DateInsert);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@NeedToPrint", productModel.NeedToPrint);
+            sqlCommand.Parameters.AddWithValue("@UserId", productModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", productModel.UserName);
+            sqlCommand.Parameters.AddWithValue("@Status", productModel.Status);
+            sqlCommand.Parameters.AddWithValue("@QuantityToBuy", productModel.QuantityToBuy);
+            sqlCommand.Parameters.AddWithValue("@TotalValueOfLastPurchase", productModel.TotalValueOfLastPurchase);
+        }
         #endregion
     }
 }

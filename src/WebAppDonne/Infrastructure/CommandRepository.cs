@@ -16,61 +16,45 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<CommandModel> GetAllCommand()
         {
+            commandText = "USP_Donne_Command_GetAll";
             List<CommandModel> listCommandsModel = new List<CommandModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_CommandGetAll", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    CommandModel command = new CommandModel();
-                    command.CommandId = Convert.ToInt32(rdr["CommandId"]);
-                    command.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                    command.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                    command.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    command.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    command.UserId = Convert.ToInt32(rdr["UserId"]);
-                    command.UserName = Convert.ToString(rdr["UserName"]);
-                    command.Status = Convert.ToBoolean(rdr["Status"]);
-                    listCommandsModel.Add(command);
+                    GetListCommandModel(sqlDataReader, listCommandsModel);
                 }
             }
-            logger.Trace("GetAllCommand");
+            logger.Trace("Command_GetAll");
             return listCommandsModel;
         }
 
         public async Task<IEnumerable<CommandModel>> GetAllCommandAsync()
         {
+            commandText = "USP_Donne_Command_GetAll";
             List<CommandModel> listCommandsModel = new List<CommandModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                this.logger.Trace("GetAllCommandAsync");
-                SqlCommand cmd = new SqlCommand("USP_CommandGetAll", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                while (sqlDataReader.Read())
                 {
-                    CommandModel command = new CommandModel();
-                    command.CommandId = Convert.ToInt32(rdr["CommandId"]);
-                    command.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                    command.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                    command.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    command.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    command.UserId = Convert.ToInt32(rdr["UserId"]);
-                    command.UserName = Convert.ToString(rdr["UserName"]);
-                    command.Status = Convert.ToBoolean(rdr["Status"]);
-                    listCommandsModel.Add(command);
+                    GetListCommandModel(sqlDataReader, listCommandsModel);
                 }
+                this.logger.Trace("Command_GetAllAsync");
                 return listCommandsModel;
             }
             catch (Exception ex)
             {
-                string mensagemErro = "Erro ao lista as comandas, utilizando a procedure USP_CommandGetAll assíncrono " + ex.Message;
-                this.logger.TraceException("GetAllCommandAsync");
+                string mensagemErro = "Erro ao lista as comandas, utilizando a procedure USP_Donne_Command_GetAll assíncrono " + ex.Message;
+                this.logger.TraceException("Command_GetAllAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
 
@@ -78,19 +62,20 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<CommandModel> GetByStatus(int status)
         {
+            commandText = "USP_Donne_Command_GetByStatus";
             List<CommandModel> listCommandsModel = new List<CommandModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_CommandGetByStatus", con);
-                cmd.Parameters.AddWithValue("@Status", status);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@Status", status);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
                     CommandModel commandModel = new CommandModel();
-                    commandModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
-                    commandModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
+                    commandModel.CommandId = Convert.ToInt32(sqlDataReader["CommandId"]);
+                    commandModel.BuyerName = Convert.ToString(sqlDataReader["BuyerName"]);
                     listCommandsModel.Add(commandModel);
                 }
             }
@@ -100,187 +85,132 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<CommandModel>> GetByStatusAsync(int status)
         {
+            commandText = "USP_Donne_Command_GetByStatus";
             List<CommandModel> listCommandsModel = new List<CommandModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                this.logger.Trace("GetByStatusAsync");
-                SqlCommand cmd = new SqlCommand("USP_CommandGetByStatus", con);
-                cmd.Parameters.AddWithValue("@Status", status);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@Status", status);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                while (sqlDataReader.Read())
                 {
                     CommandModel commandModel = new CommandModel();
-                    commandModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
-                    commandModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
+                    commandModel.CommandId = Convert.ToInt32(sqlDataReader["CommandId"]);
+                    commandModel.BuyerName = Convert.ToString(sqlDataReader["BuyerName"]);
                     listCommandsModel.Add(commandModel);
                 }
+                this.logger.Trace("Command_GetByStatusAsync");
                 return listCommandsModel;
             }
             catch (Exception ex)
             {
                 string mensagemErro = "Erro procurar status da comanda, utilizando a procedure USP_CommandGetByStatus assíncrono " + ex.Message;
-                this.logger.TraceException("GetByStatusAsync");
+                this.logger.TraceException("Command_GetByStatusAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
         }
 
-        public IEnumerable<CommandOrderModel> GetCommandOrder(int id)
-        {
-            List<CommandOrderModel> listCommandsModel = new List<CommandOrderModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("USP_CommandOrdersById", con);
-                cmd.Parameters.AddWithValue("@CommandId", id);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    CommandOrderModel commandOrderModel = new CommandOrderModel();
-                    commandOrderModel.CommandId = Convert.ToInt32(rdr["CommandId"]);
-                    commandOrderModel.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                    commandOrderModel.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                    commandOrderModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
-                    commandOrderModel.ProductName = Convert.ToString(rdr["ProductName"]);
-                    commandOrderModel.Amount = Convert.ToInt32(rdr["Amount"]);
-                    commandOrderModel.SalePrice = Convert.ToString(rdr["SalePrice"]);
-                    commandOrderModel.TotalSalePrice = Convert.ToString(rdr["TotalSalePrice"]);
-                    listCommandsModel.Add(commandOrderModel);
-                }
-            }
-            logger.Trace("GetCommandOrder");
-            return listCommandsModel;
-        }
-
         public CommandModel GetById(int id)
         {
-            CommandModel command = new CommandModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            commandText = "USP_Donne_Command_GetById";
+            CommandModel commandModel = new CommandModel();
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_CommandGetById", con);
-                cmd.Parameters.AddWithValue("@CommandId", id);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@CommandId", id);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    command.CommandId = Convert.ToInt32(rdr["CommandId"]);
-                    command.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                    command.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                    command.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    command.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    command.UserId = Convert.ToInt32(rdr["UserId"]);
-                    command.UserName = Convert.ToString(rdr["UserName"]);
-                    command.Status = Convert.ToBoolean(rdr["Status"]);
+                    GetCommandModel(sqlDataReader, commandModel);
                 }
             }
-            logger.Trace("GetById");
-            return command;
+            logger.Trace("Command_GetById");
+            return commandModel;
         }
 
         public async Task<CommandModel> GetByIdAsync(int id)
         {
-            CommandModel command = new CommandModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            CommandModel commandModel = new CommandModel();
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                this.logger.Trace("GetByIdAsync");
-                SqlCommand cmd = new SqlCommand("USP_CommandGetById", con);
-                cmd.Parameters.AddWithValue("@CommandId", id);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                while (rdr.Read())
+                commandText = "USP_Donne_Command_GetById";
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@CommandId", id);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                while (sqlDataReader.Read())
                 {
-                    command.CommandId = Convert.ToInt32(rdr["CommandId"]);
-                    command.BuyerId = Convert.ToInt32(rdr["BuyerId"]);
-                    command.BuyerName = Convert.ToString(rdr["BuyerName"]);
-                    command.DateInsert = Convert.ToDateTime(rdr["DateInsert"]);
-                    command.DateUpdate = Convert.ToDateTime(rdr["DateUpdate"]);
-                    command.UserId = Convert.ToInt32(rdr["UserId"]);
-                    command.UserName = Convert.ToString(rdr["UserName"]);
-                    command.Status = Convert.ToBoolean(rdr["Status"]);
+                    GetCommandModel(sqlDataReader, commandModel);
                 }
-                return command;
+                this.logger.Trace("Command_GetByIdAsync");
+                return commandModel;
             }
             catch (Exception ex)
             {
-                string mensagemErro = "Erro procurar id da comanda, utilizando a procedure USP_CommandById assíncrono " + ex.Message;
-                this.logger.TraceException("GetByIdAsync");
+                string mensagemErro = "Erro procurar id da comanda, utilizando a procedure USP_Donne_Command_GetById assíncrono " + ex.Message;
+                this.logger.TraceException("Command_GetByIdAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
         }
 
         public void Insert(CommandModel commandModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_CommandInsert", con);
-            cmd.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
-            cmd.Parameters.AddWithValue("@BuyerName", commandModel.BuyerName);
-            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", commandModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", commandModel.UserName);
-            cmd.Parameters.AddWithValue("@Status", 1);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Insert");
+            commandText = "USP_Donne_Command_Insert";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandCommandModelInsert(sqlCommand, commandModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Command_Insert");
         }
 
         public async Task InsertAsync(CommandModel commandModel)
         {
             try
             {
-                logger.Trace("InsertAsync");
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_CommandInsert", con);
-                cmd.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
-                cmd.Parameters.AddWithValue("@BuyerName", commandModel.BuyerName);
-                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", commandModel.UserId);
-                cmd.Parameters.AddWithValue("@UserName", commandModel.UserName);
-                cmd.Parameters.AddWithValue("@Status", 1);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
+                commandText = "USP_Donne_Command_Insert";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandCommandModelInsert(sqlCommand, commandModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("Command_InsertAsync");
             }
             catch (Exception ex)
             {
                 string mensagemErro = "Erro ao inserir da comanda, utilizando a procedure USP_CommandInsert assíncrono " + ex.Message;
-                this.logger.TraceException("InsertAsync");
+                this.logger.TraceException("Command_InsertAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
         }
 
         public int InsertReturnId(CommandModel commandModel)
         {
+            commandText = "USP_Donne_Command_InsertReturnId";
             int newId = 0;
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_CommandInsertReturnId", con);
-            cmd.Parameters.AddWithValue("@Identity", commandModel.CommandId);//OUTPUT
-            cmd.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
-            cmd.Parameters.AddWithValue("@BuyerName", commandModel.BuyerName);
-            cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", commandModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", commandModel.UserName);
-            cmd.Parameters.AddWithValue("@Status", true);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            var result = cmd.ExecuteScalar();
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandCommandModelInsertReturnId(sqlCommand, commandModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            var result = sqlCommand.ExecuteScalar();
             if (result != null)
             {
                 newId = Convert.ToInt32(result);
             }
-            con.Close();
-            logger.Trace("InsertReturnId");
+            sqlConnection.Close();
+            logger.Trace("Command_InsertReturnId");
             return newId;
         }
 
@@ -288,66 +218,61 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Command_InsertReturnId";
                 logger.Trace("InsertReturnIdAsync");
                 int newId = 0;
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_CommandInsertReturnId", con);
-                cmd.Parameters.AddWithValue("@Identity", commandModel.CommandId);//OUTPUT
-                cmd.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
-                cmd.Parameters.AddWithValue("@BuyerName", commandModel.BuyerName);
-                cmd.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", commandModel.UserId);
-                cmd.Parameters.AddWithValue("@UserName", commandModel.UserName);
-                cmd.Parameters.AddWithValue("@Status", true);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                var result = await cmd.ExecuteScalarAsync();
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandCommandModelInsertReturnId(sqlCommand, commandModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                var result = await sqlCommand.ExecuteScalarAsync();
                 if (result != null)
                 {
                     newId = Convert.ToInt32(result);
                 }
-                con.Close();
+                sqlConnection.Close();
                 return newId;
             }
             catch (Exception ex)
             {
-                string mensagemErro = "Erro ao inserir da comanda, retorno id, utilizando a procedure USP_CommandInsertReturnId assíncrono " + ex.Message;
-                this.logger.TraceException("InsertReturnIdAsync");
+                string mensagemErro = "Erro ao inserir da comanda, retorno id, utilizando a procedure USP_Donne_Command_InsertReturnId assíncrono " + ex.Message;
+                this.logger.TraceException("Command_InsertReturnIdAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
-
         }
 
         public void Delete(int commandId)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_CommandDelete", con);
-            cmd.Parameters.AddWithValue("@CommandId", commandId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Delete");
+            commandText = "USP_Donne_Command_Delete";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            sqlCommand.Parameters.AddWithValue("@CommandId", commandId);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Command_Delete");
         }
 
         public async Task DeleteAsync(int commandId)
         {
             try
             {
-                this.logger.Trace("DeleteAsync");
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_CommandDelete", con);
-                cmd.Parameters.AddWithValue("@CommandId", commandId);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
+                commandText = "USP_Donne_Command_Delete";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@CommandId", commandId);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                this.logger.Trace("Command_DeleteAsync");
             }
             catch (Exception ex)
             {
-                string mensagemErro = "Erro ao excluir uma comanda, utilizando a procedure USP_CommandDelete assíncrono " + ex.Message;
-                this.logger.TraceException("DeleteAsync");
+                string mensagemErro = "Erro ao excluir uma comanda, utilizando a procedure USP_Donne_Command_Delete assíncrono " + ex.Message;
+                this.logger.TraceException("Command_DeleteAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
         }
@@ -355,49 +280,96 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(CommandModel commandModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_CommandUpdate", con);
-            cmd.Parameters.AddWithValue("@CommandId", commandModel.CommandId);
-            cmd.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
-            cmd.Parameters.AddWithValue("@BuyerName", commandModel.BuyerName);
-            cmd.Parameters.AddWithValue("@DateInsert", commandModel.DateInsert);
-            cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@UserId", commandModel.UserId);
-            cmd.Parameters.AddWithValue("@UserName", commandModel.UserName);
-            cmd.Parameters.AddWithValue("@Status", commandModel.Status);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("Update");
+            commandText = "USP_Donne_Command_Update";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandCommandModelUpdate(sqlCommand, commandModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            logger.Trace("Command_Update");
         }
 
         public async Task UpdateAsync(CommandModel commandModel)
         {
             try
             {
-                logger.Trace("UpdateAsync");
-                SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_CommandUpdate", con);
-                cmd.Parameters.AddWithValue("@CommandId", commandModel.CommandId);
-                cmd.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
-                cmd.Parameters.AddWithValue("@BuyerName", commandModel.BuyerName);
-                cmd.Parameters.AddWithValue("@DateInsert", commandModel.DateInsert);
-                cmd.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@UserId", commandModel.UserId);
-                cmd.Parameters.AddWithValue("@UserName", commandModel.UserName);
-                cmd.Parameters.AddWithValue("@Status", commandModel.Status);
-                con.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
-                con.Close();
+                commandText = "USP_Donne_Command_Update";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandCommandModelUpdate(sqlCommand, commandModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+                logger.Trace("Command_UpdateAsync");
             }
             catch (Exception ex)
             {
-                string mensagemErro = "Erro ao atualzar uma comanda, utilizando a procedure USP_CommandDelete assíncrono " + ex.Message;
-                this.logger.TraceException("UpdateAsync");
+                string mensagemErro = "Erro ao atualzar uma comanda, utilizando a procedure USP_Donne_Command_Update assíncrono " + ex.Message;
+                this.logger.TraceException("Command_UpdateAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
+        }
+
+        #endregion
+
+        #region Helpers
+        private List<CommandModel> GetListCommandModel(SqlDataReader sqlDataReader, List<CommandModel> listCommandModel)
+        {
+            CommandModel commandModel = new CommandModel();
+            commandModel = GetCommandModel(sqlDataReader, commandModel);
+            listCommandModel.Add(commandModel);
+            return listCommandModel;
+        }
+
+        private CommandModel GetCommandModel(SqlDataReader sqlDataReader, CommandModel commandModel)
+        {
+            commandModel.CommandId = Convert.ToInt32(sqlDataReader["CommandId"]);
+            commandModel.BuyerId = Convert.ToInt32(sqlDataReader["BuyerId"]);
+            commandModel.BuyerName = Convert.ToString(sqlDataReader["BuyerName"]);
+            commandModel.DateInsert = Convert.ToDateTime(sqlDataReader["DateInsert"]);
+            commandModel.DateUpdate = Convert.ToDateTime(sqlDataReader["DateUpdate"]);
+            commandModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
+            commandModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
+            commandModel.Status = Convert.ToInt32(sqlDataReader["Status"]);
+            return commandModel;
+        }
+
+        private void GetSqlCommandCommandModelInsert(SqlCommand sqlCommand, CommandModel commandModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
+            sqlCommand.Parameters.AddWithValue("@BuyerName", commandModel.BuyerName);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", commandModel.DateUpdate);
+            sqlCommand.Parameters.AddWithValue("@UserId", commandModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", commandModel.UserName);
+            sqlCommand.Parameters.AddWithValue("@Status", commandModel.Status);
+        }
+
+        private void GetSqlCommandCommandModelInsertReturnId(SqlCommand sqlCommand, CommandModel commandModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@Identity", commandModel.CommandId);//OUTPUT
+            sqlCommand.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
+            sqlCommand.Parameters.AddWithValue("@BuyerName", commandModel.BuyerName);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", commandModel.DateUpdate);
+            sqlCommand.Parameters.AddWithValue("@UserId", commandModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", commandModel.UserName);
+            sqlCommand.Parameters.AddWithValue("@Status", commandModel.Status);
+        }
+
+        private void GetSqlCommandCommandModelUpdate(SqlCommand sqlCommand, CommandModel commandModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@CommandId", commandModel.CommandId);
+            sqlCommand.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
+            sqlCommand.Parameters.AddWithValue("@BuyerName", commandModel.BuyerName);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", commandModel.DateInsert);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@UserId", commandModel.UserId);
+            sqlCommand.Parameters.AddWithValue("@UserName", commandModel.UserName);
+            sqlCommand.Parameters.AddWithValue("@Status", commandModel.Status);
         }
 
         #endregion

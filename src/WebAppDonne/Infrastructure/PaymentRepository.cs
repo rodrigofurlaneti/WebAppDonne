@@ -16,10 +16,11 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<PaymentModel> GetAllPayments()
         {
+            commandText = "USP_Donne_Payment_GetAll";
             List<PaymentModel> listPaymentModel = new List<PaymentModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_GetAll", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
@@ -34,11 +35,12 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<PaymentModel>> GetAllPaymentsAsync()
         {
+            commandText = "USP_Donne_Payment_GetAll";
             List<PaymentModel> listPaymentModel = new List<PaymentModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_GetAll", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
@@ -59,10 +61,11 @@ namespace WebApi.Donne.Infrastructure
 
         public PaymentModel GetById(int id)
         {
+            commandText = "USP_Donne_Payment_GetById";
             PaymentModel paymentModel = new PaymentModel();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_GetById", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@PaymentId", id);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -78,11 +81,12 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<PaymentModel> GetByIdAsync(int id)
         {
+            commandText = "USP_Donne_Payment_GetById";
             PaymentModel paymentModel = new PaymentModel();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_GetById", sqlConnection);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.Parameters.AddWithValue("@PaymentId", id);
                     sqlConnection.Open();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -104,8 +108,9 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(PaymentModel paymentModel)
         {
+            commandText = "USP_Donne_Payment_Insert";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Insert", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandPaymentModelInsert(sqlCommand, paymentModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -118,8 +123,9 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Payment_Insert";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Insert", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 GetSqlCommandPaymentModelInsert(sqlCommand, paymentModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -137,8 +143,9 @@ namespace WebApi.Donne.Infrastructure
         }
         public void Delete(int PaymentId)
         {
+            commandText = "USP_Donne_Payment_Delete";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Delete", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             sqlCommand.Parameters.AddWithValue("@PaymentId", PaymentId);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -151,8 +158,9 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Payment_Delete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Delete", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@PaymentId", PaymentId);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -171,8 +179,9 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(PaymentModel paymentModel)
         {
+            commandText = "USP_Donne_Payment_Update";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Update", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandPaymentModelUpdate(sqlCommand, paymentModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -185,8 +194,9 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Payment_Update";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Payment_Update", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 GetSqlCommandPaymentModelUpdate(sqlCommand, paymentModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;

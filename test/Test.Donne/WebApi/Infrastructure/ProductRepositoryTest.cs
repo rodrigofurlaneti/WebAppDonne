@@ -124,8 +124,8 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             int minimumStockQuantity = Faker.RandomNumber.Next(0, 100);
             string totalValueCostOfInventory = Faker.RandomNumber.Next(0, 100).ToString();
             string totalValueSaleStock = Faker.RandomNumber.Next(0, 100).ToString();
-            bool needToPrint = true;
-            bool status = true;
+            int needToPrint = 1;
+            int status = 1;
             int userId = Faker.RandomNumber.Next(0, 100);
             string userName = Faker.Name.First();
             DateTime dateUpdate = Faker.Finance.Maturity();
@@ -162,8 +162,8 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             int minimumStockQuantity = Faker.RandomNumber.Next(0, 100);
             string totalValueCostOfInventory = Faker.RandomNumber.Next(0, 100).ToString();
             string totalValueSaleStock = Faker.RandomNumber.Next(0, 100).ToString();
-            bool needToPrint = true;
-            bool status = true;
+            int needToPrint = 1;
+            int status = 1;
             int userId = Faker.RandomNumber.Next(0, 100);
             string userName = Faker.Name.First();
             DateTime dateUpdate = Faker.Finance.Maturity();

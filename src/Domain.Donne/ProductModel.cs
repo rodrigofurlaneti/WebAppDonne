@@ -15,8 +15,8 @@ namespace Domain.Donne
         public int MinimumStockQuantity { get; set; }
         public string TotalValueCostOfInventory { get; set; }
         public string TotalValueSaleStock { get; set; }
-        public bool NeedToPrint { get; set; }
-        public bool Status { get; set; }
+        public int NeedToPrint { get; set; }
+        public int Status { get; set; }
         public int QuantityToBuy { get; set; }
         public string TotalValueOfLastPurchase { get; set; }
 
@@ -24,8 +24,8 @@ namespace Domain.Donne
         {
         }
 
-        public ProductModel(List<int> listInts, List<string> listStrings, bool status, 
-            List<DateTime> listDateTime, bool needToPrint)
+        public ProductModel(List<int> listInts, List<string> listStrings, int status, 
+            List<DateTime> listDateTime, int needToPrint)
             : base(listDateTime, listInts[5], listStrings[7])
         {
             this.ProductId = listInts[0];

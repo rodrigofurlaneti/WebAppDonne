@@ -20,7 +20,7 @@ namespace Test.Donne.Domain.CommandModelTest
             commandModel.UserName = Faker.Name.First();
             commandModel.DateUpdate = DateTime.Now;
             commandModel.DateInsert = DateTime.Now;
-            commandModel.Status = true;
+            commandModel.Status = 1;
 
 
             // Act
@@ -47,7 +47,7 @@ namespace Test.Donne.Domain.CommandModelTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
             // Act

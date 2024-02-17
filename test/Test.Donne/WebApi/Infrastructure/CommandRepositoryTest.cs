@@ -265,25 +265,25 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
-        public void GetCommandOrder_Retorno_Diferente_Nulo_Sucesso()
-        {
-            // Arrange
-            int id = 0;
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
-            foreach (var item in getAll)
-                if (item.Status.Equals(true))
-                    id = item.CommandId;
+        //[TestMethod][Ignore]
+        //public void GetCommandOrder_Retorno_Diferente_Nulo_Sucesso()
+        //{
+        //    // Arrange
+        //    int id = 0;
+        //    Mock<ILogger> mockLogger = new Mock<ILogger>();
+        //    CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+        //    var getAll = commandRepository.GetAllCommand();
+        //    foreach (var item in getAll)
+        //        if (item.Status.Equals(true))
+        //            id = item.CommandId;
 
-            // Act
-            var result = commandRepository.GetCommandOrder(id);
+        //    // Act
+        //    var result = commandRepository.GetCommandOrder(id);
 
-            // Assert
-            Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetCommandOrder"), Times.Exactly(1));
-        }
+        //    // Assert
+        //    Assert.IsNotNull(result);
+        //    mockLogger.Verify(x => x.Trace("GetCommandOrder"), Times.Exactly(1));
+        //}
 
         [TestMethod][Ignore]
         public void Insert_Sucesso()
@@ -298,7 +298,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);
@@ -323,7 +323,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);
@@ -351,7 +351,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = getAll.ToList()[getAll.Count() - 1].DateInsert;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);
@@ -378,7 +378,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = getAll.ToList()[getAll.Count() - 1].DateInsert;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);
@@ -406,7 +406,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = getAll.ToList()[getAll.Count() - 1].DateInsert;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);
@@ -482,7 +482,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);
@@ -508,7 +508,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);
@@ -532,7 +532,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);
@@ -558,7 +558,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);

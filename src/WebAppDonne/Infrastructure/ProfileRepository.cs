@@ -16,10 +16,11 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<ProfileModel> GetAllProfiles()
         {
+            commandText = "USP_Donne_Profile_GetAll";
             List<ProfileModel> listProfileModel = new List<ProfileModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_GetAll", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
@@ -34,12 +35,13 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<ProfileModel>> GetAllProfilesAsync()
         {
+            commandText = "USP_Donne_Profile_GetAll";
             List<ProfileModel> listProfileModel = new List<ProfileModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
                     this.logger.Trace("Profile_GetAllAsync");
-                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_GetAll", sqlConnection);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlConnection.Open();
                     SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
@@ -59,10 +61,11 @@ namespace WebApi.Donne.Infrastructure
 
         public ProfileModel GetById(int id)
         {
+            commandText = "USP_Donne_Profile_GetById";
             ProfileModel profileModel = new ProfileModel();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_GetById", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@ProfileId", id);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -80,10 +83,11 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Profile_GetById";
                 ProfileModel profileModel = new ProfileModel();
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_GetById", sqlConnection);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.Parameters.AddWithValue("@ProfileId", id);
                     sqlConnection.Open();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -106,8 +110,9 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(ProfileModel profileModel)
         {
+            commandText = "USP_Donne_Profile_Insert";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Insert", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandProfileModelInsert(sqlCommand, profileModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -120,8 +125,9 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Profile_Insert";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Insert", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 GetSqlCommandProfileModelInsert(sqlCommand, profileModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -139,8 +145,9 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int ProfileId)
         {
+            commandText = "USP_Donne_Profile_Delete";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Delete", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             sqlCommand.Parameters.AddWithValue("@ProfileId", ProfileId);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -153,8 +160,9 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Profile_Delete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Delete", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@ProfileId", ProfileId);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -172,23 +180,24 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(ProfileModel profileModel)
         {
+            commandText = "USP_Donne_Profile_Update";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Update", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandProfileModelUpdate(sqlCommand, profileModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
-            logger.Trace("Update");
+            logger.Trace("Profile_Update");
         }
 
         public async Task UpdateAsync(ProfileModel profileModel)
         {
             try
             {
-                logger.Trace("Profile_UpdateAsync");
+                commandText = "USP_Donne_Profile_Update";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Profile_Update", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 GetSqlCommandProfileModelUpdate(sqlCommand, profileModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;

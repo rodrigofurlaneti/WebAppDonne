@@ -158,7 +158,7 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);
@@ -190,7 +190,7 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);
@@ -220,7 +220,7 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(id, buyerId, buyerName, status, listDateTime,
                 userId, userName);
@@ -251,7 +251,7 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             string userName = Faker.Name.First();
             DateTime dateUpdate = DateTime.Now;
             DateTime dateInsert = DateTime.Now;
-            bool status = true;
+            int status = 1;
             List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
             CommandModel commandModel = new CommandModel(id, buyerId, buyerName, status, listDateTime,
                 userId, userName);

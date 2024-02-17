@@ -6,6 +6,7 @@
         public readonly IConfigurationRoot configurationRoot;
         public readonly string connectionString;
         public readonly WebApi.Donne.Infrastructure.SeedWork.ILogger logger;
+        public string commandText { get; set; }
         #endregion
 
         #region Constructor

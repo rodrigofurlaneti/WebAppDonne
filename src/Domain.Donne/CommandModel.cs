@@ -8,13 +8,13 @@ namespace Domain.Donne
         public int CommandId { get; set; }
         public int BuyerId { get; set; }
         public string BuyerName { get; set; }
-        public bool Status { get; set; }
+        public int Status { get; set; }
 
         public CommandModel()
         {
         }
 
-        public CommandModel(int commandId, int buyerId, string buyerName, bool status, List<DateTime> listDateTime, 
+        public CommandModel(int commandId, int buyerId, string buyerName, int status, List<DateTime> listDateTime, 
             int userId, string userName) : base(listDateTime, userId, userName)
         {
             this.CommandId = commandId;

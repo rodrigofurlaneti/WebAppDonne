@@ -18,10 +18,11 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Buyer_GetAll";
                 List<BuyerModel> listBuyerModel = new List<BuyerModel>();
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Buyer_GetAll", sqlConnection);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlConnection.Open();
                     SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
@@ -42,9 +43,10 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<BuyerModel>> GetAllBuyersAsync()
         {
+            commandText = "USP_Donne_Buyer_GetAll";
             List<BuyerModel> listBuyerModel = new List<BuyerModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            using (SqlCommand sqlCommand = new SqlCommand("USP_Donne_Buyer_GetAll", sqlConnection))
+            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
             try
             {
 
@@ -69,10 +71,11 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Buyer_GetStatus";
                 List<BuyerModel> listBuyerModel = new List<BuyerModel>();
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Buyer_GetStatus", sqlConnection);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.Parameters.AddWithValue("@Status", status);
                     sqlConnection.Open();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -95,9 +98,10 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<BuyerModel>> GetByStatusAsync(int status)
         {
+            commandText = "USP_Donne_Buyer_GetStatus";
             List<BuyerModel> listBuyerModel = new List<BuyerModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            using (SqlCommand sqlCommand = new SqlCommand("USP_Donne_Buyer_GetStatus", sqlConnection))
+            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
             try
             {
                 sqlCommand.Parameters.AddWithValue("@Status", status);
@@ -122,10 +126,11 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Buyer_GetId";
                 BuyerModel buyerModel = new BuyerModel();
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Buyer_GetById", sqlConnection);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.Parameters.AddWithValue("@BuyerId", id);
                     sqlConnection.Open();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -148,9 +153,10 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<BuyerModel> GetByIdAsync(int id)
         {
+            commandText = "USP_Donne_Buyer_GetId";
             BuyerModel buyerModel = new BuyerModel();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            using (SqlCommand sqlCommand = new SqlCommand("USP_Donne_Buyer_GetById", sqlConnection))
+            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
             try
             {
                 sqlCommand.Parameters.AddWithValue("@BuyerId", id);
@@ -173,8 +179,9 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(BuyerModel buyerModel)
         {
+            commandText = "USP_Donne_Buyer_Insert";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Buyer_Insert", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandBuyerModelInsert(sqlCommand, buyerModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -185,8 +192,9 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task InsertAsync(BuyerModel buyerModel)
         {
+            commandText = "USP_Donne_Buyer_Insert";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Buyer_Insert", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandBuyerModelInsert(sqlCommand, buyerModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -197,8 +205,9 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int buyerId)
         {
+            commandText = "USP_Donne_Buyer_Delete";
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_Donne_Buyer_Delete", con);
+            SqlCommand cmd = new SqlCommand(commandText, con);
             cmd.Parameters.AddWithValue("@BuyerId", buyerId);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -209,8 +218,9 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task DeleteAsync(int buyerId)
         {
+            commandText = "USP_Donne_Buyer_Delete";
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_Donne_Buyer_Delete", con);
+            SqlCommand cmd = new SqlCommand(commandText, con);
             cmd.Parameters.AddWithValue("@BuyerId", buyerId);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -221,8 +231,9 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(BuyerModel buyerModel)
         {
+            commandText = "USP_Donne_Buyer_Update";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Buyer_Update", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandBuyerModelUpdate(sqlCommand, buyerModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -233,8 +244,9 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task UpdateAsync(BuyerModel buyerModel)
         {
+            commandText = "USP_Donne_Buyer_Update";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Buyer_Update", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandBuyerModelUpdate(sqlCommand, buyerModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;

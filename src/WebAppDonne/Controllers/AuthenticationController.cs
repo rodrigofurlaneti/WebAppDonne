@@ -12,7 +12,6 @@ namespace WebApi.Donne.Controllers
         #region Properties
 
         public readonly Infrastructure.SeedWork.ILogger _logger;
-
         #endregion
 
         public AuthenticationController(Infrastructure.SeedWork.ILogger logger)

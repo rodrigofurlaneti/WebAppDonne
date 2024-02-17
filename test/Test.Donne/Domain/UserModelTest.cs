@@ -19,7 +19,7 @@ namespace Test.Donne.Domain.UserModelTest
             userModel.UserId = Faker.RandomNumber.Next(0, 100);
             userModel.UserName = Faker.Name.First();
             userModel.UserPassword = Faker.Name.First();
-            userModel.Status = true;
+            userModel.Status = 1;
             
             // Assert
             Assert.IsNotNull(userModel);
@@ -28,7 +28,7 @@ namespace Test.Donne.Domain.UserModelTest
             Assert.AreEqual(userModel.UserId.GetType(), typeof(int));
             Assert.AreEqual(userModel.UserName.GetType(), typeof(string));
             Assert.AreEqual(userModel.UserPassword.GetType(), typeof(string));
-            Assert.AreEqual(userModel.Status.GetType(), typeof(bool));
+            Assert.AreEqual(userModel.Status.GetType(), typeof(int));
         }
 
         [TestMethod][Ignore]
@@ -40,7 +40,7 @@ namespace Test.Donne.Domain.UserModelTest
             int userId = Faker.RandomNumber.Next(0, 100);
             string userName = Faker.Name.First();
             string userPassword = Faker.Name.First();
-            bool status = true;
+            int status = 1;
 
             // Act
             UserModel userModel = new UserModel(userId, userName, 

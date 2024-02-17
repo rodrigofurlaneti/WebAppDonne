@@ -22,8 +22,8 @@ namespace Test.Donne.Domain.ProductModelTest
             productModel.MinimumStockQuantity = Faker.RandomNumber.Next(0, 100);
             productModel.TotalValueCostOfInventory = Faker.RandomNumber.Next(0, 100).ToString();
             productModel.TotalValueSaleStock = Faker.RandomNumber.Next(0, 100).ToString();
-            productModel.NeedToPrint = true;
-            productModel.Status = true;
+            productModel.NeedToPrint = 1;
+            productModel.Status = 1;
             productModel.UserId = Faker.RandomNumber.Next(0, 100);
             productModel.UserName = Faker.Name.First();
             productModel.DateUpdate = Faker.Finance.Maturity();
@@ -64,8 +64,8 @@ namespace Test.Donne.Domain.ProductModelTest
             int minimumStockQuantity = Faker.RandomNumber.Next(0, 100);
             string totalValueCostOfInventory = Faker.RandomNumber.Next(0, 100).ToString();
             string totalValueSaleStock = Faker.RandomNumber.Next(0, 100).ToString();
-            bool needToPrint = true;
-            bool status = true;
+            int needToPrint = 1;
+            int status = 1;
             int userId = Faker.RandomNumber.Next(0, 100);
             string userName = Faker.Name.First();
             DateTime dateUpdate = Faker.Finance.Maturity();

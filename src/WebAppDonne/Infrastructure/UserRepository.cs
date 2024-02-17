@@ -16,11 +16,12 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<UserModel> GetAllUsers()
         {
+            commandText = "USP_Donne_User_GetAll";
             List<UserModel> listUserModel = new List<UserModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
                 logger.Trace("GetAllUsers");
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_GetAll", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
@@ -34,11 +35,12 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<UserModel>> GetAllUsersAsync()
         {
+            commandText = "USP_Donne_User_GetAll";
             List<UserModel> listUserModel = new List<UserModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_GetAll", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
@@ -60,10 +62,11 @@ namespace WebApi.Donne.Infrastructure
 
         public UserModel GetById(int id)
         {
+            commandText = "USP_Donne_User_GetById";
             UserModel userModel = new UserModel();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_UserGetById", con);
+                SqlCommand cmd = new SqlCommand(commandText, con);
                 cmd.Parameters.AddWithValue("@UserId", id);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -79,11 +82,12 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<UserModel> GetByIdAsync(int id)
         {
+            commandText = "USP_Donne_User_GetById";
             UserModel userModel = new UserModel();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_GetById", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@UserId", id);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -105,10 +109,11 @@ namespace WebApi.Donne.Infrastructure
 
         public UserModel GetByName(string userName)
         {
+            commandText = "USP_Donne_User_GetByName";
             UserModel userModel = new UserModel();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_GetByName", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@UserName", userName);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -125,11 +130,12 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<UserModel> GetByNameAsync(string userName)
         {
+            commandText = "USP_Donne_User_GetByName";
             UserModel userModel = new UserModel();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_GetByName", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@UserName", userName);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -151,8 +157,9 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(UserModel userModel)
         {
+            commandText = "USP_Donne_User_Insert";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_Insert", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandUserModelInsert(sqlCommand, userModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -165,8 +172,9 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_User_Insert";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_Insert", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 GetSqlCommandUserModelInsert(sqlCommand, userModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -185,8 +193,9 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int UserId)
         {
+            commandText = "USP_Donne_User_Delete";
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_Donne_User_Delete", con);
+            SqlCommand cmd = new SqlCommand(commandText, con);
             cmd.Parameters.AddWithValue("@UserId", UserId);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -199,8 +208,9 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_User_Delete";
                 SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand("USP_Donne_User_Delete", con);
+                SqlCommand cmd = new SqlCommand(commandText, con);
                 cmd.Parameters.AddWithValue("@UserId", UserId);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -219,8 +229,9 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(UserModel userModel)
         {
+            commandText = "USP_Donne_User_Update";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_Update", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandUserModelUpdate(sqlCommand, userModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -233,8 +244,9 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_User_Update";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_User_Update", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 GetSqlCommandUserModelUpdate(sqlCommand, userModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;

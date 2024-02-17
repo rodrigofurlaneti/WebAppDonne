@@ -16,12 +16,12 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<CategoryModel> GetAllCategorys()
         {
+            commandText = "USP_Donne_Category_GetAll";
             List<CategoryModel> listCategoryModel = new List<CategoryModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 try
                 {
-                    this.logger.Trace("Donne_GetAllCategorys");
-                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_GetAll", sqlConnection);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlConnection.Open();
                     SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
@@ -29,24 +29,25 @@ namespace WebApi.Donne.Infrastructure
                     {
                         GetListCategoryModel(sqlDataReader, listCategoryModel);
                     }
+                    this.logger.Trace("Category_GetAll");
                     return listCategoryModel;
                 }
                 catch (Exception ex)
                 {
-                    string mensagemErro = "Erro ao lista as categorias, utilizando a procedure USP_Donne_CategoryGetAll assíncrono " + ex.Message;
-                    this.logger.TraceException("Donne_GetAllCategorys");
+                    string mensagemErro = "Erro ao lista as categorias, utilizando a procedure USP_Donne_Category_GetAll assíncrono " + ex.Message;
+                    this.logger.TraceException("Category_GetAll");
                     throw new ArgumentNullException(mensagemErro);
                 }
         }
 
         public async Task<IEnumerable<CategoryModel>> GetAllCategorysAsync()
         {
+            commandText = "USP_Donne_Category_GetAll";
             List<CategoryModel> listCategoryModel = new List<CategoryModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                this.logger.Trace("GetAllCategorysAsync");
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_GetAll", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
@@ -54,12 +55,13 @@ namespace WebApi.Donne.Infrastructure
                 {
                     GetListCategoryModel(sqlDataReader, listCategoryModel);
                 }
+                this.logger.Trace("Category_GetAllAsync");
                 return listCategoryModel;
             }
             catch (Exception ex)
             {
                 string mensagemErro = "Erro ao lista as categorias, utilizando a procedure USP_Donne_CategoryGetAll assíncrono " + ex.Message;
-                this.logger.TraceException("Donne_GetAllCategorysAsync");
+                this.logger.TraceException("Category_GetAllAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
         }
@@ -68,10 +70,11 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Category_GetById";
                 CategoryModel categoryModel = new CategoryModel();
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_GetById", sqlConnection);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.Parameters.AddWithValue("@CategoryId", id);
                     sqlConnection.Open();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -81,7 +84,7 @@ namespace WebApi.Donne.Infrastructure
                         GetCategoryModel(sqlDataReader, categoryModel);
                     }
                 }
-                logger.Trace("Donne_GetByIdAsync");
+                logger.Trace("Category_GetByIdAsync");
                 return categoryModel;
             }
             catch (Exception ex)
@@ -95,10 +98,11 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Category_GetById";
                 CategoryModel categoryModel = new CategoryModel();
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_GetById", sqlConnection);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.Parameters.AddWithValue("@CategoryId", id);
                     sqlConnection.Open();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -108,38 +112,40 @@ namespace WebApi.Donne.Infrastructure
                         GetCategoryModel(sqlDataReader, categoryModel);
                     }
                 }
-                logger.Trace("Donne_GetById");
+                logger.Trace("Category_GetById");
                 return categoryModel;
             }
             catch (Exception ex)
             {
-                string mensagemErro = "Erro ao lista a categoria, utilizando a procedure USP_Donne_CategoryGetById síncrono " + ex.Message;
+                string mensagemErro = "Erro ao lista a categoria, utilizando a procedure USP_Donne_Category_GetById síncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
         }
 
         public void Insert(CategoryModel categoryModel)
         {
+            commandText = "USP_Donne_Category_Insert";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_Insert", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandBuyerModelInsert(sqlCommand, categoryModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
-            logger.Trace("Donne_Insert");
+            logger.Trace("Category_Insert");
         }
 
         public async Task InsertAsync(CategoryModel categoryModel)
         {
             try
             {
+                commandText = "USP_Donne_Category_Insert";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_Insert", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 GetSqlCommandBuyerModelInsert(sqlCommand, categoryModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
-                logger.Trace("Donne_InsertAsync");
+                logger.Trace("Category_InsertAsync");
                 await sqlCommand.ExecuteNonQueryAsync();
                 sqlConnection.Close();
             }
@@ -153,8 +159,9 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int CategoryId)
         {
+            commandText = "USP_Donne_Category_Delete";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_Delete", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             sqlCommand.Parameters.AddWithValue("@CategoryId", CategoryId);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -167,52 +174,55 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_Donne_Category_Delete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_Delete", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@CategoryId", CategoryId);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
-                logger.Trace("DeleteAsync");
+                logger.Trace("Category_DeleteAsync");
                 await sqlCommand.ExecuteNonQueryAsync();
                 sqlConnection.Close();
             }
             catch (Exception ex)
             {
-                string mensagemErro = "Erro ao deletar uma categoria, utilizando a procedure USP_Donne_CategoryDelete assíncrono " + ex.Message;
-                logger.TraceException("Donne_InsertAsync");
+                string mensagemErro = "Erro ao deletar uma categoria, utilizando a procedure USP_Donne_Category_Delete assíncrono " + ex.Message;
+                logger.TraceException("Category_InsertAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
         }
 
         public void Update(CategoryModel categoryModel)
         {
+            commandText = "USP_Donne_Category_Update";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_Update", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandBuyerModelUpdate(sqlCommand, categoryModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
-            logger.Trace("Update");
+            logger.Trace("Category_Update");
         }
 
         public async Task UpdateAsync(CategoryModel categoryModel)
         {
             try
             {
+                commandText = "USP_Donne_Category_Update";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
-                SqlCommand sqlCommand = new SqlCommand("USP_Donne_Category_Update", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 GetSqlCommandBuyerModelUpdate(sqlCommand, categoryModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
-                logger.Trace("UpdateAsync");
+                logger.Trace("Category_UpdateAsync");
                 await sqlCommand.ExecuteNonQueryAsync();
                 sqlConnection.Close();
             }
             catch (Exception ex)
             {
-                string mensagemErro = "Erro ao atualizar uma categoria, utilizando a procedure USP_Donne_CategoryUpdate assíncrono " + ex.Message;
-                logger.TraceException("Donne_InsertAsync");
+                string mensagemErro = "Erro ao atualizar uma categoria, utilizando a procedure USP_Donne_Category_Update assíncrono " + ex.Message;
+                logger.TraceException("Category_InsertAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
 
@@ -243,8 +253,8 @@ namespace WebApi.Donne.Infrastructure
         private void GetSqlCommandBuyerModelInsert(SqlCommand sqlCommand, CategoryModel categoryModel)
         {
             sqlCommand.Parameters.AddWithValue("@CategoryName", categoryModel.CategoryName);
-            sqlCommand.Parameters.AddWithValue("@DateInsert", categoryModel.DateInsert);
-            sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", categoryModel.DateUpdate);
             sqlCommand.Parameters.AddWithValue("@UserId", categoryModel.UserId);
             sqlCommand.Parameters.AddWithValue("@UserName", categoryModel.UserName);
         }
