@@ -5,7 +5,7 @@ namespace Business.Donne
 {
     public class AuthenticationBusiness
     {
-        public AuthenticationBusiness() { }
+        protected AuthenticationBusiness() { }
 
         public static AuthenticationModel SimpleAuthenticationSuccess(AuthenticationModel authenticationModel)
         {

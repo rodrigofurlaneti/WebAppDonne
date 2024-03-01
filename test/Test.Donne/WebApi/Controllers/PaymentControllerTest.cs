@@ -82,10 +82,10 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
         }
 
         [TestMethod]
-        public void GetByIdAsync_Erro()
+        public async Task GetByIdAsync_Erro()
         {
             // Arrange
-            InsertAsync_Sucesso();
+            await InsertAsync_Sucesso();
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             PaymentController paymentController = new PaymentController(mockLogger.Object);

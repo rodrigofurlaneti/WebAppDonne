@@ -131,7 +131,7 @@ namespace WebApi.Donne.Infrastructure
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 await sqlCommand.ExecuteNonQueryAsync();
                 sqlConnection.Close();
-                UpdateProduct(orderModel);
+                await UpdateProduct(orderModel);
             }
             catch (Exception ex)
             {

@@ -2,7 +2,7 @@
 
 namespace Business.Donne
 {
-    public class UserBusiness
+    public static class UserBusiness
     {
         public static bool SimpleAuthentication(AuthenticationUserModel userModelRequest, UserModel userModelBd)
         {
