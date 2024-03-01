@@ -12,8 +12,6 @@ namespace Business.Donne
             authenticationModel.HostedServerName = Dns.GetHostName();
             authenticationModel.ServerInternetProtocol = Dns.GetHostEntry(authenticationModel.HostedServerName).AddressList[6].ToString();
             authenticationModel.AuthenticationDateTime = DateTime.Now.ToString();
-            authenticationModel.NavigatorUserAgent = authenticationModel.NavigatorUserAgent;
-            authenticationModel.ClientInternetProtocol = authenticationModel.ClientInternetProtocol;
             authenticationModel.Authenticated = "1";
             authenticationModel.Status = "Success";
             return authenticationModel;
@@ -24,8 +22,6 @@ namespace Business.Donne
             authenticationModel.HostedServerName = Dns.GetHostName();
             authenticationModel.ServerInternetProtocol = Dns.GetHostEntry(authenticationModel.HostedServerName).AddressList[6].ToString();
             authenticationModel.AuthenticationDateTime = DateTime.Now.ToString();
-            authenticationModel.NavigatorUserAgent = authenticationModel.NavigatorUserAgent;
-            authenticationModel.ClientInternetProtocol = authenticationModel.ClientInternetProtocol;
             authenticationModel.Authenticated = "0";
             authenticationModel.Status = "Invalid password";
             return authenticationModel;
@@ -36,8 +32,6 @@ namespace Business.Donne
             authenticationModel.HostedServerName = Dns.GetHostName();
             authenticationModel.ServerInternetProtocol = Dns.GetHostEntry(authenticationModel.HostedServerName).AddressList[6].ToString();
             authenticationModel.AuthenticationDateTime = DateTime.Now.ToString();
-            authenticationModel.NavigatorUserAgent = authenticationModel.NavigatorUserAgent;
-            authenticationModel.ClientInternetProtocol = authenticationModel.ClientInternetProtocol;
             authenticationModel.Authenticated = "0";
             authenticationModel.Status = "Invalid user name";
             return authenticationModel;
