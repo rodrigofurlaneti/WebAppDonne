@@ -11,22 +11,22 @@
         }
 
 
-        public void ConfigureServices(IServiceCollection serviceCollection) 
+        public void ConfigureServices(IServiceCollection services) 
         {
-            serviceCollection.AddCors(options =>
+            services.AddCors(options =>
             {
                 options.AddPolicy(name: allowPolicy, builder => builder.WithOrigins("*")
                                                                     .AllowAnyMethod()
                 .AllowAnyHeader());
             });
 
-            serviceCollection.AddScoped<WebApi.Donne.Infrastructure.SeedWork.ILogger, WebApi.Donne.Infrastructure.SeedWork.Logger>();
+            services.AddScoped<WebApi.Donne.Infrastructure.SeedWork.ILogger, WebApi.Donne.Infrastructure.SeedWork.Logger>();
 
-            serviceCollection.AddControllers();
+            services.AddControllers();
 
-            serviceCollection.AddEndpointsApiExplorer();
+            services.AddEndpointsApiExplorer();
 
-            serviceCollection.AddSwaggerGen();
+            services.AddSwaggerGen();
         }
 
         public void Configure(WebApplication webApplication, IWebHostEnvironment webHostEnvironment)
