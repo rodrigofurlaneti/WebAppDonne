@@ -8,7 +8,7 @@ namespace WebApi.Donne.Infrastructure
     {
         #region Constructor
 
-        public StockInventoryRepository(WebApi.Donne.Infrastructure.SeedWork.ILogger logger) : base(logger) { }
+        public StockInventoryRepository(SeedWork.ILogger logger) : base(logger) { }
 
         #endregion
 
@@ -16,23 +16,38 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<StockInventoryModel> GetAllStockInventory()
         {
+            commandText = "USP_StockInventoryGetAll";
             List<StockInventoryModel> listStockInventoryModel = new List<StockInventoryModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("USP_StockInventoryGetAll", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    StockInventoryModel stockInventory = new StockInventoryModel();
-                    stockInventory.TotalValueCostOfInventory = Convert.ToString(rdr["TotalValueCostOfInventory"]);
-                    stockInventory.TotalValueSaleStock = Convert.ToString(rdr["TotalValueSaleStock"]);
-                    listStockInventoryModel.Add(stockInventory);
+                    GetListStockInventoryModel(sqlDataReader, listStockInventoryModel);
                 }
             }
             logger.Trace("GetAllStockInventory");
             return listStockInventoryModel;
+        }
+
+        #endregion
+
+        #region Helpers
+        private void GetListStockInventoryModel(SqlDataReader sqlDataReader, List<StockInventoryModel> listStockInventoryModel)
+        {
+            StockInventoryModel stockInventoryModel = new StockInventoryModel();
+            stockInventoryModel = GetStockInventoryModel(sqlDataReader, stockInventoryModel);
+            listStockInventoryModel.Add(stockInventoryModel);
+        }
+
+        private StockInventoryModel GetStockInventoryModel(SqlDataReader sqlDataReader, StockInventoryModel stockInventoryModel)
+        {
+            stockInventoryModel.TotalValueCostOfInventory = Convert.ToString(sqlDataReader["TotalValueCostOfInventory"]);
+            stockInventoryModel.TotalValueSaleStock = Convert.ToString(sqlDataReader["TotalValueSaleStock"]);
+            return stockInventoryModel;
         }
 
         #endregion

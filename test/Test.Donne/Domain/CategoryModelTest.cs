@@ -3,12 +3,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test.Donne.Domain.CategoryModelTest
 {
-    [Ignore] // you can ignore this test
     [TestClass]
     [TestCategory("Donne > Domain > CategoryModel")]
     public class CategoryModelTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void CategoryModel_Tipo_Sucesso()
         {
             // Arrange
@@ -31,7 +30,7 @@ namespace Test.Donne.Domain.CategoryModelTest
             Assert.AreEqual(categoryModel.DateInsert.GetType(), typeof(DateTime));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void CategoryModel_Construtor_Sucesso()
         {
             // Arrange

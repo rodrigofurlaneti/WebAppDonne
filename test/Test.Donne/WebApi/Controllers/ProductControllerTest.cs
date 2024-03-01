@@ -13,7 +13,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
     [TestCategory("Donne > WebApi > Controllers > ProductController")]
     public class ProductControllerTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetProductAsync_Sucesso()
         {
             // Arrange
@@ -30,10 +30,10 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
             mockLogger.Verify(x => x.Trace("GetProductAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetAllProductsAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_GetAllAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetProductAsync_Erro()
         {
             // Arrange
@@ -50,7 +50,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             mockLogger.Verify(x => x.TraceException("GetProductAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
@@ -78,7 +78,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(2));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByIdAsync_Erro()
         {
             // Arrange
@@ -99,7 +99,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => productController.Get(idProduct));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
@@ -137,10 +137,13 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             await productController.Update(productModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("UpdateProductAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetProductAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("UpdateProductAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void UpdateAsync_Erro()
         {
             // Arrange
@@ -183,7 +186,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
 
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task InsertAsync_Sucesso()
         {
             // Arrange
@@ -216,10 +219,11 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             await productController.Post(productModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("InsertProductAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Product_InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("InsertProductAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void InsertAsync_Erro()
         {
             // Arrange
@@ -256,7 +260,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => productController.Post(productModel));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
@@ -268,10 +272,11 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             await productController.Delete(productId);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("DeleteProductAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Product_DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("DeleteProductAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void DeleteAsync_Erro()
         {
             // Arrange
@@ -283,8 +288,11 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             int productId = Faker.RandomNumber.Next(0, 1000);
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentException>(() => productController.Delete(productId));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("DeleteProductAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("DeleteProductAsync"), Times.Exactly(1));
         }
     }
 }

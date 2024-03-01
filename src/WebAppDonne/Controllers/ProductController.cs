@@ -101,8 +101,8 @@ namespace WebApi.Donne.Controllers
             try
             {
                 ProductRepository dal = new ProductRepository(_logger);
-                await dal.DeleteAsync(id);
                 this._logger.Trace("DeleteProductAsync");
+                await dal.DeleteAsync(id);
             }
             catch (Exception ex)
             {

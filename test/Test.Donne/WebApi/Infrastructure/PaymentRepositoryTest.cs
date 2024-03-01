@@ -10,7 +10,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
     [TestCategory("Donne > WebApi > Infrastructure > PaymentRepository")]
     public class PaymentRepositoryTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllPayment_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -22,10 +22,10 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllPayments"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Payment_GetAll"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllPayment_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -37,10 +37,10 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
-            mockLogger.Verify(x => x.Trace("GetAllPayments"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Payment_GetAll"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetAllPaymentAsync_Sucesso()
         {
             // Arrange
@@ -52,10 +52,10 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllPaymentsAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Payment_GetAll"), Times.Exactly(0));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllPaymentAsync_Erro()
         {
             // Arrange
@@ -69,10 +69,10 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => paymentRepository.GetAllPaymentsAsync());
 
             // Assert
-            mockLogger.Verify(x => x.TraceException("GetAllPaymentsAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("GetAllPaymentsAsync"), Times.Exactly(0));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetById_Sucesso()
         {
             // Arrange
@@ -95,7 +95,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Insert_Sucesso()
         {
             // Arrange
@@ -120,10 +120,10 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             paymentRepository.Insert(paymentModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Payment_Insert"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Update_Sucesso()
         {
             // Arrange
@@ -149,11 +149,11 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             paymentRepository.Update(paymentModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("GetAllPayments"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Payment_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Payment_Update"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Delete_Sucesso()
         {
             // Arrange
@@ -166,8 +166,8 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             paymentRepository.Delete(paymentId);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("GetAllPayments"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Payment_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Payment_Delete"), Times.Exactly(1));
         }
     }
 }

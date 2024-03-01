@@ -13,7 +13,7 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
     [TestCategory("Donne > WebApi > Controllers > PaymentController")]
     public class PaymentControllerTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetPaymentAsync_Sucesso()
         {
             // Arrange
@@ -29,12 +29,12 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
+            mockLogger.Verify(x => x.Trace("Payment_GetAllAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetPaymentAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetAllPaymentsAsync"), Times.Exactly(1));
         }
 
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetPaymentAsync_Erro()
         {
             // Arrange
@@ -48,13 +48,15 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => paymentController.Get());
 
             // Assert
-            //mockLogger.Verify(x => x.TraceException("GetPaymentAsync"), Times.Once());
+            mockLogger.Verify(x => x.Trace("GetPaymentAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("GetPaymentAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
+            await InsertAsync_Sucesso();
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             PaymentController paymentController = new PaymentController(mockLogger.Object);
@@ -73,18 +75,19 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
-            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Payment_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetPaymentAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Payment_GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByIdAsync_Erro()
         {
             // Arrange
+            InsertAsync_Sucesso();
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-
-            //Setup
-            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
             PaymentController paymentController = new PaymentController(mockLogger.Object);
             var getAll = paymentController.Get();
             var objResult = (OkObjectResult)getAll.Result;
@@ -92,14 +95,19 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             if (listPayment != null)
                 id = listPayment[0].PaymentId;
 
+
+            //Setup
+            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
+
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => paymentController.Get(id));
 
             // Assert
-            //mockLogger.Verify(x => x.TraceException("GetPaymentAsync"), Times.Once());
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task InsertAsync_Sucesso()
         {
             // Arrange
@@ -122,20 +130,17 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
 
             // Act
             await paymentController.Post(paymentModel);
-            
+
             // Assert
-            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Payment_InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void InsertAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-
-            //Setup
-            mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
-            PaymentController paymentController = new PaymentController(mockLogger.Object);
             int paymentId = Faker.RandomNumber.Next(0, 100);
             int commandId = Faker.RandomNumber.Next(0, 100);
             int formOfPaymentId = Faker.RandomNumber.Next(0, 100);
@@ -151,14 +156,19 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
                 formOfPaymentId, formOfPaymentName, paymentAmount, paymentType, listDateTime,
                 userId, userName);
 
+            //Setup
+            mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
+            PaymentController paymentController = new PaymentController(mockLogger.Object);
+
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => paymentController.Post(paymentModel));
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => paymentController.Post(paymentModel));
 
             // Assert
-            //mockLogger.Verify(x => x.TraceException("GetPaymentAsync"), Times.Once());
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
@@ -188,10 +198,13 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             await paymentController.Update(paymentModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Payment_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetPaymentAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Payment_UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void UpdateAsync_Erro()
         {
             // Arrange
@@ -224,10 +237,11 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => paymentController.Update(paymentModel));
 
             // Assert
-            //mockLogger.Verify(x => x.TraceException("GetPaymentAsync"), Times.Once());
+            mockLogger.Verify(x => x.Trace("Payment_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetPaymentAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
@@ -244,10 +258,13 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             await paymentController.Delete(id);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Payment_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetPaymentAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Payment_DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void DeleteAsync_Erro()
         {
             // Arrange

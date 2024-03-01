@@ -25,7 +25,7 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                ModelRepository dal = new ModelRepository(_logger);
+                VehicleModelRepository dal = new VehicleModelRepository(_logger);
                 var ret = await dal.GetAllVehicleModelsAsync();
                 _logger.Trace("GetModelAsync");
                 return Ok(ret);
@@ -44,7 +44,7 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                ModelRepository dal = new ModelRepository(_logger);
+                VehicleModelRepository dal = new VehicleModelRepository(_logger);
                 _logger.Trace("GetByIdAsync");
                 var ret = await dal.GetByIdAsync(id);
                 return Ok(ret);
@@ -62,7 +62,7 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                ModelRepository dal = new ModelRepository(_logger);
+                VehicleModelRepository dal = new VehicleModelRepository(_logger);
                 _logger.Trace("InsertAsync");
                 await dal.InsertAsync(vehicleModel);
             }
@@ -80,7 +80,7 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                ModelRepository dal = new ModelRepository(_logger);
+                VehicleModelRepository dal = new VehicleModelRepository(_logger);
                 _logger.Trace("UpdateAsync");
                 await dal.UpdateAsync(vehicleModel);
             }
@@ -99,7 +99,7 @@ namespace WebApi.Donne.Controllers
             try
             {
                 _logger.Trace("DeleteAsync");
-                ModelRepository dal = new ModelRepository(_logger);
+                VehicleModelRepository dal = new VehicleModelRepository(_logger);
                 await dal.DeleteAsync(id);
             }
             catch (Exception ex)

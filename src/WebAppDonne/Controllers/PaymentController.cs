@@ -26,8 +26,8 @@ namespace WebApi.Donne.Controllers
             try
             {
                 PaymentRepository dal = new PaymentRepository(_logger);
-                var ret = await dal.GetAllPaymentsAsync();
                 this._logger.Trace("GetPaymentAsync");
+                var ret = await dal.GetAllPaymentsAsync();
                 return Ok(ret);
             }
             catch (Exception ex)
@@ -45,13 +45,13 @@ namespace WebApi.Donne.Controllers
             try
             {
                 PaymentRepository dal = new PaymentRepository(_logger);
+                this._logger.Trace("GetByIdAsync");
                 var ret = await dal.GetByIdAsync(id);
-                _logger.Trace("GetByIdAsync");
                 return Ok(ret);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("GetByIdAsync");
+                this._logger.TraceException("GetByIdAsync");
                 string mensagem = "Erro ao consumir a controler Payments, rota GetAllPaymentsAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -64,12 +64,13 @@ namespace WebApi.Donne.Controllers
             try
             {
                 PaymentRepository dal = new PaymentRepository(_logger);
+                this._logger.Trace("InsertAsync");
                 await dal.InsertAsync(PaymentModel);
-                _logger.Trace("InsertAsync");
+
             }
             catch (Exception ex)
             {
-                _logger.TraceException("InsertAsync");
+                this._logger.TraceException("InsertAsync");
                 string mensagem = "Erro ao inserir um novo pagamento, consumir a controler Payments, rota GetAllPaymentsAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }

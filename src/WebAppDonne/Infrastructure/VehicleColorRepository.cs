@@ -68,61 +68,6 @@ namespace WebApi.Donne.Infrastructure
                 }
         }
 
-        public IEnumerable<VehicleColorModel> GetByStatus(int status)
-        {
-            try
-            {
-                commandText = "USP_ColorGetStatus";
-                List<VehicleColorModel> listColorModel = new List<VehicleColorModel>();
-                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-                {
-                    SqlCommand sqlCommand  = new SqlCommand(commandText, sqlConnection);
-                    sqlCommand.Parameters.AddWithValue("@Status", status);
-                    sqlConnection.Open();
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                    while (sqlDataReader.Read())
-                    {
-                        GetListVehicleColorModel(sqlDataReader, listColorModel);
-                    }
-                }
-                logger.Trace("GetByStatus");
-                return listColorModel;
-            }
-            catch (ArgumentNullException ex)
-            {
-                string mensagemErro = "Erro ao consumir a procedure USP_GetByStatus síncrono " + ex.Message;
-                throw new ArgumentNullException(mensagemErro);
-            }
-
-        }
-
-        public async Task<IEnumerable<VehicleColorModel>> GetByStatusAsync(int status)
-        {
-            commandText = "USP_VehicleColorGetStatus";
-            List<VehicleColorModel> listColorModel = new List<VehicleColorModel>();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            using (SqlCommand sqlCommand  = new SqlCommand(commandText, sqlConnection))
-                try
-                {
-                    logger.Trace("GetByStatusAsync");
-                    sqlCommand.Parameters.AddWithValue("@Status", status);
-                    sqlConnection.Open();
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
-                    while (sqlDataReader.Read())
-                    {
-                        GetListVehicleColorModel(sqlDataReader, listColorModel);
-                    }
-                    return listColorModel;
-                }
-                catch (ArgumentNullException ex)
-                {
-                    string mensagemErro = "Erro ao consumir a procedure USP_ColorGetStatus, assíncrono. " + ex.Message;
-                    throw new ArgumentNullException(mensagemErro);
-                }
-        }
-
         public VehicleColorModel GetById(int id)
         {
             try

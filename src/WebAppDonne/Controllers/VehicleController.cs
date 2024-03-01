@@ -46,7 +46,7 @@ namespace WebApi.Donne.Controllers
             {
                 VehicleRepository dal = new VehicleRepository(_logger);
                 _logger.Trace("OptionsAsync");
-                var ret = await dal.GetByStatusAsync(id);
+                var ret = await dal.GetByParkedAsync(id);
                 return Ok(ret);
             }
             catch (Exception ex)

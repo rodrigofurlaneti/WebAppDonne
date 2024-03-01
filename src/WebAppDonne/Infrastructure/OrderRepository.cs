@@ -131,24 +131,7 @@ namespace WebApi.Donne.Infrastructure
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 await sqlCommand.ExecuteNonQueryAsync();
                 sqlConnection.Close();
-                ProductRepository productRepository = new ProductRepository(logger);
-                var productModel = await productRepository.GetByIdAsync(orderModel.ProductId);
-                productModel.QuantityStock = productModel.QuantityStock - orderModel.Amount;
-                productModel.DateUpdate = DateTime.Now;
-                var totalValueCostOfInventory = Convert.ToDecimal(productModel.CostPrice) * productModel.QuantityStock;
-                var totalValueCost = String.Format("{0:0.##}", totalValueCostOfInventory.ToString());
-                productModel.TotalValueCostOfInventory = totalValueCost.ToString();
-                var totalValueSaleStock = Convert.ToDecimal(productModel.SalePrice) * productModel.QuantityStock;
-                var totalValueSale = String.Format("{0:0.##}", totalValueSaleStock.ToString());
-                productModel.TotalValueSaleStock = totalValueSale.ToString();
-                if (productModel.QuantityStock < productModel.MinimumStockQuantity)
-                {
-                    productModel.QuantityToBuy = productModel.MinimumStockQuantity - productModel.QuantityStock;
-                    var totalValueOfLastPurchase = productModel.QuantityToBuy * Convert.ToDecimal(productModel.CostPrice);
-                    productModel.TotalValueOfLastPurchase = totalValueOfLastPurchase.ToString();
-                }
-                this.logger.Trace("Order_InsertAsync");
-                await productRepository.UpdateAsync(productModel);
+                UpdateProduct(orderModel);
             }
             catch (Exception ex)
             {
@@ -269,7 +252,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@Amount", orderModel.Amount);
             sqlCommand.Parameters.AddWithValue("@TotalSalePrice", orderModel.TotalSalePrice);
             sqlCommand.Parameters.AddWithValue("@DateInsert", DateTime.Now);
-            sqlCommand.Parameters.AddWithValue("@DateUpdate", orderModel.TotalSalePrice);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
             sqlCommand.Parameters.AddWithValue("@UserId", orderModel.UserId);
             sqlCommand.Parameters.AddWithValue("@UserName", orderModel.UserName);
         }
@@ -288,6 +271,28 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
             sqlCommand.Parameters.AddWithValue("@UserId", orderModel.UserId);
             sqlCommand.Parameters.AddWithValue("@UserName", orderModel.UserName);
+        }
+
+        private async Task UpdateProduct(OrderModel orderModel)
+        {
+            ProductRepository productRepository = new ProductRepository(logger);
+            var productModel = await productRepository.GetByIdAsync(orderModel.ProductId);
+            productModel.QuantityStock = productModel.QuantityStock - orderModel.Amount;
+            productModel.DateUpdate = DateTime.Now;
+            var totalValueCostOfInventory = Convert.ToDecimal(productModel.CostPrice) * productModel.QuantityStock;
+            var totalValueCost = String.Format("{0:0.##}", totalValueCostOfInventory.ToString());
+            productModel.TotalValueCostOfInventory = totalValueCost.ToString();
+            var totalValueSaleStock = Convert.ToDecimal(productModel.SalePrice) * productModel.QuantityStock;
+            var totalValueSale = String.Format("{0:0.##}", totalValueSaleStock.ToString());
+            productModel.TotalValueSaleStock = totalValueSale.ToString();
+            if (productModel.QuantityStock < productModel.MinimumStockQuantity)
+            {
+                productModel.QuantityToBuy = productModel.MinimumStockQuantity - productModel.QuantityStock;
+                var totalValueOfLastPurchase = productModel.QuantityToBuy * Convert.ToDecimal(productModel.CostPrice);
+                productModel.TotalValueOfLastPurchase = totalValueOfLastPurchase.ToString();
+            }
+            this.logger.Trace("Order_InsertAsync");
+            await productRepository.UpdateAsync(productModel);
         }
 
         #endregion

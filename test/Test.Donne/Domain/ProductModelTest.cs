@@ -7,7 +7,7 @@ namespace Test.Donne.Domain.ProductModelTest
     [TestCategory("Donne > Domain > ProductModel")]
     public class ProductModelTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void ProductModel_Tipo_Sucesso()
         {
             // Arrange
@@ -42,15 +42,15 @@ namespace Test.Donne.Domain.ProductModelTest
             Assert.AreEqual(productModel.MinimumStockQuantity.GetType(), typeof(int));
             Assert.AreEqual(productModel.TotalValueCostOfInventory.GetType(), typeof(string));
             Assert.AreEqual(productModel.TotalValueSaleStock.GetType(), typeof(string));
-            Assert.AreEqual(productModel.NeedToPrint.GetType(), typeof(bool));
-            Assert.AreEqual(productModel.Status.GetType(), typeof(bool));
+            Assert.AreEqual(productModel.NeedToPrint.GetType(), typeof(int));
+            Assert.AreEqual(productModel.Status.GetType(), typeof(int));
             Assert.AreEqual(productModel.UserId.GetType(), typeof(int));
             Assert.AreEqual(productModel.UserName.GetType(), typeof(string));
             Assert.AreEqual(productModel.DateUpdate.GetType(), typeof(DateTime));
             Assert.AreEqual(productModel.DateInsert.GetType(), typeof(DateTime));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void ProductModel_Construtor_Sucesso()
         {
             // Arrange

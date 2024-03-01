@@ -3,12 +3,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test.Donne.Domain.CommandModelTest
 {
-    [Ignore] // you can ignore this test
     [TestClass]
     [TestCategory("Donne > Domain > CommandModel")]
     public class CommandModelTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void CommandModel_Tipo_Sucesso()
         {
             // Arrange
@@ -33,10 +32,10 @@ namespace Test.Donne.Domain.CommandModelTest
             Assert.AreEqual(commandModel.UserName.GetType(), typeof(string));
             Assert.AreEqual(commandModel.DateUpdate.GetType(), typeof(DateTime));
             Assert.AreEqual(commandModel.DateInsert.GetType(), typeof(DateTime));
-            Assert.AreEqual(commandModel.Status.GetType(), typeof(bool));
+            Assert.AreEqual(commandModel.Status.GetType(), typeof(int));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void CommandModel_Construtor_Sucesso()
         {
             // Arrange

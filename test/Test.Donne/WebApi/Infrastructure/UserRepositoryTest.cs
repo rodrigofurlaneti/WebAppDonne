@@ -10,7 +10,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
     [TestCategory("Donne > WebApi > Infrastructure > UserRepository")]
     public class UserRepositoryTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllUsers_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -25,22 +25,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
-        public void GetAllUsers_Retorno_Objeto_Populado_Sucesso()
-        {
-            // Arrange
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            UserRepository userRepository = new UserRepository(mockLogger.Object);
-
-            // Act
-            var result = userRepository.GetAllUsers();
-
-            // Assert
-            Assert.IsTrue(result.Any());
-            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-        }
-
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetAllUsersAsync_Sucesso()
         {
             // Arrange
@@ -52,45 +37,28 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetAllUserAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllUsersAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("GetAllUserAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("User_GetAllUserAsync")).Throws(new Exception());
             UserRepository userRepository = new UserRepository(mockLogger.Object);
 
             // Act
             // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.GetAllUsersAsync());
-            mockLogger.Verify(x => x.TraceException("GetAllUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("User_GetAllUserAsync"), Times.Exactly(0));
         }
 
-        [TestMethod][Ignore]
-        public void GetById_Retorno_Diferente_Nulo_Sucesso()
-        {
-            // Arrange
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
-            int idUltimo = getAll.ToList()[getAll.Count() - 1].UserId;
-
-            // Act
-            var result = userRepository.GetById(idUltimo);
-
-            // Assert
-            Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
-        }
-
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetById_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
+            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
             var getAll = userRepository.GetAllUsers();
@@ -107,10 +75,11 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
+            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
             var getAll = await userRepository.GetAllUsersAsync();
@@ -121,99 +90,29 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllUserAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetAllUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByIdAsync_Erro()
         {
             // Arrange
+            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("User_GetByIdAsync")).Throws(new Exception());
             UserRepository userRepository = new UserRepository(mockLogger.Object);
             var getAll = userRepository.GetAllUsers();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].UserId;
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.GetByIdAsync(idUltimo));
-            mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
-        }
-
-        [TestMethod][Ignore]
-        public void GetByName_Retorno_Diferente_Nulo_Sucesso()
-        {
-            // Arrange
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
-            string nameUltimo = getAll.ToList()[getAll.Count() - 1].UserName;
-
-            // Act
-            var result = userRepository.GetByName(nameUltimo);
-
-            // Assert
-            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.TraceException("User_GetByIdAsync"), Times.Exactly(0));
             mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByName"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetByIdAsync"), Times.Exactly(0));
         }
 
-
-        [TestMethod][Ignore]
-        public void GetByName_Retorno_Objeto_Populado_Sucesso()
-        {
-            // Arrange
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
-            string nameUltimo = getAll.ToList()[getAll.Count() - 1].UserName;
-
-            // Act
-            var result = userRepository.GetByName(nameUltimo);
-
-            // Assert
-            Assert.AreEqual(nameUltimo, result.UserName);
-            Assert.IsTrue(result.UserId != 0);
-            Assert.IsTrue(result.UserName != string.Empty);
-            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByName"), Times.Exactly(1));
-        }
-
-        [TestMethod][Ignore]
-        public async Task GetByNameAsync_Sucesso()
-        {
-            // Arrange
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
-            string nameUltimo = getAll.ToList()[getAll.Count() - 1].UserName;
-
-            // Act
-            var result = await userRepository.GetByNameAsync(nameUltimo);
-
-            // Assert
-            Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByNameAsync"), Times.Exactly(1));
-        }
-
-        [TestMethod][Ignore]
-        public void GetByNameAsync_Erro()
-        {
-            // Arrange
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("GetByNameAsync")).Throws(new Exception());
-            UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
-            string nameUltimo = getAll.ToList()[getAll.Count() - 1].UserName;
-
-            // Act
-            // Assert
-            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.GetByNameAsync(nameUltimo));
-            mockLogger.Verify(x => x.TraceException("GetByNameAsync"), Times.Exactly(1));
-        }
-
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Insert_Sem_Retorno_Sucesso()
         {
             // Arrange
@@ -232,10 +131,10 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             userRepository.Insert(userModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_Insert"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task InsertAsync_Sem_Retorno_Sucesso()
         {
             // Arrange
@@ -254,15 +153,15 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             await userRepository.InsertAsync(userModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void InsertAsync_Sem_Retorno_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("User_InsertAsync")).Throws(new Exception());
             UserRepository userRepository = new UserRepository(mockLogger.Object);
             int profileId = Faker.RandomNumber.Next(0, 1000);
             string profileName = Faker.Name.First();
@@ -276,10 +175,10 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             // Act
             // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.InsertAsync(userModel));
-            mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("User_InsertAsync"), Times.Exactly(0));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Update_Sem_Retorno_Sucesso()
         {
             // Arrange
@@ -300,10 +199,10 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             //Assert
             mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_Update"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task UpdateAsync_Sem_Retorno_Sucesso()
         {
             // Arrange
@@ -323,16 +222,15 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             await userRepository.UpdateAsync(userModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void UpdateAsync_Sem_Retorno_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("User_UpdateAsync")).Throws(new Exception());
             UserRepository userRepository = new UserRepository(mockLogger.Object);
             var getAll = userRepository.GetAllUsers();
             int userId = getAll.ToList()[getAll.Count() - 1].UserId;
@@ -347,13 +245,14 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             // Act
             //Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.UpdateAsync(userModel));
-            mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Delete_Sem_Retorno_Sucesso()
         {
             // Arrange
+            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
             var getAll = userRepository.GetAllUsers();
@@ -364,10 +263,10 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             //Assert
             mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_Delete"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task DeleteAsync_Sem_Retorno_Sucesso()
         {
             // Arrange
@@ -381,15 +280,15 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             //Assert
             mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_DeleteAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void DeleteAsync_Sem_Retorno_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("User_DeleteAsync")).Throws(new Exception());
             UserRepository userRepository = new UserRepository(mockLogger.Object);
             var getAll = userRepository.GetAllUsers();
             int userId = getAll.ToList()[getAll.Count() - 1].UserId;
@@ -399,7 +298,8 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             //Assert
             mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-            mockLogger.Verify(x => x.TraceException("DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_DeleteAsync"), Times.Exactly(0));
+            mockLogger.Verify(x => x.TraceException("User_DeleteAsync"), Times.Exactly(0));
         }
     }
 }

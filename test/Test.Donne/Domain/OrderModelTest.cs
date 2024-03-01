@@ -7,7 +7,7 @@ namespace Test.Donne.Domain.OrderModelTest
     [TestCategory("Donne > Domain > OrderModel")]
     public class OrderModelTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void OrderModel_Tipo_Sucesso()
         {
             // Arrange

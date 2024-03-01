@@ -73,10 +73,7 @@ namespace WebApi.Donne.Infrastructure
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
-                    CommandModel commandModel = new CommandModel();
-                    commandModel.CommandId = Convert.ToInt32(sqlDataReader["CommandId"]);
-                    commandModel.BuyerName = Convert.ToString(sqlDataReader["BuyerName"]);
-                    listCommandsModel.Add(commandModel);
+                    GetListCommandModel(sqlDataReader, listCommandsModel);
                 }
             }
             logger.Trace("GetByStatus");
@@ -97,10 +94,7 @@ namespace WebApi.Donne.Infrastructure
                 SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
                 while (sqlDataReader.Read())
                 {
-                    CommandModel commandModel = new CommandModel();
-                    commandModel.CommandId = Convert.ToInt32(sqlDataReader["CommandId"]);
-                    commandModel.BuyerName = Convert.ToString(sqlDataReader["BuyerName"]);
-                    listCommandsModel.Add(commandModel);
+                    GetListCommandModel(sqlDataReader, listCommandsModel);
                 }
                 this.logger.Trace("Command_GetByStatusAsync");
                 return listCommandsModel;
@@ -185,12 +179,12 @@ namespace WebApi.Donne.Infrastructure
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 await sqlCommand.ExecuteNonQueryAsync();
                 sqlConnection.Close();
-                logger.Trace("Command_InsertAsync");
+                this.logger.Trace("Command_InsertAsync");
             }
             catch (Exception ex)
             {
-                string mensagemErro = "Erro ao inserir da comanda, utilizando a procedure USP_CommandInsert assíncrono " + ex.Message;
                 this.logger.TraceException("Command_InsertAsync");
+                string mensagemErro = "Erro ao inserir da comanda, utilizando a procedure USP_CommandInsert assíncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
         }
@@ -271,8 +265,8 @@ namespace WebApi.Donne.Infrastructure
             }
             catch (Exception ex)
             {
-                string mensagemErro = "Erro ao excluir uma comanda, utilizando a procedure USP_Donne_Command_Delete assíncrono " + ex.Message;
                 this.logger.TraceException("Command_DeleteAsync");
+                string mensagemErro = "Erro ao excluir uma comanda, utilizando a procedure USP_Donne_Command_Delete assíncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
         }

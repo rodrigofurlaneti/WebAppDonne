@@ -7,7 +7,7 @@ namespace Test.Donne.Domain.PaymentModelTest
     [TestCategory("Donne > Domain > PaymentModel")]
     public class PaymentModelTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void PaymentModel_Tipo_Sucesso()
         {
             // Arrange
@@ -38,7 +38,7 @@ namespace Test.Donne.Domain.PaymentModelTest
             Assert.AreEqual(paymentModel.UserName.GetType(), typeof(string));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void OrderModel_Construtor_Sucesso()
         {
             // Arrange

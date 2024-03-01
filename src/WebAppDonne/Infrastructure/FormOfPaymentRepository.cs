@@ -152,8 +152,8 @@ namespace WebApi.Donne.Infrastructure
             }
             catch (Exception ex)
             {
-                string mensagemErro = "Erro ao inserir uma nova forma de pagamento, utilizando a procedure USP_Donne_FormOfPayment_Insert assíncrono " + ex.Message;
                 this.logger.TraceException("FormOfPayment_InsertAsync");
+                string mensagemErro = "Erro ao inserir uma nova forma de pagamento, utilizando a procedure USP_Donne_FormOfPayment_Insert assíncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
 

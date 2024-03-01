@@ -8,7 +8,7 @@ namespace Test.Donne.Domain.BuyersModelTest
     [TestCategory("Donne > Domain > BuyersModel")]
     public class BuyersModelTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void BuyerModel_Tipo_Sucesso()
         {
             // Arrange
@@ -39,14 +39,14 @@ namespace Test.Donne.Domain.BuyersModelTest
             Assert.AreEqual(buyerModel.BuyerName.GetType(), typeof(string));
             Assert.AreEqual(buyerModel.UserName.GetType(), typeof(string));
             Assert.AreEqual(buyerModel.BuyerId.GetType(), typeof(int));
-            Assert.AreEqual(buyerModel.Status.GetType(), typeof(bool));
+            Assert.AreEqual(buyerModel.Status.GetType(), typeof(int));
             Assert.AreEqual(buyerModel.DateUpdate.GetType(), typeof(DateTime));
             Assert.AreEqual(buyerModel.DateInsert.GetType(), typeof(DateTime));
             Assert.AreEqual(buyerModel.BuyerPhone.GetType(), typeof(string));
             Assert.AreEqual(buyerModel.UserId.GetType(), typeof(int));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void BuyerModel_Construtor_Sucesso()
         {
             // Arrange

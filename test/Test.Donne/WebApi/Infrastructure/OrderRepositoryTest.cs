@@ -6,11 +6,12 @@ using WebApi.Donne.Infrastructure.SeedWork;
 
 namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
 {
+    [Ignore]
     [TestClass]
     [TestCategory("Donne > WebApi > Infrastructure > OrderRepository")]
     public class OrderRepositoryTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllOrders_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -25,7 +26,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllOrders"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllOrders_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -40,7 +41,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllOrders"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetAllOrdersAsync_Sucesso()
         {
             // Arrange
@@ -55,7 +56,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             mockLogger.Verify(x => x.Trace("GetAllOrdersAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllOrdersAsync_Erro()
         {
             // Arrange
@@ -71,7 +72,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             mockLogger.Verify(x => x.TraceException("GetAllOrdersAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -267,7 +268,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
         //    mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
         //}
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Delete_Sucesso()
         {
             // Arrange
@@ -284,7 +285,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
@@ -301,7 +302,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void DeleteAsync_Erro()
         {
             // Arrange

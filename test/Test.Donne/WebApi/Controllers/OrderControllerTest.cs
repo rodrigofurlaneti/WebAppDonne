@@ -9,11 +9,75 @@ using WebApi.Donne.Infrastructure.SeedWork;
 
 namespace Test.Donne.WebApi.Controllers.OrderControllerTest
 {
+    [Ignore]
     [TestClass]
     [TestCategory("Donne > WebApi > Controllers > OrderController")]
     public class OrderControllerTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
+        public async Task Insert_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            OrderController orderController = new OrderController(mockLogger.Object);
+            int orderId = Faker.RandomNumber.Next(0, 100);
+            int commandId = Faker.RandomNumber.Next(0, 100);
+            int productId = Faker.RandomNumber.Next(0, 100);
+            string productName = Faker.Name.First();
+            string buyerName = Faker.Name.First();
+            string salePrice = Faker.Name.First();
+            int amount = Faker.RandomNumber.Next(0, 100);
+            string totalSalePrice = Faker.RandomNumber.Next(0, 100).ToString();
+            DateTime dateInsert = Faker.Finance.Maturity();
+            DateTime dateUpdate = Faker.Finance.Maturity();
+            int userId = Faker.RandomNumber.Next(0, 1000);
+            string userName = Faker.Name.Last();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, buyerName, salePrice, amount, totalSalePrice,
+                listDateTime, userId, userName);
+
+            // Act
+            await orderController.Post(orderModel);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("FormOfPayment_InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("InsertFormOfPaymentAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void Insert_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            int orderId = Faker.RandomNumber.Next(0, 100);
+            int commandId = Faker.RandomNumber.Next(0, 100);
+            int productId = Faker.RandomNumber.Next(0, 100);
+            string productName = Faker.Name.First();
+            string buyerName = Faker.Name.First();
+            string salePrice = Faker.Name.First();
+            int amount = Faker.RandomNumber.Next(0, 100);
+            string totalSalePrice = Faker.RandomNumber.Next(0, 100).ToString();
+            DateTime dateInsert = Faker.Finance.Maturity();
+            DateTime dateUpdate = Faker.Finance.Maturity();
+            int userId = Faker.RandomNumber.Next(0, 1000);
+            string userName = Faker.Name.Last();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+            OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, buyerName, salePrice, amount, totalSalePrice,
+                listDateTime, userId, userName);
+
+            //Setup
+            mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
+            OrderController orderController = new OrderController(mockLogger.Object);
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => orderController.Post(orderModel));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("FormOfPayment_InsertAsync"), Times.Exactly(0));
+            mockLogger.Verify(x => x.Trace("InsertFormOfPaymentAsync"), Times.Exactly(0));
+        }
+
+        [TestMethod]
         public async Task GetOrderAsync_Sucesso()
         {
             // Arrange
@@ -33,7 +97,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             mockLogger.Verify(x => x.Trace("GetAllOrdersAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetOrderAsync_Erro()
         {
             // Arrange
@@ -46,7 +110,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => orderController.Get());
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
@@ -71,7 +135,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(2));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByIdAsync_Erro()
         {
             // Arrange
@@ -221,7 +285,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
         //    mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
         //}
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task Delete_Sucesso()
         {
             // Arrange
@@ -241,7 +305,7 @@ namespace Test.Donne.WebApi.Controllers.OrderControllerTest
             mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Delete_Erro()
         {
             // Arrange

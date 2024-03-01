@@ -13,7 +13,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
     [TestCategory("Donne > WebApi > Controllers > BuyerController")]
     public class BuyerControllerTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetBuyersAsync_Sucesso()
         {
             // Arrange
@@ -29,11 +29,11 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
+            mockLogger.Verify(x => x.Trace("Buyer_GetAllAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetBuyerAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetAllBuyersAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetBuyersAsync_Erro()
         {
             // Arrange
@@ -48,7 +48,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => buyerController.GetBuyersAsync());
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByStatus_Ativo_Sucesso()
         {
             // Arrange
@@ -65,10 +65,10 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
             mockLogger.Verify(x => x.Trace("OptionsAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Buyer_GetByStatusAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByStatus_Ativo_Erro()
         {
             // Arrange
@@ -86,7 +86,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             mockLogger.Verify(x => x.TraceException("OptionsAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByStatus_Desativo_Sucesso()
         {
             // Arrange
@@ -103,10 +103,10 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
             mockLogger.Verify(x => x.Trace("OptionsAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Buyer_GetByStatusAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetById_Sucesso()
         {
             // Arrange
@@ -129,10 +129,13 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             Assert.IsNotNull(listBuyers);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
-            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Buyer_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetBuyerAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Buyer_GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetById_Erro()
         {
             // Arrange
@@ -154,7 +157,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task Insert_Post_Sucesso()
         {
             // Arrange
@@ -177,10 +180,11 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             await buyerController.Post(buyerModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Buyer_InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Insert_Post_Erro()
         {
             // Arrange
@@ -210,7 +214,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task Update_Sucesso()
         {
             // Arrange
@@ -240,10 +244,13 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             await buyerController.Update(buyerModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Buyer_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetBuyerAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Buyer_UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Update_Erro()
         {
             // Arrange
@@ -276,7 +283,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task Delete_Sucesso()
         {
             // Arrange
@@ -295,11 +302,13 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             await buyerController.Delete(id);
 
             // Assert
+            mockLogger.Verify(x => x.Trace("Buyer_GetAllAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetBuyerAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Buyer_DeleteAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Delete_Erro()
         {
             // Arrange

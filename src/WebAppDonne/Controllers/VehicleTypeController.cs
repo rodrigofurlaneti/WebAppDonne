@@ -38,26 +38,6 @@ namespace WebApi.Donne.Controllers
             }
         }
 
-        [HttpOptions("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleTypeModel>))]
-        public async Task<IActionResult> OptionsAsync(int id)
-        {
-            try
-            {
-                VehicleTypeRepository dal = new VehicleTypeRepository(_logger);
-                _logger.Trace("OptionsAsync");
-                var ret = await dal.GetByStatusAsync(id);
-                return Ok(ret);
-            }
-            catch (Exception ex)
-            {
-                _logger.TraceException("OptionsAsync");
-                string mensagem = "Erro ao consumir a controler VehicleType, rota OptionsAsync " + ex.Message;
-                throw new ArgumentNullException(mensagem);
-            }
-
-        }
-
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleTypeModel>))]
         public async Task<IActionResult> Get(int id)

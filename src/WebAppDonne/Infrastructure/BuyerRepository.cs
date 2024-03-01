@@ -126,7 +126,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
-                commandText = "USP_Donne_Buyer_GetId";
+                commandText = "USP_Donne_Buyer_GetById";
                 BuyerModel buyerModel = new BuyerModel();
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
@@ -137,23 +137,23 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                     while (sqlDataReader.Read())
                     {
-                        buyerModel = GetBuyerModel(sqlDataReader, buyerModel);
+                        GetBuyerModel(sqlDataReader, buyerModel);
                     }
                 }
-                logger.Trace("Buyer_GetById");
+                this.logger.Trace("Buyer_GetById");
                 return buyerModel;
             }
             catch (ArgumentNullException ex)
             {
+                this.logger.TraceException("Buyer_GetById");
                 string mensagemErro = "Erro ao consumir a procedure USP_Donne_Buyer_GetById, síncrono. " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
-
         }
 
         public async Task<BuyerModel> GetByIdAsync(int id)
         {
-            commandText = "USP_Donne_Buyer_GetId";
+            commandText = "USP_Donne_Buyer_GetById";
             BuyerModel buyerModel = new BuyerModel();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
@@ -165,7 +165,7 @@ namespace WebApi.Donne.Infrastructure
                 SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
                 while (sqlDataReader.Read())
                 {
-                    buyerModel = GetBuyerModel(sqlDataReader, buyerModel);
+                   GetBuyerModel(sqlDataReader, buyerModel);
                 }
                 logger.Trace("Buyer_GetByIdAsync");
                 return buyerModel;

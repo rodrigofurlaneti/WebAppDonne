@@ -13,7 +13,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
     [TestCategory("Donne > WebApi > Controllers > CategoryController")]
     public class CategoryControllerTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetCategorysAsync_Sucesso()
         {
             // Arrange
@@ -29,11 +29,11 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
+            mockLogger.Verify(x => x.Trace("Category_GetAllAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetCategorysAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetAllCategorysAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetCategorysAsync_Erro()
         {
             // Arrange
@@ -45,10 +45,11 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Get());
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
+            await InsertAsync_Sucesso();
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryController categoryController = new CategoryController(mockLogger.Object);
@@ -67,14 +68,18 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
+
+            mockLogger.Verify(x => x.Trace("Category_GetAllAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetCategorysAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetAllCategorysAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Category_GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByIdAsync_Erro()
         {
             // Arrange
+            InsertAsync_Sucesso();
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
@@ -91,7 +96,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Get(id));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task InsertAsync_Sucesso()
         {
             // Arrange
@@ -112,10 +117,11 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             await categoryController.Post(categoryModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Category_InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void InsertAsync_Erro()
         {
             // Arrange
@@ -137,10 +143,10 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Post(categoryModel));
 
             // Assert
-            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Category_InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
@@ -166,12 +172,13 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             await categoryController.Update(categoryModel);
 
             // Assert
+            mockLogger.Verify(x => x.Trace("Category_GetAllAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetCategorysAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetAllCategorysAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Category_UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void UpdateAsync_Erro()
         {
             // Arrange
@@ -198,13 +205,12 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Update(categoryModel));
 
             // Assert
+            mockLogger.Verify(x => x.Trace("Category_GetAllAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetCategorysAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetAllCategorysAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Category_UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
@@ -221,10 +227,13 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             await categoryController.Delete(id);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Category_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetCategorysAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Category_DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void DeleteAsync_Erro()
         {
             // Arrange
@@ -242,8 +251,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Delete(id));
 
             // Assert
-            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.TraceException("DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Category_GetAllAsync"), Times.Exactly(1));
         }
 
     }

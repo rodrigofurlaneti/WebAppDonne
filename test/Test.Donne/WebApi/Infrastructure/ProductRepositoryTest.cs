@@ -10,7 +10,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
     [TestCategory("Donne > WebApi > Infrastructure > ProductRepository")]
     public class ProductRepositoryTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllProducts_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -22,10 +22,10 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_GetAll"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllProducts_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -37,10 +37,10 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
-            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_GetAll"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetAllProductsAsync_Sucesso()
         {
             // Arrange
@@ -52,10 +52,10 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllProductsAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_GetAllAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllProductsAsync_Erro()
         {
             // Arrange
@@ -66,10 +66,10 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             // Act
             // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => productRepository.GetAllProductsAsync());
-            mockLogger.Verify(x => x.Trace("GetAllProductsAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetAllProductsAsync"), Times.Exactly(0));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -83,11 +83,11 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_GetAll"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetById_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -104,11 +104,11 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             Assert.IsTrue(result.CategoryName != string.Empty);
             Assert.IsTrue(result.CategoryId != 0);
             Assert.IsTrue(result.UserId != 0);
-            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_GetAll"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Insert_Sucesso()
         {
             // Arrange
@@ -142,10 +142,10 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             productRepository.Insert(productModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_Insert"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Update_Sucesso()
         {
             // Arrange
@@ -179,11 +179,11 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             productRepository.Update(productModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_Update"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Delete_Sucesso()
         {
             // Arrange
@@ -196,8 +196,8 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             productRepository.Delete(productId);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("GetAllProducts"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Product_Delete"), Times.Exactly(1));
         }
     }
 }

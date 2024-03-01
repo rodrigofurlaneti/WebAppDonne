@@ -10,7 +10,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
     [TestCategory("Donne > WebApi > Infrastructure > CommandRepository")]
     public class CommandRepositoryTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllCommand_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -22,10 +22,10 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllCommand_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -37,10 +37,10 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsTrue(result.Any());
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetAllCommandAsync_Sucesso()
         {
             // Arrange
@@ -52,24 +52,26 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllCommandAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetAllCommandAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("GetAllCommandAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("Command_GetAllAsync")).Throws(new Exception());
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.GetAllCommandAsync());
-            mockLogger.Verify(x => x.Trace("GetAllCommandAsync"), Times.Exactly(1));
+            
+            // Assert
+            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(0));
+            mockLogger.Verify(x => x.TraceException("Command_GetAllAsync"), Times.Exactly(0));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
@@ -83,10 +85,11 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetById"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetById_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
@@ -101,10 +104,11 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Assert
             Assert.AreEqual(idUltimo, result.CommandId);
             Assert.AreNotEqual(string.Empty, result.UserName);
-            mockLogger.Verify(x => x.Trace("GetById"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetById"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
@@ -118,29 +122,30 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByIdAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             // Setup 
-            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("Command_GetByIdAsync")).Throws(new Exception());
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
             var getAll = commandRepository.GetAllCommand();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].CommandId;
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.GetByIdAsync(idUltimo));
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
-            mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByStatus_Ativo_Sucesso()
         {
             // Arrange
@@ -157,11 +162,11 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetByStatus"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByStatusAsync_Ativo_Sucesso()
         {
             // Arrange
@@ -178,11 +183,11 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetByStatusAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByStatusAsync_Ativo_Erro()
         {
             // Arrange
@@ -198,11 +203,10 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Act
             // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.GetByStatusAsync(id));
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByStatusAsync_Desativo_Erro()
         {
             // Arrange
@@ -218,12 +222,10 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Act
             // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.GetByStatusAsync(id));
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
-
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByStatus_Desativo_Sucesso()
         {
             // Arrange
@@ -240,11 +242,11 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetByStatus"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByStatusAsync_Desativo_Sucesso()
         {
             // Arrange
@@ -261,31 +263,11 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
 
             // Assert
             Assert.IsNotNull(result);
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetByStatusAsync"), Times.Exactly(1));
         }
 
-        //[TestMethod][Ignore]
-        //public void GetCommandOrder_Retorno_Diferente_Nulo_Sucesso()
-        //{
-        //    // Arrange
-        //    int id = 0;
-        //    Mock<ILogger> mockLogger = new Mock<ILogger>();
-        //    CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-        //    var getAll = commandRepository.GetAllCommand();
-        //    foreach (var item in getAll)
-        //        if (item.Status.Equals(true))
-        //            id = item.CommandId;
-
-        //    // Act
-        //    var result = commandRepository.GetCommandOrder(id);
-
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //    mockLogger.Verify(x => x.Trace("GetCommandOrder"), Times.Exactly(1));
-        //}
-
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Insert_Sucesso()
         {
             // Arrange
@@ -307,10 +289,10 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             commandRepository.Insert(commandModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace("Insert"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_Insert"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Insert_Retorno_Id_Sucesso()
         {
             // Arrange
@@ -332,12 +314,12 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             var result = commandRepository.InsertReturnId(commandModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace("InsertReturnId"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_InsertReturnId"), Times.Exactly(1));
             Assert.IsNotNull(result);
             Assert.AreNotEqual(commandId, result);
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Update_Sucesso()
         {
             // Arrange
@@ -360,11 +342,11 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             commandRepository.Update(commandModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Update"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_Update"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
@@ -387,11 +369,11 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             await commandRepository.UpdateAsync(commandModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void UpdateAsync_Erro()
         {
             // Arrange
@@ -414,14 +396,14 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Act
             // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.UpdateAsync(commandModel));
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
-            mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void Delete_Sucesso()
         {
             // Arrange
+            Insert_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
             var getAll = commandRepository.GetAllCommand();
@@ -431,11 +413,11 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             commandRepository.Delete(commandId);
 
             //Assert
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Delete"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_Delete"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
@@ -448,28 +430,30 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             await commandRepository.DeleteAsync(commandId);
 
             //Assert
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_DeleteAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
-        public void DeleteAsync_Erro()
+        [TestMethod]
+        public async Task DeleteAsync_Erro()
         {
             // Arrange
+            await InsertAsync_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("Command_DeleteAsync")).Throws(new Exception());
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
             var getAll = commandRepository.GetAllCommand();
             int commandId = getAll.ToList()[getAll.Count() - 1].CommandId;
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.DeleteAsync(commandId));
-            mockLogger.Verify(x => x.Trace("GetAllCommand"), Times.Exactly(1));
-            mockLogger.Verify(x => x.TraceException("DeleteAsync"), Times.Exactly(1));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("Command_DeleteAsync"), Times.Exactly(0));
+            mockLogger.Verify(x => x.TraceException("Command_DeleteAsync"), Times.Exactly(0));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task InsertAsync_Sucesso()
         {
             // Arrange
@@ -491,15 +475,14 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             await commandRepository.InsertAsync(commandModel);
 
             //Assert
-            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void InsertAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("InsertAsync")).Throws(new Exception());
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
             int buyerId = Faker.RandomNumber.Next(0, 100);
             string buyerName = Faker.Name.FullName();
@@ -513,13 +496,18 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             CommandModel commandModel = new CommandModel(commandId, buyerId, buyerName, status, listDateTime,
                 userId, userName);
 
+            // Setup
+            mockLogger.Setup(x => x.Trace("Command_InsertAsync")).Throws(new Exception());
+
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.InsertAsync(commandModel));
-            mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("Command_InsertAsync"), Times.Exactly(0));
+            mockLogger.Verify(x => x.TraceException("Command_InsertAsync"), Times.Exactly(0));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task InsertReturnIdAsync_Sucesso()
         {
             // Arrange
@@ -544,7 +532,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             mockLogger.Verify(x => x.Trace("InsertReturnIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void InsertReturnIdAsync_Erro()
         {
             // Arrange
@@ -564,9 +552,11 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
                 userId, userName);
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.InsertReturnIdAsync(commandModel));
-            mockLogger.Verify(x => x.TraceException("InsertReturnIdAsync"), Times.Exactly(1));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("InsertReturnIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("Command_InsertReturnIdAsync"), Times.Exactly(1));
         }
     }
 }

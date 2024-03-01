@@ -3,12 +3,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test.Donne.Domain.CommandOrderModelTest
 {
-    [Ignore]
     [TestClass]
     [TestCategory("Donne > Domain > CommandOrderModel")]
     public class CommandOrderModelTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public void CommandOrderModel_Tipo_Sucesso()
         {
             // Arrange
@@ -34,7 +33,7 @@ namespace Test.Donne.Domain.CommandOrderModelTest
             Assert.AreEqual(commandOrderModel.TotalSalePrice.GetType(), typeof(string));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void CommandOrderModel_Construtor_Sucesso()
         {
             // Arrange

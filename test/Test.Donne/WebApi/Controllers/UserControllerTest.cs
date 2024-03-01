@@ -13,7 +13,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
     [TestCategory("Donne > WebApi > Controllers > UserController")]
     public class UserControllerTest
     {
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetUserAsync_Sucesso()
         {
             // Arrange
@@ -30,10 +30,10 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
             mockLogger.Verify(x => x.Trace("GetUserAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetAllUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetAllUserAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetUserAsync_Erro()
         {
             // Arrange
@@ -50,7 +50,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             mockLogger.Verify(x => x.TraceException("GetUserAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
@@ -72,10 +72,13 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
-            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetAllUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByIdAsync_Erro()
         {
             // Arrange
@@ -96,7 +99,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task GetByNameAsync_Sucesso()
         {
             // Arrange
@@ -118,10 +121,13 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
-            mockLogger.Verify(x => x.Trace("GetByNameAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetAllUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("GetByNameAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetByNameAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void GetByNameAsync_Erro()
         {
             // Arrange
@@ -142,7 +148,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             mockLogger.Verify(x => x.TraceException("GetByNameAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task InsertAsync_Sucesso()
         {
             // Arrange
@@ -162,10 +168,11 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             await userController.Post(userModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void InsertAsync_Erro()
         {
             // Arrange
@@ -188,7 +195,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             mockLogger.Verify(x => x.TraceException("InsertAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task UpdateAsync_Sucesso()
         {
             // Arrange
@@ -213,10 +220,13 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             await userController.Update(userModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetAllUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_UpdateAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void UpdateAsync_Erro()
         {
             // Arrange
@@ -245,7 +255,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
         }
 
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public async Task DeleteAsync_Sucesso()
         {
             // Arrange
@@ -262,10 +272,13 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             await userController.Delete(id);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("GetUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetAllUserAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_DeleteAsync"), Times.Exactly(1));
         }
 
-        [TestMethod][Ignore]
+        [TestMethod]
         public void DeleteAsync_Erro()
         {
             // Arrange

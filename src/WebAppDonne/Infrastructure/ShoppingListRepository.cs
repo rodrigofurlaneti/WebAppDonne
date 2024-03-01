@@ -19,24 +19,17 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_ShoppingListGetAll";
                 List<ShoppingListModel> listShoppingListModel = new List<ShoppingListModel>();
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_ShoppingListGetAll", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
                     {
-                        ShoppingListModel shoppingListModel = new ShoppingListModel();
-                        shoppingListModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
-                        shoppingListModel.ProductName = Convert.ToString(rdr["ProductName"]);
-                        shoppingListModel.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
-                        shoppingListModel.CategoryName = Convert.ToString(rdr["CategoryName"]);
-                        shoppingListModel.CostPrice = Convert.ToString(rdr["CostPrice"]);
-                        shoppingListModel.QuantityToBuy = Convert.ToInt32(rdr["QuantityToBuy"]);
-                        shoppingListModel.TotalValueOfLastPurchase = Convert.ToString(rdr["TotalValueOfLastPurchase"]);
-                        listShoppingListModel.Add(shoppingListModel);
+                        GetListShoppingModel(sqlDataReader, listShoppingListModel);
                     }
                 }
                 logger.Trace("GetAllShoppingList");
@@ -52,27 +45,20 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<ShoppingListModel>> GetAllShoppingListAsync()
         {
+            commandText = "USP_ShoppingListGetAll";
             List<ShoppingListModel> listShoppingListModel = new List<ShoppingListModel>();
             List<ShoppingListModel> listShoppingListModelRet = new List<ShoppingListModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_ShoppingListGetAll", con))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 try
                 {
                     logger.Trace("GetAllShoppingListAsync");
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
                     {
-                        ShoppingListModel shoppingListModel = new ShoppingListModel();
-                        shoppingListModel.ProductId = Convert.ToInt32(rdr["ProductId"]);
-                        shoppingListModel.ProductName = Convert.ToString(rdr["ProductName"]);
-                        shoppingListModel.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
-                        shoppingListModel.CategoryName = Convert.ToString(rdr["CategoryName"]);
-                        shoppingListModel.CostPrice = Convert.ToString(rdr["CostPrice"]);
-                        shoppingListModel.QuantityToBuy = Convert.ToInt32(rdr["QuantityToBuy"]);
-                        shoppingListModel.TotalValueOfLastPurchase = Convert.ToString(rdr["TotalValueOfLastPurchase"]);
-                        listShoppingListModel.Add(shoppingListModel);
+                        GetListShoppingModel(sqlDataReader, listShoppingListModel);
                     }
 
                     if(listShoppingListModel.Count > 0)
@@ -90,5 +76,29 @@ namespace WebApi.Donne.Infrastructure
         }
 
         #endregion
+
+        #region Helpers
+        private List<ShoppingListModel> GetListShoppingModel(SqlDataReader sqlDataReader, List<ShoppingListModel> listShoppingListModel)
+        {
+            ShoppingListModel shoppingListModel = new ShoppingListModel();
+            shoppingListModel = GetShoppingListModel(sqlDataReader, shoppingListModel);
+            listShoppingListModel.Add(shoppingListModel);
+            return listShoppingListModel;
+        }
+
+        private ShoppingListModel GetShoppingListModel(SqlDataReader sqlDataReader, ShoppingListModel shoppingListModel)
+        {
+            shoppingListModel.ProductId = Convert.ToInt32(sqlDataReader["ProductId"]);
+            shoppingListModel.ProductName = Convert.ToString(sqlDataReader["ProductName"]);
+            shoppingListModel.CategoryId = Convert.ToInt32(sqlDataReader["CategoryId"]);
+            shoppingListModel.CategoryName = Convert.ToString(sqlDataReader["CategoryName"]);
+            shoppingListModel.CostPrice = Convert.ToString(sqlDataReader["CostPrice"]);
+            shoppingListModel.QuantityToBuy = Convert.ToInt32(sqlDataReader["QuantityToBuy"]);
+            shoppingListModel.TotalValueOfLastPurchase = Convert.ToString(sqlDataReader["TotalValueOfLastPurchase"]);
+            return shoppingListModel;
+        }
+
+        #endregion
+
     }
 }
