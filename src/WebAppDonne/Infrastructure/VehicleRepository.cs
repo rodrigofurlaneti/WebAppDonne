@@ -18,18 +18,17 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_VehicleGetAll";
                 List<Vehicle> listVehicleModel = new List<Vehicle>();
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_VehicleGetAll", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
                     {
-                        Vehicle vehicleModel = new Vehicle();
-                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
-                        listVehicleModel.Add(vehicleModel);
+                        listVehicleModel = GetListVehicle(sqlDataReader, listVehicleModel);
                     }
                 }
                 logger.Trace("GetAllVehicles");
@@ -45,20 +44,19 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<Vehicle>> GetAllVehiclesAsync()
         {
+            commandText = "USP_VehicleGetAll";
             List<Vehicle> listVehicleModel = new List<Vehicle>();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_VehicleGetAll", con))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 try
                 {
                     logger.Trace("VehicleGetAll");
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
                     {
-                        Vehicle vehicleModel = new Vehicle();
-                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
-                        listVehicleModel.Add(vehicleModel);
+                        listVehicleModel = GetListVehicle(sqlDataReader, listVehicleModel);
                     }
                     return listVehicleModel;
                 }
@@ -69,23 +67,22 @@ namespace WebApi.Donne.Infrastructure
                 }
         }
 
-        public IEnumerable<Vehicle> GetByStatus(int status)
+        public IEnumerable<Vehicle> GetByParked(int status)
         {
             try
             {
+                commandText = "USP_VehicleGetParked";
                 List<Vehicle> listVehicleModel = new List<Vehicle>();
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_VehicleGetStatus", con);
-                    cmd.Parameters.AddWithValue("@Status", status);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    GetVehicleParked(sqlCommand, status);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
                     {
-                        Vehicle vehicleModel = new Vehicle();
-                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
-                        listVehicleModel.Add(vehicleModel);
+                        GetListVehicle(sqlDataReader, listVehicleModel);
                     }
                 }
                 logger.Trace("GetByStatus");
@@ -99,29 +96,28 @@ namespace WebApi.Donne.Infrastructure
 
         }
 
-        public async Task<IEnumerable<Vehicle>> GetByStatusAsync(int status)
+        public async Task<IEnumerable<Vehicle>> GetByParkedAsync(int status)
         {
+            commandText = "USP_VehicleGetParked";
             List<Vehicle> listVehicleModel = new List<Vehicle>();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_VehicleGetStatus", con))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 try
                 {
-                    logger.Trace("GetByStatusAsync");
-                    cmd.Parameters.AddWithValue("@Status", status);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
+                    logger.Trace("GetByParkedAsync");
+                    GetVehicleParked(sqlCommand, status);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
                     {
-                        Vehicle vehicleModel = new Vehicle();
-                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
-                        listVehicleModel.Add(vehicleModel);
+                        GetListVehicle(sqlDataReader, listVehicleModel);
                     }
                     return listVehicleModel;
                 }
                 catch (ArgumentNullException ex)
                 {
-                    string mensagemErro = "Erro ao consumir a procedure USP_VehicleGetStatus, assíncrono. " + ex.Message;
+                    string mensagemErro = "Erro ao consumir a procedure USP_VehicleGetByParked, assíncrono. " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }
         }
@@ -130,17 +126,18 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_VehicleGetById";
                 Vehicle vehicleModel = new Vehicle();
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_VehicleGetById", con);
-                    cmd.Parameters.AddWithValue("@VehicleId", id);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    GetSqlCommandVehicleById(sqlCommand, id);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
                     {
-                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
+                        GetVehicle(sqlDataReader, vehicleModel);
                     }
                 }
                 logger.Trace("GetById");
@@ -156,19 +153,20 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<Vehicle> GetByIdAsync(int id)
         {
+            commandText = "USP_VehicleGetById";
             Vehicle vehicleModel = new Vehicle();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_VehicleGetById", con))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 try
                 {
                     logger.Trace("GetByIdAsync");
-                    cmd.Parameters.AddWithValue("@VehicleId", id);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
+                    GetSqlCommandVehicleById(sqlCommand, id);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
                     {
-                        vehicleModel = GetVehicleModel(vehicleModel, rdr);
+                        GetVehicle(sqlDataReader, vehicleModel);
                     }
                     return vehicleModel;
                 }
@@ -179,149 +177,161 @@ namespace WebApi.Donne.Infrastructure
                 }
         }
 
-        public void Insert(Vehicle vehicleModel)
+        public void Insert(Vehicle vehicle)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleInsert", con);
-            cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleModel.VehicleTypeId);
-            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleModel.VehicleTypeName);
-            cmd.Parameters.AddWithValue("@VehicleBrandId", vehicleModel.VehicleBrandId);
-            cmd.Parameters.AddWithValue("@VehicleBrandName", vehicleModel.VehicleBrandName);
-            cmd.Parameters.AddWithValue("@VehicleModelId", vehicleModel.VehicleModelId);
-            cmd.Parameters.AddWithValue("@VehicleModelName", vehicleModel.VehicleModelName);
-            cmd.Parameters.AddWithValue("@VehicleColorId", vehicleModel.VehicleColorId);
-            cmd.Parameters.AddWithValue("@VehicleColorName", vehicleModel.VehicleColorName);
-            cmd.Parameters.AddWithValue("@Plate", vehicleModel.Plate);
-            cmd.Parameters.AddWithValue("@EntryDate", vehicleModel.EntryDate);
-            cmd.Parameters.AddWithValue("@EntryTime", vehicleModel.EntryTime);
-            cmd.Parameters.AddWithValue("@DepartureDate", vehicleModel.DepartureDate);
-            cmd.Parameters.AddWithValue("@DepartureTime", vehicleModel.DepartureTime);
-            cmd.Parameters.AddWithValue("@Parked", vehicleModel.Parked);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
+            commandText = "USP_VehicleInsert";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleInsert(sqlCommand, vehicle);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
             logger.Trace("Insert");
         }
 
-        public async Task InsertAsync(Vehicle vehicleModel)
+        public async Task InsertAsync(Vehicle vehicle)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleInsert", con);
-            cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleModel.VehicleTypeId);
-            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleModel.VehicleTypeName);
-            cmd.Parameters.AddWithValue("@VehicleBrandId", vehicleModel.VehicleBrandId);
-            cmd.Parameters.AddWithValue("@VehicleBrandName", vehicleModel.VehicleBrandName);
-            cmd.Parameters.AddWithValue("@VehicleModelId", vehicleModel.VehicleModelId);
-            cmd.Parameters.AddWithValue("@VehicleModelName", vehicleModel.VehicleModelName);
-            cmd.Parameters.AddWithValue("@VehicleColorId", vehicleModel.VehicleColorId);
-            cmd.Parameters.AddWithValue("@VehicleColorName", vehicleModel.VehicleColorName);
-            cmd.Parameters.AddWithValue("@Plate", vehicleModel.Plate);
-            cmd.Parameters.AddWithValue("@EntryDate", vehicleModel.EntryDate);
-            cmd.Parameters.AddWithValue("@EntryTime", vehicleModel.EntryTime);
-            cmd.Parameters.AddWithValue("@DepartureDate", vehicleModel.DepartureDate);
-            cmd.Parameters.AddWithValue("@DepartureTime", vehicleModel.DepartureTime);
-            cmd.Parameters.AddWithValue("@Parked", vehicleModel.Parked);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
+            commandText = "USP_VehicleInsert";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleInsert(sqlCommand, vehicle);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
             logger.Trace("InsertAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            await sqlCommand.ExecuteNonQueryAsync();
+            sqlConnection.Close();
         }
 
-        public void Delete(int VehicleId)
+        public void Delete(int vehicleId)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleDelete", con);
-            cmd.Parameters.AddWithValue("@VehicleId", VehicleId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
+            commandText = "USP_VehicleDelete";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleById(sqlCommand, vehicleId);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
             logger.Trace("Delete");
         }
 
-        public async Task DeleteAsync(int VehicleId)
+        public async Task DeleteAsync(int vehicleId)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleDelete", con);
-            cmd.Parameters.AddWithValue("@VehicleId", VehicleId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
+            commandText = "USP_VehicleBrandDelete";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleById(sqlCommand, vehicleId);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
             logger.Trace("DeleteAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            await sqlCommand.ExecuteNonQueryAsync();
+            sqlConnection.Close();
         }
 
-        public void Update(Vehicle vehicleModel)
+        public void Update(Vehicle vehicle)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleUpdate", con);
-            cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleModel.VehicleTypeId);
-            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleModel.VehicleTypeName);
-            cmd.Parameters.AddWithValue("@VehicleBrandId", vehicleModel.VehicleBrandId);
-            cmd.Parameters.AddWithValue("@VehicleBrandName", vehicleModel.VehicleBrandName);
-            cmd.Parameters.AddWithValue("@VehicleModelId", vehicleModel.VehicleModelId);
-            cmd.Parameters.AddWithValue("@VehicleModelName", vehicleModel.VehicleModelName);
-            cmd.Parameters.AddWithValue("@VehicleColorId", vehicleModel.VehicleColorId);
-            cmd.Parameters.AddWithValue("@VehicleColorName", vehicleModel.VehicleColorName);
-            cmd.Parameters.AddWithValue("@Plate", vehicleModel.Plate);
-            cmd.Parameters.AddWithValue("@EntryDate", vehicleModel.EntryDate);
-            cmd.Parameters.AddWithValue("@EntryTime", vehicleModel.EntryTime);
-            cmd.Parameters.AddWithValue("@DepartureDate", vehicleModel.DepartureDate);
-            cmd.Parameters.AddWithValue("@DepartureTime", vehicleModel.DepartureTime);
-            cmd.Parameters.AddWithValue("@Parked", vehicleModel.Parked);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
+            commandText = "USP_VehicleBrandUpdate";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleUpdate(sqlCommand, vehicle);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
             logger.Trace("Update");
         }
 
-        public async Task UpdateAsync(Vehicle vehicleModel)
+        public async Task UpdateAsync(Vehicle vehicle)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleUpdate", con);
-            cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleModel.VehicleTypeId);
-            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleModel.VehicleTypeName);
-            cmd.Parameters.AddWithValue("@VehicleBrandId", vehicleModel.VehicleBrandId);
-            cmd.Parameters.AddWithValue("@VehicleBrandName", vehicleModel.VehicleBrandName);
-            cmd.Parameters.AddWithValue("@VehicleModelId", vehicleModel.VehicleModelId);
-            cmd.Parameters.AddWithValue("@VehicleModelName", vehicleModel.VehicleModelName);
-            cmd.Parameters.AddWithValue("@VehicleColorId", vehicleModel.VehicleColorId);
-            cmd.Parameters.AddWithValue("@VehicleColorName", vehicleModel.VehicleColorName);
-            cmd.Parameters.AddWithValue("@Plate", vehicleModel.Plate);
-            cmd.Parameters.AddWithValue("@EntryDate", vehicleModel.EntryDate);
-            cmd.Parameters.AddWithValue("@EntryTime", vehicleModel.EntryTime);
-            cmd.Parameters.AddWithValue("@DepartureDate", vehicleModel.DepartureDate);
-            cmd.Parameters.AddWithValue("@DepartureTime", vehicleModel.DepartureTime);
-            cmd.Parameters.AddWithValue("@Parked", vehicleModel.Parked);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
+            commandText = "USP_VehicleBrandUpdate";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleUpdate(sqlCommand, vehicle);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
             logger.Trace("UpdateAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            await sqlCommand.ExecuteNonQueryAsync();
+            sqlConnection.Close();
+        }
+        #endregion
+
+        #region Helpers
+        private List<Vehicle> GetListVehicle(SqlDataReader sqlDataReader, List<Vehicle> listVehicle)
+        {
+            Vehicle vehicle = new Vehicle();
+            vehicle = GetVehicle(sqlDataReader, vehicle);
+            listVehicle.Add(vehicle);
+            return listVehicle;
         }
 
-        public Vehicle GetVehicleModel(Vehicle vehicleModel, SqlDataReader rdr)
+        private Vehicle GetVehicle(SqlDataReader sqlDataReader, Vehicle vehicle)
         {
-            vehicleModel.VehicleId = Convert.ToInt32(rdr["VehicleId"]);
-            vehicleModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-            vehicleModel.VehicleTypeName = Convert.ToString(rdr["VehicleTypeName"]);
-            vehicleModel.VehicleBrandId = Convert.ToInt32(rdr["VehicleBrandId"]);
-            vehicleModel.VehicleBrandName = Convert.ToString(rdr["VehicleBrandName"]);
-            vehicleModel.VehicleModelId = Convert.ToInt32(rdr["VehicleModelId"]);
-            vehicleModel.VehicleModelName = Convert.ToString(rdr["VehicleModelName"]);
-            vehicleModel.VehicleColorId = Convert.ToInt32(rdr["VehicleColorId"]);
-            vehicleModel.VehicleColorName = Convert.ToString(rdr["VehicleColorName"]);
-            vehicleModel.Plate = Convert.ToString(rdr["Plate"]);
-            vehicleModel.EntryDate = Convert.ToString(rdr["EntryDate"]);
-            vehicleModel.EntryTime = Convert.ToString(rdr["EntryTime"]);
-            vehicleModel.DepartureDate = Convert.ToString(rdr["DepartureDate"]);
-            vehicleModel.DepartureTime = Convert.ToString(rdr["DepartureTime"]);
-            vehicleModel.Parked = Convert.ToInt32(rdr["Parked"]);
-            return vehicleModel;
+            vehicle.VehicleId = Convert.ToInt32(sqlDataReader["VehicleId"]);
+            vehicle.VehicleTypeId = Convert.ToInt32(sqlDataReader["VehicleTypeId"]);
+            vehicle.VehicleTypeName = Convert.ToString(sqlDataReader["VehicleTypeName"]);
+            vehicle.VehicleBrandId = Convert.ToInt32(sqlDataReader["VehicleBrandId"]);
+            vehicle.VehicleBrandName = Convert.ToString(sqlDataReader["VehicleBrandName"]);
+            vehicle.VehicleModelId = Convert.ToInt32(sqlDataReader["VehicleModelId"]);
+            vehicle.VehicleModelName = Convert.ToString(sqlDataReader["VehicleModelName"]);
+            vehicle.VehicleColorId = Convert.ToInt32(sqlDataReader["VehicleColorId"]);
+            vehicle.VehicleColorName = Convert.ToString(sqlDataReader["VehicleColorName"]);
+            vehicle.Plate = Convert.ToString(sqlDataReader["Plate"]);
+            vehicle.EntryDate = Convert.ToString(sqlDataReader["EntryDate"]);
+            vehicle.EntryTime = Convert.ToString(sqlDataReader["EntryTime"]);
+            vehicle.DepartureDate = Convert.ToString(sqlDataReader["DepartureDate"]);
+            vehicle.DepartureTime = Convert.ToString(sqlDataReader["DepartureTime"]);
+            vehicle.Parked = Convert.ToInt32(sqlDataReader["Parked"]);
+            return vehicle;
         }
+
+        private void GetVehicleParked(SqlCommand sqlCommand, int vehicle)
+        {
+            sqlCommand.Parameters.AddWithValue("@Parked", vehicle);
+        }
+
+        private void GetSqlCommandVehicleById(SqlCommand sqlCommand, int id)
+        {
+            sqlCommand.Parameters.AddWithValue("@VehicleId", id);
+        }
+
+        private void GetSqlCommandVehicleInsert(SqlCommand sqlCommand, Vehicle vehicle)
+        {
+            sqlCommand.Parameters.AddWithValue("@VehicleTypeId", vehicle.VehicleTypeId);
+            sqlCommand.Parameters.AddWithValue("@VehicleTypeName", vehicle.VehicleTypeName);
+            sqlCommand.Parameters.AddWithValue("@VehicleBrandId", vehicle.VehicleBrandId);
+            sqlCommand.Parameters.AddWithValue("@VehicleBrandName", vehicle.VehicleBrandName);
+            sqlCommand.Parameters.AddWithValue("@VehicleModelId", vehicle.VehicleModelId);
+            sqlCommand.Parameters.AddWithValue("@VehicleModelName", vehicle.VehicleModelName);
+            sqlCommand.Parameters.AddWithValue("@VehicleColorId", vehicle.VehicleColorId);
+            sqlCommand.Parameters.AddWithValue("@VehicleColorName", vehicle.VehicleColorName);
+            sqlCommand.Parameters.AddWithValue("@Plate", vehicle.Plate);
+            sqlCommand.Parameters.AddWithValue("@EntryDate", vehicle.EntryDate);
+            sqlCommand.Parameters.AddWithValue("@EntryTime", vehicle.EntryTime);
+            sqlCommand.Parameters.AddWithValue("@DepartureDate", vehicle.DepartureDate);
+            sqlCommand.Parameters.AddWithValue("@DepartureTime", vehicle.DepartureTime);
+            sqlCommand.Parameters.AddWithValue("@Parked", vehicle.Parked);
+        }
+
+        private void GetSqlCommandVehicleUpdate(SqlCommand sqlCommand, Vehicle vehicle)
+        {
+            sqlCommand.Parameters.AddWithValue("@VehicleId", vehicle.VehicleId);
+            sqlCommand.Parameters.AddWithValue("@VehicleTypeId", vehicle.VehicleTypeId);
+            sqlCommand.Parameters.AddWithValue("@VehicleTypeName", vehicle.VehicleTypeName);
+            sqlCommand.Parameters.AddWithValue("@VehicleBrandId", vehicle.VehicleBrandId);
+            sqlCommand.Parameters.AddWithValue("@VehicleBrandName", vehicle.VehicleBrandName);
+            sqlCommand.Parameters.AddWithValue("@VehicleModelId", vehicle.VehicleModelId);
+            sqlCommand.Parameters.AddWithValue("@VehicleModelName", vehicle.VehicleModelName);
+            sqlCommand.Parameters.AddWithValue("@VehicleColorId", vehicle.VehicleColorId);
+            sqlCommand.Parameters.AddWithValue("@VehicleColorName", vehicle.VehicleColorName);
+            sqlCommand.Parameters.AddWithValue("@Plate", vehicle.Plate);
+            sqlCommand.Parameters.AddWithValue("@EntryDate", vehicle.EntryDate);
+            sqlCommand.Parameters.AddWithValue("@EntryTime", vehicle.EntryTime);
+            sqlCommand.Parameters.AddWithValue("@DepartureDate", vehicle.DepartureDate);
+            sqlCommand.Parameters.AddWithValue("@DepartureTime", vehicle.DepartureTime);
+            sqlCommand.Parameters.AddWithValue("@Parked", vehicle.Parked); ;
+        }
+
 
         #endregion
     }

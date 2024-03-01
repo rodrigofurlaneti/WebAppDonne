@@ -19,7 +19,7 @@ namespace WebApi.Donne.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetProductAsync")]
+        [HttpGet(Name = "GetProduct")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductModel>))]
         public async Task<IActionResult> Get()
         {
@@ -59,7 +59,7 @@ namespace WebApi.Donne.Controllers
 
         }
 
-        [HttpPost(Name = "InsertProductAsync")]
+        [HttpPost(Name = "InsertProduct")]
         public async Task Post(ProductModel productModel)
         {
             try
@@ -77,7 +77,7 @@ namespace WebApi.Donne.Controllers
 
         }
 
-        [HttpPut(Name = "UpdateProductAsync")]
+        [HttpPut(Name = "UpdateProduct")]
         public async Task Update(ProductModel productModel)
         {
             try

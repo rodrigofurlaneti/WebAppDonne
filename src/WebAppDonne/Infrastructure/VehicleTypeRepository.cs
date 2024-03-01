@@ -8,7 +8,7 @@ namespace WebApi.Donne.Infrastructure
     {
         #region Constructor
 
-        public VehicleTypeRepository(WebApi.Donne.Infrastructure.SeedWork.ILogger logger) : base(logger) { }
+        public VehicleTypeRepository(SeedWork.ILogger logger) : base(logger) { }
 
         #endregion
 
@@ -18,19 +18,17 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                commandText = "USP_VehicleTypeGetAll";
                 List<VehicleTypeModel> listVehicleTypeModel = new List<VehicleTypeModel>();
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_VehicleTypeGetAll", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
                     {
-                        VehicleTypeModel vehicleTypeModel = new VehicleTypeModel();
-                        vehicleTypeModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleTypeModel.VehicleTypeName = Convert.ToString(rdr["VehicleTypeName"]);
-                        listVehicleTypeModel.Add(vehicleTypeModel);
+                        GetListVehicleTypeModel(sqlDataReader, listVehicleTypeModel);
                     }
                 }
                 logger.Trace("GetAllVehicleTypes");
@@ -46,21 +44,19 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<VehicleTypeModel>> GetAllVehicleTypesAsync()
         {
+            commandText = "USP_VehicleTypeGetAll";
             List<VehicleTypeModel> listVehicleTypeModel = new List<VehicleTypeModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_VehicleTypeGetAll", con))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 try
                 {
                     logger.Trace("GetAllVehicleTypesAsync");
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
                     {
-                        VehicleTypeModel vehicleTypeModel = new VehicleTypeModel();
-                        vehicleTypeModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleTypeModel.VehicleTypeName = Convert.ToString(rdr["VehicleTypeName"]);
-                        listVehicleTypeModel.Add(vehicleTypeModel);
+                        GetListVehicleTypeModel(sqlDataReader, listVehicleTypeModel);
                     }
                     return listVehicleTypeModel;
                 }
@@ -71,81 +67,22 @@ namespace WebApi.Donne.Infrastructure
                 }
         }
 
-        public IEnumerable<VehicleTypeModel> GetByStatus(int status)
+        public VehicleTypeModel GetById(int vehicleTypeId)
         {
             try
             {
-                List<VehicleTypeModel> listVehicleTypeModel = new List<VehicleTypeModel>();
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    SqlCommand cmd = new SqlCommand("USP_VehicleTypeGetStatus", con);
-                    cmd.Parameters.AddWithValue("@Status", status);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
-                    {
-                        VehicleTypeModel vehicleTypeModel = new VehicleTypeModel();
-                        vehicleTypeModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleTypeModel.VehicleTypeName = Convert.ToString(rdr["VehicleTypeName"]);
-                        listVehicleTypeModel.Add(vehicleTypeModel);
-                    }
-                }
-                logger.Trace("GetByStatus");
-                return listVehicleTypeModel;
-            }
-            catch (ArgumentNullException ex)
-            {
-                string mensagemErro = "Erro ao consumir a procedure USP_GetByStatus síncrono " + ex.Message;
-                throw new ArgumentNullException(mensagemErro);
-            }
-
-        }
-
-        public async Task<IEnumerable<VehicleTypeModel>> GetByStatusAsync(int status)
-        {
-            List<VehicleTypeModel> listVehicleTypeModel = new List<VehicleTypeModel>();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_VehicleTypeGetStatus", con))
-                try
-                {
-                    logger.Trace("GetByStatusAsync");
-                    cmd.Parameters.AddWithValue("@Status", status);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
-                    {
-                        VehicleTypeModel vehicleTypeModel = new VehicleTypeModel();
-                        vehicleTypeModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleTypeModel.VehicleTypeName = Convert.ToString(rdr["VehicleTypeName"]);
-                        listVehicleTypeModel.Add(vehicleTypeModel);
-                    }
-                    return listVehicleTypeModel;
-                }
-                catch (ArgumentNullException ex)
-                {
-                    string mensagemErro = "Erro ao consumir a procedure USP_VehicleTypeGetStatus, assíncrono. " + ex.Message;
-                    throw new ArgumentNullException(mensagemErro);
-                }
-        }
-
-        public VehicleTypeModel GetById(int id)
-        {
-            try
-            {
+                commandText = "USP_VehicleTypeGetById";
                 VehicleTypeModel vehicleTypeModel = new VehicleTypeModel();
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("USP_VehicleTypeGetById", con);
-                    cmd.Parameters.AddWithValue("@VehicleTypeId", id);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    GetSqlCommandVehicleTypeModelById(sqlCommand, vehicleTypeId);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
                     {
-                        vehicleTypeModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleTypeModel.VehicleTypeName = Convert.ToString(rdr["VehicleTypeName"]);
+                        GetVehicleTypeModel(sqlDataReader, vehicleTypeModel);
                     }
                 }
                 logger.Trace("GetById");
@@ -158,22 +95,22 @@ namespace WebApi.Donne.Infrastructure
             }
         }
 
-        public async Task<VehicleTypeModel> GetByIdAsync(int id)
+        public async Task<VehicleTypeModel> GetByIdAsync(int vehicleTypeId)
         {
+            commandText = "USP_VehicleTypeGetById";
             VehicleTypeModel vehicleTypeModel = new VehicleTypeModel();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("USP_VehicleTypeGetById", con))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 try
                 {
                     logger.Trace("GetByIdAsync");
-                    cmd.Parameters.AddWithValue("@VehicleTypeId", id);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
+                    GetSqlCommandVehicleTypeModelById(sqlCommand, vehicleTypeId);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
                     {
-                        vehicleTypeModel.VehicleTypeId = Convert.ToInt32(rdr["VehicleTypeId"]);
-                        vehicleTypeModel.VehicleTypeName = Convert.ToString(rdr["VehicleTypeName"]);
+                        GetVehicleTypeModel(sqlDataReader, vehicleTypeModel);
                     }
                     return vehicleTypeModel;
                 }
@@ -186,77 +123,115 @@ namespace WebApi.Donne.Infrastructure
 
         public void Insert(VehicleTypeModel vehicleTypeModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleTypeInsert", con);
-            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleTypeModel.VehicleTypeName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
+            commandText = "USP_VehicleTypeInsert";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleTypeModelInsert(sqlCommand, vehicleTypeModel); sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
             logger.Trace("Insert");
         }
 
         public async Task InsertAsync(VehicleTypeModel vehicleTypeModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleTypeInsert", con);
-            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleTypeModel.VehicleTypeName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
+            commandText = "USP_VehicleTypeInsert";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleTypeModelInsert(sqlCommand, vehicleTypeModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
             logger.Trace("InsertAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            await sqlCommand.ExecuteNonQueryAsync();
+            sqlConnection.Close();
         }
 
-        public void Delete(int VehicleTypeId)
+        public void Delete(int vehicleTypeId)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleTypeDelete", con);
-            cmd.Parameters.AddWithValue("@VehicleTypeId", VehicleTypeId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
+            commandText = "USP_VehicleTypeDelete";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleTypeModelById(sqlCommand, vehicleTypeId);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
             logger.Trace("Delete");
         }
 
         public async Task DeleteAsync(int vehicleTypeId)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleTypeDelete", con);
-            cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleTypeId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
+            commandText = "USP_VehicleTypeDelete";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleTypeModelById(sqlCommand, vehicleTypeId);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
             logger.Trace("DeleteAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            await sqlCommand.ExecuteNonQueryAsync();
+            sqlConnection.Close();
         }
 
         public void Update(VehicleTypeModel vehicleTypeModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleTypeUpdate", con);
-            cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleTypeModel.VehicleTypeId);
-            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleTypeModel.VehicleTypeName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
+            commandText = "USP_VehicleTypeUpdate";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleTypeModelUpdate(sqlCommand, vehicleTypeModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
             logger.Trace("Update");
         }
 
         public async Task UpdateAsync(VehicleTypeModel vehicleTypeModel)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("USP_VehicleTypeUpdate", con);
-            cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleTypeModel.VehicleTypeId);
-            cmd.Parameters.AddWithValue("@VehicleTypeName", vehicleTypeModel.VehicleTypeName);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
+            commandText = "USP_VehicleTypeUpdate";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+            GetSqlCommandVehicleTypeModelUpdate(sqlCommand, vehicleTypeModel);
+            sqlConnection.Open();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
             logger.Trace("UpdateAsync");
-            await cmd.ExecuteNonQueryAsync();
-            con.Close();
+            await sqlCommand.ExecuteNonQueryAsync();
+            sqlConnection.Close();
         }
+
+        #endregion
+
+        #region Helpers
+        private List<VehicleTypeModel> GetListVehicleTypeModel(SqlDataReader sqlDataReader, List<VehicleTypeModel> listVehicleTypeModel)
+        {
+            VehicleTypeModel vehicleTypeModel = new VehicleTypeModel();
+            vehicleTypeModel = GetVehicleTypeModel(sqlDataReader, vehicleTypeModel);
+            listVehicleTypeModel.Add(vehicleTypeModel);
+            return listVehicleTypeModel;
+        }
+
+        private VehicleTypeModel GetVehicleTypeModel(SqlDataReader sqlDataReader, VehicleTypeModel vehicleTypeModel)
+        {
+            vehicleTypeModel.VehicleTypeId = Convert.ToInt32(sqlDataReader["VehicleTypeId"]);
+            vehicleTypeModel.VehicleTypeName = Convert.ToString(sqlDataReader["VehicleTypeName"]);
+            return vehicleTypeModel;
+        }
+
+        private void GetSqlCommandVehicleTypeModelById(SqlCommand sqlCommand, int id)
+        {
+            sqlCommand.Parameters.AddWithValue("@VehicleTypeModelId", id);
+        }
+
+        private void GetSqlCommandVehicleTypeModelInsert(SqlCommand sqlCommand, VehicleTypeModel vehicleTypeModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@VehicleTypeName", vehicleTypeModel.VehicleTypeName);
+        }
+
+        private void GetSqlCommandVehicleTypeModelUpdate(SqlCommand sqlCommand, VehicleTypeModel vehicleTypeModel)
+        {
+            sqlCommand.Parameters.AddWithValue("@VehicleTypeId", vehicleTypeModel.VehicleTypeId);
+            sqlCommand.Parameters.AddWithValue("@VehicleTypeName", vehicleTypeModel.VehicleTypeName);
+        }
+
 
         #endregion
     }

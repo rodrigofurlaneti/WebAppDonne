@@ -25,7 +25,7 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                BrandRepository dal = new BrandRepository(_logger);
+                VehicleBrandRepository dal = new VehicleBrandRepository(_logger);
                 var ret = await dal.GetAllVehicleBrandsAsync();
                 _logger.Trace("GetBrandAsync");
                 return Ok(ret);
@@ -44,7 +44,7 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                BrandRepository dal = new BrandRepository(_logger);
+                VehicleBrandRepository dal = new VehicleBrandRepository(_logger);
                 _logger.Trace("GetByIdAsync");
                 var ret = await dal.GetByIdAsync(id);
                 return Ok(ret);
@@ -62,7 +62,7 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                BrandRepository dal = new BrandRepository(_logger);
+                VehicleBrandRepository dal = new VehicleBrandRepository(_logger);
                 _logger.Trace("VehicleBrand_InsertAsync");
                 await dal.InsertAsync(BrandModel);
             }
@@ -80,7 +80,7 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                BrandRepository dal = new BrandRepository(_logger);
+                VehicleBrandRepository dal = new VehicleBrandRepository(_logger);
                 _logger.Trace("VehicleBrand_UpdateAsync");
                 await dal.UpdateAsync(BrandModel);
             }
@@ -99,7 +99,7 @@ namespace WebApi.Donne.Controllers
             try
             {
                 _logger.Trace("VehicleBrand_DeleteAsync");
-                BrandRepository dal = new BrandRepository(_logger);
+                VehicleBrandRepository dal = new VehicleBrandRepository(_logger);
                 await dal.DeleteAsync(id);
             }
             catch (Exception ex)
