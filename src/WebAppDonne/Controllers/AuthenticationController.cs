@@ -45,28 +45,26 @@ namespace WebApi.Donne.Controllers
             try
             {
                 AuthenticationModel authenticationModel = new AuthenticationModel();
-                AuthenticationBusiness authenticationBusiness = new AuthenticationBusiness();
                 AuthenticationRepository authenticationRepository = new AuthenticationRepository(_logger);
                 UserRepository userRepository = new UserRepository(_logger);
-                UserBusiness userBusiness = new UserBusiness();
                 var userModelBd = await userRepository.GetByNameAsync(authenticationUserModel.UserName);
                 authenticationModel.ClientInternetProtocol = authenticationUserModel.ClientInternetProtocol;
                 authenticationModel.NavigatorUserAgent = authenticationUserModel.NavigatorUserAgent;
                 if (userModelBd.UserName == null)
                 {
-                    authenticationModel = authenticationBusiness.SimpleAuthenticationInvalidUserName(authenticationModel);
+                    authenticationModel = AuthenticationBusiness.SimpleAuthenticationInvalidUserName(authenticationModel);
                     this._logger.Trace("Authentication_InvalidUserName_InsertAsync");
                 }   
                 else
                 {
-                    if (userBusiness.SimpleAuthentication(authenticationUserModel, userModelBd))
+                    if (UserBusiness.SimpleAuthentication(authenticationUserModel, userModelBd))
                     {
-                        authenticationModel = authenticationBusiness.SimpleAuthenticationSuccess(authenticationModel);
+                        authenticationModel = AuthenticationBusiness.SimpleAuthenticationSuccess(authenticationModel);
                         this._logger.Trace("Authentication_Success_InsertAsync");
                     }
                     else
                     {
-                        authenticationModel = authenticationBusiness.SimpleAuthenticationInvalidPassword(authenticationModel);
+                        authenticationModel = AuthenticationBusiness.SimpleAuthenticationInvalidPassword(authenticationModel);
                         this._logger.Trace("Authentication_InvalidPassword_InsertAsync");
                     }
                 }

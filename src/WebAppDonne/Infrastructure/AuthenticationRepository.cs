@@ -154,7 +154,7 @@ namespace WebApi.Donne.Infrastructure
             return listAuthenticationModel;
         }
 
-        private AuthenticationModel GetAuthenticationModel(SqlDataReader sqlDataReader, AuthenticationModel authenticationModel)
+        private static AuthenticationModel GetAuthenticationModel(SqlDataReader sqlDataReader, AuthenticationModel authenticationModel)
         {
             authenticationModel.Id = Convert.ToInt32(sqlDataReader["Id"]);
             authenticationModel.HostedServerName = Convert.ToString(sqlDataReader["HostedServerName"]);
@@ -167,7 +167,7 @@ namespace WebApi.Donne.Infrastructure
             return authenticationModel;
         }
 
-        private void GetSqlCommandAuthenticationModelInsert(SqlCommand sqlCommand, AuthenticationModel authenticationModel)
+        private static void GetSqlCommandAuthenticationModelInsert(SqlCommand sqlCommand, AuthenticationModel authenticationModel)
         {
             sqlCommand.Parameters.AddWithValue("@HostedServerName", authenticationModel.HostedServerName);
             sqlCommand.Parameters.AddWithValue("@ServerInternetProtocol", authenticationModel.ServerInternetProtocol);
