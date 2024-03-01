@@ -78,15 +78,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<ShoppingListModel> GetListShoppingModel(SqlDataReader sqlDataReader, List<ShoppingListModel> listShoppingListModel)
+        private static void GetListShoppingModel(SqlDataReader sqlDataReader, List<ShoppingListModel> listShoppingListModel)
         {
             ShoppingListModel shoppingListModel = new ShoppingListModel();
-            shoppingListModel = GetShoppingListModel(sqlDataReader, shoppingListModel);
+            GetShoppingListModel(sqlDataReader, shoppingListModel);
             listShoppingListModel.Add(shoppingListModel);
-            return listShoppingListModel;
         }
 
-        private ShoppingListModel GetShoppingListModel(SqlDataReader sqlDataReader, ShoppingListModel shoppingListModel)
+        private static void GetShoppingListModel(SqlDataReader sqlDataReader, ShoppingListModel shoppingListModel)
         {
             shoppingListModel.ProductId = Convert.ToInt32(sqlDataReader["ProductId"]);
             shoppingListModel.ProductName = Convert.ToString(sqlDataReader["ProductName"]);
@@ -95,7 +94,6 @@ namespace WebApi.Donne.Infrastructure
             shoppingListModel.CostPrice = Convert.ToString(sqlDataReader["CostPrice"]);
             shoppingListModel.QuantityToBuy = Convert.ToInt32(sqlDataReader["QuantityToBuy"]);
             shoppingListModel.TotalValueOfLastPurchase = Convert.ToString(sqlDataReader["TotalValueOfLastPurchase"]);
-            return shoppingListModel;
         }
 
         #endregion

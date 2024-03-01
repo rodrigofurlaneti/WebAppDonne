@@ -146,15 +146,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<AuthenticationModel> GetListAuthenticationModel(SqlDataReader sqlDataReader, List<AuthenticationModel> listAuthenticationModel)
+        private static void GetListAuthenticationModel(SqlDataReader sqlDataReader, List<AuthenticationModel> listAuthenticationModel)
         {
             AuthenticationModel authenticationModel = new AuthenticationModel();
-            authenticationModel = GetAuthenticationModel(sqlDataReader, authenticationModel);
+            GetAuthenticationModel(sqlDataReader, authenticationModel);
             listAuthenticationModel.Add(authenticationModel);
-            return listAuthenticationModel;
         }
 
-        private static AuthenticationModel GetAuthenticationModel(SqlDataReader sqlDataReader, AuthenticationModel authenticationModel)
+        private static void GetAuthenticationModel(SqlDataReader sqlDataReader, AuthenticationModel authenticationModel)
         {
             authenticationModel.Id = Convert.ToInt32(sqlDataReader["Id"]);
             authenticationModel.HostedServerName = Convert.ToString(sqlDataReader["HostedServerName"]);
@@ -164,7 +163,6 @@ namespace WebApi.Donne.Infrastructure
             authenticationModel.ClientInternetProtocol = Convert.ToString(sqlDataReader["ClientInternetProtocol"]);
             authenticationModel.Authenticated = Convert.ToString(sqlDataReader["Authenticated"]);
             authenticationModel.Status = Convert.ToString(sqlDataReader["Status"]);
-            return authenticationModel;
         }
 
         private static void GetSqlCommandAuthenticationModelInsert(SqlCommand sqlCommand, AuthenticationModel authenticationModel)

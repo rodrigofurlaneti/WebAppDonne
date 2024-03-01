@@ -310,15 +310,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<CommandModel> GetListCommandModel(SqlDataReader sqlDataReader, List<CommandModel> listCommandModel)
+        private static void GetListCommandModel(SqlDataReader sqlDataReader, List<CommandModel> listCommandModel)
         {
             CommandModel commandModel = new CommandModel();
-            commandModel = GetCommandModel(sqlDataReader, commandModel);
+            GetCommandModel(sqlDataReader, commandModel);
             listCommandModel.Add(commandModel);
-            return listCommandModel;
         }
 
-        private CommandModel GetCommandModel(SqlDataReader sqlDataReader, CommandModel commandModel)
+        private static void GetCommandModel(SqlDataReader sqlDataReader, CommandModel commandModel)
         {
             commandModel.CommandId = Convert.ToInt32(sqlDataReader["CommandId"]);
             commandModel.BuyerId = Convert.ToInt32(sqlDataReader["BuyerId"]);
@@ -328,10 +327,9 @@ namespace WebApi.Donne.Infrastructure
             commandModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
             commandModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
             commandModel.Status = Convert.ToInt32(sqlDataReader["Status"]);
-            return commandModel;
         }
 
-        private void GetSqlCommandCommandModelInsert(SqlCommand sqlCommand, CommandModel commandModel)
+        private static void GetSqlCommandCommandModelInsert(SqlCommand sqlCommand, CommandModel commandModel)
         {
             sqlCommand.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
             sqlCommand.Parameters.AddWithValue("@BuyerName", commandModel.BuyerName);
@@ -342,7 +340,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@Status", commandModel.Status);
         }
 
-        private void GetSqlCommandCommandModelInsertReturnId(SqlCommand sqlCommand, CommandModel commandModel)
+        private static void GetSqlCommandCommandModelInsertReturnId(SqlCommand sqlCommand, CommandModel commandModel)
         {
             sqlCommand.Parameters.AddWithValue("@Identity", commandModel.CommandId);//OUTPUT
             sqlCommand.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);
@@ -354,7 +352,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@Status", commandModel.Status);
         }
 
-        private void GetSqlCommandCommandModelUpdate(SqlCommand sqlCommand, CommandModel commandModel)
+        private static void GetSqlCommandCommandModelUpdate(SqlCommand sqlCommand, CommandModel commandModel)
         {
             sqlCommand.Parameters.AddWithValue("@CommandId", commandModel.CommandId);
             sqlCommand.Parameters.AddWithValue("@BuyerId", commandModel.BuyerId);

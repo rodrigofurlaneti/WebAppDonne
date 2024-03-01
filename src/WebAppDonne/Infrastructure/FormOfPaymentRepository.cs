@@ -234,15 +234,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<FormOfPaymentModel> GetListFormOfPaymentModel(SqlDataReader sqlDataReader, List<FormOfPaymentModel> listFormOfPaymentModel)
+        private static void GetListFormOfPaymentModel(SqlDataReader sqlDataReader, List<FormOfPaymentModel> listFormOfPaymentModel)
         {
             FormOfPaymentModel FormOfPaymentModel = new FormOfPaymentModel();
-            FormOfPaymentModel = GetFormOfPaymentModel(sqlDataReader, FormOfPaymentModel);
+            GetFormOfPaymentModel(sqlDataReader, FormOfPaymentModel);
             listFormOfPaymentModel.Add(FormOfPaymentModel);
-            return listFormOfPaymentModel;
         }
 
-        private FormOfPaymentModel GetFormOfPaymentModel(SqlDataReader sqlDataReader, FormOfPaymentModel formOfPaymentModel)
+        private static void GetFormOfPaymentModel(SqlDataReader sqlDataReader, FormOfPaymentModel formOfPaymentModel)
         {
             formOfPaymentModel.FormOfPaymentId = Convert.ToInt32(sqlDataReader["FormOfPaymentId"]);
             formOfPaymentModel.FormOfPaymentName = Convert.ToString(sqlDataReader["FormOfPaymentName"]);
@@ -250,10 +249,9 @@ namespace WebApi.Donne.Infrastructure
             formOfPaymentModel.DateUpdate = Convert.ToDateTime(sqlDataReader["DateUpdate"]);
             formOfPaymentModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
             formOfPaymentModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
-            return formOfPaymentModel;
         }
 
-        private void GetSqlCommandBuyerModelInsert(SqlCommand sqlCommand, FormOfPaymentModel formOfPaymentModel)
+        private static void GetSqlCommandBuyerModelInsert(SqlCommand sqlCommand, FormOfPaymentModel formOfPaymentModel)
         {
             sqlCommand.Parameters.AddWithValue("@FormOfPaymentName", formOfPaymentModel.FormOfPaymentName);
             sqlCommand.Parameters.AddWithValue("@DateInsert", DateTime.Now);
@@ -262,7 +260,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@UserName", formOfPaymentModel.UserName);
         }
 
-        private void GetSqlCommandBuyerModelUpdate(SqlCommand sqlCommand, FormOfPaymentModel formOfPaymentModel)
+        private static void GetSqlCommandBuyerModelUpdate(SqlCommand sqlCommand, FormOfPaymentModel formOfPaymentModel)
         {
             sqlCommand.Parameters.AddWithValue("@FormOfPaymentId", formOfPaymentModel.FormOfPaymentId);
             sqlCommand.Parameters.AddWithValue("@FormOfPaymentName", formOfPaymentModel.FormOfPaymentName);

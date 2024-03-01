@@ -215,15 +215,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<PaymentModel> GetListPaymentModel(SqlDataReader sqlDataReader, List<PaymentModel> listPaymentModel)
+        private static void GetListPaymentModel(SqlDataReader sqlDataReader, List<PaymentModel> listPaymentModel)
         {
             PaymentModel paymentModel = new PaymentModel();
-            paymentModel = GetPaymentModel(sqlDataReader, paymentModel);
-            listPaymentModel.Add(paymentModel);
-            return listPaymentModel;
+            GetPaymentModel(sqlDataReader, paymentModel);
+            listPaymentModel.Add(paymentModel);;
         }
 
-        private PaymentModel GetPaymentModel(SqlDataReader sqlDataReader, PaymentModel paymentModel)
+        private static void GetPaymentModel(SqlDataReader sqlDataReader, PaymentModel paymentModel)
         {
             paymentModel.PaymentId = Convert.ToInt32(sqlDataReader["PaymentId"]);
             paymentModel.CommandId = Convert.ToInt32(sqlDataReader["CommandId"]);
@@ -235,10 +234,9 @@ namespace WebApi.Donne.Infrastructure
             paymentModel.DateUpdate = Convert.ToDateTime(sqlDataReader["DateUpdate"]);
             paymentModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
             paymentModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
-            return paymentModel;
         }
 
-        private void GetSqlCommandPaymentModelInsert(SqlCommand sqlCommand, PaymentModel paymentModel)
+        private static void GetSqlCommandPaymentModelInsert(SqlCommand sqlCommand, PaymentModel paymentModel)
         {
             sqlCommand.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);
             sqlCommand.Parameters.AddWithValue("@FormOfPaymentId", paymentModel.FormOfPaymentId);
@@ -251,7 +249,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@UserName", paymentModel.UserName);
         }
 
-        private void GetSqlCommandPaymentModelUpdate(SqlCommand sqlCommand, PaymentModel paymentModel)
+        private static void GetSqlCommandPaymentModelUpdate(SqlCommand sqlCommand, PaymentModel paymentModel)
         {
             sqlCommand.Parameters.AddWithValue("@PaymentId", paymentModel.PaymentId);
             sqlCommand.Parameters.AddWithValue("@CommandId", paymentModel.CommandId);

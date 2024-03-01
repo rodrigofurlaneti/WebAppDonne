@@ -46,7 +46,7 @@ namespace WebApi.Donne.Infrastructure
                 SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
                 while (sqlDataReader.Read())
                 {
-                    listUserModel = GetListUserModel(sqlDataReader, listUserModel);
+                    GetListUserModel(sqlDataReader, listUserModel);
                 }
                 this.logger.Trace("User_GetAllUserAsync");
                 return listUserModel;
@@ -73,7 +73,7 @@ namespace WebApi.Donne.Infrastructure
                 SqlDataReader sqlDataReader = cmd.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
-                    userModel = GetUserModel(sqlDataReader, userModel);
+                    GetUserModel(sqlDataReader, userModel);
                 }
             }
             logger.Trace("GetById");
@@ -94,7 +94,7 @@ namespace WebApi.Donne.Infrastructure
                 SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
                 while (sqlDataReader.Read())
                 {
-                    userModel = GetUserModel(sqlDataReader, userModel);
+                    GetUserModel(sqlDataReader, userModel);
                 }
                 this.logger.Trace("User_GetByIdAsync");
                 return userModel;
@@ -120,7 +120,7 @@ namespace WebApi.Donne.Infrastructure
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
-                    userModel = GetUserModel(sqlDataReader, userModel);
+                    GetUserModel(sqlDataReader, userModel);
                 }
             }
             logger.Trace("User_GetByName");
@@ -142,7 +142,7 @@ namespace WebApi.Donne.Infrastructure
                 SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
                 while (sqlDataReader.Read())
                 {
-                    userModel = GetUserModel(sqlDataReader, userModel);
+                    GetUserModel(sqlDataReader, userModel);
                 }
                 logger.Trace("User_GetByNameAsync");
                 return userModel;
@@ -265,15 +265,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<UserModel> GetListUserModel(SqlDataReader sqlDataReader, List<UserModel> listUserModel)
+        private static void GetListUserModel(SqlDataReader sqlDataReader, List<UserModel> listUserModel)
         {
-            UserModel UserModel = new UserModel();
-            UserModel = GetUserModel(sqlDataReader, UserModel);
-            listUserModel.Add(UserModel);
-            return listUserModel;
+            UserModel userModel = new UserModel();
+            GetUserModel(sqlDataReader, userModel);
+            listUserModel.Add(userModel);
         }
 
-        private UserModel GetUserModel(SqlDataReader sqlDataReader, UserModel userModel)
+        private static void GetUserModel(SqlDataReader sqlDataReader, UserModel userModel)
         {
             userModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
             userModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
@@ -281,10 +280,9 @@ namespace WebApi.Donne.Infrastructure
             userModel.ProfileId = Convert.ToInt32(sqlDataReader["ProfileId"]);
             userModel.ProfileName = Convert.ToString(sqlDataReader["ProfileName"]);
             userModel.Status = Convert.ToInt32(sqlDataReader["Status"]);
-            return userModel;
         }
 
-        private void GetSqlCommandUserModelUpdate(SqlCommand sqlCommand, UserModel userModel)
+        private static void GetSqlCommandUserModelUpdate(SqlCommand sqlCommand, UserModel userModel)
         {
             sqlCommand.Parameters.AddWithValue("@UserId", userModel.UserId);
             sqlCommand.Parameters.AddWithValue("@UserName", userModel.UserName);
@@ -294,7 +292,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@Status", Convert.ToInt32(userModel.Status));
         }
 
-        private void GetSqlCommandUserModelInsert(SqlCommand sqlCommand, UserModel userModel)
+        private static void GetSqlCommandUserModelInsert(SqlCommand sqlCommand, UserModel userModel)
         {
             sqlCommand.Parameters.AddWithValue("@UserName", userModel.UserName);
             sqlCommand.Parameters.AddWithValue("@UserPassword", userModel.UserPassword);

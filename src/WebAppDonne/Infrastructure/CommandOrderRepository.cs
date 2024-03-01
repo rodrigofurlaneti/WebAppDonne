@@ -63,15 +63,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<CommandOrderModel> GetListCommandOrderModel(SqlDataReader sqlDataReader, List<CommandOrderModel> listCommandOrderModel)
+        private static void GetListCommandOrderModel(SqlDataReader sqlDataReader, List<CommandOrderModel> listCommandOrderModel)
         {
             CommandOrderModel commandOrderModel = new CommandOrderModel();
-            commandOrderModel = GetCommandOrderModel(sqlDataReader, commandOrderModel);
+            GetCommandOrderModel(sqlDataReader, commandOrderModel);
             listCommandOrderModel.Add(commandOrderModel);
-            return listCommandOrderModel;
         }
 
-        private CommandOrderModel GetCommandOrderModel(SqlDataReader sqlDataReader, CommandOrderModel commandOrderModel)
+        private static void GetCommandOrderModel(SqlDataReader sqlDataReader, CommandOrderModel commandOrderModel)
         {
             commandOrderModel.CommandId = Convert.ToInt32(sqlDataReader["CommandId"]);
             commandOrderModel.BuyerId = Convert.ToInt32(sqlDataReader["BuyerId"]);
@@ -81,7 +80,6 @@ namespace WebApi.Donne.Infrastructure
             commandOrderModel.Amount = Convert.ToInt32(sqlDataReader["Amount"]);
             commandOrderModel.SalePrice = Convert.ToString(sqlDataReader["SalePrice"]);
             commandOrderModel.TotalSalePrice = Convert.ToString(sqlDataReader["TotalSalePrice"]);
-            return commandOrderModel;
         }
 
         #endregion

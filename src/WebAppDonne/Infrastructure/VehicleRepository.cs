@@ -28,7 +28,7 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                     while (sqlDataReader.Read())
                     {
-                        listVehicleModel = GetListVehicle(sqlDataReader, listVehicleModel);
+                        GetListVehicle(sqlDataReader, listVehicleModel);
                     }
                 }
                 logger.Trace("GetAllVehicles");
@@ -56,7 +56,7 @@ namespace WebApi.Donne.Infrastructure
                     SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
                     while (sqlDataReader.Read())
                     {
-                        listVehicleModel = GetListVehicle(sqlDataReader, listVehicleModel);
+                        GetListVehicle(sqlDataReader, listVehicleModel);
                     }
                     return listVehicleModel;
                 }
@@ -257,15 +257,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<Vehicle> GetListVehicle(SqlDataReader sqlDataReader, List<Vehicle> listVehicle)
+        private static void GetListVehicle(SqlDataReader sqlDataReader, List<Vehicle> listVehicle)
         {
             Vehicle vehicle = new Vehicle();
-            vehicle = GetVehicle(sqlDataReader, vehicle);
+            GetVehicle(sqlDataReader, vehicle);
             listVehicle.Add(vehicle);
-            return listVehicle;
         }
 
-        private Vehicle GetVehicle(SqlDataReader sqlDataReader, Vehicle vehicle)
+        private static void GetVehicle(SqlDataReader sqlDataReader, Vehicle vehicle)
         {
             vehicle.VehicleId = Convert.ToInt32(sqlDataReader["VehicleId"]);
             vehicle.VehicleTypeId = Convert.ToInt32(sqlDataReader["VehicleTypeId"]);
@@ -282,20 +281,19 @@ namespace WebApi.Donne.Infrastructure
             vehicle.DepartureDate = Convert.ToString(sqlDataReader["DepartureDate"]);
             vehicle.DepartureTime = Convert.ToString(sqlDataReader["DepartureTime"]);
             vehicle.Parked = Convert.ToInt32(sqlDataReader["Parked"]);
-            return vehicle;
         }
 
-        private void GetVehicleParked(SqlCommand sqlCommand, int vehicle)
+        private static void GetVehicleParked(SqlCommand sqlCommand, int vehicle)
         {
             sqlCommand.Parameters.AddWithValue("@Parked", vehicle);
         }
 
-        private void GetSqlCommandVehicleById(SqlCommand sqlCommand, int id)
+        private static void GetSqlCommandVehicleById(SqlCommand sqlCommand, int id)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleId", id);
         }
 
-        private void GetSqlCommandVehicleInsert(SqlCommand sqlCommand, Vehicle vehicle)
+        private static void GetSqlCommandVehicleInsert(SqlCommand sqlCommand, Vehicle vehicle)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleTypeId", vehicle.VehicleTypeId);
             sqlCommand.Parameters.AddWithValue("@VehicleTypeName", vehicle.VehicleTypeName);
@@ -313,7 +311,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@Parked", vehicle.Parked);
         }
 
-        private void GetSqlCommandVehicleUpdate(SqlCommand sqlCommand, Vehicle vehicle)
+        private static void GetSqlCommandVehicleUpdate(SqlCommand sqlCommand, Vehicle vehicle)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleId", vehicle.VehicleId);
             sqlCommand.Parameters.AddWithValue("@VehicleTypeId", vehicle.VehicleTypeId);

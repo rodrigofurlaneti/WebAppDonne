@@ -205,32 +205,30 @@ namespace WebApi.Donne.Infrastructure
 
         #region Helpers
 
-        private List<VehicleColorModel> GetListVehicleColorModel(SqlDataReader sqlDataReader, List<VehicleColorModel> listVehicleColorModel)
+        private static void GetListVehicleColorModel(SqlDataReader sqlDataReader, List<VehicleColorModel> listVehicleColorModel)
         {
             VehicleColorModel vehicleColorModel = new VehicleColorModel();
-            vehicleColorModel = GetVehicleColorModel(sqlDataReader, vehicleColorModel);
+            GetVehicleColorModel(sqlDataReader, vehicleColorModel);
             listVehicleColorModel.Add(vehicleColorModel);
-            return listVehicleColorModel;
         }
 
-        private VehicleColorModel GetVehicleColorModel(SqlDataReader sqlDataReader, VehicleColorModel vehicleColorModel)
+        private static void GetVehicleColorModel(SqlDataReader sqlDataReader, VehicleColorModel vehicleColorModel)
         {
             vehicleColorModel.VehicleColorId = Convert.ToInt32(sqlDataReader["VehicleColorId"]);
             vehicleColorModel.VehicleColorName = Convert.ToString(sqlDataReader["VehicleColorName"]);
-            return vehicleColorModel;
         }
 
-        private void GetSqlCommandVehicleColorModelInsert(SqlCommand sqlCommand, VehicleColorModel vehicleColorModel)
+        private static void GetSqlCommandVehicleColorModelInsert(SqlCommand sqlCommand, VehicleColorModel vehicleColorModel)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleColorName", vehicleColorModel.VehicleColorName);
         }
 
-        private void GetSqlCommandVehicleColorModelDelete(SqlCommand sqlCommand, int id)
+        private static void GetSqlCommandVehicleColorModelDelete(SqlCommand sqlCommand, int id)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleColorId", id);
         }
 
-        private void GetSqlCommandVehicleColorModelUpdate(SqlCommand sqlCommand, VehicleColorModel vehicleColorModel)
+        private static void GetSqlCommandVehicleColorModelUpdate(SqlCommand sqlCommand, VehicleColorModel vehicleColorModel)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleColorId", vehicleColorModel.VehicleColorId);
             sqlCommand.Parameters.AddWithValue("@VehicleColorName", vehicleColorModel.VehicleColorName);

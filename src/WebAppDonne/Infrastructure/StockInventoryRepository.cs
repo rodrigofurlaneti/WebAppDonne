@@ -36,18 +36,17 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private void GetListStockInventoryModel(SqlDataReader sqlDataReader, List<StockInventoryModel> listStockInventoryModel)
+        private static void GetListStockInventoryModel(SqlDataReader sqlDataReader, List<StockInventoryModel> listStockInventoryModel)
         {
             StockInventoryModel stockInventoryModel = new StockInventoryModel();
-            stockInventoryModel = GetStockInventoryModel(sqlDataReader, stockInventoryModel);
+            GetStockInventoryModel(sqlDataReader, stockInventoryModel);
             listStockInventoryModel.Add(stockInventoryModel);
         }
 
-        private StockInventoryModel GetStockInventoryModel(SqlDataReader sqlDataReader, StockInventoryModel stockInventoryModel)
+        private static void GetStockInventoryModel(SqlDataReader sqlDataReader, StockInventoryModel stockInventoryModel)
         {
             stockInventoryModel.TotalValueCostOfInventory = Convert.ToString(sqlDataReader["TotalValueCostOfInventory"]);
             stockInventoryModel.TotalValueSaleStock = Convert.ToString(sqlDataReader["TotalValueSaleStock"]);
-            return stockInventoryModel;
         }
 
         #endregion

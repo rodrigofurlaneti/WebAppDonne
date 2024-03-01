@@ -217,15 +217,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<ProfileModel> GetListProfileModel(SqlDataReader sqlDataReader, List<ProfileModel> listProfileModel)
+        private static void GetListProfileModel(SqlDataReader sqlDataReader, List<ProfileModel> listProfileModel)
         {
             ProfileModel profileModel = new ProfileModel();
-            profileModel = GetProfileModel(sqlDataReader, profileModel);
+            GetProfileModel(sqlDataReader, profileModel);
             listProfileModel.Add(profileModel);
-            return listProfileModel;
         }
 
-        private ProfileModel GetProfileModel(SqlDataReader sqlDataReader, ProfileModel profileModel)
+        private static void GetProfileModel(SqlDataReader sqlDataReader, ProfileModel profileModel)
         {
             profileModel.ProfileId = Convert.ToInt32(sqlDataReader["ProfileId"]);
             profileModel.ProfileName = Convert.ToString(sqlDataReader["ProfileName"]);
@@ -233,10 +232,9 @@ namespace WebApi.Donne.Infrastructure
             profileModel.DateUpdate = Convert.ToDateTime(sqlDataReader["DateUpdate"]);
             profileModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
             profileModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
-            return profileModel;
         }
 
-        private void GetSqlCommandProfileModelInsert(SqlCommand sqlCommand, ProfileModel profileModel)
+        private static void GetSqlCommandProfileModelInsert(SqlCommand sqlCommand, ProfileModel profileModel)
         {
             sqlCommand.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);
             sqlCommand.Parameters.AddWithValue("@DateInsert", DateTime.Now);
@@ -245,7 +243,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@UserName", profileModel.UserName);
         }
 
-        private void GetSqlCommandProfileModelUpdate(SqlCommand sqlCommand, ProfileModel profileModel)
+        private static void GetSqlCommandProfileModelUpdate(SqlCommand sqlCommand, ProfileModel profileModel)
         {
             sqlCommand.Parameters.AddWithValue("@ProfileId", profileModel.ProfileId);
             sqlCommand.Parameters.AddWithValue("@ProfileName", profileModel.ProfileName);

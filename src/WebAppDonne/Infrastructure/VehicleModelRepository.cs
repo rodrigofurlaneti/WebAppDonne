@@ -205,32 +205,30 @@ namespace WebApi.Donne.Infrastructure
 
         #region Helpers
 
-        private List<VehicleModel> GetListVehicleModel(SqlDataReader sqlDataReader, List<VehicleModel> listVehicleModel)
+        private static void GetListVehicleModel(SqlDataReader sqlDataReader, List<VehicleModel> listVehicleModel)
         {
             VehicleModel vehicleModel = new VehicleModel();
-            vehicleModel = GetVehicleModel(sqlDataReader, vehicleModel);
+            GetVehicleModel(sqlDataReader, vehicleModel);
             listVehicleModel.Add(vehicleModel);
-            return listVehicleModel;
         }
 
-        private VehicleModel GetVehicleModel(SqlDataReader sqlDataReader, VehicleModel vehicleModel)
+        private static void GetVehicleModel(SqlDataReader sqlDataReader, VehicleModel vehicleModel)
         {
             vehicleModel.VehicleModelId = Convert.ToInt32(sqlDataReader["VehicleModelId"]);
             vehicleModel.VehicleModelName = Convert.ToString(sqlDataReader["VehicleModelName"]);
-            return vehicleModel;
         }
 
-        private void GetSqlCommandVehicleModelById(SqlCommand sqlCommand, int vehicleModelId)
+        private static void GetSqlCommandVehicleModelById(SqlCommand sqlCommand, int vehicleModelId)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleModelId", vehicleModelId);
         }
 
-        private void GetSqlCommandVehicleModelInsert(SqlCommand sqlCommand, VehicleModel vehicleModel)
+        private static void GetSqlCommandVehicleModelInsert(SqlCommand sqlCommand, VehicleModel vehicleModel)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleModelName", vehicleModel.VehicleModelName);
         }
 
-        private void GetSqlCommandVehicleModelUpdate(SqlCommand sqlCommand, VehicleModel vehicleModel)
+        private static void GetSqlCommandVehicleModelUpdate(SqlCommand sqlCommand, VehicleModel vehicleModel)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleId", vehicleModel.VehicleModelId);
             sqlCommand.Parameters.AddWithValue("@VehicleName", vehicleModel.VehicleModelName);

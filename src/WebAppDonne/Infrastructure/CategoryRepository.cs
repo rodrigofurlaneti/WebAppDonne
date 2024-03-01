@@ -231,15 +231,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<CategoryModel> GetListCategoryModel(SqlDataReader sqlDataReader, List<CategoryModel> listCategoryModel)
+        private static void GetListCategoryModel(SqlDataReader sqlDataReader, List<CategoryModel> listCategoryModel)
         {
             CategoryModel categoryModel = new CategoryModel();
-            categoryModel = GetCategoryModel(sqlDataReader, categoryModel);
+            GetCategoryModel(sqlDataReader, categoryModel);
             listCategoryModel.Add(categoryModel);
-            return listCategoryModel;
         }
 
-        private CategoryModel GetCategoryModel(SqlDataReader sqlDataReader, CategoryModel categoryModel)
+        private static void GetCategoryModel(SqlDataReader sqlDataReader, CategoryModel categoryModel)
         {
             categoryModel.CategoryId = Convert.ToInt32(sqlDataReader["CategoryId"]);
             categoryModel.CategoryName = Convert.ToString(sqlDataReader["CategoryName"]);
@@ -247,10 +246,9 @@ namespace WebApi.Donne.Infrastructure
             categoryModel.DateUpdate = Convert.ToDateTime(sqlDataReader["DateUpdate"]);
             categoryModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
             categoryModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
-            return categoryModel;
         }
 
-        private void GetSqlCommandBuyerModelInsert(SqlCommand sqlCommand, CategoryModel categoryModel)
+        private static void GetSqlCommandBuyerModelInsert(SqlCommand sqlCommand, CategoryModel categoryModel)
         {
             sqlCommand.Parameters.AddWithValue("@CategoryName", categoryModel.CategoryName);
             sqlCommand.Parameters.AddWithValue("@DateInsert", DateTime.Now);
@@ -259,7 +257,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@UserName", categoryModel.UserName);
         }
 
-        private void GetSqlCommandBuyerModelUpdate(SqlCommand sqlCommand, CategoryModel categoryModel)
+        private static void GetSqlCommandBuyerModelUpdate(SqlCommand sqlCommand, CategoryModel categoryModel)
         {
             sqlCommand.Parameters.AddWithValue("@CategoryId", categoryModel.CategoryId);
             sqlCommand.Parameters.AddWithValue("@CategoryName", categoryModel.CategoryName);

@@ -220,15 +220,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<ProductModel> GetListProductModel(SqlDataReader sqlDataReader, List<ProductModel> listProductModel)
+        private static void GetListProductModel(SqlDataReader sqlDataReader, List<ProductModel> listProductModel)
         {
             ProductModel productModel = new ProductModel();
-            productModel = GetProductModel(sqlDataReader, productModel);
+            GetProductModel(sqlDataReader, productModel);
             listProductModel.Add(productModel);
-            return listProductModel;
         }
 
-        private ProductModel GetProductModel(SqlDataReader sqlDataReader, ProductModel productModel)
+        private static void GetProductModel(SqlDataReader sqlDataReader, ProductModel productModel)
         {
             productModel.ProductId = Convert.ToInt32(sqlDataReader["ProductId"]);
             productModel.ProductName = Convert.ToString(sqlDataReader["ProductName"]);
@@ -248,10 +247,9 @@ namespace WebApi.Donne.Infrastructure
             productModel.Status = Convert.ToInt32(sqlDataReader["Status"]);
             productModel.QuantityToBuy = Convert.ToInt32(sqlDataReader["QuantityToBuy"]);
             productModel.TotalValueOfLastPurchase = Convert.ToString(sqlDataReader["TotalValueOfLastPurchase"]);
-            return productModel;
         }
 
-        private void GetSqlCommandProductModelInsert(SqlCommand sqlCommand, ProductModel productModel)
+        private static void GetSqlCommandProductModelInsert(SqlCommand sqlCommand, ProductModel productModel)
         {
             sqlCommand.Parameters.AddWithValue("@ProductName", productModel.ProductName);
             sqlCommand.Parameters.AddWithValue("@CategoryId", productModel.CategoryId);
@@ -272,7 +270,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@TotalValueOfLastPurchase", productModel.TotalValueOfLastPurchase);
         }
 
-        private void GetSqlCommandProductModelUpdate(SqlCommand sqlCommand, ProductModel productModel)
+        private static void GetSqlCommandProductModelUpdate(SqlCommand sqlCommand, ProductModel productModel)
         {
             sqlCommand.Parameters.AddWithValue("@ProductId", productModel.ProductId);
             sqlCommand.Parameters.AddWithValue("@ProductName", productModel.ProductName);

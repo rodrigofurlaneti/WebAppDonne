@@ -258,15 +258,15 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<BuyerModel> GetListBuyerModel(SqlDataReader sqlDataReader, List<BuyerModel> listBuyerModel)
+
+        private static void GetListBuyerModel(SqlDataReader sqlDataReader, List<BuyerModel> listBuyerModel)
         {
             BuyerModel buyerModel = new BuyerModel();
-            buyerModel = GetBuyerModel(sqlDataReader, buyerModel);
+            GetBuyerModel(sqlDataReader, buyerModel);
             listBuyerModel.Add(buyerModel);
-            return listBuyerModel;
         }
 
-        private BuyerModel GetBuyerModel(SqlDataReader sqlDataReader, BuyerModel buyerModel)
+        private static void GetBuyerModel(SqlDataReader sqlDataReader, BuyerModel buyerModel)
         {
             buyerModel.BuyerId = Convert.ToInt32(sqlDataReader["BuyerId"]);
             buyerModel.BuyerName = Convert.ToString(sqlDataReader["BuyerName"]);
@@ -276,10 +276,9 @@ namespace WebApi.Donne.Infrastructure
             buyerModel.DateUpdate = Convert.ToDateTime(sqlDataReader["DateUpdate"]);
             buyerModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
             buyerModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
-            return buyerModel;
         }
 
-        private void GetSqlCommandBuyerModelInsert(SqlCommand sqlCommand, BuyerModel buyerModel)
+        private static void GetSqlCommandBuyerModelInsert(SqlCommand sqlCommand, BuyerModel buyerModel)
         {
             sqlCommand.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
             sqlCommand.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
@@ -291,7 +290,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@Status", buyerModel.Status);
         }
 
-        private void GetSqlCommandBuyerModelUpdate(SqlCommand sqlCommand, BuyerModel buyerModel)
+        private static void GetSqlCommandBuyerModelUpdate(SqlCommand sqlCommand, BuyerModel buyerModel)
         {
             sqlCommand.Parameters.AddWithValue("@BuyerId", buyerModel.BuyerId);
             sqlCommand.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);

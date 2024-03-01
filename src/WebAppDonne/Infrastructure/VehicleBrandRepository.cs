@@ -203,32 +203,30 @@ namespace WebApi.Donne.Infrastructure
 
         #region Helpers
 
-        private List<VehicleBrandModel> GetListVehicleBrandModel(SqlDataReader sqlDataReader, List<VehicleBrandModel> listVehicleBrandModel)
+        private static void GetListVehicleBrandModel(SqlDataReader sqlDataReader, List<VehicleBrandModel> listVehicleBrandModel)
         {
             VehicleBrandModel vehicleBrandModel = new VehicleBrandModel();
-            vehicleBrandModel = GetVehicleBrandModel(sqlDataReader, vehicleBrandModel);
+            GetVehicleBrandModel(sqlDataReader, vehicleBrandModel);
             listVehicleBrandModel.Add(vehicleBrandModel);
-            return listVehicleBrandModel;
         }
 
-        private VehicleBrandModel GetVehicleBrandModel(SqlDataReader sqlDataReader, VehicleBrandModel vehicleBrandModel)
+        private static void GetVehicleBrandModel(SqlDataReader sqlDataReader, VehicleBrandModel vehicleBrandModel)
         {
             vehicleBrandModel.VehicleBrandId = Convert.ToInt32(sqlDataReader["VehicleBrandId"]);
             vehicleBrandModel.VehicleBrandName = Convert.ToString(sqlDataReader["VehicleBrandName"]);
-            return vehicleBrandModel;
         }
 
-        private void GetSqlCommandVehicleBrandModelInsert(SqlCommand sqlCommand, VehicleBrandModel vehicleBrandModel)
+        private static void GetSqlCommandVehicleBrandModelInsert(SqlCommand sqlCommand, VehicleBrandModel vehicleBrandModel)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleBrandName", vehicleBrandModel.VehicleBrandName);
         }
 
-        private void GetSqlCommandVehicleBrandModelDelete(SqlCommand sqlCommand, int id)
+        private static void GetSqlCommandVehicleBrandModelDelete(SqlCommand sqlCommand, int id)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleBrandId", id);
         }
 
-        private void GetSqlCommandVehicleBrandModelUpdate(SqlCommand sqlCommand, VehicleBrandModel vehicleBrandModel)
+        private static void GetSqlCommandVehicleBrandModelUpdate(SqlCommand sqlCommand, VehicleBrandModel vehicleBrandModel)
         {
             sqlCommand.Parameters.AddWithValue("@VehicleBrandId", vehicleBrandModel.VehicleBrandId);
             sqlCommand.Parameters.AddWithValue("@VehicleBrandName", vehicleBrandModel.VehicleBrandName);

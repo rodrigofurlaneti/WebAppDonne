@@ -217,15 +217,14 @@ namespace WebApi.Donne.Infrastructure
         #endregion
 
         #region Helpers
-        private List<OrderModel> GetListOrderModel(SqlDataReader sqlDataReader, List<OrderModel> listOrderModel)
+        private static void GetListOrderModel(SqlDataReader sqlDataReader, List<OrderModel> listOrderModel)
         {
             OrderModel orderModel = new OrderModel();
-            orderModel = GetOrderModel(sqlDataReader, orderModel);
+            GetOrderModel(sqlDataReader, orderModel);
             listOrderModel.Add(orderModel);
-            return listOrderModel;
         }
 
-        private OrderModel GetOrderModel(SqlDataReader sqlDataReader, OrderModel orderModel)
+        private static void GetOrderModel(SqlDataReader sqlDataReader, OrderModel orderModel)
         {
             orderModel.OrderId = Convert.ToInt32(sqlDataReader["OrderId"]);
             orderModel.CommandId = Convert.ToInt32(sqlDataReader["CommandId"]);
@@ -239,10 +238,9 @@ namespace WebApi.Donne.Infrastructure
             orderModel.DateUpdate = Convert.ToDateTime(sqlDataReader["DateUpdate"]);
             orderModel.UserId = Convert.ToInt32(sqlDataReader["UserId"]);
             orderModel.UserName = Convert.ToString(sqlDataReader["UserName"]);
-            return orderModel;
         }
 
-        private void GetSqlCommandOrderModelInsert(SqlCommand sqlCommand, OrderModel orderModel)
+        private static void GetSqlCommandOrderModelInsert(SqlCommand sqlCommand, OrderModel orderModel)
         {
             sqlCommand.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
             sqlCommand.Parameters.AddWithValue("@ProductId", orderModel.ProductId);
@@ -257,7 +255,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@UserName", orderModel.UserName);
         }
 
-        private void GetSqlCommandOrderModelUpdate(SqlCommand sqlCommand, OrderModel orderModel)
+        private static void GetSqlCommandOrderModelUpdate(SqlCommand sqlCommand, OrderModel orderModel)
         {
             sqlCommand.Parameters.AddWithValue("@OrderId", orderModel.OrderId);
             sqlCommand.Parameters.AddWithValue("@CommandId", orderModel.CommandId);
