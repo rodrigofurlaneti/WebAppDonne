@@ -2,14 +2,15 @@
 {
     public class Logger : ILogger
     {
+        public string log { get; set; }
         public void TraceException(string message)
         {
-            string log = message;
+            this.log = message;
         }
 
         void ILogger.Trace(string message)
         {
-            string log = message;
+            this.log = message;
         }
     }
 }

@@ -156,3 +156,5 @@ C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\refint\Te
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.pdb
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.genruntimeconfig.cache
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\ref\Test.Donne.dll
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\AutoFixture.dll
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Fare.dll

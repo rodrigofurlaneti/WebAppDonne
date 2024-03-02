@@ -111,7 +111,7 @@ namespace WebApi.Donne.Infrastructure
         public void Insert(ProductModel productModel)
         {
             commandText = "USP_Donne_Product_Insert";
-            productModel = ProductBusiness.ProductModelValid(productModel);
+            ProductBusiness.ProductModelValid(productModel);
             SqlConnection sqlConnection  = new SqlConnection(connectionString);
             SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
             GetSqlCommandProductModelInsert(sqlCommand, productModel);
@@ -127,7 +127,7 @@ namespace WebApi.Donne.Infrastructure
             try
             {
                 commandText = "USP_Donne_Product_Insert";
-                productModel = ProductBusiness.ProductModelValid(productModel);
+                ProductBusiness.ProductModelValid(productModel);
                 SqlConnection sqlConnection  = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 GetSqlCommandProductModelInsert(sqlCommand, productModel);

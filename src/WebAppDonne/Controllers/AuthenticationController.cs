@@ -59,7 +59,7 @@ namespace WebApi.Donne.Controllers
                 {
                     if (UserBusiness.SimpleAuthentication(authenticationUserModel, userModelBd))
                     {
-                        authenticationModel = AuthenticationBusiness.SimpleAuthenticationSuccess(authenticationModel);
+                        AuthenticationBusiness.SimpleAuthenticationSuccess(authenticationModel);
                         this._logger.Trace("Authentication_Success_InsertAsync");
                     }
                     else

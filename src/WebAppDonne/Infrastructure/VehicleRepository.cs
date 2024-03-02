@@ -327,7 +327,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.Parameters.AddWithValue("@EntryTime", vehicle.EntryTime);
             sqlCommand.Parameters.AddWithValue("@DepartureDate", vehicle.DepartureDate);
             sqlCommand.Parameters.AddWithValue("@DepartureTime", vehicle.DepartureTime);
-            sqlCommand.Parameters.AddWithValue("@Parked", vehicle.Parked); ;
+            sqlCommand.Parameters.AddWithValue("@Parked", vehicle.Parked);
         }
 
 

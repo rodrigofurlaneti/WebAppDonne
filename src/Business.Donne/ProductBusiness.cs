@@ -4,7 +4,7 @@ namespace Business.Donne
 {
     public static class ProductBusiness
     {
-        public static ProductModel ProductModelValid(ProductModel productModel)
+        public static void ProductModelValid(ProductModel productModel)
         {
             if (productModel.MinimumStockQuantity >= productModel.QuantityStock)
             {
@@ -13,8 +13,6 @@ namespace Business.Donne
                 Decimal valueOfLastPurchase = productModel.QuantityToBuy * valueCostPrice;
                 productModel.TotalValueOfLastPurchase = valueOfLastPurchase.ToString();
             }
-
-            return productModel;
         }
     }
 }

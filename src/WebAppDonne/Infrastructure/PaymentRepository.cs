@@ -219,7 +219,7 @@ namespace WebApi.Donne.Infrastructure
         {
             PaymentModel paymentModel = new PaymentModel();
             GetPaymentModel(sqlDataReader, paymentModel);
-            listPaymentModel.Add(paymentModel);;
+            listPaymentModel.Add(paymentModel);
         }
 
         private static void GetPaymentModel(SqlDataReader sqlDataReader, PaymentModel paymentModel)
