@@ -40,40 +40,42 @@ namespace Test.Donne.Domain.OrderModelTest
             Assert.AreEqual(orderModel.UserName.GetType(), typeof(string));
         }
 
-        //[TestMethod][Ignore]
-        //public void OrderModel_Construtor_Sucesso()
-        //{
-        //    // Arrange
-        //    int orderId = Faker.RandomNumber.Next(0, 100);
-        //    int commandId = Faker.RandomNumber.Next(0, 100);
-        //    int productId = Faker.RandomNumber.Next(0, 100);
-        //    string productName = Faker.Name.FullName();
-        //    string salePrice = Faker.Name.FullName();
-        //    int amount = Faker.RandomNumber.Next(0, 100);
-        //    string totalSalePrice = Faker.Name.FullName();
-        //    DateTime dateInsert = Faker.Finance.Maturity();
-        //    DateTime dateUpdate = Faker.Finance.Maturity();
-        //    int userId = Faker.RandomNumber.Next(0, 1000);
-        //    string userName = Faker.Name.Last();
-        //    List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
+        [TestMethod]
+        public void OrderModel_Construtor_Sucesso()
+        {
+            // Arrange
+            int orderId = Faker.RandomNumber.Next(0, 100);
+            int commandId = Faker.RandomNumber.Next(0, 100);
+            int productId = Faker.RandomNumber.Next(0, 100);
+            string productName = Faker.Name.FullName();
+            string buyerName = Faker.Name.FullName();
+            string salePrice = Faker.Name.FullName();
+            int amount = Faker.RandomNumber.Next(0, 100);
+            string totalSalePrice = Faker.Name.FullName();
+            DateTime dateInsert = Faker.Finance.Maturity();
+            DateTime dateUpdate = Faker.Finance.Maturity();
+            int userId = Faker.RandomNumber.Next(0, 1000);
+            string userName = Faker.Name.Last();
+            List<DateTime> listDateTime = new List<DateTime>() { dateInsert, dateUpdate };
 
-        //    // Act
-        //    OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, salePrice, 
-        //        amount, totalSalePrice, listDateTime, userId, userName);
+            // Act
+            OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, buyerName, 
+                salePrice, amount, totalSalePrice, listDateTime, userId, userName);
 
-        //    // Assert
-        //    Assert.IsNotNull(orderModel);
-        //    Assert.AreEqual(orderId, orderModel.OrderId);
-        //    Assert.AreEqual(commandId, orderModel.CommandId);
-        //    Assert.AreEqual(productId, orderModel.ProductId);
-        //    Assert.AreEqual(productName, orderModel.ProductName);
-        //    Assert.AreEqual(salePrice, orderModel.SalePrice);
-        //    Assert.AreEqual(amount, orderModel.Amount);
-        //    Assert.AreEqual(totalSalePrice, orderModel.TotalSalePrice);
-        //    Assert.AreEqual(dateInsert, orderModel.DateInsert);
-        //    Assert.AreEqual(dateUpdate, orderModel.DateUpdate);
-        //    Assert.AreEqual(userId, orderModel.UserId);
-        //    Assert.AreEqual(userName, orderModel.UserName);
-        //}
+            // Assert
+            Assert.IsNotNull(orderModel);
+            Assert.AreEqual(orderId, orderModel.OrderId);
+            Assert.AreEqual(commandId, orderModel.CommandId);
+            Assert.AreEqual(productId, orderModel.ProductId);
+            Assert.AreEqual(productName, orderModel.ProductName);
+            Assert.AreEqual(buyerName, orderModel.BuyerName);
+            Assert.AreEqual(salePrice, orderModel.SalePrice);
+            Assert.AreEqual(amount, orderModel.Amount);
+            Assert.AreEqual(totalSalePrice, orderModel.TotalSalePrice);
+            Assert.AreEqual(dateInsert, orderModel.DateInsert);
+            Assert.AreEqual(dateUpdate, orderModel.DateUpdate);
+            Assert.AreEqual(userId, orderModel.UserId);
+            Assert.AreEqual(userName, orderModel.UserName);
+        }
     }
 }
