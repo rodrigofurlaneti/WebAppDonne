@@ -14,7 +14,7 @@ namespace WebApi.Donne.Infrastructure
 
         #region Methods 
 
-        public IEnumerable<VehicleModel> GetAllVehicleModels()
+        public IEnumerable<VehicleModel> Get()
         {
             try
             {
@@ -31,17 +31,18 @@ namespace WebApi.Donne.Infrastructure
                         GetListVehicleModel(sqlDataReader, listVehicleModel);
                     }
                 }
-                logger.Trace("GetAllVehicleModels");
+                this.logger.Trace("VehicleModel_GetAllAsync");
                 return listVehicleModel;
             }
             catch (ArgumentNullException ex)
             {
+                this.logger.TraceException("VehicleModel_GetAllAsync");
                 string mensagemErro = "Erro ao consumir a procedure USP_VehicleModelGetAll síncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
         }
 
-        public async Task<IEnumerable<VehicleModel>> GetAllVehicleModelsAsync()
+        public async Task<IEnumerable<VehicleModel>> GetAllAsync()
         {
             commandText = "USP_VehicleModelGetAll";
             List<VehicleModel> listVehicleModel = new List<VehicleModel>();
@@ -49,7 +50,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 try
                 {
-                    logger.Trace("GetAllVehicleModelsAsync");
+                    this.logger.Trace("VehicleModel_GetAllAsync");
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlConnection.Open();
                     SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
@@ -61,6 +62,7 @@ namespace WebApi.Donne.Infrastructure
                 }
                 catch (ArgumentNullException ex)
                 {
+                    this.logger.TraceException("VehicleModel_GetAllAsync");
                     string mensagemErro = "Erro ao consumir a procedure USP_VehicleModelGetAll assíncrono " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }
@@ -84,11 +86,12 @@ namespace WebApi.Donne.Infrastructure
                         GetVehicleModel(sqlDataReader, vehicleModel);
                     }
                 }
-                logger.Trace("GetById");
+                this.logger.Trace("VehicleModel_GetByIdAsync");
                 return vehicleModel;
             }
             catch (ArgumentNullException ex)
             {
+                this.logger.TraceException("VehicleModel_GetByIdAsync");
                 string mensagemErro = "Erro ao consumir a procedure USP_VehicleModelGetById, síncrono. " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
@@ -103,7 +106,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlCommand sqlCommand = new SqlCommand("USP_VehicleModelGetById", sqlConnection))
                 try
                 {
-                    logger.Trace("GetByIdAsync");
+                    this.logger.Trace("VehicleModel_GetByIdAsync");
                     GetSqlCommandVehicleModelById(sqlCommand, id);
                     sqlConnection.Open();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -116,6 +119,7 @@ namespace WebApi.Donne.Infrastructure
                 }
                 catch (ArgumentNullException ex)
                 {
+                    this.logger.TraceException("VehicleModel_GetByIdAsync");
                     string mensagemErro = "Erro ao consumir a procedure USP_VehicleModelGetId, assíncrono. " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }
@@ -131,7 +135,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
-            logger.Trace("Insert");
+            this.logger.TraceException("VehicleModel_InsertAsync");
         }
 
         public async Task InsertAsync(VehicleModel vehicleModel)
@@ -142,7 +146,7 @@ namespace WebApi.Donne.Infrastructure
             GetSqlCommandVehicleModelInsert(sqlCommand, vehicleModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            logger.Trace("InsertAsync");
+            this.logger.Trace("VehicleModel_InsertAsync");
             await sqlCommand.ExecuteNonQueryAsync();
             sqlConnection.Close();
         }
@@ -157,7 +161,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
-            logger.Trace("Delete");
+            this.logger.Trace("VehicleModel_Delete");
         }
 
         public async Task DeleteAsync(int vehicleModelId)
@@ -168,7 +172,7 @@ namespace WebApi.Donne.Infrastructure
             GetSqlCommandVehicleModelById(sqlCommand, vehicleModelId);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            logger.Trace("DeleteAsync");
+            this.logger.Trace("VehicleModel_DeleteAsync");
             await sqlCommand.ExecuteNonQueryAsync();
             sqlConnection.Close();
         }
@@ -185,7 +189,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
-            logger.Trace("Update");
+            this.logger.Trace("VehicleModel_Update");
         }
 
         public async Task UpdateAsync(VehicleModel vehicleModel)
@@ -196,7 +200,7 @@ namespace WebApi.Donne.Infrastructure
             GetSqlCommandVehicleModelUpdate(sqlCommand, vehicleModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            logger.Trace("UpdateAsync");
+            this.logger.Trace("VehicleModel_UpdateAsync");
             await sqlCommand.ExecuteNonQueryAsync();
             sqlConnection.Close();
         }
@@ -230,8 +234,8 @@ namespace WebApi.Donne.Infrastructure
 
         private static void GetSqlCommandVehicleModelUpdate(SqlCommand sqlCommand, VehicleModel vehicleModel)
         {
-            sqlCommand.Parameters.AddWithValue("@VehicleId", vehicleModel.VehicleModelId);
-            sqlCommand.Parameters.AddWithValue("@VehicleName", vehicleModel.VehicleModelName);
+            sqlCommand.Parameters.AddWithValue("@VehicleModelId", vehicleModel.VehicleModelId);
+            sqlCommand.Parameters.AddWithValue("@VehicleModelName", vehicleModel.VehicleModelName);
         }
 
 

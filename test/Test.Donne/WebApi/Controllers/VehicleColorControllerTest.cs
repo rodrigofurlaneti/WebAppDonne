@@ -176,5 +176,23 @@ namespace Test.Donne.WebApi.Controllers
             // Assert
             mockLogger.Verify(x => x.TraceException("VehicleColor_UpdateAsync"), Times.Exactly(1));
         }
+
+        [TestMethod]
+        public async Task Delete_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            VehicleColorController vehicleColorController = new VehicleColorController(mockLogger.Object);
+            var getAll = await vehicleColorController.Get();
+            var okResult = getAll as OkObjectResult;
+            var listVehicleColorModel = (List<VehicleColorModel>)okResult.Value;
+            var obj = listVehicleColorModel.First();
+
+            // Act
+            await vehicleColorController.Delete(obj.VehicleColorId);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("VehicleColor_DeleteAsync"), Times.Exactly(2));
+        }
     }
 }

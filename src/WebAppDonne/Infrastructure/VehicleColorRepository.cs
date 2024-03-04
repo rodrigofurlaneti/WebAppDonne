@@ -134,7 +134,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
-            logger.Trace("Insert");
+            logger.Trace("VehicleColor_Insert");
         }
 
         public async Task InsertAsync(VehicleColorModel vehicleColorModel)
@@ -160,7 +160,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
-            logger.Trace("Delete");
+            logger.Trace("VehicleColor_Delete");
         }
 
         public async Task DeleteAsync(int colorId)
@@ -171,7 +171,7 @@ namespace WebApi.Donne.Infrastructure
             GetSqlCommandVehicleColorModelDelete(sqlCommand, colorId);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            logger.Trace("DeleteAsync");
+            logger.Trace("VehicleColor_DeleteAsync");
             await sqlCommand.ExecuteNonQueryAsync();
             sqlConnection.Close();
         }
@@ -186,7 +186,7 @@ namespace WebApi.Donne.Infrastructure
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
-            logger.Trace("Update");
+            logger.Trace("VehicleColor_UpdateAsync");
         }
 
         public async Task UpdateAsync(VehicleColorModel vehicleColorModel)

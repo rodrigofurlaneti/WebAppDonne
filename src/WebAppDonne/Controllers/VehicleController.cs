@@ -21,18 +21,18 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet(Name = "GetVehiclesAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Vehicle>))]
-        public async Task<IActionResult> GetVehiclesAsync()
+        public async Task<IActionResult> Get()
         {
             try
             {
                 VehicleRepository dal = new VehicleRepository(_logger);
                 var ret = await dal.GetAllVehiclesAsync();
-                _logger.Trace("GetAllVehicleAsync");
+                _logger.Trace("Vehicle_GetAllAsync");
                 return Ok(ret);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("GetVehicleAsync");
+                _logger.TraceException("Vehicle_GetAllAsync");
                 string mensagem = "Erro ao consumir a controler Vehicle, rota GetVehicles " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -65,13 +65,13 @@ namespace WebApi.Donne.Controllers
             try
             {
                 VehicleRepository dal = new VehicleRepository(_logger);
-                _logger.Trace("GetByIdAsync");
+                _logger.Trace("Vehicle_GetByIdAsync");
                 var ret = await dal.GetByIdAsync(id);
                 return Ok(ret);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("GetByIdAsync");
+                _logger.TraceException("Vehicle_GetByIdAsync");
                 string mensagem = "Erro ao consumir a controler Vehicle, rota GetByIdAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -83,12 +83,12 @@ namespace WebApi.Donne.Controllers
             try
             {
                 VehicleRepository dal = new VehicleRepository(_logger);
-                _logger.Trace("InsertAsync");
+                _logger.Trace("Vehicle_InsertAsync");
                 await dal.InsertAsync(VehicleModel);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("InsertAsync");
+                _logger.TraceException("Vehicle_InsertAsync");
                 string mensagem = "Erro ao consumir a controler Vehicle, rota Post " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -101,12 +101,12 @@ namespace WebApi.Donne.Controllers
             try
             {
                 VehicleRepository dal = new VehicleRepository(_logger);
-                _logger.Trace("UpdateAsync");
+                _logger.Trace("Vehicle_UpdateAsync");
                 await dal.UpdateAsync(VehicleModel);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("UpdateAsync");
+                _logger.TraceException("Vehicle_UpdateAsync");
                 string mensagem = "Erro ao consumir a controler Vehicle, rota Update " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -118,13 +118,13 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                _logger.Trace("DeleteAsync");
+                this._logger.Trace("Vehicle_DeleteAsync");
                 VehicleRepository dal = new VehicleRepository(_logger);
                 await dal.DeleteAsync(id);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("DeleteAsync");
+                this._logger.TraceException("Vehicle_DeleteAsync");
                 string mensagem = "Erro ao consumir a controler Vehicle, rota DeleteAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }

@@ -182,5 +182,23 @@ namespace Test.Donne.WebApi.Controllers
             // Assert
             mockLogger.Verify(x => x.TraceException("VehicleType_UpdateAsync"), Times.Exactly(1));
         }
+
+        [TestMethod]
+        public async Task Delete_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            VehicleTypeController vehicleTypeController = new VehicleTypeController(mockLogger.Object);
+            var getAll = await vehicleTypeController.Get();
+            var okResult = getAll as OkObjectResult;
+            var listVehicleTypeModel = (List<VehicleTypeModel>)okResult.Value;
+            var obj = listVehicleTypeModel.First();
+
+            // Act
+            await vehicleTypeController.Delete(obj.VehicleTypeId);
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("VehicleType_DeleteAsync"), Times.Exactly(2));
+        }
     }
 }

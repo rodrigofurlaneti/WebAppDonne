@@ -98,13 +98,13 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                _logger.Trace("DeleteAsync");
+                this._logger.Trace("VehicleColor_DeleteAsync");
                 VehicleColorRepository dal = new VehicleColorRepository(_logger);
                 await dal.DeleteAsync(id);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("DeleteAsync");
+                this._logger.TraceException("VehicleColor_DeleteAsync");
                 string mensagem = "Erro ao consumir a controler Color, rota DeleteAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
