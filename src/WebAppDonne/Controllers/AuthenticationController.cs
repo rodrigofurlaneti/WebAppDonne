@@ -50,6 +50,7 @@ namespace WebApi.Donne.Controllers
                 var userModelBd = await userRepository.GetByNameAsync(authenticationUserModel.UserName);
                 authenticationModel.ClientInternetProtocol = authenticationUserModel.ClientInternetProtocol;
                 authenticationModel.NavigatorUserAgent = authenticationUserModel.NavigatorUserAgent;
+                authenticationModel.ServerInternetProtocol = authenticationUserModel.ServerInternetProtocol;
                 if (userModelBd.UserName == null)
                 {
                     authenticationModel = AuthenticationBusiness.SimpleAuthenticationInvalidUserName(authenticationModel);

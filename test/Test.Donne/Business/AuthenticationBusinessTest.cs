@@ -12,6 +12,8 @@ namespace Test.Donne.Business.AuthenticationBusinessTest
         public void SimpleAuthenticationSuccess_Sucesso()
         {
             // Arrange
+            string authenticatedExpectedValue = "1";
+            string statusExpectedValue = "Success";
             AuthenticationModel authenticationModel = new AuthenticationModel();
             authenticationModel.HostedServerName = "HostedServerName";
             authenticationModel.AuthenticationDateTime = DateTime.Now.ToString();
@@ -20,14 +22,16 @@ namespace Test.Donne.Business.AuthenticationBusinessTest
             AuthenticationBusiness.SimpleAuthenticationSuccess(authenticationModel);
 
             // Assert
-            Assert.AreEqual(authenticationModel.Authenticated, "1");
-            Assert.AreEqual(authenticationModel.Status, "Success");
+            Assert.AreEqual(authenticatedExpectedValue, authenticationModel.Authenticated);
+            Assert.AreEqual(statusExpectedValue, authenticationModel.Status);
         }
 
         [TestMethod]
         public void SimpleAuthenticationInvalidPassword_Sucesso()
         {
             // Arrange
+            string authenticatedExpectedValue = "0";
+            string statusExpectedValue = "Invalid password";
             AuthenticationModel authenticationModel = new AuthenticationModel();
             authenticationModel.HostedServerName = "HostedServerName";
             authenticationModel.AuthenticationDateTime = DateTime.Now.ToString();
@@ -36,14 +40,16 @@ namespace Test.Donne.Business.AuthenticationBusinessTest
             AuthenticationBusiness.SimpleAuthenticationInvalidPassword(authenticationModel);
 
             // Assert
-            Assert.AreEqual(authenticationModel.Authenticated, "0");
-            Assert.AreEqual(authenticationModel.Status, "Invalid password");
+            Assert.AreEqual(authenticatedExpectedValue, authenticationModel.Authenticated);
+            Assert.AreEqual(statusExpectedValue, authenticationModel.Status);
         }
 
         [TestMethod]
         public void SimpleAuthenticationInvalidUserName_Sucesso()
         {
             // Arrange
+            string authenticatedExpectedValue = "0";
+            string statusExpectedValue = "Invalid user name";
             AuthenticationModel authenticationModel = new AuthenticationModel();
             authenticationModel.HostedServerName = "HostedServerName";
             authenticationModel.AuthenticationDateTime = DateTime.Now.ToString();
@@ -52,8 +58,8 @@ namespace Test.Donne.Business.AuthenticationBusinessTest
             AuthenticationBusiness.SimpleAuthenticationInvalidUserName(authenticationModel);
 
             // Assert
-            Assert.AreEqual(authenticationModel.Authenticated, "0");
-            Assert.AreEqual(authenticationModel.Status, "Invalid user name");
+            Assert.AreEqual(authenticatedExpectedValue, authenticationModel.Authenticated);
+            Assert.AreEqual(statusExpectedValue, authenticationModel.Status);
         }
 
     }
