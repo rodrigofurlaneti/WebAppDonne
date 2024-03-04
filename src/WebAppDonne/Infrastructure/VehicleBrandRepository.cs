@@ -66,7 +66,7 @@ namespace WebApi.Donne.Infrastructure
                     throw new ArgumentNullException(mensagemErro);
                 }
         }
-        
+
         public VehicleBrandModel GetById(int id)
         {
             try
@@ -116,6 +116,7 @@ namespace WebApi.Donne.Infrastructure
                 }
                 catch (ArgumentNullException ex)
                 {
+                    logger.TraceException("VehicleBrand_GetByIdAsync");
                     string mensagemErro = "Erro ao consumir a procedure USP_VehicleBrandGetId, assíncrono. " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }

@@ -21,13 +21,13 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet(Name = "GetStockInventoryAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<StockInventoryModel>))]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
                 StockInventoryRepository dal = new StockInventoryRepository(_logger);
                 this._logger.Trace("GetStockInventoryAsync");
-                var ret = dal.GetAllStockInventory();
+                var ret = await dal.GetAllStockInventory();
                 return Ok(ret);
             }
             catch (Exception ex)

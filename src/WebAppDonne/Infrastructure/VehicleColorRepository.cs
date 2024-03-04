@@ -45,13 +45,13 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<VehicleColorModel>> GetAllVehicleColorsAsync()
         {
-            commandText = "USP_VehicleColorGetAlll";
+            commandText = "USP_VehicleColorGetAll";
             List<VehicleColorModel> listColorModel = new List<VehicleColorModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             using (SqlCommand sqlCommand  = new SqlCommand(commandText, sqlConnection))
                 try
                 {
-                    logger.Trace("GetAllVehicleColorsAsync");
+                    this.logger.Trace("VehicleColor_GetAllAsync");
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlConnection.Open();
                     SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
@@ -63,6 +63,7 @@ namespace WebApi.Donne.Infrastructure
                 }
                 catch (ArgumentNullException ex)
                 {
+                    this.logger.TraceException("VehicleColor_GetAllAsync");
                     string mensagemErro = "Erro ao consumir a procedure USP_VehicleColorGetAll assíncrono " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }
@@ -105,7 +106,7 @@ namespace WebApi.Donne.Infrastructure
             using (SqlCommand sqlCommand  = new SqlCommand(commandText, sqlConnection))
                 try
                 {
-                    logger.Trace("GetByIdAsync");
+                    logger.Trace("VehicleColor_GetByIdAsync");
                     sqlCommand.Parameters.AddWithValue("@VehicleColorId", id);
                     sqlConnection.Open();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -144,7 +145,7 @@ namespace WebApi.Donne.Infrastructure
             GetSqlCommandVehicleColorModelInsert(sqlCommand, vehicleColorModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            logger.Trace("InsertAsync");
+            logger.Trace("VehicleColor_InsertAsync");
             await sqlCommand.ExecuteNonQueryAsync();
             sqlConnection.Close();
         }
@@ -196,7 +197,7 @@ namespace WebApi.Donne.Infrastructure
             GetSqlCommandVehicleColorModelUpdate(sqlCommand, vehicleColorModel);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            logger.Trace("UpdateAsync");
+            logger.Trace("VehicleColor_UpdateAsync");
             await sqlCommand.ExecuteNonQueryAsync();
             sqlConnection.Close();
         }

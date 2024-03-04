@@ -21,18 +21,18 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet(Name = "GetColorsAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleColorModel>))]
-        public async Task<IActionResult> GetVehicleColorsAsync()
+        public async Task<IActionResult> Get()
         {
             try
             {
                 VehicleColorRepository dal = new VehicleColorRepository(_logger);
                 var ret = await dal.GetAllVehicleColorsAsync();
-                _logger.Trace("GetColorAsync");
+                this._logger.Trace("VehicleColor_GetAllAsync");
                 return Ok(ret);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("GetVehicleColorAsync");
+                this._logger.TraceException("VehicleColor_GetAllAsync");
                 string mensagem = "Erro ao consumir a controler Color, rota GetColors " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -45,13 +45,13 @@ namespace WebApi.Donne.Controllers
             try
             {
                 VehicleColorRepository dal = new VehicleColorRepository(_logger);
-                _logger.Trace("GetByIdAsync");
+                this._logger.Trace("VehicleColor_GetByIdAsync");
                 var ret = await dal.GetByIdAsync(id);
                 return Ok(ret);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("GetByIdAsync");
+                this._logger.TraceException("VehicleColor_GetByIdAsync");
                 string mensagem = "Erro ao consumir a controler Color, rota GetByIdAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -63,12 +63,12 @@ namespace WebApi.Donne.Controllers
             try
             {
                 VehicleColorRepository dal = new VehicleColorRepository(_logger);
-                _logger.Trace("InsertAsync");
+                this._logger.Trace("VehicleColor_InsertAsync");
                 await dal.InsertAsync(ColorModel);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("InsertAsync");
+                this._logger.TraceException("VehicleColor_InsertAsync");
                 string mensagem = "Erro ao consumir a controler Color, rota Post " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -81,12 +81,12 @@ namespace WebApi.Donne.Controllers
             try
             {
                 VehicleColorRepository dal = new VehicleColorRepository(_logger);
-                _logger.Trace("UpdateAsync");
+                this._logger.Trace("VehicleColor_UpdateAsync");
                 await dal.UpdateAsync(ColorModel);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("UpdateAsync");
+                this._logger.TraceException("VehicleColor_UpdateAsync");
                 string mensagem = "Erro ao consumir a controler Color, rota Update " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }

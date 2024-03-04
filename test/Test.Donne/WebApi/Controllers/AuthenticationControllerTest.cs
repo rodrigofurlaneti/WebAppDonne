@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Newtonsoft.Json.Linq;
 using System.Net;
 using WebApi.Donne.Controllers;
 using WebApi.Donne.Infrastructure.SeedWork;
@@ -12,7 +11,7 @@ using WebApi.Donne.Infrastructure.SeedWork;
 namespace Test.Donne.WebApi.Controllers
 {
     [TestClass]
-    [TestCategory("Donne > WebApi > Controllers > BuyerController")]
+    [TestCategory("Donne > WebApi > Controllers > AuthenticationController")]
     public class AuthenticationControllerTest
     {
         [TestMethod]

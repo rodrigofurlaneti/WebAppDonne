@@ -14,23 +14,32 @@ namespace WebApi.Donne.Infrastructure
 
         #region Methods 
 
-        public IEnumerable<StockInventoryModel> GetAllStockInventory()
+        public async Task<IEnumerable<StockInventoryModel>> GetAllStockInventory()
         {
             commandText = "USP_StockInventoryGetAll";
             List<StockInventoryModel> listStockInventoryModel = new List<StockInventoryModel>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlConnection.Open();
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                while (sqlDataReader.Read())
+                try
                 {
-                    GetListStockInventoryModel(sqlDataReader, listStockInventoryModel);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
+                    {
+                        GetListStockInventoryModel(sqlDataReader, listStockInventoryModel);
+                    }
+                    logger.Trace("StockInventory_GetAllAsync");
+                    return listStockInventoryModel;
+                }
+                catch (Exception ex)
+                {
+                    string mensagem = "Erro ao consumir a controler StockInventory, rota GetAllAsync " + ex.Message;
+                    logger.TraceException("StockInventory_GetAllAsync");
+                    throw new ArgumentNullException(mensagem);
                 }
             }
-            logger.Trace("GetAllStockInventory");
-            return listStockInventoryModel;
         }
 
         #endregion
