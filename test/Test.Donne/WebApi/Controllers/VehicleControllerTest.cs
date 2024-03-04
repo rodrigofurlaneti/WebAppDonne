@@ -165,7 +165,7 @@ namespace Test.Donne.WebApi.Controllers
                     .With(vehicle => vehicle.VehicleColorName, Faker.Name.First())
                     .With(vehicle => vehicle.VehicleTypeName, Faker.Name.First())
                     .With(vehicle => vehicle.VehicleModelName, Faker.Name.First())
-                    .With(vehicle => vehicle.Plate, "FTF1529")
+                    .With(vehicle => vehicle.Plate, "FTF1528")
                     .With(vehicle => vehicle.UserId, Faker.RandomNumber.Next(1, 100))
                     .With(vehicle => vehicle.UserName, Faker.Name.First())
                     .Create<Vehicle>();
