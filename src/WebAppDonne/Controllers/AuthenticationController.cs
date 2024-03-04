@@ -44,6 +44,7 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
+                this._logger.Trace("Authentication_InsertAuthentication");
                 AuthenticationModel authenticationModel = new AuthenticationModel();
                 AuthenticationRepository authenticationRepository = new AuthenticationRepository(_logger);
                 UserRepository userRepository = new UserRepository(_logger);
@@ -75,7 +76,7 @@ namespace WebApi.Donne.Controllers
             catch (Exception ex)
             {
                 string mensagem = "Erro ao consumir a controler Authentication, rota InsertAuthentication " + ex.Message;
-                this._logger.TraceException("Authentication_InsertAsync");
+                this._logger.TraceException("Authentication_InsertAuthentication");
                 throw new ArgumentNullException(mensagem);
             }
         }
