@@ -1,4 +1,6 @@
-﻿namespace WebApi.Donne.Infrastructure
+﻿using WebApi.Donne.Helpers;
+
+namespace WebApi.Donne.Infrastructure
 {
     public class BaseRepository
     {
@@ -16,6 +18,10 @@
                 .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configurationRoot = configurationBuilder.Build();
             connectionString = configurationRoot.GetConnectionString("locaWebDonne");
+            String keyString = "+BVZYjHomswT/+9NzdJR9G56qPGdaKk=";
+            String encryptedPassword = "ZrIa/8QJk1xOz2fUCwXBNQ==";
+            String decryptedPassword = StringEncryptor.Decrypt(encryptedPassword, keyString);
+            connectionString = connectionString + "Password=" + decryptedPassword;
             logger = _logger;
         }
         #endregion

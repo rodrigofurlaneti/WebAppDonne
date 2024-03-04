@@ -9,7 +9,8 @@
 		<IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
 		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
 		<ProjectGuid>{B1E36758-8A06-4793-A7D2-216DE578732D}</ProjectGuid>
-	</PropertyGroup>
+	  <UserSecretsId>eaa6bdcf-14e4-426b-9f17-19715411795a</UserSecretsId>
+  </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="logs\**" />
