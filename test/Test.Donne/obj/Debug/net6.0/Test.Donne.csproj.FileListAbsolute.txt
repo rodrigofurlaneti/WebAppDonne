@@ -14,6 +14,7 @@ C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donn
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.runtimeconfig.json
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Test.Donne.pdb
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\AutoFixture.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Azure.Core.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Azure.Data.AppConfiguration.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Azure.Identity.dll
@@ -21,6 +22,7 @@ C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Azure.Mes
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Azure.Security.KeyVault.Secrets.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Castle.Core.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Faker.Net.6.0.dll
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Fare.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\System.Net.Http.Formatting.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\System.Web.Http.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -156,5 +158,3 @@ C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\refint\Te
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.pdb
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.genruntimeconfig.cache
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\ref\Test.Donne.dll
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\AutoFixture.dll
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Fare.dll

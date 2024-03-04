@@ -1,6 +1,7 @@
 ﻿using Business.Donne;
 using Domain.Donne;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using WebApi.Donne.Infrastructure;
 
 namespace WebApi.Donne.Controllers
@@ -56,22 +57,26 @@ namespace WebApi.Donne.Controllers
                 {
                     authenticationModel = AuthenticationBusiness.SimpleAuthenticationInvalidUserName(authenticationModel);
                     this._logger.Trace("Authentication_InvalidUserName_InsertAsync");
-                }   
+                    await authenticationRepository.InsertAsync(authenticationModel);
+                    return Unauthorized("InvalidUserName");
+                }
                 else
                 {
                     if (UserBusiness.SimpleAuthentication(authenticationUserModel, userModelBd))
                     {
                         AuthenticationBusiness.SimpleAuthenticationSuccess(authenticationModel);
                         this._logger.Trace("Authentication_Success_InsertAsync");
+                        await authenticationRepository.InsertAsync(authenticationModel);
+                        return Ok(userModelBd);
                     }
                     else
                     {
                         authenticationModel = AuthenticationBusiness.SimpleAuthenticationInvalidPassword(authenticationModel);
                         this._logger.Trace("Authentication_InvalidPassword_InsertAsync");
+                        await authenticationRepository.InsertAsync(authenticationModel);
+                        return Unauthorized("InvalidPassword");
                     }
                 }
-                await authenticationRepository.InsertAsync(authenticationModel);
-                return Ok(userModelBd);
             }
             catch (Exception ex)
             {
