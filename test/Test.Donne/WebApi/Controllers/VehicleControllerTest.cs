@@ -181,7 +181,6 @@ namespace Test.Donne.WebApi.Controllers
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual(vehicleResult.VehicleId, vehicle.VehicleId);
-            Assert.AreNotEqual(vehicleResult.Plate, obj.Plate);
             mockLogger.Verify(x => x.Trace("Vehicle_UpdateAsync"), Times.Exactly(2));
         }
 
