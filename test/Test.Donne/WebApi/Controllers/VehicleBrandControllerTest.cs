@@ -11,7 +11,7 @@ using WebApi.Donne.Infrastructure.SeedWork;
 namespace Test.Donne.WebApi.Controllers
 {
     [TestClass]
-    [TestCategory("Donne > WebApi > Controllers > StockInventoryController")]
+    [TestCategory("Donne > WebApi > Controllers > VehicleBrandController")]
     public class VehicleBrandControllerTest
     {
         [TestMethod]
