@@ -8,7 +8,7 @@ using System.Net;
 using WebApi.Donne.Controllers;
 using WebApi.Donne.Infrastructure.SeedWork;
 
-namespace Test.Donne.WebApi.Controllers
+namespace Test.Donne.WebApi.Controllers.VehicleModelControllerTest
 {
     [TestClass]
     [TestCategory("Donne > WebApi > Controllers > VehicleModelController")]
@@ -22,7 +22,7 @@ namespace Test.Donne.WebApi.Controllers
             VehicleModelController vehicleModelController = new VehicleModelController(mockLogger.Object);
 
             // Act
-            var result = await vehicleModelController.Get();
+            var result = await vehicleModelController.GetVehicleModel();
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -42,7 +42,7 @@ namespace Test.Donne.WebApi.Controllers
             VehicleModelController vehicleModelController = new VehicleModelController(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleModelController.Get());
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleModelController.GetVehicleModel());
 
             // Assert
             mockLogger.Verify(x => x.TraceException("VehicleModel_GetAllAsync"), Times.Exactly(1));
@@ -54,13 +54,13 @@ namespace Test.Donne.WebApi.Controllers
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleModelController vehicleModelController = new VehicleModelController(mockLogger.Object);
-            var getAll = await vehicleModelController.Get();
+            var getAll = await vehicleModelController.GetVehicleModel();
             var okResult = getAll as OkObjectResult;
             var listVehicleModelModel = (List<VehicleModel>)okResult.Value;
             var obj = listVehicleModelModel.First();
 
             // Act
-            var result = await vehicleModelController.Get(obj.VehicleModelId);
+            var result = await vehicleModelController.GetVehicleModel(obj.VehicleModelId);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -78,13 +78,13 @@ namespace Test.Donne.WebApi.Controllers
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleModel_GetByIdAsync")).Throws(new Exception());
             VehicleModelController vehicleModelController = new VehicleModelController(mockLogger.Object);
-            var getAll = await vehicleModelController.Get();
+            var getAll = await vehicleModelController.GetVehicleModel();
             var okResult = getAll as OkObjectResult;
             var listVehicleModelModel = (List<VehicleModel>)okResult.Value;
             var obj = listVehicleModelModel.First();
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleModelController.Get(obj.VehicleModelId));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleModelController.GetVehicleModel(obj.VehicleModelId));
 
             // Assert
             mockLogger.Verify(x => x.TraceException("VehicleModel_GetByIdAsync"), Times.Exactly(1));
@@ -130,7 +130,7 @@ namespace Test.Donne.WebApi.Controllers
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleModelController vehicleModelController = new VehicleModelController(mockLogger.Object);
 
-            var getAll = await vehicleModelController.Get();
+            var getAll = await vehicleModelController.GetVehicleModel();
             var okResult = getAll as OkObjectResult;
             var listVehicleModel = (List<VehicleModel>)okResult.Value;
             var obj = listVehicleModel.First();
@@ -142,7 +142,7 @@ namespace Test.Donne.WebApi.Controllers
 
             // Act
             await vehicleModelController.Update(vehicleModel);
-            var result = await vehicleModelController.Get(obj.VehicleModelId);
+            var result = await vehicleModelController.GetVehicleModel(obj.VehicleModelId);
             ObjectResult objectResult = (ObjectResult)result;
             var vehicleModelResult = (VehicleModel)objectResult.Value;
 
@@ -162,7 +162,7 @@ namespace Test.Donne.WebApi.Controllers
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleModel_UpdateAsync")).Throws(new Exception());
             VehicleModelController vehicleModelController = new VehicleModelController(mockLogger.Object);
-            var getAll = await vehicleModelController.Get();
+            var getAll = await vehicleModelController.GetVehicleModel();
             var okResult = getAll as OkObjectResult;
             var listVehicleModel = (List<VehicleModel>)okResult.Value;
             var obj = listVehicleModel.First();
@@ -184,7 +184,7 @@ namespace Test.Donne.WebApi.Controllers
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleModelController vehicleModelController = new VehicleModelController(mockLogger.Object);
-            var getAll = await vehicleModelController.Get();
+            var getAll = await vehicleModelController.GetVehicleModel();
             var okResult = getAll as OkObjectResult;
             var listVehicleModelModel = (List<VehicleModel>)okResult.Value;
             var obj = listVehicleModelModel.First();
@@ -194,8 +194,26 @@ namespace Test.Donne.WebApi.Controllers
 
             // Assert
             mockLogger.Verify(x => x.Trace("VehicleModel_GetAllAsync"), Times.Exactly(2));
-            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("VehicleModel_DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("VehicleModel_DeleteAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public async Task Delete_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("VehicleModel_DeleteAsync")).Throws(new Exception());
+            VehicleModelController vehicleModelController = new VehicleModelController(mockLogger.Object);
+            var getAll = await vehicleModelController.GetVehicleModel();
+            var okResult = getAll as OkObjectResult;
+            var listVehicleModelModel = (List<VehicleModel>)okResult.Value;
+            var obj = listVehicleModelModel.First();
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleModelController.Delete(obj.VehicleModelId));
+
+            // Assert
+            mockLogger.Verify(x => x.TraceException("VehicleModel_DeleteAsync"), Times.Exactly(1));
         }
     }
 }

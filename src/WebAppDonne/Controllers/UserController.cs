@@ -21,7 +21,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet(Name = "GetUserAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserModel>))]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetUser()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserModel))]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetUser(int id)
         {
             try
             {

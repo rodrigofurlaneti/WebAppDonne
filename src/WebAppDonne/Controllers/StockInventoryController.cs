@@ -21,7 +21,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet(Name = "GetStockInventoryAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<StockInventoryModel>))]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetStockInventory()
         {
             try
             {

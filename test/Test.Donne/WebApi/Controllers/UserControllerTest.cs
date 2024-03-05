@@ -21,7 +21,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             UserController userController = new UserController(mockLogger.Object);
 
             // Act
-            var result = await userController.Get();
+            var result = await userController.GetUser();
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -44,7 +44,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             UserController userController = new UserController(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => userController.Get());
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => userController.GetUser());
 
             // Assert
             mockLogger.Verify(x => x.TraceException("GetUserAsync"), Times.Exactly(1));
@@ -57,14 +57,14 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserController userController = new UserController(mockLogger.Object);
-            var getAll = userController.Get();
+            var getAll = userController.GetUser();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
             if(list != null)
                 id = list[0].UserId;
 
             // Act
-            var result = await userController.Get(id);
+            var result = await userController.GetUser(id);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -86,14 +86,14 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
             UserController userController = new UserController(mockLogger.Object);
-            var getAll = userController.Get();
+            var getAll = userController.GetUser();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
             if (list != null)
                 id = list[0].UserId;
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => userController.Get(id));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => userController.GetUser(id));
 
             // Assert
             mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
@@ -106,7 +106,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             string name = string.Empty;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserController userController = new UserController(mockLogger.Object);
-            var getAll = userController.Get();
+            var getAll = userController.GetUser();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
             if (list != null)
@@ -135,7 +135,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("GetByNameAsync")).Throws(new Exception());
             UserController userController = new UserController(mockLogger.Object);
-            var getAll = userController.Get();
+            var getAll = userController.GetUser();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
             if (list != null)
@@ -202,7 +202,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserController userController = new UserController(mockLogger.Object);
-            var getAll = userController.Get();
+            var getAll = userController.GetUser();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
             if (list != null)
@@ -234,7 +234,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
             UserController userController = new UserController(mockLogger.Object);
-            var getAll = userController.Get();
+            var getAll = userController.GetUser();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
             if (list != null)
@@ -262,7 +262,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserController userController = new UserController(mockLogger.Object);
-            var getAll = userController.Get();
+            var getAll = userController.GetUser();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
             if (list != null)
@@ -286,7 +286,7 @@ namespace Test.Donne.WebApi.Controllers.UserControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
             UserController userController = new UserController(mockLogger.Object);
-            var getAll = userController.Get();
+            var getAll = userController.GetUser();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<UserModel>;
             if (list != null)

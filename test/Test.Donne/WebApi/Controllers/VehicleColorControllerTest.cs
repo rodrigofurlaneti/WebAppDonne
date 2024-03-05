@@ -8,7 +8,7 @@ using System.Net;
 using WebApi.Donne.Controllers;
 using WebApi.Donne.Infrastructure.SeedWork;
 
-namespace Test.Donne.WebApi.Controllers
+namespace Test.Donne.WebApi.Controllers.VehicleColorControllerTest
 {
     [TestClass]
     [TestCategory("Donne > WebApi > Controllers > VehicleColorController")]
@@ -22,7 +22,7 @@ namespace Test.Donne.WebApi.Controllers
             VehicleColorController vehicleColorController = new VehicleColorController(mockLogger.Object);
 
             // Act
-            var result = await vehicleColorController.Get();
+            var result = await vehicleColorController.GetVehicleColor();
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -42,7 +42,7 @@ namespace Test.Donne.WebApi.Controllers
             VehicleColorController vehicleColorController = new VehicleColorController(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleColorController.Get());
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleColorController.GetVehicleColor());
 
             // Assert
             mockLogger.Verify(x => x.TraceException("VehicleColor_GetAllAsync"), Times.Exactly(1));
@@ -54,13 +54,13 @@ namespace Test.Donne.WebApi.Controllers
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleColorController vehicleColorController = new VehicleColorController(mockLogger.Object);
-            var getAll = await vehicleColorController.Get();
+            var getAll = await vehicleColorController.GetVehicleColor();
             var okResult = getAll as OkObjectResult;
             var listVehicleColorModel = (List<VehicleColorModel>)okResult.Value;
             var obj = listVehicleColorModel.First();
 
             // Act
-            var result = await vehicleColorController.Get(obj.VehicleColorId);
+            var result = await vehicleColorController.GetVehicleColor(obj.VehicleColorId);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -78,13 +78,13 @@ namespace Test.Donne.WebApi.Controllers
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleColor_GetByIdAsync")).Throws(new Exception());
             VehicleColorController vehicleColorController = new VehicleColorController(mockLogger.Object);
-            var getAll = await vehicleColorController.Get();
+            var getAll = await vehicleColorController.GetVehicleColor();
             var okResult = getAll as OkObjectResult;
             var listVehicleColorModel = (List<VehicleColorModel>)okResult.Value;
             var obj = listVehicleColorModel.First();
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleColorController.Get(obj.VehicleColorId));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleColorController.GetVehicleColor(obj.VehicleColorId));
 
             // Assert
             mockLogger.Verify(x => x.TraceException("VehicleColor_GetByIdAsync"), Times.Exactly(1));
@@ -130,7 +130,7 @@ namespace Test.Donne.WebApi.Controllers
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleColorController vehicleColorController = new VehicleColorController(mockLogger.Object);
 
-            var getAll = await vehicleColorController.Get();
+            var getAll = await vehicleColorController.GetVehicleColor();
             var okResult = getAll as OkObjectResult;
             var listVehicleColorModel = (List<VehicleColorModel>)okResult.Value;
             var obj = listVehicleColorModel.First();
@@ -141,7 +141,7 @@ namespace Test.Donne.WebApi.Controllers
 
             // Act
             await vehicleColorController.Update(vehicleColorModel);
-            var result = await vehicleColorController.Get(obj.VehicleColorId);
+            var result = await vehicleColorController.GetVehicleColor(obj.VehicleColorId);
             ObjectResult objectResult = (ObjectResult)result;
             var vehicleColorModelResult = (VehicleColorModel)objectResult.Value;
 
@@ -161,7 +161,7 @@ namespace Test.Donne.WebApi.Controllers
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleColor_UpdateAsync")).Throws(new Exception());
             VehicleColorController vehicleColorController = new VehicleColorController(mockLogger.Object);
-            var getAll = await vehicleColorController.Get();
+            var getAll = await vehicleColorController.GetVehicleColor();
             var okResult = getAll as OkObjectResult;
             var listVehicleColorModel = (List<VehicleColorModel>)okResult.Value;
             var obj = listVehicleColorModel.First();
@@ -183,7 +183,7 @@ namespace Test.Donne.WebApi.Controllers
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleColorController vehicleColorController = new VehicleColorController(mockLogger.Object);
-            var getAll = await vehicleColorController.Get();
+            var getAll = await vehicleColorController.GetVehicleColor();
             var okResult = getAll as OkObjectResult;
             var listVehicleColorModel = (List<VehicleColorModel>)okResult.Value;
             var obj = listVehicleColorModel.First();
@@ -193,6 +193,25 @@ namespace Test.Donne.WebApi.Controllers
 
             // Assert
             mockLogger.Verify(x => x.Trace("VehicleColor_DeleteAsync"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public async Task Delete_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("VehicleColor_DeleteAsync")).Throws(new Exception());
+            VehicleColorController vehicleColorController = new VehicleColorController(mockLogger.Object);
+            var getAll = await vehicleColorController.GetVehicleColor();
+            var okResult = getAll as OkObjectResult;
+            var listVehicleColorModel = (List<VehicleColorModel>)okResult.Value;
+            var obj = listVehicleColorModel.First();
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleColorController.Delete(obj.VehicleColorId));
+
+            // Assert
+            mockLogger.Verify(x => x.TraceException("VehicleColor_DeleteAsync"), Times.Exactly(1));
         }
     }
 }

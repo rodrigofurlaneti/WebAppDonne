@@ -22,7 +22,7 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             CommandController commandController = new CommandController(mockLogger.Object);
 
             // Act
-            var result = await commandController.Get();
+            var result = await commandController.GetCommand();
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -30,8 +30,7 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
-            mockLogger.Verify(x => x.Trace("GetCommandAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -41,14 +40,14 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             
             // Setup
-            mockLogger.Setup(x => x.Trace("GetCommandAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("Command_GetAllAsync")).Throws(new Exception());
             CommandController commandController = new CommandController(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => commandController.Get());
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => commandController.GetCommand());
 
             // Assert
-            mockLogger.Verify(x => x.TraceException("GetCommandAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("Command_GetAllAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -59,7 +58,7 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandController commandController = new CommandController(mockLogger.Object);
-            var getAll = commandController.Get();
+            var getAll = commandController.GetCommand();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<CommandModel>;
             if (list != null)
@@ -74,10 +73,8 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
-            mockLogger.Verify(x => x.Trace("GetCommandAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Command_GetByStatusAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Command_GetByStatusAsync"), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -88,9 +85,9 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             // Setup
-            mockLogger.Setup(x => x.Trace("GetByStatusAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("Command_GetByStatusAsync")).Throws(new Exception());
             CommandController commandController = new CommandController(mockLogger.Object);
-            var getAll = commandController.Get();
+            var getAll = commandController.GetCommand();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<CommandModel>;
             if (list != null)
@@ -100,8 +97,8 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => commandController.Options(id));
 
             // Assert
-            mockLogger.Verify(x => x.Trace("GetByStatusAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.TraceException("GetByStatusAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetByStatusAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("Command_GetByStatusAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -112,14 +109,14 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandController commandController = new CommandController(mockLogger.Object);
-            var getAll = commandController.Get();
+            var getAll = commandController.GetCommand();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<CommandModel>;
             if (list != null)
                 id = list[0].CommandId;
 
             // Act
-            var result = await commandController.Get(id);
+            var result = await commandController.GetCommand(id);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -127,10 +124,8 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
-            mockLogger.Verify(x => x.Trace("GetCommandAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Command_GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Command_GetByIdAsync"), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -139,19 +134,19 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             // Arrange
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("Command_GetByIdAsync")).Throws(new Exception());
             CommandController commandController = new CommandController(mockLogger.Object);
-            var getAll = commandController.Get();
+            var getAll = commandController.GetCommand();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<CommandModel>;
             if (list != null)
                 id = list[0].CommandId;
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => commandController.Get(id));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => commandController.GetCommand(id));
 
             // Assert
-            mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("Command_GetByIdAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -218,7 +213,7 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandController commandController = new CommandController(mockLogger.Object);
-            var getAll = commandController.Get();
+            var getAll = commandController.GetCommand();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<CommandModel>;
             if (list != null)
@@ -238,10 +233,8 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             await commandController.Update(commandModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("GetCommandAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("UpdateAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Command_UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Command_UpdateAsync"), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -250,9 +243,9 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             // Arrange
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("Command_UpdateAsync")).Throws(new Exception());
             CommandController commandController = new CommandController(mockLogger.Object);
-            var getAll = commandController.Get();
+            var getAll = commandController.GetCommand();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<CommandModel>;
             if (list != null)
@@ -272,7 +265,7 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => commandController.Update(commandModel));
 
             // Assert
-            mockLogger.Verify(x => x.TraceException("UpdateAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("Command_UpdateAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -283,7 +276,7 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandController commandController = new CommandController(mockLogger.Object);
-            var getAll = commandController.Get();
+            var getAll = commandController.GetCommand();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<CommandModel>;
             if (list != null)
@@ -293,10 +286,8 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             await commandController.Delete(id);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("GetCommandAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("DeleteAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Command_DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Command_DeleteAsync"), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -305,9 +296,9 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             // Arrange
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("Command_DeleteAsync")).Throws(new Exception());
             CommandController commandController = new CommandController(mockLogger.Object);
-            var getAll = commandController.Get();
+            var getAll = commandController.GetCommand();
             var objResult = (OkObjectResult)getAll.Result;
             var list = objResult.Value as List<CommandModel>;
             if (list != null)
@@ -317,7 +308,7 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             Assert.ThrowsExceptionAsync<ArgumentException>(() => commandController.Delete(id));
 
             // Assert
-            mockLogger.Verify(x => x.TraceException("DeleteAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("Command_DeleteAsync"), Times.Exactly(1));
         }
     }
 }

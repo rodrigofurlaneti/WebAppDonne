@@ -19,9 +19,9 @@ namespace WebApi.Donne.Controllers
             this._logger = logger;
         }
 
-        [HttpGet(Name = "GetColorsAsync")]
+        [HttpGet(Name = "GetVehicleColorsAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleColorModel>))]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetVehicleColor()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleColorModel>))]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetVehicleColor(int id)
         {
             try
             {

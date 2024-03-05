@@ -21,7 +21,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet(Name = "GetProfileAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProfileModel>))]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetProfile()
         {
             try
             {
@@ -41,7 +41,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProfileModel))]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetProfile(int id)
         {
             try
             {

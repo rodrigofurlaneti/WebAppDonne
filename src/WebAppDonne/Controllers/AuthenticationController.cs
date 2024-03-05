@@ -22,7 +22,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet(Name = "GetAuthenticationAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<AuthenticationModel>))]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAuthentication()
         {
             try
             {

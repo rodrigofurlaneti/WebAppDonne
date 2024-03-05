@@ -19,9 +19,9 @@ namespace WebApi.Donne.Controllers
             this._logger = logger;
         }
 
-        [HttpGet(Name = "GetModelsAsync")]
+        [HttpGet(Name = "GetVehicleModelsAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleModel>))]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetVehicleModel()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<VehicleModel>))]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetVehicleModel(int id)
         {
             try
             {
@@ -98,13 +98,13 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                _logger.Trace("DeleteAsync");
+                _logger.Trace("VehicleModel_DeleteAsync");
                 VehicleModelRepository dal = new VehicleModelRepository(_logger);
                 await dal.DeleteAsync(id);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("DeleteAsync");
+                _logger.TraceException("VehicleModel_DeleteAsync");
                 string mensagem = "Erro ao consumir a controler VehicleModel, rota DeleteAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }

@@ -26,9 +26,9 @@ namespace WebApi.Donne.Controllers
 
         #region Methods
 
-        [HttpGet(Name = "GetBuyersAsync")]
+        [HttpGet(Name = "GetBuyerAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BuyerModel>))]
-        public async Task<IActionResult> GetBuyersAsync()
+        public async Task<IActionResult> GetBuyer()
         {
             try
             {

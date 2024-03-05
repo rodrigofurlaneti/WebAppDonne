@@ -21,7 +21,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             ProductController productController = new ProductController(mockLogger.Object);
 
             // Act
-            var result = await productController.Get();
+            var result = await productController.GetProduct();
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -44,7 +44,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             ProductController productController = new ProductController(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => productController.Get());
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => productController.GetProduct());
 
             // Assert
             mockLogger.Verify(x => x.TraceException("GetProductAsync"), Times.Exactly(1));
@@ -57,14 +57,14 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             int idProduct = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProductController productController = new ProductController(mockLogger.Object);
-            var getAll = productController.Get();
+            var getAll = productController.GetProduct();
             var objResult = (OkObjectResult)getAll.Result;
             var listProduct = objResult.Value as List<ProductModel>;
             if(listProduct != null)
                 idProduct = listProduct[0].ProductId;
 
             // Act
-            var result = await productController.Get(idProduct);
+            var result = await productController.GetProduct(idProduct);
             ObjectResult objectResult = (ObjectResult)result;
             var model = objectResult.Value as ProductModel;
 
@@ -88,7 +88,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             //Setup
             mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
             ProductController productController = new ProductController(mockLogger.Object);
-            var getAll = productController.Get();
+            var getAll = productController.GetProduct();
             var objResult = (OkObjectResult)getAll.Result;
             var listProduct = objResult.Value as List<ProductModel>;
             if (listProduct != null)
@@ -96,7 +96,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
 
             // Act
             // Assert
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => productController.Get(idProduct));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => productController.GetProduct(idProduct));
         }
 
         [TestMethod]
@@ -106,7 +106,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             int idProduct = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProductController productController = new ProductController(mockLogger.Object);
-            var getAll = productController.Get();
+            var getAll = productController.GetProduct();
             var objResult = (OkObjectResult)getAll.Result;
             var listProduct = objResult.Value as List<ProductModel>;
             if (listProduct != null)
@@ -172,7 +172,7 @@ namespace Test.Donne.WebApi.Controllers.ProductControllerTest
             //Setup
             mockLogger.Setup(x => x.Trace("UpdateProductAsync")).Throws(new Exception());
             ProductController productController = new ProductController(mockLogger.Object);
-            var getAll = productController.Get();
+            var getAll = productController.GetProduct();
             var objResult = (OkObjectResult)getAll.Result;
             var listProduct = objResult.Value as List<ProductModel>;
             if (listProduct != null)

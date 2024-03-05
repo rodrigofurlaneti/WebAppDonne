@@ -1,13 +1,9 @@
-﻿using Domain.Donne;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System.Net;
 using WebApi.Donne.Controllers;
 using WebApi.Donne.Infrastructure.SeedWork;
 
-namespace Test.Donne.WebApi.Controllers
+namespace Test.Donne.WebApi.Controllers.StockInventoryControllerTest
 {
     [TestClass]
     [TestCategory("Donne > WebApi > Controllers > StockInventoryController")]
@@ -25,7 +21,7 @@ namespace Test.Donne.WebApi.Controllers
             StockInventoryController stockInventoryController = new StockInventoryController(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => stockInventoryController.Get());
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => stockInventoryController.GetStockInventory());
 
             // Assert
             mockLogger.Verify(x => x.TraceException("GetStockInventoryAsync"), Times.Exactly(1));

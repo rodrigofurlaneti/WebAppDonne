@@ -21,7 +21,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet(Name = "GetPaymentAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<PaymentModel>))]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetPayment()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaymentModel))]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetFormOfPayment(int id)
         {
             try
             {

@@ -21,7 +21,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             CategoryController categoryController = new CategoryController(mockLogger.Object);
 
             // Act
-            var result = await categoryController.Get();
+            var result = await categoryController.GetCategory();
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -42,7 +42,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             CategoryController categoryController = new CategoryController(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Get());
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.GetCategory());
         }
 
         [TestMethod]
@@ -53,14 +53,14 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryController categoryController = new CategoryController(mockLogger.Object);
-            var getAll = categoryController.Get();
+            var getAll = categoryController.GetCategory();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
             if (listCategorys != null)
                 id = listCategorys[0].CategoryId;
 
             // Act
-            var result = await categoryController.Get(id);
+            var result = await categoryController.GetCategory(id);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -86,14 +86,14 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             // Setup
             mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
             CategoryController categoryController = new CategoryController(mockLogger.Object);
-            var getAll = categoryController.Get();
+            var getAll = categoryController.GetCategory();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
             if (listCategorys != null)
                 id = listCategorys[0].CategoryId;
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.Get(id));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.GetCategory(id));
         }
 
         [TestMethod]
@@ -153,7 +153,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryController categoryController = new CategoryController(mockLogger.Object);
-            var getAll = categoryController.Get();
+            var getAll = categoryController.GetCategory();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
             if (listCategorys != null)
@@ -186,7 +186,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
             CategoryController categoryController = new CategoryController(mockLogger.Object);
-            var getAll = categoryController.Get();
+            var getAll = categoryController.GetCategory();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
             if (listCategorys != null)
@@ -217,7 +217,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryController categoryController = new CategoryController(mockLogger.Object);
-            var getAll = categoryController.Get();
+            var getAll = categoryController.GetCategory();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
             if (listCategorys != null)
@@ -241,7 +241,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
             CategoryController categoryController = new CategoryController(mockLogger.Object);
-            var getAll = categoryController.Get();
+            var getAll = categoryController.GetCategory();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<CategoryModel>;
             if (listCategorys != null)

@@ -21,7 +21,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet(Name = "GetOrderAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OrderModel>))]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetOrder()
         {
             try
             {

@@ -21,7 +21,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             BuyerController buyerController = new BuyerController(mockLogger.Object);
 
             // Act
-            var result = await buyerController.GetBuyersAsync();
+            var result = await buyerController.GetBuyer();
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -45,7 +45,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
 
             // Act
             // Assert
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => buyerController.GetBuyersAsync());
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => buyerController.GetBuyer());
         }
 
         [TestMethod]
@@ -113,7 +113,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             BuyerController buyerController = new BuyerController(mockLogger.Object);
-            var getAll = buyerController.GetBuyersAsync();
+            var getAll = buyerController.GetBuyer();
             var objResult = (OkObjectResult)getAll.Result;
             var listBuyers = objResult.Value as List<BuyerModel>;
             if (listBuyers != null)
@@ -143,7 +143,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
             BuyerController buyerController = new BuyerController(mockLogger.Object);
-            var getAll = buyerController.GetBuyersAsync();
+            var getAll = buyerController.GetBuyer();
             var objResult = (OkObjectResult)getAll.Result;
             var listBuyers = objResult.Value as List<BuyerModel>;
             if (listBuyers != null)
@@ -231,7 +231,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
 
             //Setup
             BuyerController buyerController = new BuyerController(mockLogger.Object);
-            var getAll = buyerController.GetBuyersAsync();
+            var getAll = buyerController.GetBuyer();
             var objResult = (OkObjectResult)getAll.Result;
             var listBuyers = objResult.Value as List<BuyerModel>;
             if (listBuyers != null)
@@ -258,7 +258,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
             BuyerController buyerController = new BuyerController(mockLogger.Object);
-            var getAll = buyerController.GetBuyersAsync();
+            var getAll = buyerController.GetBuyer();
             var objResult = (OkObjectResult)getAll.Result;
             var listBuyers = objResult.Value as List<BuyerModel>;
             string buyerAddress = Faker.Address.StreetAddress();
@@ -292,7 +292,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
 
             //Setup
             BuyerController buyerController = new BuyerController(mockLogger.Object);
-            var getAll = buyerController.GetBuyersAsync();
+            var getAll = buyerController.GetBuyer();
             var objResult = (OkObjectResult)getAll.Result;
             var listBuyers = objResult.Value as List<BuyerModel>;
             if (listBuyers != null)
@@ -318,7 +318,7 @@ namespace Test.Donne.WebApi.Controllers.BuyerControllerTest
             //Setup
             mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
             BuyerController buyerController = new BuyerController(mockLogger.Object);
-            var getAll = buyerController.GetBuyersAsync();
+            var getAll = buyerController.GetBuyer();
             var objResult = (OkObjectResult)getAll.Result;
             var listBuyers = objResult.Value as List<BuyerModel>;
             if (listBuyers != null)

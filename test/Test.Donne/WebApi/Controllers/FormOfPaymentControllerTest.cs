@@ -21,7 +21,7 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
 
             // Act
-            var result = await formOfPaymentController.Get();
+            var result = await formOfPaymentController.GetFormOfPayment();
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -42,7 +42,7 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => formOfPaymentController.Get());
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => formOfPaymentController.GetFormOfPayment());
 
             // Assert
             mockLogger.Verify(x => x.Trace("GetFormOfPaymentAsync"), Times.Exactly(1));
@@ -57,14 +57,14 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
-            var getAll = formOfPaymentController.Get();
+            var getAll = formOfPaymentController.GetFormOfPayment();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<FormOfPaymentModel>;
             if(listCategorys != null)
                 id = listCategorys[0].FormOfPaymentId;
 
             // Act
-            var result = await formOfPaymentController.Get(id);
+            var result = await formOfPaymentController.GetFormOfPayment(id);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -86,14 +86,14 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
-            var getAll = formOfPaymentController.Get();
+            var getAll = formOfPaymentController.GetFormOfPayment();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<FormOfPaymentModel>;
             if(listCategorys != null)
                 formOfPaymentId = listCategorys[0].FormOfPaymentId;
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => formOfPaymentController.Get(formOfPaymentId));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => formOfPaymentController.GetFormOfPayment(formOfPaymentId));
 
             // Assert
             mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
@@ -156,7 +156,7 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
             int formOfPaymentId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
-            var getAll = formOfPaymentController.Get();
+            var getAll = formOfPaymentController.GetFormOfPayment();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<FormOfPaymentModel>;
             if (listCategorys != null)
@@ -188,7 +188,7 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("UpdateFormOfPaymentAsync")).Throws(new Exception());
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
-            var getAll = formOfPaymentController.Get();
+            var getAll = formOfPaymentController.GetFormOfPayment();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<FormOfPaymentModel>;
             if (listCategorys != null)
@@ -215,7 +215,7 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
             int formOfPaymentId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
-            var getAll = formOfPaymentController.Get();
+            var getAll = formOfPaymentController.GetFormOfPayment();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<FormOfPaymentModel>;
             if (listCategorys != null)
@@ -239,7 +239,7 @@ namespace Test.Donne.WebApi.Controllers.FormOfPaymentControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("DeleteFormOfPaymentAsync")).Throws(new Exception());
             FormOfPaymentController formOfPaymentController = new FormOfPaymentController(mockLogger.Object);
-            var getAll = formOfPaymentController.Get();
+            var getAll = formOfPaymentController.GetFormOfPayment();
             var objResult = (OkObjectResult)getAll.Result;
             var listCategorys = objResult.Value as List<FormOfPaymentModel>;
             if (listCategorys != null)

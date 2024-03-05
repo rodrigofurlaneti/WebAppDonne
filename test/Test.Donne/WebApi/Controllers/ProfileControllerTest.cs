@@ -21,7 +21,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             ProfileController profileController = new ProfileController(mockLogger.Object);
 
             // Act
-            var result = await profileController.Get();
+            var result = await profileController.GetProfile();
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -44,7 +44,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             ProfileController profileController = new ProfileController(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Get());
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.GetProfile());
 
             //Assert
             mockLogger.Verify(x => x.TraceException("GetProfileAsync"), Times.Exactly(1));
@@ -57,14 +57,14 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProfileController profileController = new ProfileController(mockLogger.Object);
-            var getAll = profileController.Get();
+            var getAll = profileController.GetProfile();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
             if (listProfile != null)
                 id = listProfile[0].ProfileId;
 
             // Act
-            var result = await profileController.Get(id);
+            var result = await profileController.GetProfile(id);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -86,14 +86,14 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
             ProfileController profileController = new ProfileController(mockLogger.Object);
-            var getAll = profileController.Get();
+            var getAll = profileController.GetProfile();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
             if (listProfile != null)
                 id = listProfile[0].ProfileId;
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.Get(id));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => profileController.GetProfile(id));
 
             //Assert
             mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
@@ -152,7 +152,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             int profileId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProfileController profileController = new ProfileController(mockLogger.Object);
-            var getAll = profileController.Get();
+            var getAll = profileController.GetProfile();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
             if(listProfile != null)
@@ -184,7 +184,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
             ProfileController profileController = new ProfileController(mockLogger.Object);
-            var getAll = profileController.Get();
+            var getAll = profileController.GetProfile();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
             if (listProfile != null)
@@ -211,7 +211,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             int profileId = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProfileController profileController = new ProfileController(mockLogger.Object);
-            var getAll = profileController.Get();
+            var getAll = profileController.GetProfile();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
             if (listProfile != null)
@@ -235,7 +235,7 @@ namespace Test.Donne.WebApi.Controllers.ProfileControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("DeleteAsync")).Throws(new Exception());
             ProfileController profileController = new ProfileController(mockLogger.Object);
-            var getAll = profileController.Get();
+            var getAll = profileController.GetProfile();
             var objResult = (OkObjectResult)getAll.Result;
             var listProfile = objResult.Value as List<ProfileModel>;
             if (listProfile != null)

@@ -21,7 +21,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet(Name = "GetCategoryAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CategoryModel>))]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetCategory()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CategoryModel))]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetCategory(int id)
         {
             try
             {

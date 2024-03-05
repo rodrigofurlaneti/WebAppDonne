@@ -8,7 +8,7 @@ using System.Net;
 using WebApi.Donne.Controllers;
 using WebApi.Donne.Infrastructure.SeedWork;
 
-namespace Test.Donne.WebApi.Controllers
+namespace Test.Donne.WebApi.Controllers.AuthenticationControllerTest
 {
     [TestClass]
     [TestCategory("Donne > WebApi > Controllers > AuthenticationController")]
@@ -22,7 +22,7 @@ namespace Test.Donne.WebApi.Controllers
             AuthenticationController authenticationController = new AuthenticationController(mockLogger.Object);
 
             // Act
-            var result = await authenticationController.Get();
+            var result = await authenticationController.GetAuthentication();
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -45,7 +45,7 @@ namespace Test.Donne.WebApi.Controllers
             AuthenticationController authenticationController = new AuthenticationController(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => authenticationController.Get());
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => authenticationController.GetAuthentication());
 
             // Assert
             mockLogger.Verify(x => x.TraceException("User_GetUserAsync"), Times.Exactly(1));
