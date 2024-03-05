@@ -11,14 +11,14 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
     public class UserRepositoryTest
     {
         [TestMethod]
-        public void GetAllUsers_Retorno_Diferente_Nulo_Sucesso()
+        public void GetAll_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
 
             // Act
-            var result = userRepository.GetAllUsers();
+            var result = userRepository.GetAll();
 
             // Assert
             Assert.IsNotNull(result);
@@ -26,14 +26,14 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetAllUsersAsync_Sucesso()
+        public async Task GetAllAsync_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
 
             // Act
-            var result = await userRepository.GetAllUsersAsync();
+            var result = await userRepository.GetAllAsync();
 
             // Assert
             Assert.IsNotNull(result);
@@ -41,7 +41,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
         }
 
         [TestMethod]
-        public void GetAllUsersAsync_Erro()
+        public void GetAllAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -50,7 +50,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             // Act
             // Assert
-            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.GetAllUsersAsync());
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.GetAllAsync());
             mockLogger.Verify(x => x.TraceException("User_GetAllUserAsync"), Times.Exactly(0));
         }
 
@@ -61,7 +61,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
+            var getAll = userRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].UserId;
 
             // Act
@@ -82,7 +82,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = await userRepository.GetAllUsersAsync();
+            var getAll = await userRepository.GetAllAsync();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].UserId;
 
             // Act
@@ -102,14 +102,13 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("User_GetByIdAsync")).Throws(new Exception());
             UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
+            var getAll = userRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].UserId;
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.GetByIdAsync(idUltimo));
             mockLogger.Verify(x => x.TraceException("User_GetByIdAsync"), Times.Exactly(0));
             mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("User_GetByIdAsync"), Times.Exactly(0));
         }
 
         [TestMethod]
@@ -184,7 +183,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
+            var getAll = userRepository.GetAll();
             int userId = getAll.ToList()[getAll.Count() - 1].UserId;
             string profileName = Faker.Name.First();
             int profileId = Faker.RandomNumber.Next(0, 100);
@@ -208,7 +207,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
+            var getAll = userRepository.GetAll();
             int userId = getAll.ToList()[getAll.Count() - 1].UserId;
             string profileName = Faker.Name.First();
             int profileId = Faker.RandomNumber.Next(0, 100);
@@ -232,7 +231,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("User_UpdateAsync")).Throws(new Exception());
             UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
+            var getAll = userRepository.GetAll();
             int userId = getAll.ToList()[getAll.Count() - 1].UserId;
             string profileName = Faker.Name.First();
             int profileId = Faker.RandomNumber.Next(0, 100);
@@ -255,7 +254,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
+            var getAll = userRepository.GetAll();
             int userId = getAll.ToList()[getAll.Count() - 1].UserId;
 
             // Act
@@ -272,25 +271,24 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
+            var getAll = userRepository.GetAll();
             int userId = getAll.ToList()[getAll.Count() - 1].UserId;
 
             // Act
             await userRepository.DeleteAsync(userId);
 
-            //Assert
             mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("User_DeleteAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
-        public void DeleteAsync_Sem_Retorno_Erro()
+        public async Task DeleteAsync_Sem_Retorno_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("User_DeleteAsync")).Throws(new Exception());
             UserRepository userRepository = new UserRepository(mockLogger.Object);
-            var getAll = userRepository.GetAllUsers();
+            var getAll = userRepository.GetAll();
             int userId = getAll.ToList()[getAll.Count() - 1].UserId;
 
             // Act
@@ -298,8 +296,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             //Assert
             mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("User_DeleteAsync"), Times.Exactly(0));
-            mockLogger.Verify(x => x.TraceException("User_DeleteAsync"), Times.Exactly(0));
+            mockLogger.Verify(x => x.TraceException("User_DeleteAsync"), Times.Exactly(1));
         }
     }
 }

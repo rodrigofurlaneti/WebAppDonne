@@ -42,7 +42,7 @@ namespace WebApi.Donne.Infrastructure.VehicleModel
             }
         }
 
-        public async Task<IEnumerable<Domain.Donne.VehicleModel>> GetAllVehicleModelsAsync()
+        public async Task<IEnumerable<Domain.Donne.VehicleModel>> GetAllAsync()
         {
             try
             {

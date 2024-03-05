@@ -18,7 +18,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             PaymentRepository paymentRepository = new PaymentRepository(mockLogger.Object);
 
             // Act
-            var result = paymentRepository.GetAllPayments();
+            var result = paymentRepository.GetAll();
 
             // Assert
             Assert.IsNotNull(result);
@@ -33,7 +33,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             PaymentRepository paymentRepository = new PaymentRepository(mockLogger.Object);
 
             // Act
-            var result = paymentRepository.GetAllPayments();
+            var result = paymentRepository.GetAll();
 
             // Assert
             Assert.IsTrue(result.Any());
@@ -48,7 +48,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             PaymentRepository paymentRepository = new PaymentRepository(mockLogger.Object);
 
             // Act
-            var result = await paymentRepository.GetAllPaymentsAsync();
+            var result = await paymentRepository.GetAllAsync();
 
             // Assert
             Assert.IsNotNull(result);
@@ -62,14 +62,14 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             // Setup
-            mockLogger.Setup(x => x.Trace("GetAllPaymentsAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("GetAllAsync")).Throws(new Exception());
             PaymentRepository paymentRepository = new PaymentRepository(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => paymentRepository.GetAllPaymentsAsync());
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => paymentRepository.GetAllAsync());
 
             // Assert
-            mockLogger.Verify(x => x.TraceException("GetAllPaymentsAsync"), Times.Exactly(0));
+            mockLogger.Verify(x => x.TraceException("GetAllAsync"), Times.Exactly(0));
         }
 
         [TestMethod]
@@ -78,7 +78,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             PaymentRepository paymentRepository = new PaymentRepository(mockLogger.Object);
-            var getAll = paymentRepository.GetAllPayments();
+            var getAll = paymentRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].PaymentId;
 
             // Act
@@ -129,7 +129,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             PaymentRepository paymentRepository = new PaymentRepository(mockLogger.Object);
-            var getAll = paymentRepository.GetAllPayments();
+            var getAll = paymentRepository.GetAll();
             int paymentId = getAll.ToList()[getAll.Count() - 1].PaymentId;
             int commandId = Faker.RandomNumber.Next(0, 100);
             int formOfPaymentId = Faker.RandomNumber.Next(0, 100);
@@ -159,7 +159,7 @@ namespace Test.Donne.WebApi.Infrastructure.PaymentRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             PaymentRepository paymentRepository = new PaymentRepository(mockLogger.Object);
-            var getAll = paymentRepository.GetAllPayments();
+            var getAll = paymentRepository.GetAll();
             int paymentId = getAll.ToList()[getAll.Count() - 1].PaymentId;
 
             // Act

@@ -11,14 +11,14 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
     public class ProductRepositoryTest
     {
         [TestMethod]
-        public void GetAllProducts_Retorno_Diferente_Nulo_Sucesso()
+        public void GetAll_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
 
             // Act
-            var result = productRepository.GetAllProducts();
+            var result = productRepository.GetAll();
 
             // Assert
             Assert.IsNotNull(result);
@@ -26,14 +26,14 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
         }
 
         [TestMethod]
-        public void GetAllProducts_Retorno_Objeto_Populado_Sucesso()
+        public void GetAll_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
 
             // Act
-            var result = productRepository.GetAllProducts();
+            var result = productRepository.GetAll();
 
             // Assert
             Assert.IsTrue(result.Any());
@@ -41,14 +41,14 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetAllProductsAsync_Sucesso()
+        public async Task GetAllAsync_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
 
             // Act
-            var result = await productRepository.GetAllProductsAsync();
+            var result = await productRepository.GetAllAsync();
 
             // Assert
             Assert.IsNotNull(result);
@@ -56,17 +56,17 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
         }
 
         [TestMethod]
-        public void GetAllProductsAsync_Erro()
+        public void GetAllAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("GetAllProductsAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("GetAllAsync")).Throws(new Exception());
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
 
             // Act
             // Assert
-            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => productRepository.GetAllProductsAsync());
-            mockLogger.Verify(x => x.Trace("GetAllProductsAsync"), Times.Exactly(0));
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => productRepository.GetAllAsync());
+            mockLogger.Verify(x => x.Trace("GetAllAsync"), Times.Exactly(0));
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
-            var getAll = productRepository.GetAllProducts();
+            var getAll = productRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].ProductId;
 
             // Act
@@ -93,7 +93,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
-            var getAll = productRepository.GetAllProducts();
+            var getAll = productRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].ProductId;
 
             // Act
@@ -151,7 +151,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
-            var getAll = productRepository.GetAllProducts();
+            var getAll = productRepository.GetAll();
             int productId = getAll.ToList()[getAll.Count() - 1].ProductId;
             string productName = Faker.Name.First();
             int categoryId = Faker.RandomNumber.Next(0, 1000);
@@ -189,7 +189,7 @@ namespace Test.Donne.WebApi.Infrastructure.ProductRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
-            var getAll = productRepository.GetAllProducts();
+            var getAll = productRepository.GetAll();
             int productId = getAll.ToList()[getAll.Count() - 1].ProductId;
 
             // Act

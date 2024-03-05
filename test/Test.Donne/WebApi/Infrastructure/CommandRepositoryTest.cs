@@ -11,14 +11,14 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
     public class CommandRepositoryTest
     {
         [TestMethod]
-        public void GetAllCommand_Retorno_Diferente_Nulo_Sucesso()
+        public void GetAll_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
 
             // Act
-            var result = commandRepository.GetAllCommand();
+            var result = commandRepository.GetAll();
 
             // Assert
             Assert.IsNotNull(result);
@@ -26,14 +26,14 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
         }
 
         [TestMethod]
-        public void GetAllCommand_Retorno_Objeto_Populado_Sucesso()
+        public void GetAll_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
 
             // Act
-            var result = commandRepository.GetAllCommand();
+            var result = commandRepository.GetAll();
 
             // Assert
             Assert.IsTrue(result.Any());
@@ -41,14 +41,14 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetAllCommandAsync_Sucesso()
+        public async Task GetAllAsync_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
 
             // Act
-            var result = await commandRepository.GetAllCommandAsync();
+            var result = await commandRepository.GetAllAsync();
 
             // Assert
             Assert.IsNotNull(result);
@@ -56,7 +56,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
         }
 
         [TestMethod]
-        public void GetAllCommandAsync_Erro()
+        public void GetAllAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -64,7 +64,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.GetAllCommandAsync());
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandRepository.GetAllAsync());
             
             // Assert
             mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(0));
@@ -77,7 +77,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].CommandId;
 
             // Act
@@ -95,7 +95,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].CommandId;
 
             // Act
@@ -114,7 +114,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].CommandId;
 
             // Act
@@ -135,7 +135,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Setup 
             mockLogger.Setup(x => x.Trace("Command_GetByIdAsync")).Throws(new Exception());
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].CommandId;
 
             // Act
@@ -152,7 +152,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             foreach (var item in getAll)
                 if(item.Status.Equals(true))
                     id = 1;
@@ -173,7 +173,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             foreach (var item in getAll)
                 if (item.Status.Equals(true))
                     id = 1;
@@ -195,7 +195,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("GetByStatusAsync")).Throws(new Exception());
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             foreach (var item in getAll)
                 if (item.Status.Equals(true))
                     id = 1;
@@ -214,7 +214,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("GetByStatusAsync")).Throws(new Exception());
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             foreach (var item in getAll)
                 if (item.Status.Equals(false))
                     id = 0;
@@ -232,7 +232,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             foreach (var item in getAll)
                 if (item.Status.Equals(false))
                     id = 0;
@@ -253,7 +253,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             foreach (var item in getAll)
                 if (item.Status.Equals(false))
                     id = 0;
@@ -325,7 +325,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             int commandId = getAll.ToList()[getAll.Count() - 1].CommandId;
             int buyerId = Faker.RandomNumber.Next(0, 100);
             string buyerName = Faker.Name.FullName();
@@ -352,7 +352,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             int commandId = getAll.ToList()[getAll.Count() - 1].CommandId;
             int buyerId = Faker.RandomNumber.Next(0, 100);
             string buyerName = Faker.Name.FullName();
@@ -380,7 +380,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("UpdateAsync")).Throws(new Exception());
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             int commandId = getAll.ToList()[getAll.Count() - 1].CommandId;
             int buyerId = Faker.RandomNumber.Next(0, 100);
             string buyerName = Faker.Name.FullName();
@@ -406,7 +406,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             Insert_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             int commandId = getAll.ToList()[getAll.Count() - 1].CommandId;
 
             // Act
@@ -423,7 +423,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             int commandId = getAll.ToList()[getAll.Count() - 1].CommandId;
 
             // Act
@@ -442,7 +442,7 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Command_DeleteAsync")).Throws(new Exception());
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
-            var getAll = commandRepository.GetAllCommand();
+            var getAll = commandRepository.GetAll();
             int commandId = getAll.ToList()[getAll.Count() - 1].CommandId;
 
             // Act

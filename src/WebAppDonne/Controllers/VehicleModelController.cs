@@ -27,7 +27,7 @@ namespace WebApi.Donne.Controllers
             {
                 this._logger.Trace("VehicleModel_GetAllAsync");
                 VehicleModelRepository dal = new VehicleModelRepository(_logger);
-                var ret = await dal.GetAllVehicleModelsAsync();
+                var ret = await dal.GetAllAsync();
                 return Ok(ret);
             }
             catch (ArgumentNullException ex)

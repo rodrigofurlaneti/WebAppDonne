@@ -191,37 +191,46 @@ namespace WebApi.Donne.Infrastructure.User
 
         }
 
-        public void Delete(int UserId)
-        {
-            commandText = "USP_Donne_User_Delete";
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand(commandText, con);
-            cmd.Parameters.AddWithValue("@UserId", UserId);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.ExecuteNonQuery();
-            con.Close();
-            logger.Trace("User_Delete");
-        }
-
-        public async Task DeleteAsync(int UserId)
+        public void Delete(int userId)
         {
             try
             {
+                this.logger.Trace("User_Delete");
                 commandText = "USP_Donne_User_Delete";
                 SqlConnection con = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand(commandText, con);
-                cmd.Parameters.AddWithValue("@UserId", UserId);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                this.logger.TraceException("User_Delete");
+                string mensagem = "Erro ao consumir a controler User, rota Delete " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+        }
+
+        public async Task DeleteAsync(int userId)
+        {
+            try
+            {
+                this.logger.Trace("User_DeleteAsync");
+                commandText = "USP_Donne_User_Delete";
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand(commandText, con);
+                cmd.Parameters.AddWithValue("@UserId", userId);
                 con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
                 await cmd.ExecuteNonQueryAsync();
                 con.Close();
-                logger.Trace("User_DeleteAsync");
             }
             catch (Exception ex)
             {
+                this.logger.TraceException("User_DeleteAsync");
                 string mensagem = "Erro ao consumir a controler User, rota DeleteAsync " + ex.Message;
-                logger.TraceException("User_DeleteAsync");
                 throw new ArgumentNullException(mensagem);
             }
 

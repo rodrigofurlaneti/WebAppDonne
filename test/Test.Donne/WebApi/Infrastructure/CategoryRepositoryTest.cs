@@ -11,14 +11,14 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
     public class CategoryRepositoryTest
     {
         [TestMethod]
-        public void GetAllCategorys_Retorno_Diferente_Nulo_Sucesso()
+        public void GetAll_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
 
             // Act
-            var result = categoryRepository.GetAllCategorys();
+            var result = categoryRepository.GetAll();
 
             // Assert
             Assert.IsNotNull(result);
@@ -26,14 +26,14 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
         }
 
         [TestMethod]
-        public void GetAllCategorys_Retorno_Populado_Sucesso()
+        public void GetAll_Retorno_Populado_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
 
             // Act
-            var result = categoryRepository.GetAllCategorys();
+            var result = categoryRepository.GetAll();
 
             // Assert
             Assert.IsTrue(result.Any());
@@ -41,7 +41,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
         }
 
         [TestMethod]
-        public void GetAllCategorys_Erro()
+        public void GetAll_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -51,7 +51,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
 
             // Act
-            var resultAction = () => categoryRepository.GetAllCategorys();
+            var resultAction = () => categoryRepository.GetAll();
             Assert.ThrowsException<ArgumentNullException>(resultAction);
 
             // Assert
@@ -59,14 +59,14 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetAllCategorysAsync_Sucesso()
+        public async Task GetAllAsync_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
 
             // Act
-            var result = await categoryRepository.GetAllCategorysAsync();
+            var result = await categoryRepository.GetAllAsync();
 
             // Assert
             Assert.IsTrue(result.Any());
@@ -79,7 +79,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
-            var getAll = categoryRepository.GetAllCategorys();
+            var getAll = categoryRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].CategoryId;
 
             // Act
@@ -97,7 +97,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
-            var getAll = categoryRepository.GetAllCategorys();
+            var getAll = categoryRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].CategoryId;
 
             // Act
@@ -178,7 +178,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
-            var getAll = categoryRepository.GetAllCategorys();
+            var getAll = categoryRepository.GetAll();
             int categoryId = getAll.ToList()[getAll.Count() - 1].CategoryId;
             string categoryName = Faker.Name.Last();
             string userName = Faker.Name.First();
@@ -203,7 +203,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
-            var getAll = categoryRepository.GetAllCategorys();
+            var getAll = categoryRepository.GetAll();
             int categoryId = getAll.ToList()[getAll.Count() - 1].CategoryId;
             string categoryName = Faker.Name.Last();
             string userName = Faker.Name.First();
@@ -228,7 +228,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
-            var getAll = categoryRepository.GetAllCategorys();
+            var getAll = categoryRepository.GetAll();
             int categoryId = getAll.ToList()[getAll.Count() - 1].CategoryId;
 
             // Act
@@ -245,7 +245,7 @@ namespace Test.Donne.WebApi.Infrastructure.CategoryRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CategoryRepository categoryRepository = new CategoryRepository(mockLogger.Object);
-            var getAll = categoryRepository.GetAllCategorys();
+            var getAll = categoryRepository.GetAll();
             int categoryId = getAll.ToList()[getAll.Count() - 1].CategoryId;
 
             // Act

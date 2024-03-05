@@ -19,7 +19,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
 
             // Act
-            var result = vehicleBrandRepository.GetAllVehicleBrands();
+            var result = vehicleBrandRepository.GetAll();
 
             // Assert
             Assert.IsNotNull(result);
@@ -35,7 +35,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
 
             // Act
-            var resultAction = () => vehicleBrandRepository.GetAllVehicleBrands();
+            var resultAction = () => vehicleBrandRepository.GetAll();
             Assert.ThrowsException<ArgumentNullException>(resultAction);
 
             // Assert
@@ -52,7 +52,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
 
             // Act
-            var result = await vehicleBrandRepository.GetAllVehicleBrandsAsync();
+            var result = await vehicleBrandRepository.GetAllAsync();
 
             // Assert
             Assert.IsNotNull(result);
@@ -68,7 +68,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
 
             // Act
-            var resultAction = () => vehicleBrandRepository.GetAllVehicleBrandsAsync();
+            var resultAction = () => vehicleBrandRepository.GetAllAsync();
             Assert.ThrowsExceptionAsync<ArgumentNullException>(resultAction);
 
             // Assert
@@ -83,7 +83,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = vehicleBrandRepository.GetAllVehicleBrands();
+            var resultGetAll = vehicleBrandRepository.GetAll();
 
             // Act
             var result = vehicleBrandRepository.GetById(resultGetAll.First().VehicleBrandId);
@@ -100,7 +100,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleBrand_GetById")).Throws(new ArgumentNullException());
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = vehicleBrandRepository.GetAllVehicleBrands();
+            var resultGetAll = vehicleBrandRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleBrandRepository.GetById(resultGetAll.First().VehicleBrandId);
@@ -117,7 +117,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = await vehicleBrandRepository.GetAllVehicleBrandsAsync();
+            var resultGetAll = await vehicleBrandRepository.GetAllAsync();
 
             // Act
             var result = await vehicleBrandRepository.GetByIdAsync(resultGetAll.First().VehicleBrandId);
@@ -134,7 +134,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleBrand_GetByIdAsync")).Throws(new ArgumentNullException());
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = await vehicleBrandRepository.GetAllVehicleBrandsAsync();
+            var resultGetAll = await vehicleBrandRepository.GetAllAsync();
 
             // Act
             var resultAction = () => vehicleBrandRepository.GetByIdAsync(resultGetAll.First().VehicleBrandId);
@@ -233,7 +233,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = vehicleBrandRepository.GetAllVehicleBrands();
+            var resultGetAll = vehicleBrandRepository.GetAll();
 
             // Act
             vehicleBrandRepository.Delete(resultGetAll.First().VehicleBrandId);
@@ -249,7 +249,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleBrand_Delete")).Throws(new ArgumentNullException());
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = vehicleBrandRepository.GetAllVehicleBrands();
+            var resultGetAll = vehicleBrandRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleBrandRepository.Delete(resultGetAll.First().VehicleBrandId);
@@ -266,7 +266,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = await vehicleBrandRepository.GetAllVehicleBrandsAsync();
+            var resultGetAll = await vehicleBrandRepository.GetAllAsync();
 
             // Act
             await vehicleBrandRepository.DeleteAsync(resultGetAll.First().VehicleBrandId);
@@ -282,7 +282,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleBrand_DeleteAsync")).Throws(new ArgumentNullException());
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = await vehicleBrandRepository.GetAllVehicleBrandsAsync();
+            var resultGetAll = await vehicleBrandRepository.GetAllAsync();
 
             // Act
             var resultAction = () => vehicleBrandRepository.DeleteAsync(resultGetAll.First().VehicleBrandId);
@@ -299,7 +299,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = vehicleBrandRepository.GetAllVehicleBrands();
+            var resultGetAll = vehicleBrandRepository.GetAll();
             Fixture fixture = new Fixture();
             VehicleBrandModel vehicleBrandModel = fixture.Build<VehicleBrandModel>()
                 .With(vehicleBrandModel => vehicleBrandModel.VehicleBrandId, resultGetAll.First().VehicleBrandId)
@@ -320,7 +320,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleBrand_Update")).Throws(new ArgumentNullException());
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = vehicleBrandRepository.GetAllVehicleBrands();
+            var resultGetAll = vehicleBrandRepository.GetAll();
             Fixture fixture = new Fixture();
             VehicleBrandModel vehicleBrandModel = fixture.Build<VehicleBrandModel>()
                 .With(vehicleBrandModel => vehicleBrandModel.VehicleBrandId, resultGetAll.First().VehicleBrandId)
@@ -342,7 +342,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = await vehicleBrandRepository.GetAllVehicleBrandsAsync();
+            var resultGetAll = await vehicleBrandRepository.GetAllAsync();
             Fixture fixture = new Fixture();
             VehicleBrandModel vehicleBrandModel = fixture.Build<VehicleBrandModel>()
                 .With(vehicleBrandModel => vehicleBrandModel.VehicleBrandId, resultGetAll.First().VehicleBrandId)
@@ -363,7 +363,7 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleBrand_UpdateAsync")).Throws(new ArgumentNullException());
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = await vehicleBrandRepository.GetAllVehicleBrandsAsync();
+            var resultGetAll = await vehicleBrandRepository.GetAllAsync();
             Fixture fixture = new Fixture();
             VehicleBrandModel vehicleBrandModel = fixture.Build<VehicleBrandModel>()
                 .With(vehicleBrandModel => vehicleBrandModel.VehicleBrandId, resultGetAll.First().VehicleBrandId)

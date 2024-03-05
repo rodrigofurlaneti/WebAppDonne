@@ -12,14 +12,14 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
     public class OrderRepositoryTest
     {
         [TestMethod]
-        public void GetAllOrders_Sucesso()
+        public void GetAll_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
 
             // Act
-            var result = orderRepository.GetAllOrders();
+            var result = orderRepository.GetAll();
 
             // Assert
             Assert.IsNotNull(result);
@@ -27,7 +27,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
         }
 
         [TestMethod]
-        public void GetAllOrders_Erro()
+        public void GetAll_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -37,21 +37,21 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
 
             // Act
-            Assert.ThrowsException<ArgumentNullException>(() => orderRepository.GetAllOrders());
+            Assert.ThrowsException<ArgumentNullException>(() => orderRepository.GetAll());
 
             // Assert                                  Order_GetAllAsync
             mockLogger.Verify(x => x.TraceException("Order_GetAll"), Times.Exactly(1));
         }
 
         [TestMethod]
-        public async Task GetAllOrdersAsync_Sucesso()
+        public async Task GetAllAsync_Sucesso()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
 
             // Act
-            var result = await orderRepository.GetAllOrdersAsync();
+            var result = await orderRepository.GetAllAsync();
 
             // Assert
             Assert.IsNotNull(result);
@@ -59,7 +59,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
         }
 
         [TestMethod]
-        public void GetAllOrdersAsync_Erro()
+        public void GetAllAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -69,7 +69,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => orderRepository.GetAllOrdersAsync());
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => orderRepository.GetAllAsync());
 
             // Assert                                  Order_GetAllAsync
             //mockLogger.Verify(x => x.TraceException("Order_GetAllAsync"), Times.Exactly(1));
@@ -81,7 +81,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
-            var getAll = orderRepository.GetAllOrders();
+            var getAll = orderRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].OrderId;
 
             // Act
@@ -100,7 +100,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Order_GetById")).Throws(new ArgumentNullException());
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
-            var getAll = orderRepository.GetAllOrders();
+            var getAll = orderRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].OrderId;
 
             // Act
@@ -118,7 +118,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
-            var getAll = await orderRepository.GetAllOrdersAsync();
+            var getAll = await orderRepository.GetAllAsync();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].OrderId;
 
             // Act
@@ -136,7 +136,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Order_GetByIdAsync")).Throws(new ArgumentNullException());
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
-            var getAll = await orderRepository.GetAllOrdersAsync();
+            var getAll = await orderRepository.GetAllAsync();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].OrderId;
 
             // Act
@@ -186,7 +186,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
-            var resultProduct = productRepository.GetAllProducts();
+            var resultProduct = productRepository.GetAll();
             var product = resultProduct.FirstOrDefault();
             int orderId = Faker.RandomNumber.Next(0, 100);
             int commandId = Faker.RandomNumber.Next(0, 100);
@@ -221,7 +221,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             mockLogger.Setup(x => x.Trace("Order_InsertAsync")).Throws(new ArgumentNullException());
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
-            var resultProduct = await productRepository.GetAllProductsAsync();
+            var resultProduct = await productRepository.GetAllAsync();
             var product = resultProduct.FirstOrDefault();
             int orderId = Faker.RandomNumber.Next(0, 100);
             int commandId = Faker.RandomNumber.Next(0, 100);
@@ -252,7 +252,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
-            var getAll = orderRepository.GetAllOrders();
+            var getAll = orderRepository.GetAll();
             int orderId = getAll.ToList()[getAll.Count() - 1].OrderId;
             int commandId = Faker.RandomNumber.Next(0, 100);
             int productId = Faker.RandomNumber.Next(0, 100);
@@ -286,7 +286,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Order_Update")).Throws(new ArgumentNullException());
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
-            var getAll = orderRepository.GetAllOrders();
+            var getAll = orderRepository.GetAll();
             int orderId = getAll.ToList()[getAll.Count() - 1].OrderId;
             int commandId = Faker.RandomNumber.Next(0, 100);
             int productId = Faker.RandomNumber.Next(0, 100);
@@ -318,7 +318,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
-            var getAll = await orderRepository.GetAllOrdersAsync();
+            var getAll = await orderRepository.GetAllAsync();
             int orderId = getAll.ToList()[getAll.Count() - 1].OrderId;
             int commandId = Faker.RandomNumber.Next(0, 100);
             int productId = Faker.RandomNumber.Next(0, 100);
@@ -352,7 +352,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Order_UpdateAsync")).Throws(new ArgumentNullException());
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
-            var getAll = await orderRepository.GetAllOrdersAsync();
+            var getAll = await orderRepository.GetAllAsync();
             int orderId = getAll.ToList()[getAll.Count() - 1].OrderId;
             int commandId = Faker.RandomNumber.Next(0, 100);
             int productId = Faker.RandomNumber.Next(0, 100);
@@ -400,7 +400,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, buyerName, salePrice,
                 amount, totalSalePrice, listDateTime, userId, userName);
             orderRepository.Insert(orderModel);
-            var getAll = orderRepository.GetAllOrders();
+            var getAll = orderRepository.GetAll();
             int orderIdRet = getAll.ToList()[getAll.Count() - 1].OrderId;
 
             // Act
@@ -418,7 +418,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Order_Delete")).Throws(new ArgumentNullException());
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
-            var getAll = orderRepository.GetAllOrders();
+            var getAll = orderRepository.GetAll();
             int orderId = getAll.ToList()[getAll.Count() - 1].OrderId;
 
             // Act
@@ -435,7 +435,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
-            var resultProduct = await productRepository.GetAllProductsAsync();
+            var resultProduct = await productRepository.GetAllAsync();
             var product = resultProduct.FirstOrDefault();
             int orderId = Faker.RandomNumber.Next(0, 100);
             int commandId = Faker.RandomNumber.Next(0, 100);
@@ -453,7 +453,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, buyerName, salePrice,
                 amount, totalSalePrice, listDateTime, userId, userName);
             await orderRepository.InsertAsync(orderModel);
-            var getAll = orderRepository.GetAllOrders();
+            var getAll = orderRepository.GetAll();
             int orderIdRet = getAll.ToList()[getAll.Count() - 1].OrderId;
 
             // Act
@@ -476,7 +476,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             mockLogger.Setup(x => x.Trace("Order_DeleteAsync")).Throws(new Exception());
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
-            var resultProduct = productRepository.GetAllProducts();
+            var resultProduct = productRepository.GetAll();
             var product = resultProduct.FirstOrDefault();
             int orderId = Faker.RandomNumber.Next(0, 100);
             int commandId = Faker.RandomNumber.Next(0, 100);
@@ -494,7 +494,7 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             OrderModel orderModel = new OrderModel(orderId, commandId, productId, productName, buyerName, salePrice,
                 amount, totalSalePrice, listDateTime, userId, userName);
             orderRepository.Insert(orderModel);
-            var getAll = orderRepository.GetAllOrders();
+            var getAll = orderRepository.GetAll();
             int orderIdRet = getAll.ToList()[getAll.Count() - 1].OrderId;
 
             // Act
