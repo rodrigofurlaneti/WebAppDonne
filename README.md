@@ -4,6 +4,12 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=rodrigofurlaneti_WebAppDonne&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=rodrigofurlaneti_WebAppDonne)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=rodrigofurlaneti_WebAppDonne&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=rodrigofurlaneti_WebAppDonne)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=rodrigofurlaneti_WebAppDonne&metric=bugs)](https://sonarcloud.io/summary/new_code?id=rodrigofurlaneti_WebAppDonne)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rodrigofurlaneti_WebAppDonne&metric=coverage)](https://sonarcloud.io/summary/new_code?id=rodrigofurlaneti_WebAppDonne)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=rodrigofurlaneti_WebAppDonne&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=rodrigofurlaneti_WebAppDonne)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=rodrigofurlaneti_WebAppDonne&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=rodrigofurlaneti_WebAppDonne)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=rodrigofurlaneti_WebAppDonne&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=rodrigofurlaneti_WebAppDonne)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=rodrigofurlaneti_WebAppDonne&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=rodrigofurlaneti_WebAppDonne)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=rodrigofurlaneti_WebAppDonne&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=rodrigofurlaneti_WebAppDonne)
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=rodrigofurlaneti_WebAppDonne)](https://sonarcloud.io/summary/new_code?id=rodrigofurlaneti_WebAppDonne)
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=rodrigofurlaneti_WebAppDonne)
