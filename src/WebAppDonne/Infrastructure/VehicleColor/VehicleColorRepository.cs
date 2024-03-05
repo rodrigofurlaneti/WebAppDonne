@@ -177,14 +177,14 @@ namespace WebApi.Donne.Infrastructure.VehicleColor
             }
         }
 
-        public void Delete(int colorId)
+        public void Delete(int vehicleColorId)
         {
             try
             {
                 commandText = "USP_VehicleColorDelete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                GetSqlCommandVehicleColorModelDelete(sqlCommand, colorId);
+                GetSqlCommandVehicleColorModelDelete(sqlCommand, vehicleColorId);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.ExecuteNonQuery();
@@ -200,14 +200,14 @@ namespace WebApi.Donne.Infrastructure.VehicleColor
 
         }
 
-        public async Task DeleteAsync(int colorId)
+        public async Task DeleteAsync(int vehicleColorId)
         {
             try
             {
                 commandText = "USP_VehicleColorDelete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                GetSqlCommandVehicleColorModelDelete(sqlCommand, colorId);
+                GetSqlCommandVehicleColorModelDelete(sqlCommand, vehicleColorId);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 logger.Trace("VehicleColor_DeleteAsync");

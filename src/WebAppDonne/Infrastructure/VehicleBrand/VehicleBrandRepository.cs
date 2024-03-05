@@ -175,14 +175,14 @@ namespace WebApi.Donne.Infrastructure.VehicleBrand
             }
         }
 
-        public void Delete(int brandId)
+        public void Delete(int vehicleBrandId)
         {
             try
             {
                 commandText = "USP_VehicleBrandDelete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                GetSqlCommandVehicleBrandModelDelete(sqlCommand, brandId);
+                GetSqlCommandVehicleBrandModelDelete(sqlCommand, vehicleBrandId);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.ExecuteNonQuery();
@@ -197,14 +197,14 @@ namespace WebApi.Donne.Infrastructure.VehicleBrand
             }
         }
 
-        public async Task DeleteAsync(int brandId)
+        public async Task DeleteAsync(int vehicleBrandId)
         {
             try
             {
                 commandText = "USP_VehicleBrandDelete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                GetSqlCommandVehicleBrandModelDelete(sqlCommand, brandId);
+                GetSqlCommandVehicleBrandModelDelete(sqlCommand, vehicleBrandId);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 logger.Trace("VehicleBrand_DeleteAsync");

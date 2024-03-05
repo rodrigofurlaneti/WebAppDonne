@@ -49,8 +49,9 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
             UserRepository userRepository = new UserRepository(mockLogger.Object);
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.GetAllAsync());
+
+            // Assert
             mockLogger.Verify(x => x.TraceException("User_GetAllUserAsync"), Times.Exactly(0));
         }
 
@@ -107,6 +108,8 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.GetByIdAsync(idUltimo));
+
+            // Assert
             mockLogger.Verify(x => x.TraceException("User_GetByIdAsync"), Times.Exactly(0));
             mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
         }
@@ -172,8 +175,9 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
                 userPassword, profileId, profileName, status);
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.InsertAsync(userModel));
+
+            // Assert
             mockLogger.Verify(x => x.TraceException("User_InsertAsync"), Times.Exactly(0));
         }
 
@@ -242,8 +246,9 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
                 userPassword, profileId, profileName, status);
 
             // Act
-            //Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => userRepository.UpdateAsync(userModel));
+
+            //Assert
             mockLogger.Verify(x => x.Trace("GetAllUsers"), Times.Exactly(1));
         }
 
@@ -282,7 +287,7 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
         }
 
         [TestMethod]
-        public async Task DeleteAsync_Sem_Retorno_Erro()
+        public void DeleteAsync_Sem_Retorno_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();

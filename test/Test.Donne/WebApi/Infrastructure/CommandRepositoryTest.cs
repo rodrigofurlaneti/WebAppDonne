@@ -435,10 +435,10 @@ namespace Test.Donne.WebApi.Infrastructure.CommandRepositoryTest
         }
 
         [TestMethod]
-        public async Task DeleteAsync_Erro()
+        public void DeleteAsync_Erro()
         {
             // Arrange
-            await InsertAsync_Sucesso();
+            Insert_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Command_DeleteAsync")).Throws(new Exception());
             CommandRepository commandRepository = new CommandRepository(mockLogger.Object);

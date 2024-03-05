@@ -157,12 +157,12 @@ namespace WebApi.Donne.Infrastructure.Category
             }
         }
 
-        public void Delete(int CategoryId)
+        public void Delete(int categoryId)
         {
             commandText = "USP_Donne_Category_Delete";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            sqlCommand.Parameters.AddWithValue("@CategoryId", CategoryId);
+            sqlCommand.Parameters.AddWithValue("@CategoryId", categoryId);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
@@ -170,14 +170,14 @@ namespace WebApi.Donne.Infrastructure.Category
             logger.Trace("Delete");
         }
 
-        public async Task DeleteAsync(int CategoryId)
+        public async Task DeleteAsync(int categoryId)
         {
             try
             {
                 commandText = "USP_Donne_Category_Delete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@CategoryId", CategoryId);
+                sqlCommand.Parameters.AddWithValue("@CategoryId", categoryId);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 logger.Trace("Category_DeleteAsync");

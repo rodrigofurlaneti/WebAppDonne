@@ -60,7 +60,7 @@ namespace WebApi.Donne.Controllers
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Vehicle>))]
-        public async Task<IActionResult> GetVehicle(int id)
+        public async Task<IActionResult> Get(int id)
         {
             try
             {

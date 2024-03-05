@@ -143,12 +143,12 @@ namespace WebApi.Donne.Infrastructure.Profile
             }
         }
 
-        public void Delete(int ProfileId)
+        public void Delete(int profileId)
         {
             commandText = "USP_Donne_Profile_Delete";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            sqlCommand.Parameters.AddWithValue("@ProfileId", ProfileId);
+            sqlCommand.Parameters.AddWithValue("@ProfileId", profileId);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
@@ -156,14 +156,14 @@ namespace WebApi.Donne.Infrastructure.Profile
             logger.Trace("Profile_Delete");
         }
 
-        public async Task DeleteAsync(int ProfileId)
+        public async Task DeleteAsync(int profileId)
         {
             try
             {
                 commandText = "USP_Donne_Profile_Delete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@ProfileId", ProfileId);
+                sqlCommand.Parameters.AddWithValue("@ProfileId", profileId);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 await sqlCommand.ExecuteNonQueryAsync();

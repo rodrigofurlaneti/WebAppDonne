@@ -129,13 +129,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleTypeRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetByIdAsync_Erro()
+        public void GetByIdAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleType_GetByIdAsync")).Throws(new ArgumentNullException());
             VehicleTypeRepository vehicleTypeRepository = new VehicleTypeRepository(mockLogger.Object);
-            var resultGetAll = await vehicleTypeRepository.GetAllAsync();
+            var resultGetAll = vehicleTypeRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleTypeRepository.GetByIdAsync(resultGetAll.First().VehicleTypeId);
@@ -143,7 +143,8 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleTypeRepositoryTest
 
             // Assert
             Assert.IsNotNull(resultAction);
-            mockLogger.Verify(x => x.Trace("VehicleType_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("VehicleType_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("VehicleType_GetByIdAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.TraceException("VehicleType_GetByIdAsync"), Times.Exactly(1));
         }
 
@@ -278,13 +279,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleTypeRepositoryTest
         }
 
         [TestMethod]
-        public async Task DeleteAsync_Erro()
+        public void DeleteAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleType_DeleteAsync")).Throws(new ArgumentNullException());
             VehicleTypeRepository vehicleTypeRepository = new VehicleTypeRepository(mockLogger.Object);
-            var resultGetAll = await vehicleTypeRepository.GetAllAsync();
+            var resultGetAll = vehicleTypeRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleTypeRepository.DeleteAsync(resultGetAll.First().VehicleTypeId);
@@ -359,13 +360,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleTypeRepositoryTest
         }
 
         [TestMethod]
-        public async Task UpdateAsync_Erro()
+        public void UpdateAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleType_UpdateAsync")).Throws(new ArgumentNullException());
             VehicleTypeRepository vehicleTypeRepository = new VehicleTypeRepository(mockLogger.Object);
-            var resultGetAll = await vehicleTypeRepository.GetAllAsync();
+            var resultGetAll = vehicleTypeRepository.GetAll();
             Fixture fixture = new Fixture();
             VehicleTypeModel vehicleTypeModel = fixture.Build<VehicleTypeModel>()
                 .With(vehicleTypeModel => vehicleTypeModel.VehicleTypeId, resultGetAll.First().VehicleTypeId)

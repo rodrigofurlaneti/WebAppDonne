@@ -129,13 +129,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleColorRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetByIdAsync_Erro()
+        public void GetByIdAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleColor_GetByIdAsync")).Throws(new ArgumentNullException());
             VehicleColorRepository vehicleColorRepository = new VehicleColorRepository(mockLogger.Object);
-            var resultGetAll = await vehicleColorRepository.GetAllAsync();
+            var resultGetAll = vehicleColorRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleColorRepository.GetByIdAsync(resultGetAll.First().VehicleColorId);
@@ -143,7 +143,8 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleColorRepositoryTest
 
             // Assert
             Assert.IsNotNull(resultAction);
-            mockLogger.Verify(x => x.Trace("VehicleColor_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("VehicleColor_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("VehicleColor_GetByIdAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.TraceException("VehicleColor_GetByIdAsync"), Times.Exactly(1));
         }
 
@@ -278,13 +279,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleColorRepositoryTest
         }
 
         [TestMethod]
-        public async Task DeleteAsync_Erro()
+        public void DeleteAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleColor_DeleteAsync")).Throws(new ArgumentNullException());
             VehicleColorRepository vehicleColorRepository = new VehicleColorRepository(mockLogger.Object);
-            var resultGetAll = await vehicleColorRepository.GetAllAsync();
+            var resultGetAll = vehicleColorRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleColorRepository.DeleteAsync(resultGetAll.First().VehicleColorId);
@@ -359,13 +360,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleColorRepositoryTest
         }
 
         [TestMethod]
-        public async Task UpdateAsync_Erro()
+        public void UpdateAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleColor_UpdateAsync")).Throws(new ArgumentNullException());
             VehicleColorRepository vehicleColorRepository = new VehicleColorRepository(mockLogger.Object);
-            var resultGetAll = await vehicleColorRepository.GetAllAsync();
+            var resultGetAll = vehicleColorRepository.GetAll();
             Fixture fixture = new Fixture();
             VehicleColorModel vehicleColorModel = fixture.Build<VehicleColorModel>()
                 .With(vehicleColorModel => vehicleColorModel.VehicleColorId, resultGetAll.First().VehicleColorId)

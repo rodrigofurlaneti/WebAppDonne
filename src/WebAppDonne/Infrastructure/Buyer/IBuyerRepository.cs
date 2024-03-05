@@ -11,8 +11,8 @@ namespace WebApi.Donne.Infrastructure.Buyer
         Task<IEnumerable<BuyerModel>> GetByStatusAsync(int status);
         BuyerModel GetById(int id);
         Task<BuyerModel> GetByIdAsync(int id);
-        void Insert(BuyerModel BuyerModel);
-        Task InsertAsync(BuyerModel BuyerModel);
+        void Insert(BuyerModel buyerModel);
+        Task InsertAsync(BuyerModel buyerModel);
         void Delete(int buyerId);
         Task DeleteAsync(int buyerId);
         void Update(BuyerModel buyerModel);

@@ -2,8 +2,8 @@
 {
     public class Startup : IStartup
     {
-        public string allowPolicy = "_AllowPolicy";
-        public IConfiguration Configuration { get; }
+        private readonly string _allowPolicy = "_AllowPolicy";
+        public IConfiguration Configuration { get; set; }
 
         public Startup(IConfiguration configuration)
         {
@@ -15,7 +15,7 @@
         {
             services.AddCors(options =>
             {
-                options.AddPolicy(name: allowPolicy, builder => builder.WithOrigins("*")
+                options.AddPolicy(name: _allowPolicy, builder => builder.WithOrigins("*")
                                                                     .AllowAnyMethod()
                 .AllowAnyHeader());
             });
@@ -44,7 +44,7 @@
 
             webApplication.UseHttpsRedirection();
 
-            webApplication.UseCors(allowPolicy);
+            webApplication.UseCors(_allowPolicy);
 
             webApplication.UseAuthorization();
 

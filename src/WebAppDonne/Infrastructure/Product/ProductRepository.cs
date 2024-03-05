@@ -146,12 +146,12 @@ namespace WebApi.Donne.Infrastructure.Product
 
         }
 
-        public void Delete(int ProductId)
+        public void Delete(int productId)
         {
             commandText = "USP_Donne_Product_Delete";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            sqlCommand.Parameters.AddWithValue("@ProductId", ProductId);
+            sqlCommand.Parameters.AddWithValue("@ProductId", productId);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
@@ -159,14 +159,14 @@ namespace WebApi.Donne.Infrastructure.Product
             logger.Trace("Product_Delete");
         }
 
-        public async Task DeleteAsync(int ProductId)
+        public async Task DeleteAsync(int productId)
         {
             try
             {
                 commandText = "USP_Donne_Product_Delete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@ProductId", ProductId);
+                sqlCommand.Parameters.AddWithValue("@ProductId", productId);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 await sqlCommand.ExecuteNonQueryAsync();

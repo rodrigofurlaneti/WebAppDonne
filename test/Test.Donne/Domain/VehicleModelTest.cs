@@ -6,7 +6,7 @@ namespace Test.Donne.Domain.VehicleModellTest;
 
 [TestClass]
 [TestCategory("Donne > Domain > VehicleModelModel")]
-public class VehicleModellTest
+public class VehicleModelTest
 {
     [TestMethod]
     public void Vehicle_Model_Property_Sucesso()

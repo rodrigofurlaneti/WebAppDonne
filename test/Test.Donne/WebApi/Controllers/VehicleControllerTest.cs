@@ -60,7 +60,7 @@ namespace Test.Donne.WebApi.Controllers.VehicleControllerTest
             var obj = listVehicleModel.First();
 
             // Act
-            var result = await vehicleController.GetVehicle(obj.VehicleId);
+            var result = await vehicleController.Get(obj.VehicleId);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -84,7 +84,7 @@ namespace Test.Donne.WebApi.Controllers.VehicleControllerTest
             var obj = listVehicleModel.First();
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleController.GetVehicle(obj.VehicleId));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleController.Get(obj.VehicleId));
 
             // Assert
             mockLogger.Verify(x => x.TraceException("Vehicle_GetByIdAsync"), Times.Exactly(1));
@@ -170,7 +170,7 @@ namespace Test.Donne.WebApi.Controllers.VehicleControllerTest
 
             // Act
             await vehicleController.Update(vehicle);
-            var result = await vehicleController.GetVehicle(obj.VehicleId);
+            var result = await vehicleController.Get(obj.VehicleId);
             ObjectResult objectResult = (ObjectResult)result;
             var vehicleResult = (Vehicle)objectResult.Value;
 

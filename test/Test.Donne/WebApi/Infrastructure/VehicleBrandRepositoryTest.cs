@@ -128,13 +128,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetByIdAsync_Erro()
+        public void GetByIdAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleBrand_GetByIdAsync")).Throws(new ArgumentNullException());
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = await vehicleBrandRepository.GetAllAsync();
+            var resultGetAll = vehicleBrandRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleBrandRepository.GetByIdAsync(resultGetAll.First().VehicleBrandId);
@@ -276,13 +276,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
         }
 
         [TestMethod]
-        public async Task DeleteAsync_Erro()
+        public void DeleteAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleBrand_DeleteAsync")).Throws(new ArgumentNullException());
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = await vehicleBrandRepository.GetAllAsync();
+            var resultGetAll = vehicleBrandRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleBrandRepository.DeleteAsync(resultGetAll.First().VehicleBrandId);
@@ -357,13 +357,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleBrandRepositoryTest
         }
 
         [TestMethod]
-        public async Task UpdateAsync_Erro()
+        public void UpdateAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleBrand_UpdateAsync")).Throws(new ArgumentNullException());
             VehicleBrandRepository vehicleBrandRepository = new VehicleBrandRepository(mockLogger.Object);
-            var resultGetAll = await vehicleBrandRepository.GetAllAsync();
+            var resultGetAll = vehicleBrandRepository.GetAll();
             Fixture fixture = new Fixture();
             VehicleBrandModel vehicleBrandModel = fixture.Build<VehicleBrandModel>()
                 .With(vehicleBrandModel => vehicleBrandModel.VehicleBrandId, resultGetAll.First().VehicleBrandId)

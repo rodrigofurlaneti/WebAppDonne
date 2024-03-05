@@ -141,12 +141,12 @@ namespace WebApi.Donne.Infrastructure.Payment
             }
 
         }
-        public void Delete(int PaymentId)
+        public void Delete(int paymentId)
         {
             commandText = "USP_Donne_Payment_Delete";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            sqlCommand.Parameters.AddWithValue("@PaymentId", PaymentId);
+            sqlCommand.Parameters.AddWithValue("@PaymentId", paymentId);
             sqlConnection.Open();
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.ExecuteNonQuery();
@@ -154,14 +154,14 @@ namespace WebApi.Donne.Infrastructure.Payment
             logger.Trace("Payment_Delete");
         }
 
-        public async Task DeleteAsync(int PaymentId)
+        public async Task DeleteAsync(int paymentId)
         {
             try
             {
                 commandText = "USP_Donne_Payment_Delete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@PaymentId", PaymentId);
+                sqlCommand.Parameters.AddWithValue("@PaymentId", paymentId);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 await sqlCommand.ExecuteNonQueryAsync();

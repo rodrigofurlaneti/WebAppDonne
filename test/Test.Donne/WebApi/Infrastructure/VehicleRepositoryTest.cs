@@ -128,13 +128,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetByIdAsync_Erro()
+        public void GetByIdAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Vehicle_GetByIdAsync")).Throws(new ArgumentNullException());
             VehicleRepository vehicleRepository = new VehicleRepository(mockLogger.Object);
-            var resultGetAll = await vehicleRepository.GetAllAsync();
+            var resultGetAll = vehicleRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleRepository.GetByIdAsync(resultGetAll.First().VehicleId);
@@ -336,13 +336,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleRepositoryTest
         }
 
         [TestMethod]
-        public async Task DeleteAsync_Erro()
+        public void DeleteAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Vehicle_DeleteAsync")).Throws(new ArgumentNullException());
             VehicleRepository vehicleRepository = new VehicleRepository(mockLogger.Object);
-            var resultGetAll = await vehicleRepository.GetAllAsync();
+            var resultGetAll = vehicleRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleRepository.DeleteAsync(resultGetAll.First().VehicleId);

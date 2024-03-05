@@ -78,13 +78,17 @@ namespace Test.Donne.WebApi.Controllers.VehicleBrandControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleBrand_GetByIdAsync")).Throws(new Exception());
             VehicleBrandController vehicleBrandController = new VehicleBrandController(mockLogger.Object);
+            List<VehicleBrandModel> listVehicleBrandModel = new List<VehicleBrandModel>();
+            VehicleBrandModel vehicleBrand = new VehicleBrandModel();
             var getAll = await vehicleBrandController.GetVehicleBrand();
-            var okResult = getAll as OkObjectResult;
-            var listVehicleBrandModel = (List<VehicleBrandModel>)okResult.Value;
-            var obj = listVehicleBrandModel.First();
+            OkObjectResult? okResult = getAll as OkObjectResult;
+            if(okResult != null && okResult.Value != null)
+                listVehicleBrandModel = (List<VehicleBrandModel>)okResult.Value;
+            if(listVehicleBrandModel.Count > 0)
+                vehicleBrand = listVehicleBrandModel.First();
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleBrandController.GetVehicleBrand(obj.VehicleBrandId));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleBrandController.GetVehicleBrand(vehicleBrand.VehicleBrandId));
 
             // Assert
             mockLogger.Verify(x => x.TraceException("VehicleBrand_GetByIdAsync"), Times.Exactly(1));

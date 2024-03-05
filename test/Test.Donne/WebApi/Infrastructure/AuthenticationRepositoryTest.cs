@@ -2,11 +2,6 @@
 using Domain.Donne;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApi.Donne.Infrastructure.Authentication;
 using WebApi.Donne.Infrastructure.SeedWork;
 
@@ -65,13 +60,12 @@ namespace Test.Donne.WebApi.Infrastructure.AuthenticationRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetAllAuthenticationsAsync_Erro()
+        public void GetAllAuthenticationsAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Authentication_GetAllAsync")).Throws(new ArgumentNullException());
             AuthenticationRepository authenticationRepository = new AuthenticationRepository(mockLogger.Object);
-
 
             // Act
             var resultAction = () => authenticationRepository.GetAllAsync();
@@ -133,13 +127,13 @@ namespace Test.Donne.WebApi.Infrastructure.AuthenticationRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetByIdAsync_Erro()
+        public void GetByIdAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Authentication_GetByIdAsync")).Throws(new ArgumentNullException());
             AuthenticationRepository authenticationRepository = new AuthenticationRepository(mockLogger.Object);
-            var resultAll = await authenticationRepository.GetAllAsync();
+            var resultAll = authenticationRepository.GetAll();
 
             // Act
             var resultAction = () => authenticationRepository.GetByIdAsync(resultAll.First().Id);

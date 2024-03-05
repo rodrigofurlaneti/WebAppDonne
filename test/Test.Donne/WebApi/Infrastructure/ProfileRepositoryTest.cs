@@ -51,8 +51,9 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             ProfileRepository profileRepository = new ProfileRepository(mockLogger.Object);
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => profileRepository.GetAllAsync());
+
+            // Assert
             mockLogger.Verify(x => x.TraceException("Profile_GetAllAsync"), Times.Exactly(1));
         }
 
@@ -96,8 +97,9 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
                 id = getAll.ToList()[0].ProfileId;
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => profileRepository.GetByIdAsync(id));
+
+            // Assert
             mockLogger.Verify(x => x.TraceException("Profile_GetByIdAsync"), Times.Exactly(0));
         }
 
@@ -203,8 +205,9 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             ProfileModel profileModel = new ProfileModel(profileId, profileName, listDateTime, userId, userName);
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => profileRepository.InsertAsync(profileModel));
+
+            // Assert
             mockLogger.Verify(x => x.TraceException("Profile_InsertAsync"), Times.Exactly(0));
         }
 
@@ -274,8 +277,9 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
             ProfileModel profileModel = new ProfileModel(profileId, profileName, listDateTime, userId, userName);
 
             // Act
-            // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(() => profileRepository.UpdateAsync(profileModel));
+
+            // Assert
             mockLogger.Verify(x => x.Trace("Profile_GetAll"), Times.Exactly(1));
         }
 

@@ -128,13 +128,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleModelRepositoryTest
         }
 
         [TestMethod]
-        public async Task GetByIdAsync_Erro()
+        public void GetByIdAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleModel_GetByIdAsync")).Throws(new ArgumentNullException());
             VehicleModelRepository vehicleModelRepository = new VehicleModelRepository(mockLogger.Object);
-            var resultGetAll = await vehicleModelRepository.GetAllAsync();
+            var resultGetAll = vehicleModelRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleModelRepository.GetByIdAsync(resultGetAll.First().VehicleModelId);
@@ -142,7 +142,8 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleModelRepositoryTest
 
             // Assert
             Assert.IsNotNull(resultAction);
-            mockLogger.Verify(x => x.Trace("VehicleModel_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("VehicleModel_GetAll"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("VehicleModel_GetByIdAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.TraceException("VehicleModel_GetByIdAsync"), Times.Exactly(1));
         }
 
@@ -277,13 +278,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleModelRepositoryTest
         }
 
         [TestMethod]
-        public async Task DeleteAsync_Erro()
+        public void DeleteAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleModel_DeleteAsync")).Throws(new ArgumentNullException());
             VehicleModelRepository vehicleModelRepository = new VehicleModelRepository(mockLogger.Object);
-            var resultGetAll = await vehicleModelRepository.GetAllAsync();
+            var resultGetAll = vehicleModelRepository.GetAll();
 
             // Act
             var resultAction = () => vehicleModelRepository.DeleteAsync(resultGetAll.First().VehicleModelId);
