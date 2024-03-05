@@ -81,7 +81,7 @@ namespace Test.Donne.WebApi.Controllers.AuthenticationControllerTest
             mockLogger.Verify(x => x.Trace("User_InsertAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("Authentication_InsertAuthentication"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("User_GetByNameAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Authentication_Success_InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Authentication_InvalidPassword_InsertAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("Authentication_InsertAsync"), Times.Exactly(1));
         }
 
