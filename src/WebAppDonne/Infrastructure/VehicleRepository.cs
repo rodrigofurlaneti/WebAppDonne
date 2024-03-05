@@ -18,6 +18,7 @@ namespace WebApi.Donne.Infrastructure
         {
             try
             {
+                this.logger.Trace("Vehicle_GetAll");
                 commandText = "USP_VehicleGetAll";
                 List<Vehicle> listVehicleModel = new List<Vehicle>();
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
@@ -31,11 +32,11 @@ namespace WebApi.Donne.Infrastructure
                         GetListVehicle(sqlDataReader, listVehicleModel);
                     }
                 }
-                logger.Trace("Vehicle_GetAllAsync");
                 return listVehicleModel;
             }
             catch (ArgumentNullException ex)
             {
+                this.logger.TraceException("Vehicle_GetAll");
                 string mensagemErro = "Erro ao consumir a procedure USP_VehicleGetAll síncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
@@ -44,25 +45,27 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<Vehicle>> GetAllVehiclesAsync()
         {
-            commandText = "USP_VehicleGetAll";
-            List<Vehicle> listVehicleModel = new List<Vehicle>();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 try
                 {
-                    logger.Trace("Vehicle_GetAllAsync");
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlConnection.Open();
-                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
-                    while (sqlDataReader.Read())
+                    this.logger.Trace("Vehicle_GetAllAsync");
+                    commandText = "USP_VehicleGetAll";
+                    List<Vehicle> listVehicleModel = new List<Vehicle>();
+                    using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                    using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                     {
-                        GetListVehicle(sqlDataReader, listVehicleModel);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlConnection.Open();
+                        SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                        while (sqlDataReader.Read())
+                        {
+                            GetListVehicle(sqlDataReader, listVehicleModel);
+                        }
                     }
                     return listVehicleModel;
                 }
                 catch (ArgumentNullException ex)
                 {
-                    logger.TraceException("Vehicle_GetAllAsync");
+                    this.logger.TraceException("Vehicle_GetAllAsync");
                     string mensagemErro = "Erro ao consumir a procedure USP_VehicleGetAll assíncrono " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }
@@ -86,12 +89,12 @@ namespace WebApi.Donne.Infrastructure
                         GetListVehicle(sqlDataReader, listVehicleModel);
                     }
                 }
-                logger.Trace("Vehicle_GetByParked");
+                this.logger.Trace("Vehicle_GetByParked");
                 return listVehicleModel;
             }
             catch (ArgumentNullException ex)
             {
-                logger.TraceException("Vehicle_GetByParked");
+                this.logger.TraceException("Vehicle_GetByParked");
                 string mensagemErro = "Erro ao consumir a procedure USP_GetByStatus síncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
@@ -100,26 +103,28 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<Vehicle>> GetByParkedAsync(int status)
         {
-            commandText = "USP_VehicleGetByParked";
-            List<Vehicle> listVehicleModel = new List<Vehicle>();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 try
                 {
-                    logger.Trace("Vehicle_GetByParkedAsync");
-                    GetVehicleParked(sqlCommand, status);
-                    sqlConnection.Open();
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
-                    while (sqlDataReader.Read())
+                    commandText = "USP_VehicleGetByParked";
+                    List<Vehicle> listVehicleModel = new List<Vehicle>();
+                    using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                    using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                     {
-                        GetListVehicle(sqlDataReader, listVehicleModel);
+                        GetVehicleParked(sqlCommand, status);
+                        sqlConnection.Open();
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                        while (sqlDataReader.Read())
+                        {
+                            GetListVehicle(sqlDataReader, listVehicleModel);
+                        }
                     }
+                    this.logger.Trace("Vehicle_GetByParkedAsync");
                     return listVehicleModel;
                 }
                 catch (ArgumentNullException ex)
                 {
-                    logger.TraceException("Vehicle_GetByParkedAsync");
+                    this.logger.TraceException("Vehicle_GetByParkedAsync");
                     string mensagemErro = "Erro ao consumir a procedure USP_VehicleGetByParked, assíncrono. " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }
@@ -143,12 +148,12 @@ namespace WebApi.Donne.Infrastructure
                         GetVehicle(sqlDataReader, vehicleModel);
                     }
                 }
-                logger.Trace("Vehicle_GetById");
+                this.logger.Trace("Vehicle_GetById");
                 return vehicleModel;
             }
             catch (ArgumentNullException ex)
             {
-                logger.TraceException("Vehicle_GetById");
+                this.logger.TraceException("Vehicle_GetById");
                 string mensagemErro = "Erro ao consumir a procedure USP_VehicleGetById, síncrono. " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
@@ -157,107 +162,165 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<Vehicle> GetByIdAsync(int id)
         {
-            commandText = "USP_VehicleGetById";
-            Vehicle vehicleModel = new Vehicle();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 try
                 {
-                    logger.Trace("Vehicle_GetByIdAsync");
-                    GetSqlCommandVehicleById(sqlCommand, id);
-                    sqlConnection.Open();
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
-                    while (sqlDataReader.Read())
+                    this.logger.Trace("Vehicle_GetByIdAsync");
+                    commandText = "USP_VehicleGetById";
+                    Vehicle vehicleModel = new Vehicle();
+                    using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                    using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                     {
-                        GetVehicle(sqlDataReader, vehicleModel);
+                        GetSqlCommandVehicleById(sqlCommand, id);
+                        sqlConnection.Open();
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                        while (sqlDataReader.Read())
+                        {
+                            GetVehicle(sqlDataReader, vehicleModel);
+                        }
                     }
                     return vehicleModel;
                 }
                 catch (ArgumentNullException ex)
                 {
-                    logger.TraceException("Vehicle_GetByIdAsync");
-                    string mensagemErro = "Erro ao consumir a procedure USP_VehicleGetId, assíncrono. " + ex.Message;
+                    this.logger.TraceException("Vehicle_GetByIdAsync");
+                    string mensagemErro = "Erro ao consumir a procedure USP_VehicleGetById, assíncrono. " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }
         }
 
         public void Insert(Vehicle vehicle)
         {
-            commandText = "USP_VehicleInsert";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            GetSqlCommandVehicleInsert(sqlCommand, vehicle);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.ExecuteNonQuery();
-            sqlConnection.Close();
-            logger.Trace("Vehicle_Insert");
+            try
+            {
+                commandText = "USP_VehicleInsert";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandVehicleInsert(sqlCommand, vehicle);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+                logger.Trace("Vehicle_Insert");
+            }
+            catch (ArgumentNullException ex)
+            {
+                this.logger.TraceException("Vehicle_Insert");
+                string mensagemErro = "Erro ao consumir a procedure USP_VehicleInsert, síncrono. " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
         }
 
         public async Task InsertAsync(Vehicle vehicle)
         {
-            commandText = "USP_VehicleInsert";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            GetSqlCommandVehicleInsert(sqlCommand, vehicle);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            logger.Trace("Vehicle_InsertAsync");
-            await sqlCommand.ExecuteNonQueryAsync();
-            sqlConnection.Close();
+            try
+            {
+                commandText = "USP_VehicleInsert";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandVehicleInsert(sqlCommand, vehicle);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                logger.Trace("Vehicle_InsertAsync");
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+            }
+            catch (ArgumentNullException ex)
+            {
+                this.logger.TraceException("Vehicle_InsertAsync");
+                string mensagemErro = "Erro ao consumir a procedure USP_VehicleInsert, assíncrono. " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
         }
 
         public void Delete(int vehicleId)
         {
-            commandText = "USP_VehicleDelete";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            GetSqlCommandVehicleById(sqlCommand, vehicleId);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.ExecuteNonQuery();
-            sqlConnection.Close();
-            logger.Trace("Vehicle_Delete");
+            try
+            {
+                commandText = "USP_VehicleDelete";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandVehicleById(sqlCommand, vehicleId);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+                logger.Trace("Vehicle_Delete");
+            }
+            catch (ArgumentNullException ex)
+            {
+                this.logger.TraceException("Vehicle_Delete");
+                string mensagemErro = "Erro ao consumir a procedure USP_VehicleDelete, síncrono. " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
         }
 
         public async Task DeleteAsync(int vehicleId)
         {
-            commandText = "USP_VehicleDelete";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            GetSqlCommandVehicleById(sqlCommand, vehicleId);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            logger.Trace("Vehicle_DeleteAsync");
-            await sqlCommand.ExecuteNonQueryAsync();
-            sqlConnection.Close();
+            try
+            {
+                commandText = "USP_VehicleDelete";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandVehicleById(sqlCommand, vehicleId);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                logger.Trace("Vehicle_DeleteAsync");
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+            }
+            catch (ArgumentNullException ex)
+            {
+                this.logger.TraceException("Vehicle_DeleteAsync");
+                string mensagemErro = "Erro ao consumir a procedure USP_VehicleDelete, assíncrono. " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
 
         public void Update(Vehicle vehicle)
         {
-            commandText = "USP_VehicleUpdate";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            GetSqlCommandVehicleUpdate(sqlCommand, vehicle);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.ExecuteNonQuery();
-            sqlConnection.Close();
-            logger.Trace("Vehicle_Update");
+            try
+            {
+                commandText = "USP_VehicleUpdate";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandVehicleUpdate(sqlCommand, vehicle);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+                logger.Trace("Vehicle_Update");
+            }
+            catch (ArgumentNullException ex)
+            {
+                this.logger.TraceException("Vehicle_Update");
+                string mensagemErro = "Erro ao consumir a procedure USP_VehicleUpdate, síncrono. " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
         }
 
         public async Task UpdateAsync(Vehicle vehicle)
         {
-            commandText = "USP_VehicleUpdate";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            GetSqlCommandVehicleUpdate(sqlCommand, vehicle);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            logger.Trace("Vehicle_UpdateAsync");
-            await sqlCommand.ExecuteNonQueryAsync();
-            sqlConnection.Close();
+            try
+            {
+                commandText = "USP_VehicleUpdate";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandVehicleUpdate(sqlCommand, vehicle);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                logger.Trace("Vehicle_UpdateAsync");
+                await sqlCommand.ExecuteNonQueryAsync();
+                sqlConnection.Close();
+            }
+            catch (ArgumentNullException ex)
+            {
+                this.logger.TraceException("Vehicle_UpdateAsync");
+                string mensagemErro = "Erro ao consumir a procedure USP_VehicleUpdate, assíncrono. " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
         #endregion
 

@@ -25,14 +25,14 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
+                this._logger.Trace("Vehicle_GetAllAsync");
                 VehicleRepository dal = new VehicleRepository(_logger);
                 var ret = await dal.GetAllVehiclesAsync();
-                _logger.Trace("Vehicle_GetAllAsync");
                 return Ok(ret);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("Vehicle_GetAllAsync");
+                this._logger.TraceException("Vehicle_GetAllAsync");
                 string mensagem = "Erro ao consumir a controler Vehicle, rota GetVehicles " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
