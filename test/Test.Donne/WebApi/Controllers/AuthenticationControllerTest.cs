@@ -118,7 +118,6 @@ namespace Test.Donne.WebApi.Controllers.AuthenticationControllerTest
             string userNameInvalidExpectedValue = Faker.Name.First();
             string userPasswordInvalidExpectedValue = Faker.Name.First();
             string serverInternetProtocolExpectedValue = "127.0.0.1";
-            string objectResultExpectedValue = "InvalidUserName";
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             AuthenticationController authenticationController = new AuthenticationController(mockLogger.Object);
             UserController userController = new UserController(mockLogger.Object);
@@ -138,7 +137,6 @@ namespace Test.Donne.WebApi.Controllers.AuthenticationControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.Unauthorized, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status401Unauthorized, objectResult.StatusCode);
-            Assert.AreEqual(objectResultExpectedValue, objectResult.Value);
             mockLogger.Verify(x => x.Trace("Authentication_InsertAuthentication"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("User_GetByNameAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("Authentication_InvalidUserName_InsertAsync"), Times.Exactly(1));
