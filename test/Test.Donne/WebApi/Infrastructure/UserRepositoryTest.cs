@@ -59,7 +59,6 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
         public void GetById_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
-            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
             var getAll = userRepository.GetAll();
@@ -80,7 +79,6 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
         public async Task GetByIdAsync_Sucesso()
         {
             // Arrange
-            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
             var getAll = await userRepository.GetAllAsync();
@@ -99,7 +97,6 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
         public void GetByIdAsync_Erro()
         {
             // Arrange
-            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("User_GetByIdAsync")).Throws(new Exception());
             UserRepository userRepository = new UserRepository(mockLogger.Object);
@@ -256,7 +253,6 @@ namespace Test.Donne.WebApi.Infrastructure.UserRepositoryTest
         public void Delete_Sem_Retorno_Sucesso()
         {
             // Arrange
-            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             UserRepository userRepository = new UserRepository(mockLogger.Object);
             var getAll = userRepository.GetAll();

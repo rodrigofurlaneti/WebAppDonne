@@ -359,13 +359,13 @@ namespace Test.Donne.WebApi.Infrastructure.VehicleModelRepositoryTest
         }
 
         [TestMethod]
-        public async Task UpdateAsync_Erro()
+        public void UpdateAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleModel_UpdateAsync")).Throws(new ArgumentNullException());
             VehicleModelRepository vehicleModelRepository = new VehicleModelRepository(mockLogger.Object);
-            var resultGetAll = await vehicleModelRepository.GetAllAsync();
+            var resultGetAll = vehicleModelRepository.GetAll();
             Fixture fixture = new Fixture();
             VehicleModel vehicleModel = fixture.Build<VehicleModel>()
                 .With(vehicleModel => vehicleModel.VehicleModelId, resultGetAll.First().VehicleModelId)
