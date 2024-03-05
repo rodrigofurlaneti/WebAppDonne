@@ -38,11 +38,11 @@ namespace Test.Donne.WebApi.Controllers.VehicleModelControllerTest
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(x => x.Trace("VehicleModel_GetAllAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("VehicleModel_GetAllAsync")).Throws(new ArgumentNullException());
             VehicleModelController vehicleModelController = new VehicleModelController(mockLogger.Object);
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleModelController.GetVehicleModel());
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => vehicleModelController.GetVehicleModel());
 
             // Assert
             mockLogger.Verify(x => x.TraceException("VehicleModel_GetAllAsync"), Times.Exactly(1));

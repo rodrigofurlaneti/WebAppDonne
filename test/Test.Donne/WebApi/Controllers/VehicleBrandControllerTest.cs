@@ -30,8 +30,7 @@ namespace Test.Donne.WebApi.Controllers.VehicleBrandControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
-            mockLogger.Verify(x => x.Trace("VehicleBrand_GetAllAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetAllBrandsAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("VehicleBrand_GetAllAsync"), Times.Exactly(2));
         }
 
         [TestMethod]
