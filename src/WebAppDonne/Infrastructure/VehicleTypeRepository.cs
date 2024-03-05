@@ -31,12 +31,12 @@ namespace WebApi.Donne.Infrastructure
                         GetListVehicleTypeModel(sqlDataReader, listVehicleTypeModel);
                     }
                 }
-                this.logger.Trace("VehicleType_GetAllAsync");
+                this.logger.Trace("VehicleType_GetAll");
                 return listVehicleTypeModel;
             }
             catch (ArgumentNullException ex)
             {
-                this.logger.TraceException("VehicleType_GetAllAsync");
+                this.logger.TraceException("VehicleType_GetAll");
                 string mensagemErro = "Erro ao consumir a procedure USP_VehicleTypeGetAll síncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
@@ -45,11 +45,12 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<VehicleTypeModel>> GetAllVehicleTypesAsync()
         {
-            commandText = "USP_VehicleTypeGetAll";
-            List<VehicleTypeModel> listVehicleTypeModel = new List<VehicleTypeModel>();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
-                try
+            try
+            {
+                commandText = "USP_VehicleTypeGetAll";
+                List<VehicleTypeModel> listVehicleTypeModel = new List<VehicleTypeModel>();
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 {
                     this.logger.Trace("VehicleType_GetAllAsync");
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -59,14 +60,15 @@ namespace WebApi.Donne.Infrastructure
                     {
                         GetListVehicleTypeModel(sqlDataReader, listVehicleTypeModel);
                     }
-                    return listVehicleTypeModel;
                 }
-                catch (ArgumentNullException ex)
-                {
-                    this.logger.TraceException("VehicleType_GetAllAsync");
-                    string mensagemErro = "Erro ao consumir a procedure USP_VehicleTypeGetAll assíncrono " + ex.Message;
-                    throw new ArgumentNullException(mensagemErro);
-                }
+                return listVehicleTypeModel;
+            }
+            catch (ArgumentNullException ex)
+            {
+                this.logger.TraceException("VehicleType_GetAllAsync");
+                string mensagemErro = "Erro ao consumir a procedure USP_VehicleTypeGetAll assíncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
         }
 
         public VehicleTypeModel GetById(int vehicleTypeId)

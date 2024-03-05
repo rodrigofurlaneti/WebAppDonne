@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Net;
 using WebApi.Donne.Controllers;
+using WebApi.Donne.Infrastructure;
 using WebApi.Donne.Infrastructure.SeedWork;
 
 namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
@@ -93,7 +94,11 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
                 id = listCategorys[0].CategoryId;
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => categoryController.GetCategory(id));
+            var resultAction = () => categoryController.GetCategory(id);
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(resultAction);
+
+            //Assert
+            mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
