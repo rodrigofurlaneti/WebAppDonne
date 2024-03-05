@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.Authentication;
 using WebApi.Donne.Infrastructure.SeedWork;
 
 namespace Test.Donne.WebApi.Infrastructure.AuthenticationRepositoryTest
@@ -24,7 +24,7 @@ namespace Test.Donne.WebApi.Infrastructure.AuthenticationRepositoryTest
             AuthenticationRepository authenticationRepository = new AuthenticationRepository(mockLogger.Object);
 
             // Act
-            var result = authenticationRepository.GetAllAuthentications();
+            var result = authenticationRepository.GetAll();
 
             // Assert
             Assert.IsNotNull(result);
@@ -41,7 +41,7 @@ namespace Test.Donne.WebApi.Infrastructure.AuthenticationRepositoryTest
 
 
             // Act
-            var resultAction = () => authenticationRepository.GetAllAuthentications();
+            var resultAction = () => authenticationRepository.GetAll();
             Assert.ThrowsException<ArgumentNullException>(resultAction);
 
             // Assert
@@ -57,7 +57,7 @@ namespace Test.Donne.WebApi.Infrastructure.AuthenticationRepositoryTest
             AuthenticationRepository authenticationRepository = new AuthenticationRepository(mockLogger.Object);
 
             // Act
-            var result = await authenticationRepository.GetAllAuthenticationsAsync();
+            var result = await authenticationRepository.GetAllAsync();
 
             // Assert
             Assert.IsNotNull(result);
@@ -74,7 +74,7 @@ namespace Test.Donne.WebApi.Infrastructure.AuthenticationRepositoryTest
 
 
             // Act
-            var resultAction = () => authenticationRepository.GetAllAuthenticationsAsync();
+            var resultAction = () => authenticationRepository.GetAllAsync();
             Assert.ThrowsExceptionAsync<ArgumentNullException>(resultAction);
 
             // Assert
@@ -88,7 +88,7 @@ namespace Test.Donne.WebApi.Infrastructure.AuthenticationRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             AuthenticationRepository authenticationRepository = new AuthenticationRepository(mockLogger.Object);
-            var resultAll = authenticationRepository.GetAllAuthentications();
+            var resultAll = authenticationRepository.GetAll();
 
             // Act
             var result = authenticationRepository.GetById(resultAll.First().Id);
@@ -105,7 +105,7 @@ namespace Test.Donne.WebApi.Infrastructure.AuthenticationRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Authentication_GetById")).Throws(new ArgumentNullException());
             AuthenticationRepository authenticationRepository = new AuthenticationRepository(mockLogger.Object);
-            var resultAll = authenticationRepository.GetAllAuthentications();
+            var resultAll = authenticationRepository.GetAll();
 
             // Act
             var resultAction = () => authenticationRepository.GetById(resultAll.First().Id);
@@ -122,7 +122,7 @@ namespace Test.Donne.WebApi.Infrastructure.AuthenticationRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             AuthenticationRepository authenticationRepository = new AuthenticationRepository(mockLogger.Object);
-            var resultAll = await authenticationRepository.GetAllAuthenticationsAsync();
+            var resultAll = await authenticationRepository.GetAllAsync();
 
             // Act
             var result = await authenticationRepository.GetByIdAsync(resultAll.First().Id);
@@ -139,7 +139,7 @@ namespace Test.Donne.WebApi.Infrastructure.AuthenticationRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("Authentication_GetByIdAsync")).Throws(new ArgumentNullException());
             AuthenticationRepository authenticationRepository = new AuthenticationRepository(mockLogger.Object);
-            var resultAll = await authenticationRepository.GetAllAuthenticationsAsync();
+            var resultAll = await authenticationRepository.GetAllAsync();
 
             // Act
             var resultAction = () => authenticationRepository.GetByIdAsync(resultAll.First().Id);

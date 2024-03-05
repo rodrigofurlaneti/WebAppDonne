@@ -1,6 +1,6 @@
 ﻿using Domain.Donne;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.VehicleModel;
 
 namespace WebApi.Donne.Controllers
 {

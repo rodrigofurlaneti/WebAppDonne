@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.Product;
 
 namespace WebApi.Donne.Controllers
 {
@@ -27,7 +27,7 @@ namespace WebApi.Donne.Controllers
             {
                 ProductRepository dal = new ProductRepository(_logger);
                 this._logger.Trace("GetProductAsync");
-                var ret = await dal.GetAllProductsAsync();
+                var ret = await dal.GetAllAsync();
                 return Ok(ret);
             }
             catch (Exception ex)

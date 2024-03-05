@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.Command;
 
 namespace WebApi.Donne.Controllers
 {
@@ -27,7 +27,7 @@ namespace WebApi.Donne.Controllers
             {
                 CommandRepository dal = new CommandRepository(_logger);
                 this._logger.Trace("Command_GetAllAsync");
-                var ret = await dal.GetAllCommandAsync();
+                var ret = await dal.GetAllAsync();
                 return Ok(ret);
             }
             catch (Exception ex)

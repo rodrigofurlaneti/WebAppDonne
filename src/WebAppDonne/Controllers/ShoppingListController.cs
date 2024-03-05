@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.ShoppingList;
 
 namespace WebApi.Donne.Controllers
 {
@@ -26,7 +26,7 @@ namespace WebApi.Donne.Controllers
             try
             {
                 ShoppingListRepository dal = new ShoppingListRepository(_logger);
-                var ret = await dal.GetAllShoppingListAsync();
+                var ret = await dal.GetAllAsync();
                 _logger.Trace("GetBuyerAsync");
                 return Ok(ret);
             }

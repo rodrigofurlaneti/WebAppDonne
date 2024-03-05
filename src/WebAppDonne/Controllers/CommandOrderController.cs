@@ -1,6 +1,6 @@
 ﻿using Domain.Donne;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.CommandOrder;
 
 namespace WebApi.Donne.Controllers
 {
@@ -25,7 +25,7 @@ namespace WebApi.Donne.Controllers
             {
                 CommandOrderRepository dal = new CommandOrderRepository(_logger);
                 this._logger.Trace("GetCommandOrdersByIdAsync");
-                var ret = await dal.GetCommandOrdersByIdAsync(id);
+                var ret = await dal.GetByIdAsync(id);
                 return Ok(ret);
             }
             catch (Exception ex)

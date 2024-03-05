@@ -1,6 +1,6 @@
 ﻿using Domain.Donne;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.StockInventory;
 
 namespace WebApi.Donne.Controllers
 {
@@ -27,7 +27,7 @@ namespace WebApi.Donne.Controllers
             {
                 StockInventoryRepository dal = new StockInventoryRepository(_logger);
                 this._logger.Trace("GetStockInventoryAsync");
-                var ret = await dal.GetAllStockInventory();
+                var ret = await dal.GetAllAsync();
                 return Ok(ret);
             }
             catch (Exception ex)

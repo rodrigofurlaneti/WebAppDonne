@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.VehicleBrand;
 
 namespace WebApi.Donne.Controllers
 {
@@ -27,7 +27,7 @@ namespace WebApi.Donne.Controllers
             {
                 VehicleBrandRepository dal = new VehicleBrandRepository(_logger);
                 this._logger.Trace("VehicleBrand_GetAllAsync");
-                var ret = await dal.GetAllVehicleBrandsAsync();
+                var ret = await dal.GetAllAsync();
                 return Ok(ret);
             }
             catch (Exception ex)

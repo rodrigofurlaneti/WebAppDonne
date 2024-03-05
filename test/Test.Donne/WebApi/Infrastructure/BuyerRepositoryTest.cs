@@ -1,7 +1,7 @@
 ﻿using Domain.Donne;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.Buyer;
 using WebApi.Donne.Infrastructure.SeedWork;
 
 namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
@@ -18,7 +18,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
-            var result = buyerRepository.GetAllBuyers();
+            var result = buyerRepository.GetAll();
 
             // Assert
             Assert.IsNotNull(result);
@@ -36,7 +36,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
-            var resultAction = () => buyerRepository.GetAllBuyers();
+            var resultAction = () => buyerRepository.GetAll();
 
             // Assert
             Assert.ThrowsException<ArgumentNullException>(resultAction);
@@ -50,7 +50,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
-            var result = await buyerRepository.GetAllBuyersAsync();
+            var result = await buyerRepository.GetAllAsync();
 
             // Assert
             Assert.IsNotNull(result);
@@ -68,7 +68,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
-            var resultAction = () => buyerRepository.GetAllBuyersAsync();
+            var resultAction = () => buyerRepository.GetAllAsync();
 
             // Assert
             Assert.ThrowsExceptionAsync<ArgumentNullException>(resultAction);
@@ -83,7 +83,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
-            var result = buyerRepository.GetAllBuyers();
+            var result = buyerRepository.GetAll();
 
             // Assert
             Assert.IsTrue(result.Any());
@@ -99,7 +99,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
 
             // Act
-            var result = await buyerRepository.GetAllBuyersAsync();
+            var result = await buyerRepository.GetAllAsync();
 
             // Assert
             Assert.IsTrue(result.Any());
@@ -251,7 +251,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
-            var getAll = buyerRepository.GetAllBuyers();
+            var getAll = buyerRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
             // Act
@@ -269,7 +269,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
-            var getAll = buyerRepository.GetAllBuyers();
+            var getAll = buyerRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
             //Setup
@@ -290,7 +290,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
-            var getAll = buyerRepository.GetAllBuyers();
+            var getAll = buyerRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
             // Act
@@ -309,7 +309,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
-            var getAll = buyerRepository.GetAllBuyers();
+            var getAll = buyerRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
             // Act
@@ -345,7 +345,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
-            var getAll = buyerRepository.GetAllBuyers();
+            var getAll = buyerRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
             // Act
@@ -416,7 +416,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             Insert_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
-            var getAll = buyerRepository.GetAllBuyers();
+            var getAll = buyerRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
             
             // Act
@@ -433,7 +433,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
-            var getAll = buyerRepository.GetAllBuyers();
+            var getAll = buyerRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
 
             // Act
@@ -450,7 +450,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
-            var getAll = buyerRepository.GetAllBuyers();
+            var getAll = buyerRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
             string buyerAddress = Faker.Address.StreetAddress();
             string buyerName = Faker.Name.FullName();
@@ -479,7 +479,7 @@ namespace Test.Donne.WebApi.Infrastructure.BuyerRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
-            var getAll = buyerRepository.GetAllBuyers();
+            var getAll = buyerRepository.GetAll();
             int idUltimo = getAll.ToList()[getAll.Count() - 1].BuyerId;
             string buyerAddress = Faker.Address.StreetAddress();
             string buyerName = Faker.Name.FullName();

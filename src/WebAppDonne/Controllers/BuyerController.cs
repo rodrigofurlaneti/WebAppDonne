@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
-using WebApi.Donne.Infrastructure;
 using System.Data.SqlClient;
+using WebApi.Donne.Infrastructure.Buyer;
 
 namespace WebApi.Donne.Controllers
 {
@@ -33,7 +33,7 @@ namespace WebApi.Donne.Controllers
             try
             {
                 BuyerRepository dal = new BuyerRepository(_logger);
-                var ret = await dal.GetAllBuyersAsync();
+                var ret = await dal.GetAllAsync();
                 _logger.Trace("GetBuyerAsync");
                 return Ok(ret);
             }

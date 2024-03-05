@@ -1,6 +1,6 @@
 ﻿using Domain.Donne;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.VehicleColor;
 
 namespace WebApi.Donne.Controllers
 {
@@ -26,7 +26,7 @@ namespace WebApi.Donne.Controllers
             try
             {
                 VehicleColorRepository dal = new VehicleColorRepository(_logger);
-                var ret = await dal.GetAllVehicleColorsAsync();
+                var ret = await dal.GetAllAsync();
                 this._logger.Trace("VehicleColor_GetAllAsync");
                 return Ok(ret);
             }

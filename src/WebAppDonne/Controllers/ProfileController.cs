@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.Profile;
 
 namespace WebApi.Donne.Controllers
 {
@@ -27,7 +27,7 @@ namespace WebApi.Donne.Controllers
             {
                 ProfileRepository dal = new ProfileRepository(_logger);
                 this._logger.Trace("GetProfileAsync");
-                var ret = await dal.GetAllProfilesAsync();
+                var ret = await dal.GetAllAsync();
                 return Ok(ret);
             }
             catch (Exception ex)

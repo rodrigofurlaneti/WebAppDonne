@@ -1,7 +1,8 @@
 ﻿using Domain.Donne;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.Order;
+using WebApi.Donne.Infrastructure.Product;
 using WebApi.Donne.Infrastructure.SeedWork;
 
 namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest

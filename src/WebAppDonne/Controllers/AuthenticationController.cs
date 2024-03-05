@@ -2,7 +2,8 @@
 using Domain.Donne;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.Authentication;
+using WebApi.Donne.Infrastructure.User;
 
 namespace WebApi.Donne.Controllers
 {
@@ -28,7 +29,7 @@ namespace WebApi.Donne.Controllers
             {
                 AuthenticationRepository dal = new AuthenticationRepository(_logger);
                 this._logger.Trace("User_GetUserAsync");
-                var ret = await dal.GetAllAuthenticationsAsync();
+                var ret = await dal.GetAllAsync();
                 return Ok(ret);
             }
             catch (Exception ex)

@@ -2,8 +2,8 @@
 using Domain.Donne;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using WebApi.Donne.Infrastructure;
 using WebApi.Donne.Infrastructure.SeedWork;
+using WebApi.Donne.Infrastructure.Vehicle;
 
 namespace Test.Donne.WebApi.Infrastructure.VehicleRepositoryTest
 {

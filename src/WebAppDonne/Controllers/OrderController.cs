@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.Order;
 
 namespace WebApi.Donne.Controllers
 {
@@ -26,7 +26,7 @@ namespace WebApi.Donne.Controllers
             try
             {
                 OrderRepository dal = new OrderRepository(_logger);
-                var ret = await dal.GetAllOrdersAsync();
+                var ret = await dal.GetAllAsync();
                 _logger.Trace("GetOrdersAsync");
                 return Ok(ret);
             }

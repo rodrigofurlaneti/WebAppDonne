@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.Category;
 
 namespace WebApi.Donne.Controllers
 {
@@ -26,7 +26,7 @@ namespace WebApi.Donne.Controllers
             try
             {
                 CategoryRepository dal = new CategoryRepository(_logger);
-                var ret = await dal.GetAllCategorysAsync();
+                var ret = await dal.GetAllAsync();
                 _logger.Trace("GetCategorysAsync");
                 return Ok(ret);
             }

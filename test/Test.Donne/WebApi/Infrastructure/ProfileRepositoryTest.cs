@@ -1,7 +1,7 @@
 ﻿using Domain.Donne;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using WebApi.Donne.Infrastructure;
+using WebApi.Donne.Infrastructure.Profile;
 using WebApi.Donne.Infrastructure.SeedWork;
 
 namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
