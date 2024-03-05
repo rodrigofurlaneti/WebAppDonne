@@ -21,7 +21,7 @@ namespace WebApi.Donne.Helpers
 
         public static string Encrypt(string plainStr, string KeyString)
         {
-            AesManaged aesEncryption = new AesManaged();
+            RijndaelManaged aesEncryption = new RijndaelManaged();
             aesEncryption.KeySize = 256;
             aesEncryption.BlockSize = 128;
             aesEncryption.Mode = CipherMode.ECB;
@@ -36,7 +36,7 @@ namespace WebApi.Donne.Helpers
 
         public static string Decrypt(string encryptedText, string KeyString)
         {
-            AesManaged aesEncryption = new AesManaged();
+            RijndaelManaged aesEncryption = new RijndaelManaged();
             aesEncryption.KeySize = 256;
             aesEncryption.BlockSize = 128;
             aesEncryption.Mode = CipherMode.ECB;
