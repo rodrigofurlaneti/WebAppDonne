@@ -82,10 +82,9 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
         }
 
         [TestMethod]
-        public async Task GetByIdAsync_Erro()
+        public void GetByIdAsync_Erro()
         {
             // Arrange
-            await InsertAsync_Sucesso();
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             PaymentController paymentController = new PaymentController(mockLogger.Object);
@@ -94,7 +93,6 @@ namespace Test.Donne.WebApi.Controllers.PaymentControllerTest
             var listPayment = objResult.Value as List<PaymentModel>;
             if (listPayment != null)
                 id = listPayment[0].PaymentId;
-
 
             //Setup
             mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());

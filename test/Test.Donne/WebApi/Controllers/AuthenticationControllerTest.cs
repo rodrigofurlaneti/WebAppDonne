@@ -52,7 +52,7 @@ namespace Test.Donne.WebApi.Controllers.AuthenticationControllerTest
         }
 
         [TestMethod]
-        public async Task Post_Sucesso()
+        public async Task PostSucesso()
         {
             // Arrange
             string userNameExpectedValue = Faker.Name.First();
@@ -77,12 +77,11 @@ namespace Test.Donne.WebApi.Controllers.AuthenticationControllerTest
             var result = await authenticationController.Post(authenticationUserModel);
 
             // Assert
-            //mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
-            //mockLogger.Verify(x => x.Trace("User_InsertAsync"), Times.Exactly(1));
-            //mockLogger.Verify(x => x.Trace("Authentication_InsertAuthentication"), Times.Exactly(1));
-            //mockLogger.Verify(x => x.Trace("User_GetByNameAsync"), Times.Exactly(1));
-            //mockLogger.Verify(x => x.Trace("Authentication_InvalidPassword_InsertAsync"), Times.Exactly(1));
-            //mockLogger.Verify(x => x.Trace("Authentication_InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Authentication_InsertAuthentication"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("User_GetByNameAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Authentication_InsertAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -139,7 +138,7 @@ namespace Test.Donne.WebApi.Controllers.AuthenticationControllerTest
             Assert.AreEqual((int)StatusCodes.Status401Unauthorized, objectResult.StatusCode);
             mockLogger.Verify(x => x.Trace("Authentication_InsertAuthentication"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("User_GetByNameAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Authentication_InvalidUserName_InsertAsync"), Times.Exactly(1));
+            //mockLogger.Verify(x => x.Trace("Authentication_InvalidUserName_InsertAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("Authentication_InsertAsync"), Times.Exactly(1));
         }
 

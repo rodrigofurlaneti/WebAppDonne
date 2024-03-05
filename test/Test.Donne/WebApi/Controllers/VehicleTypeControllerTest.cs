@@ -7,6 +7,7 @@ using Moq;
 using System.Net;
 using WebApi.Donne.Controllers;
 using WebApi.Donne.Infrastructure.SeedWork;
+using WebApi.Donne.Infrastructure.VehicleTypeRepository;
 
 namespace Test.Donne.WebApi.Controllers.VehicleTypeControllerTest
 {
@@ -54,13 +55,11 @@ namespace Test.Donne.WebApi.Controllers.VehicleTypeControllerTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleTypeController vehicleTypeController = new VehicleTypeController(mockLogger.Object);
-            var getAll = await vehicleTypeController.GetVehicleType();
-            var okResult = getAll as OkObjectResult;
-            var listVehicleTypeModel = (List<VehicleTypeModel>)okResult.Value;
-            var obj = listVehicleTypeModel.First();
+            VehicleTypeRepository vehicleTypeRepository = new VehicleTypeRepository(mockLogger.Object);
+            var getAll = await vehicleTypeRepository.GetAllAsync();
 
             // Act
-            var result = await vehicleTypeController.GetVehicleType(obj.VehicleTypeId);
+            var result = await vehicleTypeController.GetVehicleType(getAll.First().VehicleTypeId);
             ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
@@ -72,19 +71,17 @@ namespace Test.Donne.WebApi.Controllers.VehicleTypeControllerTest
         }
 
         [TestMethod]
-        public async Task GetById_Erro()
+        public void GetById_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleType_GetByIdAsync")).Throws(new Exception());
             VehicleTypeController vehicleTypeController = new VehicleTypeController(mockLogger.Object);
-            var getAll = await vehicleTypeController.GetVehicleType();
-            var okResult = getAll as OkObjectResult;
-            var listVehicleTypeModel = (List<VehicleTypeModel>)okResult.Value;
-            var obj = listVehicleTypeModel.First();
+            VehicleTypeRepository vehicleTypeRepository = new VehicleTypeRepository(mockLogger.Object);
+            var getAll = vehicleTypeRepository.GetAll();
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleTypeController.GetVehicleType(obj.VehicleTypeId));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleTypeController.GetVehicleType(getAll.First().VehicleTypeId));
 
             // Assert
             mockLogger.Verify(x => x.TraceException("VehicleType_GetByIdAsync"), Times.Exactly(1));
@@ -109,7 +106,7 @@ namespace Test.Donne.WebApi.Controllers.VehicleTypeControllerTest
         }
 
         [TestMethod]
-        public async Task Post_Erro()
+        public void Post_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
@@ -119,7 +116,6 @@ namespace Test.Donne.WebApi.Controllers.VehicleTypeControllerTest
             VehicleTypeModel vehicleTypeModel = fixture.Build<VehicleTypeModel>()
                 .With(vehicleTypeModel => vehicleTypeModel.VehicleTypeName, Faker.Name.First())
                 .Create<VehicleTypeModel>();
-
 
             // Act
             Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleTypeController.Post(vehicleTypeModel));
@@ -134,20 +130,17 @@ namespace Test.Donne.WebApi.Controllers.VehicleTypeControllerTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleTypeController vehicleTypeController = new VehicleTypeController(mockLogger.Object);
-
-            var getAll = await vehicleTypeController.GetVehicleType();
-            var okResult = getAll as OkObjectResult;
-            var listVehicleTypeModel = (List<VehicleTypeModel>)okResult.Value;
-            var obj = listVehicleTypeModel.First();
+            VehicleTypeRepository vehicleTypeRepository = new VehicleTypeRepository(mockLogger.Object);
+            var getAll = vehicleTypeRepository.GetAll();
             Fixture fixture = new Fixture();
             VehicleTypeModel vehicleTypeModel = fixture.Build<VehicleTypeModel>()
-                .With(vehicleTypeModel => vehicleTypeModel.VehicleTypeId, obj.VehicleTypeId)
+                .With(vehicleTypeModel => vehicleTypeModel.VehicleTypeId, getAll.First().VehicleTypeId)
                 .With(vehicleTypeModel => vehicleTypeModel.VehicleTypeName, Faker.Name.First())
                 .Create<VehicleTypeModel>();
 
             // Act
             await vehicleTypeController.Update(vehicleTypeModel);
-            var result = await vehicleTypeController.GetVehicleType(obj.VehicleTypeId);
+            var result = await vehicleTypeController.GetVehicleType(getAll.First().VehicleTypeId);
             ObjectResult objectResult = (ObjectResult)result;
             var vehicleTypeModelResult = (VehicleTypeModel)objectResult.Value;
 
@@ -156,24 +149,24 @@ namespace Test.Donne.WebApi.Controllers.VehicleTypeControllerTest
             Assert.IsNotNull(objectResult);
             Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
             Assert.AreEqual(vehicleTypeModelResult.VehicleTypeId, vehicleTypeModel.VehicleTypeId);
-            Assert.AreNotEqual(vehicleTypeModelResult.VehicleTypeName, obj.VehicleTypeName);
+            Assert.AreEqual(vehicleTypeModelResult.VehicleTypeName, vehicleTypeModel.VehicleTypeName);
+            Assert.AreNotEqual(vehicleTypeModelResult.VehicleTypeName, getAll.First().VehicleTypeName);
             mockLogger.Verify(x => x.Trace("VehicleType_UpdateAsync"), Times.Exactly(2));
         }
 
         [TestMethod]
-        public async Task Update_Erro()
+        public void Update_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleType_UpdateAsync")).Throws(new Exception());
             VehicleTypeController vehicleTypeController = new VehicleTypeController(mockLogger.Object);
-            var getAll = await vehicleTypeController.GetVehicleType();
-            var okResult = getAll as OkObjectResult;
-            var listVehicleTypeModel = (List<VehicleTypeModel>)okResult.Value;
-            var obj = listVehicleTypeModel.First();
+            VehicleTypeRepository vehicleTypeRepository = new VehicleTypeRepository(mockLogger.Object);
+            var getAll = vehicleTypeRepository.GetAll();
             Fixture fixture = new Fixture();
             VehicleTypeModel vehicleTypeModel = fixture.Build<VehicleTypeModel>()
-                .With(vehicleTypeModel => vehicleTypeModel.VehicleTypeId, obj.VehicleTypeId)
+                .With(vehicleTypeModel => vehicleTypeModel.VehicleTypeId, getAll.First().VehicleTypeId)
+                .With(vehicleTypeModel => vehicleTypeModel.VehicleTypeName, Faker.Name.First())
                 .Create<VehicleTypeModel>();
 
             // Act
@@ -189,32 +182,28 @@ namespace Test.Donne.WebApi.Controllers.VehicleTypeControllerTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             VehicleTypeController vehicleTypeController = new VehicleTypeController(mockLogger.Object);
-            var getAll = await vehicleTypeController.GetVehicleType();
-            var okResult = getAll as OkObjectResult;
-            var listVehicleTypeModel = (List<VehicleTypeModel>)okResult.Value;
-            var obj = listVehicleTypeModel.First();
+            VehicleTypeRepository vehicleTypeRepository = new VehicleTypeRepository(mockLogger.Object);
+            var getAll = vehicleTypeRepository.GetAll();
 
             // Act
-            await vehicleTypeController.Delete(obj.VehicleTypeId);
+            await vehicleTypeController.Delete(getAll.First().VehicleTypeId);
 
             // Assert
             mockLogger.Verify(x => x.Trace("VehicleType_DeleteAsync"), Times.Exactly(2));
         }
 
         [TestMethod]
-        public async Task Delete_Erro()
+        public void Delete_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("VehicleType_DeleteAsync")).Throws(new Exception());
             VehicleTypeController vehicleTypeController = new VehicleTypeController(mockLogger.Object);
-            var getAll = await vehicleTypeController.GetVehicleType();
-            var okResult = getAll as OkObjectResult;
-            var listVehicleTypeModel = (List<VehicleTypeModel>)okResult.Value;
-            var obj = listVehicleTypeModel.First();
+            VehicleTypeRepository vehicleTypeRepository = new VehicleTypeRepository(mockLogger.Object);
+            var getAll = vehicleTypeRepository.GetAll();
 
             // Act
-            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleTypeController.Delete(obj.VehicleTypeId));
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleTypeController.Delete(getAll.First().VehicleTypeId));
 
             // Assert
             mockLogger.Verify(x => x.TraceException("VehicleType_DeleteAsync"), Times.Exactly(1));

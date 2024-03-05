@@ -25,14 +25,14 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
+                this._logger.Trace("GetOrdersAsync");
                 OrderRepository dal = new OrderRepository(_logger);
                 var ret = await dal.GetAllAsync();
-                _logger.Trace("GetOrdersAsync");
                 return Ok(ret);
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
-                _logger.TraceException("GetAllOrdersAsync");
+                this._logger.TraceException("GetAllOrdersAsync");
                 string mensagem = "Erro ao consumir a controler Order, rota GetAllOrdersAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }

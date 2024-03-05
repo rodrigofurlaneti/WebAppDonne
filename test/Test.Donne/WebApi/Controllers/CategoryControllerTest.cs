@@ -75,10 +75,9 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
         }
 
         [TestMethod]
-        public async Task GetByIdAsync_Erro()
+        public void GetByIdAsync_Erro()
         {
             // Arrange
-            await InsertAsync_Sucesso();
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 

@@ -83,7 +83,6 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
         public void GetByIdAsync_Erro()
         {
             // Arrange
-            InsertAsync_Sem_Retorno_Sucesso();
             int id = 0;
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
@@ -107,7 +106,6 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
         public void GetById_Retorno_Diferente_Nulo_Sucesso()
         {
             // Arrange
-            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProfileRepository profileRepository = new ProfileRepository(mockLogger.Object);
             var getAll = profileRepository.GetAll();
@@ -126,7 +124,6 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
         public void GetById_Retorno_Objeto_Populado_Sucesso()
         {
             // Arrange
-            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProfileRepository profileRepository = new ProfileRepository(mockLogger.Object);
             var getAll = profileRepository.GetAll();
@@ -287,7 +284,6 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
         public void Delete_Sem_Retorno_Sucesso()
         {
             // Arrange
-            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProfileRepository profileRepository = new ProfileRepository(mockLogger.Object);
             var getAll = profileRepository.GetAll();
@@ -305,7 +301,6 @@ namespace Test.Donne.WebApi.Infrastructure.ProfileRepositoryTest
         public async Task DeleteAsync_Sem_Retorno_Sucesso()
         {
             // Arrange
-            InsertAsync_Sem_Retorno_Sucesso();
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             ProfileRepository profileRepository = new ProfileRepository(mockLogger.Object);
             var getAll = profileRepository.GetAll();
