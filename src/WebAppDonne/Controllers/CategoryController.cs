@@ -45,13 +45,13 @@ namespace WebApi.Donne.Controllers
             try
             {
                 CategoryRepository dal = new CategoryRepository(_logger);
+                this._logger.Trace("Category_GetByIdAsync");
                 var ret = await dal.GetByIdAsync(id);
-                _logger.Trace("GetByIdAsync");
                 return Ok(ret);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("GetByIdAsync");
+                this._logger.TraceException("Category_GetByIdAsync");
                 string mensagem = "Erro ao consumir a controler Category, rota GetAllCategorysAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
@@ -65,11 +65,11 @@ namespace WebApi.Donne.Controllers
             {
                 CategoryRepository dal = new CategoryRepository(_logger);
                 await dal.InsertAsync(CategoryModel);
-                _logger.Trace("InsertAsync");
+                _logger.Trace("Category_InsertAsync");
             }
             catch (Exception ex)
             {
-                _logger.TraceException("InsertAsync");
+                _logger.TraceException("Category_InsertAsync");
                 string mensagem = "Erro ao consumir a controler Category, rota Post " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }

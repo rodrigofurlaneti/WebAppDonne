@@ -16,110 +16,122 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<OrderModel> GetAllOrders()
         {
-            commandText = "USP_Donne_Order_GetAll";
-            List<OrderModel> listOrderModel = new List<OrderModel>();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            try
             {
-                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlConnection.Open();
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                while (sqlDataReader.Read())
+                commandText = "USP_Donne_Order_GetAll";
+                List<OrderModel> listOrderModel = new List<OrderModel>();
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    GetListOrderModel(sqlDataReader, listOrderModel);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
+                    {
+                        GetListOrderModel(sqlDataReader, listOrderModel);
+                    }
                 }
+                logger.Trace("Order_GetAll");
+                return listOrderModel;
             }
-            logger.Trace("Order_GetAll");
-            return listOrderModel;
+            catch (ArgumentNullException ex)
+            {
+                string mensagemErro = "Erro ao lista os pedidos, utilizando a procedure USP_OrderGetAll síncrono " + ex.Message;
+                this.logger.TraceException("Order_GetAll");
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
 
         public async Task<IEnumerable<OrderModel>> GetAllOrdersAsync()
         {
-            commandText = "USP_Donne_Order_GetAll";
-            List<OrderModel> listOrderModel = new List<OrderModel>();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlConnection.Open();
-                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
-                while (sqlDataReader.Read())
+                commandText = "USP_Donne_Order_GetAll";
+                List<OrderModel> listOrderModel = new List<OrderModel>();
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    GetListOrderModel(sqlDataReader, listOrderModel);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
+                    {
+                        GetListOrderModel(sqlDataReader, listOrderModel);
+                    }
+                    this.logger.Trace("Order_GetAllAsync");
                 }
-                logger.Trace("Order_GetAllAsync");
+
                 return listOrderModel;
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
-                string mensagemErro = "Erro ao lista os pedidos, utilizando a procedure USP_OrderGetAll assíncrono " + ex.Message;
                 this.logger.TraceException("Order_GetAllAsync");
+                string mensagemErro = "Erro ao lista os pedidos, utilizando a procedure USP_OrderGetAll assíncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
         }
 
         public OrderModel GetById(int id)
         {
-            commandText = "USP_Donne_Order_GetById";
-            OrderModel orderModel = new OrderModel();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            try
             {
-                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@OrderId", id);
-                sqlConnection.Open();
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                while (sqlDataReader.Read())
+                commandText = "USP_Donne_Order_GetById";
+                OrderModel orderModel = new OrderModel();
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    GetOrderModel(sqlDataReader, orderModel);
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("@OrderId", id);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
+                    {
+                        GetOrderModel(sqlDataReader, orderModel);
+                    }
                 }
+                logger.Trace("Order_GetById");
+                return orderModel;
             }
-            logger.Trace("GetById");
-            return orderModel;
+            catch (ArgumentNullException ex)
+            {
+                this.logger.TraceException("Order_GetById");
+                string mensagemErro = "Erro ao lista os pedidos, utilizando a procedure USP_OrderGetById síncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
         }
 
         public async Task<OrderModel> GetByIdAsync(int id)
         {
-            commandText = "USP_Donne_Order_GetById";
-            OrderModel orderModel = new OrderModel();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             try
             {
-                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@OrderId", id);
-                sqlConnection.Open();
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
-                while (sqlDataReader.Read())
-                {
-                    GetOrderModel(sqlDataReader, orderModel);
-                }
+                commandText = "USP_Donne_Order_GetById";
+                OrderModel orderModel = new OrderModel();
                 logger.Trace("Order_GetByIdAsync");
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                {
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("@OrderId", id);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
+                    {
+                        GetOrderModel(sqlDataReader, orderModel);
+                    }
+                }
+
                 return orderModel;
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
-                string mensagemErro = "Erro ao lista os pedidos, utilizando a procedure USP_OrderGetById assíncrono " + ex.Message;
                 this.logger.TraceException("Order_GetByIdAsync");
+                string mensagemErro = "Erro ao lista os pedidos, utilizando a procedure USP_OrderGetById assíncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
         }
 
         public void Insert(OrderModel orderModel)
-        {
-            commandText = "USP_Donne_Order_Insert";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            GetSqlCommandOrderModelInsert(sqlCommand, orderModel);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.ExecuteNonQuery();
-            sqlConnection.Close();
-            logger.Trace("Donne_Insert");
-        }
-
-        public async Task InsertAsync(OrderModel orderModel)
         {
             try
             {
@@ -129,14 +141,38 @@ namespace WebApi.Donne.Infrastructure
                 GetSqlCommandOrderModelInsert(sqlCommand, orderModel);
                 sqlConnection.Open();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+                logger.Trace("Order_Insert");
+            }
+            catch (ArgumentNullException ex)
+            {
+                this.logger.TraceException("Order_Insert");
+                string mensagemErro = "Erro ao lista os pedidos, utilizando a procedure USP_Insert síncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+        }
+
+        public async Task InsertAsync(OrderModel orderModel)
+        {
+            try
+            {
+                this.logger.Trace("Order_InsertAsync");
+                commandText = "USP_Donne_Order_Insert";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandOrderModelInsert(sqlCommand, orderModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
                 await sqlCommand.ExecuteNonQueryAsync();
                 sqlConnection.Close();
                 await UpdateProduct(orderModel);
+
             }
             catch (Exception ex)
             {
+                this.logger.TraceException("Order_InsertAsync");
                 string mensagemErro = "Erro ao inserir um novo pedido, utilizando a procedure USP_Donne_Order_Insert assíncrono " + ex.Message;
-                this.logger.TraceException("Order_GetByIdAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
         }
@@ -144,22 +180,34 @@ namespace WebApi.Donne.Infrastructure
 
         public void Delete(int OrderId)
         {
-            commandText = "USP_Donne_Order_Delete";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            sqlCommand.Parameters.AddWithValue("@OrderId", OrderId);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.ExecuteNonQuery();
-            sqlConnection.Close();
-            logger.Trace("Order_Delete");
+            try
+            {
+                this.logger.Trace("Order_Delete");
+                commandText = "USP_Donne_Order_Delete";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@OrderId", OrderId);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+
+            }
+            catch (ArgumentNullException ex)
+            {
+                this.logger.TraceException("Order_Delete");
+                string mensagemErro = "Erro ao inserir um novo pedido, utilizando a procedure USP_Donne_Delete síncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+
         }
 
         public async Task DeleteAsync(int OrderId)
         {
             try
             {
-                commandText = "USP_Donne_Order_GetAll";
+                this.logger.Trace("Order_DeleteAsync");
+                commandText = "USP_Donne_Order_Delete";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@OrderId", OrderId);
@@ -167,7 +215,6 @@ namespace WebApi.Donne.Infrastructure
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 await sqlCommand.ExecuteNonQueryAsync();
                 sqlConnection.Close();
-                this.logger.Trace("Order_DeleteAsync");
             }
             catch (Exception ex)
             {
@@ -180,22 +227,32 @@ namespace WebApi.Donne.Infrastructure
 
         public void Update(OrderModel orderModel)
         {
-            commandText = "USP_Donne_Order_GetAll";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            GetSqlCommandOrderModelUpdate(sqlCommand, orderModel);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.ExecuteNonQuery();
-            sqlConnection.Close();
-            logger.Trace("Update");
+            try
+            {
+                commandText = "USP_Donne_Order_Update";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandOrderModelUpdate(sqlCommand, orderModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+                logger.Trace("Order_Update");
+            }
+            catch (ArgumentNullException ex)
+            {
+                string mensagemErro = "Erro ao excluir o pedido, utilizando a procedure USP_Donne_Order_Update síncrono " + ex.Message;
+                this.logger.TraceException("Order_Update");
+                throw new ArgumentNullException(mensagemErro);
+            }
         }
 
         public async Task UpdateAsync(OrderModel orderModel)
         {
             try
             {
-                commandText = "USP_Donne_Order_GetAll";
+                this.logger.Trace("Order_UpdateAsync");
+                commandText = "USP_Donne_Order_Update";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                 GetSqlCommandOrderModelUpdate(sqlCommand, orderModel);
@@ -203,12 +260,11 @@ namespace WebApi.Donne.Infrastructure
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 await sqlCommand.ExecuteNonQueryAsync();
                 sqlConnection.Close();
-                this.logger.Trace("Order_UpdateAsync");
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
-                string mensagemErro = "Erro ao atualizar o pedido, utilizando a procedure USP_Donne_Order_Update assíncrono " + ex.Message;
                 this.logger.TraceException("Order_UpdateAsync");
+                string mensagemErro = "Erro ao atualizar o pedido, utilizando a procedure USP_Donne_Order_Update assíncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
 

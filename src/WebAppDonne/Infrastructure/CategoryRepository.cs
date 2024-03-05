@@ -152,7 +152,7 @@ namespace WebApi.Donne.Infrastructure
             catch (Exception ex)
             {
                 string mensagemErro = "Erro ao inserir uma nova categoria, utilizando a procedure USP_Donne_Category_Insert assíncrono " + ex.Message;
-                logger.TraceException("Donne_InsertAsync");
+                logger.TraceException("Category_InsertAsync");
                 throw new ArgumentNullException(mensagemErro);
             }
         }

@@ -5,7 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Net;
 using WebApi.Donne.Controllers;
-using WebApi.Donne.Infrastructure;
 using WebApi.Donne.Infrastructure.SeedWork;
 
 namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
@@ -72,8 +71,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
 
             mockLogger.Verify(x => x.Trace("Category_GetAllAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("GetCategorysAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("Category_GetByIdAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Category_GetByIdAsync"), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -85,7 +83,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             // Setup
-            mockLogger.Setup(x => x.Trace("GetByIdAsync")).Throws(new Exception());
+            mockLogger.Setup(x => x.Trace("Category_GetByIdAsync")).Throws(new Exception());
             CategoryController categoryController = new CategoryController(mockLogger.Object);
             var getAll = categoryController.GetCategory();
             var objResult = (OkObjectResult)getAll.Result;
@@ -98,7 +96,8 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             Assert.ThrowsExceptionAsync<ArgumentNullException>(resultAction);
 
             //Assert
-            mockLogger.Verify(x => x.TraceException("GetByIdAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Category_GetAllAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.TraceException("Category_GetByIdAsync"), Times.Exactly(1));
         }
 
         [TestMethod]
@@ -122,8 +121,7 @@ namespace Test.Donne.WebApi.Controllers.CategoryControllerTest
             await categoryController.Post(categoryModel);
 
             // Assert
-            mockLogger.Verify(x => x.Trace("Category_InsertAsync"), Times.Exactly(1));
-            mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Category_InsertAsync"), Times.Exactly(2));
         }
 
         [TestMethod]
