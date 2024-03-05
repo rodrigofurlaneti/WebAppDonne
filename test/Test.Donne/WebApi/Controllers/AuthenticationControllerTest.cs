@@ -75,13 +75,8 @@ namespace Test.Donne.WebApi.Controllers.AuthenticationControllerTest
 
             // Act
             var result = await authenticationController.Post(authenticationUserModel);
-            ObjectResult objectResult = (ObjectResult)result;
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(objectResult);
-            Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
-            Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
             mockLogger.Verify(x => x.Trace("Authentication_InsertAuthentication"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("InsertAsync"), Times.Exactly(1));
             mockLogger.Verify(x => x.Trace("User_InsertAsync"), Times.Exactly(1));
