@@ -100,7 +100,7 @@ namespace WebApi.Donne.Infrastructure
 
         public async Task<IEnumerable<Vehicle>> GetByParkedAsync(int status)
         {
-            commandText = "USP_VehicleGetParked";
+            commandText = "USP_VehicleGetByParked";
             List<Vehicle> listVehicleModel = new List<Vehicle>();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))

@@ -241,5 +241,52 @@ namespace Test.Donne.WebApi.Controllers.VehicleControllerTest
             // Assert
             mockLogger.Verify(x => x.TraceException("Vehicle_DeleteAsync"), Times.Exactly(1));
         }
+
+        [TestMethod]
+        public async Task Options_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            VehicleController vehicleController = new VehicleController(mockLogger.Object);
+            var getAll = await vehicleController.GetVehicle();
+            var okResult = getAll as OkObjectResult;
+            var listVehicleModel = (List<Vehicle>)okResult.Value;
+            var obj = listVehicleModel.First();
+
+            // Act
+            var result = await vehicleController.OptionsAsync(obj.Parked);
+            ObjectResult objectResult = (ObjectResult)result;
+            var vehicleResult = (List<Vehicle>)objectResult.Value;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(objectResult);
+            Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
+            Assert.AreEqual(vehicleResult.First().Parked, obj.Parked);
+            mockLogger.Verify(x => x.Trace("Vehicle_GetAllAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.Trace("Vehicle_OptionsAsync"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("Vehicle_GetByParkedAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public async Task Options_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("Vehicle_OptionsAsync")).Throws(new Exception());
+            VehicleController vehicleController = new VehicleController(mockLogger.Object);
+            var getAll = await vehicleController.GetVehicle();
+            var okResult = getAll as OkObjectResult;
+            var listVehicleModel = (List<Vehicle>)okResult.Value;
+            var obj = listVehicleModel.First();
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentException>(() => vehicleController.OptionsAsync(obj.Parked));
+
+            // Assert
+            mockLogger.Verify(x => x.Trace("Vehicle_GetAllAsync"), Times.Exactly(2));
+            mockLogger.Verify(x => x.TraceException("Vehicle_OptionsAsync"), Times.Exactly(1));
+
+        }
     }
 }

@@ -45,13 +45,13 @@ namespace WebApi.Donne.Controllers
             try
             {
                 VehicleRepository dal = new VehicleRepository(_logger);
-                _logger.Trace("OptionsAsync");
+                _logger.Trace("Vehicle_OptionsAsync");
                 var ret = await dal.GetByParkedAsync(id);
                 return Ok(ret);
             }
             catch (Exception ex)
             {
-                _logger.TraceException("OptionsAsync");
+                _logger.TraceException("Vehicle_OptionsAsync");
                 string mensagem = "Erro ao consumir a controler Vehicle, rota OptionsAsync " + ex.Message;
                 throw new ArgumentNullException(mensagem);
             }
