@@ -16,114 +16,148 @@ namespace WebApi.Donne.Infrastructure
 
         public IEnumerable<AuthenticationModel> GetAllAuthentications()
         {
-            commandText = "USP_Donne_Authentication_GetAll";
-            List<AuthenticationModel> listAuthenticationModel = new List<AuthenticationModel>();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            try
             {
-                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlConnection.Open();
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                while (sqlDataReader.Read())
-                {
-                    GetListAuthenticationModel(sqlDataReader, listAuthenticationModel);
-                }
-            }
-            logger.Trace("Authentication_GetAll");
-            return listAuthenticationModel;
-        }
-
-        public async Task<IEnumerable<AuthenticationModel>> GetAllAuthenticationsAsync()
-        {
-            commandText = "USP_Donne_Authentication_GetAll";
-            List<AuthenticationModel> listAuthenticationModel = new List<AuthenticationModel>();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-                try
+                this.logger.Trace("Authentication_GetAll");
+                commandText = "USP_Donne_Authentication_GetAll";
+                List<AuthenticationModel> listAuthenticationModel = new List<AuthenticationModel>();
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
                     SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlConnection.Open();
-                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                     while (sqlDataReader.Read())
                     {
                         GetListAuthenticationModel(sqlDataReader, listAuthenticationModel);
                     }
-                    logger.Trace("Authentication_GetAllAsync");
+                }
+                return listAuthenticationModel;
+            }
+            catch (Exception ex)
+            {
+                this.logger.TraceException("Authentication_GetAll");
+                string mensagem = "Erro ao consumir a controler Authentication, rota GetAllAuthentication " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+        }
+
+        public async Task<IEnumerable<AuthenticationModel>> GetAllAuthenticationsAsync()
+        {
+                try
+                {
+                    this.logger.Trace("Authentication_GetAllAsync");
+                    commandText = "USP_Donne_Authentication_GetAll";
+                    List<AuthenticationModel> listAuthenticationModel = new List<AuthenticationModel>();
+                    using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                    {
+                        SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlConnection.Open();
+                        SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                        while (sqlDataReader.Read())
+                        {
+                            GetListAuthenticationModel(sqlDataReader, listAuthenticationModel);
+                        }
+                    }
+
                     return listAuthenticationModel;
                 }
                 catch (Exception ex)
                 {
+                    this.logger.TraceException("Authentication_GetAllAsync");
                     string mensagem = "Erro ao consumir a controler Authentication, rota GetAuthenticationAsync " + ex.Message;
-                    logger.TraceException("GetAllAuthenticationAsync");
                     throw new ArgumentNullException(mensagem);
                 }
-
         }
 
         public AuthenticationModel GetById(int id)
         {
-            commandText = "USP_Donne_Authentication_GetById";
-            AuthenticationModel AuthenticationModel = new AuthenticationModel();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            try
             {
-                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@Id", id);
-                sqlConnection.Open();
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                while (sqlDataReader.Read())
+                this.logger.Trace("Authentication_GetById");
+                commandText = "USP_Donne_Authentication_GetById";
+                AuthenticationModel AuthenticationModel = new AuthenticationModel();
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    GetAuthenticationModel(sqlDataReader, AuthenticationModel);
-                }
-            }
-            logger.Trace("Authentication_GetById");
-            return AuthenticationModel;
-        }
-
-        public async Task<AuthenticationModel> GetByIdAsync(int id)
-        {
-            commandText = "USP_Donne_Authentication_GetById";
-            AuthenticationModel AuthenticationModel = new AuthenticationModel();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-                try
-                {
-                    logger.Trace("Authentication_GetById_Async");
                     SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.Parameters.AddWithValue("@Id", id);
                     sqlConnection.Open();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                     while (sqlDataReader.Read())
                     {
                         GetAuthenticationModel(sqlDataReader, AuthenticationModel);
                     }
+                }
+
+                return AuthenticationModel;
+            }
+            catch (Exception ex)
+            {
+                this.logger.TraceException("Authentication_GetById");
+                string mensagem = "Erro ao consumir a controler Authentication, rota GetById " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+        }
+
+        public async Task<AuthenticationModel> GetByIdAsync(int id)
+        {
+                try
+                {
+                    this.logger.Trace("Authentication_GetByIdAsync");
+                    commandText = "USP_Donne_Authentication_GetById";
+                    AuthenticationModel AuthenticationModel = new AuthenticationModel();
+                    using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                    {
+                        SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                        sqlCommand.Parameters.AddWithValue("@Id", id);
+                        sqlConnection.Open();
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                        while (sqlDataReader.Read())
+                        {
+                            GetAuthenticationModel(sqlDataReader, AuthenticationModel);
+                        }
+                    }
+
                     return AuthenticationModel;
                 }
                 catch (Exception ex)
                 {
+                    this.logger.TraceException("Authentication_GetByIdAsync");
                     string mensagem = "Erro ao consumir a controler Authentication, rota GetByIdAsync " + ex.Message;
-                    logger.TraceException("GetByIdAsync");
                     throw new ArgumentNullException(mensagem);
                 }
         }
 
         public void Insert(AuthenticationModel AuthenticationModel)
         {
-            commandText = "USP_Donne_Authentication_Insert";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-            GetSqlCommandAuthenticationModelInsert(sqlCommand, AuthenticationModel);
-            sqlConnection.Open();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.ExecuteNonQuery();
-            sqlConnection.Close();
-            logger.Trace("Authentication_Insert");
+            try
+            {
+                this.logger.Trace("Authentication_Insert");
+                commandText = "USP_Donne_Authentication_Insert";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                GetSqlCommandAuthenticationModelInsert(sqlCommand, AuthenticationModel);
+                sqlConnection.Open();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                this.logger.TraceException("Authentication_Insert");
+                string mensagem = "Erro ao consumir a controler Authentication, rota Insert " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
         }
 
         public async Task InsertAsync(AuthenticationModel AuthenticationModel)
         {
             try
             {
+                this.logger.Trace("Authentication_InsertAsync");
                 commandText = "USP_Donne_Authentication_Insert";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
@@ -132,15 +166,13 @@ namespace WebApi.Donne.Infrastructure
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 await sqlCommand.ExecuteNonQueryAsync();
                 sqlConnection.Close();
-                logger.Trace("Authentication_InsertAsync");
             }
             catch (Exception ex)
             {
+                this.logger.TraceException("Authentication_InsertAsync");
                 string mensagem = "Erro ao consumir a controler Authentication, rota InsertAsync " + ex.Message;
-                logger.TraceException("Authentication_InsertAsync");
                 throw new ArgumentNullException(mensagem);
             }
-
         }
 
         #endregion
