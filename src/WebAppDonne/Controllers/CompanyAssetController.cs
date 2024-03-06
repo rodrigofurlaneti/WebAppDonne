@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
-using System.Data.SqlClient;
 using WebApi.Donne.Infrastructure.CompanyAsset;
 
 namespace WebApi.Donne.Controllers
@@ -65,13 +64,13 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpPost(Name = "InsertCompanyAsset")]
-        public async Task Post(CompanyAssetModel buyerModel)
+        public async Task Post(CompanyAssetModel companyAssetModel)
         {
             try
             {
                 CompanyAssetRepository dal = new CompanyAssetRepository(_logger);
                 _logger.Trace("InsertAsync");
-                await dal.InsertAsync(buyerModel);
+                await dal.InsertAsync(companyAssetModel);
             }
             catch (Exception ex)
             {
@@ -83,13 +82,13 @@ namespace WebApi.Donne.Controllers
         }
 
         [HttpPut(Name = "UpdateCompanyAsset")]
-        public async Task Update(CompanyAssetModel buyerModel)
+        public async Task Update(CompanyAssetModel companyAssetModel)
         {
             try
             {
                 CompanyAssetRepository dal = new CompanyAssetRepository(_logger);
                 _logger.Trace("UpdateAsync");
-                await dal.UpdateAsync(buyerModel);
+                await dal.UpdateAsync(companyAssetModel);
             }
             catch (Exception ex)
             {
