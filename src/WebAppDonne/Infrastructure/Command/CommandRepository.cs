@@ -29,7 +29,7 @@ namespace WebApi.Donne.Infrastructure.Command
                     GetListCommandModel(sqlDataReader, listCommandsModel);
                 }
             }
-            logger.Trace("Command_GetAll");
+            this.logger.Trace("Command_GetAll");
             return listCommandsModel;
         }
 

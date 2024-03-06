@@ -2,6 +2,7 @@
 using Domain.Donne;
 using System.Data.SqlClient;
 using WebApi.Donne.Infrastructure.Buyer;
+using WebApi.Donne.Service.Buyer;
 
 namespace WebApi.Donne.Controllers
 {
@@ -108,8 +109,11 @@ namespace WebApi.Donne.Controllers
             try
             {
                 BuyerRepository dal = new BuyerRepository(_logger);
+                BuyerService buyerService = new BuyerService(_logger);
                 _logger.Trace("UpdateAsync");
                 await dal.UpdateAsync(buyerModel);
+                buyerService.UpdateCustomersNameInCommand(buyerModel);
+
             }
             catch (Exception ex)
             {

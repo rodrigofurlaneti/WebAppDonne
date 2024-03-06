@@ -253,6 +253,7 @@ namespace WebApi.Donne.Infrastructure.Buyer
             logger.Trace("Buyer_UpdateAsync");
             await sqlCommand.ExecuteNonQueryAsync();
             sqlConnection.Close();
+
         }
 
         #endregion
