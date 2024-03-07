@@ -8,5 +8,6 @@ namespace WebApi.Donne.Service.Command
         public Task<IEnumerable<CommandModel>> GetAllAsync();
         public void Update(CommandModel commandModel);
         public Task UpdateAsync(CommandModel commandModel);
+        public void UpdateStatusCustomer(CommandModel commandModel);
     }
 }

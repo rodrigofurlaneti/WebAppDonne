@@ -1,4 +1,5 @@
 ﻿using Domain.Donne;
+using WebApi.Donne.Infrastructure.Buyer;
 
 namespace WebApi.Donne.Service.Buyer
 {
@@ -20,6 +21,44 @@ namespace WebApi.Donne.Service.Buyer
         #endregion
 
         #region Methods
+
+        public IEnumerable<BuyerModel> GetAll()
+        {
+            try
+            {
+                this._logger.Trace("BuyerService_GetAll_Entry");
+                BuyerModel buyerModel = new BuyerModel();
+                BuyerRepository buyerRepository = new BuyerRepository(_logger);
+                var listbuyerModel = buyerRepository.GetAll();
+                this._logger.Trace("BuyerService_GetAll_Exit");
+                return listbuyerModel;
+            }
+            catch (ArgumentNullException ex)
+            {
+                this._logger.TraceException("BuyerService_GetAll");
+                string mensagemErro = "Erro ao consumir a classe BuyerService, método GetAll, síncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+        }
+
+        public async Task<IEnumerable<BuyerModel>> GetAllAsync()
+        {
+            try
+            {
+                this._logger.Trace("BuyerService_GetAllAsync_Entry");
+                BuyerModel buyerModel = new BuyerModel();
+                BuyerRepository buyerRepository = new BuyerRepository(_logger);
+                var listbuyerModel = await buyerRepository.GetAllAsync();
+                this._logger.Trace("BuyerService_GetAllAsync_Exit");
+                return listbuyerModel;
+            }
+            catch (ArgumentNullException ex)
+            {
+                this._logger.TraceException("BuyerService_GetAllAsync");
+                string mensagemErro = "Erro ao consumir a classe BuyerService, método GetAllAsync, assíncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+        }
 
         public void UpdateCustomersNameInCommand(BuyerModel buyerModel)
         {
@@ -92,6 +131,79 @@ namespace WebApi.Donne.Service.Buyer
                 throw new ArgumentNullException(mensagemErro);
             }
         }
+
+        public BuyerModel GetById(int buyerId)
+        {
+            try
+            {
+                this._logger.Trace("BuyerService_GetById_Entry");
+                BuyerModel buyerModel = new BuyerModel();
+                BuyerRepository buyerRepository = new BuyerRepository(_logger);
+                buyerModel = buyerRepository.GetById(buyerId);
+                this._logger.Trace("BuyerService_GetById_Exit");
+                return buyerModel;
+            }
+            catch (ArgumentNullException ex)
+            {
+                this._logger.TraceException("BuyerService_GetById");
+                string mensagemErro = "Erro ao consumir a classe BuyerService, método GetById, síncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+        }
+
+        public async Task<BuyerModel> GetByIdAsync(int buyerId)
+        {
+            try
+            {
+                this._logger.Trace("BuyerService_GetByIdAsync_Entry");
+                BuyerModel buyerModel = new BuyerModel();
+                BuyerRepository buyerRepository = new BuyerRepository(_logger);
+                buyerModel = await buyerRepository.GetByIdAsync(buyerId);
+                this._logger.Trace("BuyerService_GetByIdAsync_Exit");
+                return buyerModel;
+            }
+            catch (ArgumentNullException ex)
+            {
+                this._logger.TraceException("BuyerService_GetByIdAsync");
+                string mensagemErro = "Erro ao consumir a classe BuyerService, método GetById, assíncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+        }
+
+        public void Update(BuyerModel buyerModel)
+        {
+            try
+            {
+                this._logger.Trace("BuyerService_Update_Entry");
+                BuyerRepository buyerRepository = new BuyerRepository(_logger);
+                buyerRepository.Update(buyerModel);
+                this._logger.Trace("BuyerService_Update_Exit");
+            }
+            catch (ArgumentNullException ex)
+            {
+                this._logger.TraceException("BuyerService_Update");
+                string mensagemErro = "Erro ao consumir a classe BuyerService, método Update, síncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+        }
+
+        public async Task UpdateAsync(BuyerModel buyerModel)
+        {
+            try
+            {
+                this._logger.Trace("BuyerService_UpdateAsync_Entry");
+                BuyerRepository buyerRepository = new BuyerRepository(_logger);
+                await buyerRepository.UpdateAsync(buyerModel);
+                this._logger.Trace("BuyerService_UpdateAsync_Exit");
+            }
+            catch (ArgumentNullException ex)
+            {
+                this._logger.TraceException("BuyerService_UpdateAsync");
+                string mensagemErro = "Erro ao consumir a classe BuyerService, método UpdateAsync, assíncrono " + ex.Message;
+                throw new ArgumentNullException(mensagemErro);
+            }
+        }
+
 
         #endregion
     }

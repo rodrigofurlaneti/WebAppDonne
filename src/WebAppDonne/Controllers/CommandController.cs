@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Donne;
 using WebApi.Donne.Infrastructure.Command;
+using WebApi.Donne.Service.Buyer;
+using WebApi.Donne.Service;
+using WebApi.Donne.Service.Command;
 
 namespace WebApi.Donne.Controllers
 {
@@ -83,9 +86,11 @@ namespace WebApi.Donne.Controllers
         {
             try
             {
-                CommandRepository dal = new CommandRepository(_logger);
                 this._logger.Trace("InsertReturnIntAsync");
+                CommandRepository dal = new CommandRepository(_logger);
+                CommandService commandService = new CommandService(_logger);
                 var ret = await dal.InsertReturnIdAsync(commandModel);
+                await commandService.UpdateStatusCustomerAsync(commandModel);
                 return Ok(ret);
             }
             catch (Exception ex)

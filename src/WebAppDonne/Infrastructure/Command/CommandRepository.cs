@@ -127,7 +127,7 @@ namespace WebApi.Donne.Infrastructure.Command
             return commandModel;
         }
 
-        public async Task<CommandModel> GetByIdAsync(int id)
+        public async Task<CommandModel> GetByIdAsync(int commandId)
         {
             CommandModel commandModel = new CommandModel();
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
@@ -135,7 +135,7 @@ namespace WebApi.Donne.Infrastructure.Command
                 {
                     commandText = "USP_Donne_Command_GetById";
                     SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
-                    sqlCommand.Parameters.AddWithValue("@CommandId", id);
+                    sqlCommand.Parameters.AddWithValue("@CommandId", commandId);
                     sqlConnection.Open();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();

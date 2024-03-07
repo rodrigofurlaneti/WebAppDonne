@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Net;
 using WebApi.Donne.Controllers;
+using WebApi.Donne.Infrastructure.Buyer;
 using WebApi.Donne.Infrastructure.SeedWork;
 
 namespace Test.Donne.WebApi.Controllers.CommandControllerTest
@@ -155,8 +156,10 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             CommandController commandController = new CommandController(mockLogger.Object);
-            int buyerId = Faker.RandomNumber.Next(0, 100);
-            string buyerName = Faker.Name.FullName();
+            BuyerRepository buyerRepository = new BuyerRepository(mockLogger.Object);
+            var buyer = await buyerRepository.GetAllAsync();
+            int buyerId = buyer.First().BuyerId;
+            string buyerName = buyer.First().BuyerName;
             int commandId = Faker.RandomNumber.Next(0, 100);
             int userId = Faker.RandomNumber.Next(0, 100);
             string userName = Faker.Name.First();

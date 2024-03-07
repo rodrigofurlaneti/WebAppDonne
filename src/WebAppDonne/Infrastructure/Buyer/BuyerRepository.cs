@@ -284,8 +284,8 @@ namespace WebApi.Donne.Infrastructure.Buyer
             sqlCommand.Parameters.AddWithValue("@BuyerName", buyerModel.BuyerName);
             sqlCommand.Parameters.AddWithValue("@BuyerPhone", buyerModel.BuyerPhone);
             sqlCommand.Parameters.AddWithValue("@BuyerAddress", buyerModel.BuyerAddress);
-            sqlCommand.Parameters.AddWithValue("@DateInsert", buyerModel.DateInsert);
-            sqlCommand.Parameters.AddWithValue("@DateUpdate", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@DateInsert", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@DateUpdate", buyerModel.DateUpdate);
             sqlCommand.Parameters.AddWithValue("@UserId", buyerModel.UserId);
             sqlCommand.Parameters.AddWithValue("@UserName", buyerModel.UserName);
             sqlCommand.Parameters.AddWithValue("@Status", buyerModel.Status);
