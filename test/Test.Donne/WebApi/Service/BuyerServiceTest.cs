@@ -79,6 +79,41 @@ namespace Test.Donne.WebApi.Service.CommandServiceTest
         }
 
         [TestMethod]
+        public async Task GetByIdAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            BuyerService buyerService = new BuyerService(mockLogger.Object);
+            var getAll = buyerService.GetAll();
+
+            // Act
+            var result = await buyerService.GetByIdAsync(getAll.First().BuyerId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("BuyerService_GetByIdAsync_Entry"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("BuyerService_GetByIdAsync_Exit"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetByIdAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("BuyerService_GetByIdAsync_Entry")).Throws(new ArgumentNullException());
+            BuyerService buyerService = new BuyerService(mockLogger.Object);
+            var getAll = buyerService.GetAll();
+
+            // Act
+            var resultAction = () => buyerService.GetByIdAsync(getAll.First().BuyerId);
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(resultAction);
+
+            // Assert
+            Assert.IsNotNull(resultAction);
+            mockLogger.Verify(x => x.TraceException("BuyerService_GetByIdAsync"), Times.Exactly(1));
+        }
+
+        [TestMethod]
         public void Update_Sucesso()
         {
             // Arrange
@@ -208,13 +243,13 @@ namespace Test.Donne.WebApi.Service.CommandServiceTest
         }
 
         [TestMethod]
-        public async Task UpdateCustomersNameInCommandAsync_Erro()
+        public void UpdateCustomersNameInCommandAsync_Erro()
         {
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             mockLogger.Setup(x => x.Trace("BuyerService_UpdateCustomersNameInCommandAsync_Entry")).Throws(new ArgumentNullException());
             BuyerService buyerService = new BuyerService(mockLogger.Object);
-            var getAll = await buyerService.GetAllAsync();
+            var getAll = buyerService.GetAll();
             BuyerModel buyerModel = new BuyerModel();
             buyerModel.BuyerId = getAll.First().BuyerId;
 
