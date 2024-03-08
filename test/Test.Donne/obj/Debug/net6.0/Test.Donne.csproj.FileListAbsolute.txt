@@ -1,9 +1,4 @@
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\CoverletSourceRootsMapping_Test.Donne
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.csproj.AssemblyReference.cache
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.AssemblyInfoInputs.cache
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.AssemblyInfo.cs
-C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.csproj.CoreCompileInputs.cache
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\testhost.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\WebApi.Donne.deps.json
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\WebApi.Donne.runtimeconfig.json
@@ -152,6 +147,11 @@ C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Domain.Do
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\WebApi.Donne.pdb
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Business.Donne.pdb
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.csproj.AssemblyReference.cache
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.AssemblyInfoInputs.cache
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.AssemblyInfo.cs
+C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.csproj.CoreCompileInputs.cache
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.csproj.CopyComplete
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\Test.Donne.dll
 C:\Users\adm\Source\Repos\WebAppDonne\test\Test.Donne\obj\Debug\net6.0\refint\Test.Donne.dll
