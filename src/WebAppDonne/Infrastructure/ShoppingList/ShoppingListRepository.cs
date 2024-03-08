@@ -19,6 +19,7 @@ namespace WebApi.Donne.Infrastructure.ShoppingList
         {
             try
             {
+                logger.Trace("ShoppingList_GetAll_Entry");
                 commandText = "USP_ShoppingListGetAll";
                 List<ShoppingListModel> listShoppingListModel = new List<ShoppingListModel>();
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
@@ -32,11 +33,12 @@ namespace WebApi.Donne.Infrastructure.ShoppingList
                         GetListShoppingModel(sqlDataReader, listShoppingListModel);
                     }
                 }
-                logger.Trace("GetAllShoppingList");
+                logger.Trace("ShoppingList_GetAll_Exit");
                 return listShoppingListModel;
             }
             catch (ArgumentNullException ex)
             {
+                logger.TraceException("ShoppingList_GetAll");
                 string mensagemErro = "Erro ao consumir a procedure USP_ShoppingListGetAll síncrono " + ex.Message;
                 throw new ArgumentNullException(mensagemErro);
             }
@@ -45,31 +47,34 @@ namespace WebApi.Donne.Infrastructure.ShoppingList
 
         public async Task<IEnumerable<ShoppingListModel>> GetAllAsync()
         {
-            commandText = "USP_ShoppingListGetAll";
-            List<ShoppingListModel> listShoppingListModel = new List<ShoppingListModel>();
-            List<ShoppingListModel> listShoppingListModelRet = new List<ShoppingListModel>();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                 try
                 {
-                    logger.Trace("GetAllShoppingListAsync");
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlConnection.Open();
-                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
-                    while (sqlDataReader.Read())
+                    logger.Trace("ShoppingList_GetAllAsync_Entry");
+                    commandText = "USP_ShoppingListGetAll";
+                    List<ShoppingListModel> listShoppingListModel = new List<ShoppingListModel>();
+                    List<ShoppingListModel> listShoppingListModelRet = new List<ShoppingListModel>();
+                    using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                    using (SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection))
                     {
-                        GetListShoppingModel(sqlDataReader, listShoppingListModel);
-                    }
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlConnection.Open();
+                        SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                        while (sqlDataReader.Read())
+                        {
+                            GetListShoppingModel(sqlDataReader, listShoppingListModel);
+                        }
 
-                    if (listShoppingListModel.Count > 0)
-                    {
-                        listShoppingListModelRet = ShoppingListBusiness.ShoppingListBusinessValid(listShoppingListModel);
+                        if (listShoppingListModel.Count > 0)
+                        {
+                            listShoppingListModelRet = ShoppingListBusiness.ShoppingListBusinessValid(listShoppingListModel);
+                        }
                     }
-
+                    logger.Trace("ShoppingList_GetAllAsync_Exit");
                     return listShoppingListModelRet;
                 }
                 catch (ArgumentNullException ex)
                 {
+                    logger.TraceException("ShoppingList_GetAllAsync");
                     string mensagemErro = "Erro ao consumir a procedure USP_ShoppingListGetAll assíncrono " + ex.Message;
                     throw new ArgumentNullException(mensagemErro);
                 }

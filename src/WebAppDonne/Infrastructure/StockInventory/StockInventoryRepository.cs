@@ -14,32 +14,62 @@ namespace WebApi.Donne.Infrastructure.StockInventory
 
         #region Methods 
 
-        public async Task<IEnumerable<StockInventoryModel>> GetAllAsync()
+        public IEnumerable<StockInventoryModel> GetAll()
         {
-            commandText = "USP_StockInventoryGetAll";
-            List<StockInventoryModel> listStockInventoryModel = new List<StockInventoryModel>();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            try
             {
-                try
+                logger.Trace("StockInventory_GetAll_Entry");
+                commandText = "USP_StockInventoryGetAll";
+                List<StockInventoryModel> listStockInventoryModel = new List<StockInventoryModel>();
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
                     SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlConnection.Open();
-                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                     while (sqlDataReader.Read())
                     {
                         GetListStockInventoryModel(sqlDataReader, listStockInventoryModel);
                     }
-                    logger.Trace("StockInventory_GetAllAsync");
+                }
+                logger.Trace("StockInventory_GetAll_Exit");
+                return listStockInventoryModel;
+            }
+            catch (Exception ex)
+            {
+                logger.TraceException("StockInventory_GetAll");
+                string mensagem = "Erro ao consumir a controler StockInventory, rota GetAll " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+        }
+
+        public async Task<IEnumerable<StockInventoryModel>> GetAllAsync()
+        {
+                try
+                {
+                    logger.Trace("StockInventory_GetAllAsync_Entry");
+                    commandText = "USP_StockInventoryGetAll";
+                    List<StockInventoryModel> listStockInventoryModel = new List<StockInventoryModel>();
+                    using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                    {
+                        SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlConnection.Open();
+                        SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                        while (sqlDataReader.Read())
+                        {
+                            GetListStockInventoryModel(sqlDataReader, listStockInventoryModel);
+                        }
+                    }
+                    logger.Trace("StockInventory_GetAllAsync_Exit");
                     return listStockInventoryModel;
                 }
                 catch (Exception ex)
                 {
-                    string mensagem = "Erro ao consumir a controler StockInventory, rota GetAllAsync " + ex.Message;
                     logger.TraceException("StockInventory_GetAllAsync");
+                    string mensagem = "Erro ao consumir a controler StockInventory, rota GetAllAsync " + ex.Message;
                     throw new ArgumentNullException(mensagem);
                 }
-            }
         }
 
         #endregion
