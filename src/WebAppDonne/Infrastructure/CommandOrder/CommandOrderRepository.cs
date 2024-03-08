@@ -43,6 +43,35 @@ namespace WebApi.Donne.Infrastructure.CommandOrder
             }
         }
 
+        public async Task<IEnumerable<CommandOrderModel>> GetAllAsync()
+        {
+            try
+            {
+                logger.Trace("CommandOrder_GetAllAsync_Entry");
+                commandText = "USP_Donne_Command_Order_GetAll";
+                List<CommandOrderModel> listCommandOrderModel = new List<CommandOrderModel>();
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                {
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                    while (sqlDataReader.Read())
+                    {
+                        GetListCommandOrderModel(sqlDataReader, listCommandOrderModel);
+                    }
+                }
+                logger.Trace("CommandOrder_GetAllAsync_Exit");
+                return listCommandOrderModel;
+            }
+            catch (ArgumentNullException ex)
+            {
+                logger.TraceException("CommandOrder_GetAllAsync");
+                string mensagem = "Erro ao consumir a controler CommandOrder, rota GetAllAsync " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+        }
+
         public IEnumerable<CommandOrderModel> GetById(int id)
         {
             try

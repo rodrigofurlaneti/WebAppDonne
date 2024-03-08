@@ -12,6 +12,69 @@ namespace Test.Donne.WebApi.Infrastructure
     public class CommandOrderRepositoryTest
     {
         [TestMethod]
+        public void GetAll_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CommandOrderRepository commandOrderRepository = new CommandOrderRepository(mockLogger.Object);
+
+            // Act
+            var result = commandOrderRepository.GetAll();
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("CommandOrder_GetAll_Entry"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("CommandOrder_GetAll_Exit"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetAll_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("CommandOrder_GetAll_Entry")).Throws(new ArgumentNullException());
+            CommandOrderRepository commandOrderRepository = new CommandOrderRepository(mockLogger.Object);
+
+            // Act
+            Assert.ThrowsException<ArgumentNullException>(() => commandOrderRepository.GetAll());
+
+            // Assert
+            mockLogger.Verify(x => x.TraceException("CommandOrder_GetAll"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public async Task GetAllAsync_Sucesso()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            CommandOrderRepository commandOrderRepository = new CommandOrderRepository(mockLogger.Object);
+
+            // Act
+            var result = await commandOrderRepository.GetAllAsync();
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockLogger.Verify(x => x.Trace("CommandOrder_GetAllAsync_Entry"), Times.Exactly(1));
+            mockLogger.Verify(x => x.Trace("CommandOrder_GetAllAsync_Exit"), Times.Exactly(1));
+        }
+
+        [TestMethod]
+        public void GetAllAsync_Erro()
+        {
+            // Arrange
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            mockLogger.Setup(x => x.Trace("CommandOrder_GetAllAsync_Entry")).Throws(new ArgumentNullException());
+            CommandOrderRepository commandOrderRepository = new CommandOrderRepository(mockLogger.Object);
+
+            // Act
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => commandOrderRepository.GetAllAsync());
+
+            // Assert
+            mockLogger.Verify(x => x.TraceException("CommandOrder_GetAllAsync"), Times.Exactly(1));
+        }
+
+
+        [TestMethod]
         public void GetById_Sucesso()
         {
             // Arrange
