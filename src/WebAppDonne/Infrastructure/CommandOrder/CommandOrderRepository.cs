@@ -14,6 +14,35 @@ namespace WebApi.Donne.Infrastructure.CommandOrder
 
         #region Methods 
 
+        public IEnumerable<CommandOrderModel> GetAll()
+        {
+            try
+            {
+                logger.Trace("CommandOrder_GetAll_Entry");
+                commandText = "USP_Donne_Command_Order_GetAll";
+                List<CommandOrderModel> listCommandOrderModel = new List<CommandOrderModel>();
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                {
+                    SqlCommand sqlCommand = new SqlCommand(commandText, sqlConnection);
+                    sqlConnection.Open();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
+                    {
+                        GetListCommandOrderModel(sqlDataReader, listCommandOrderModel);
+                    }
+                }
+                logger.Trace("CommandOrder_GetAll_Exit");
+                return listCommandOrderModel;
+            }
+            catch (ArgumentNullException ex)
+            {
+                logger.TraceException("CommandOrder_GetAll");
+                string mensagem = "Erro ao consumir a controler CommandOrder, rota GetAll " + ex.Message;
+                throw new ArgumentNullException(mensagem);
+            }
+        }
+
         public IEnumerable<CommandOrderModel> GetById(int id)
         {
             try

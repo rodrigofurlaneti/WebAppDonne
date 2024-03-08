@@ -1,6 +1,7 @@
 ﻿using Domain.Donne;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using WebApi.Donne.Infrastructure.Command;
 using WebApi.Donne.Infrastructure.Order;
 using WebApi.Donne.Infrastructure.Product;
 using WebApi.Donne.Infrastructure.SeedWork;
@@ -154,11 +155,13 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             // Arrange
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAllCommand = commandRepository.GetAll();
             int orderId = Faker.RandomNumber.Next(0, 100);
-            int commandId = Faker.RandomNumber.Next(0, 100);
+            int commandId = getAllCommand.First().CommandId;
             int productId = Faker.RandomNumber.Next(0, 100);
             string productName = Faker.Name.FullName();
-            string buyerName = Faker.Name.FullName();
+            string buyerName = getAllCommand.First().BuyerName;
             string salePrice = Faker.RandomNumber.Next(0, 1000).ToString();
             int amount = Faker.RandomNumber.Next(0, 100);
             string totalSalePrice = Faker.RandomNumber.Next(0, 1000).ToString();
@@ -186,13 +189,15 @@ namespace Test.Donne.WebApi.Infrastructure.OrderRepositoryTest
             Mock<ILogger> mockLogger = new Mock<ILogger>();
             OrderRepository orderRepository = new OrderRepository(mockLogger.Object);
             ProductRepository productRepository = new ProductRepository(mockLogger.Object);
+            CommandRepository commandRepository = new CommandRepository(mockLogger.Object);
+            var getAllCommand = commandRepository.GetAll();
             var resultProduct = productRepository.GetAll();
             var product = resultProduct.FirstOrDefault();
             int orderId = Faker.RandomNumber.Next(0, 100);
-            int commandId = Faker.RandomNumber.Next(0, 100);
+            int commandId = getAllCommand.First().CommandId;
             int productId = product.ProductId;
             string productName = product.ProductName;
-            string buyerName = Faker.Name.FullName();
+            string buyerName = getAllCommand.First().BuyerName;
             string salePrice = product.SalePrice;
             int amount = Faker.RandomNumber.Next(0, 100);
             string totalSalePrice = Faker.RandomNumber.Next(0, 1000).ToString();
