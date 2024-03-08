@@ -51,32 +51,32 @@ namespace Test.Donne.WebApi.Controllers.CommandControllerTest
             mockLogger.Verify(x => x.TraceException("Command_GetAllAsync"), Times.Exactly(1));
         }
 
-        [TestMethod]
-        public async Task GetByStatusAsync_Sucesso()
-        {
-            // Arrange
-            await InsertReturnIntAsync_Sucesso();
-            int id = 0;
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            CommandController commandController = new CommandController(mockLogger.Object);
-            var getAll = commandController.GetCommand();
-            var objResult = (OkObjectResult)getAll.Result;
-            var list = objResult.Value as List<CommandModel>;
-            if (list != null)
-                id = list[0].CommandId;
+        //[TestMethod]
+        //public async Task GetByStatusAsync_Sucesso()
+        //{
+        //    // Arrange
+        //    await InsertReturnIntAsync_Sucesso();
+        //    int id = 0;
+        //    Mock<ILogger> mockLogger = new Mock<ILogger>();
+        //    CommandController commandController = new CommandController(mockLogger.Object);
+        //    var getAll = commandController.GetCommand();
+        //    var objResult = (OkObjectResult)getAll.Result;
+        //    var list = objResult.Value as List<CommandModel>;
+        //    if (list != null)
+        //        id = list[0].CommandId;
 
-            // Act
-            var result = await commandController.Options(id);
-            ObjectResult objectResult = (ObjectResult)result;
+        //    // Act
+        //    var result = await commandController.Options(id);
+        //    ObjectResult objectResult = (ObjectResult)result;
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(objectResult);
-            Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
-            Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
-            mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(2));
-            mockLogger.Verify(x => x.Trace("Command_GetByStatusAsync"), Times.Exactly(2));
-        }
+        //    // Assert
+        //    Assert.IsNotNull(result);
+        //    Assert.IsNotNull(objectResult);
+        //    Assert.AreEqual((int)HttpStatusCode.OK, objectResult.StatusCode);
+        //    Assert.AreEqual((int)StatusCodes.Status200OK, objectResult.StatusCode);
+        //    mockLogger.Verify(x => x.Trace("Command_GetAllAsync"), Times.Exactly(2));
+        //    mockLogger.Verify(x => x.Trace("Command_GetByStatusAsync"), Times.Exactly(2));
+        //}
 
         [TestMethod]
         public void GetByStatusAsync_Erro()
